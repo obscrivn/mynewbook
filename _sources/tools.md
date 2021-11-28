@@ -2,6 +2,7 @@
 
 ## Anaconda
 
-[embed]files/anaconda-jupyter.pdf[/embed]
+<embed src="/files/anaconda-jupyter.pdf" type="application/pdf">
+
 
 ## Google Colab
