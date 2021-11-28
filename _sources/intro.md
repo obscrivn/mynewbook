@@ -2,17 +2,22 @@
 
 ![](_static/quote.png)
 
-<> This is a small sample book to give you a feel for how book content is
-structured.
+This course provides breadth of knowledge of many tools/technologies rather than deep knowledge of any particular tool/technology.
 
-<> :::{note}
-<> Here is a note!
-<> :::
+## Course Description
 
-And here is a code block:
+- Introduction to Natural Language processing with practical applications. 
+- Understanding the difference between Formal and Natural languages. 
+- Working with strings. 
+- Tokenization and Feature extraction. 
+- NLP applications with state-of-the-art python libraries (spaCy, sklearn, keras, NLTK). 
+- Development of NLP web application with flask. 
 
-```
-e = mc^2
-```
+## Course Prerequisites:
+Python programming, ML experience recommended
 
-Check out the content pages bundled with this sample book to see more.
+## Course Location:
+MTRF/10:00/J208
+
+## Tools
+
