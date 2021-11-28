@@ -19,6 +19,13 @@ Styling for Table of Contents
 body {
     font-size: 15pt;
 }
+
+.highlight pre span {
+    font-size: 15pt !important;
+}
+div.highlight pre {
+    font-size: 15pt !important;
+}
 /*--------------------------------------------------------------------*\
 Styling for Embedded Videos (iframes) 
 - Ensures that videos can resize to suit the screen the book is read from.

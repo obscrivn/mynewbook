@@ -243,6 +243,13 @@
   <a class="reference internal nav-link" href="#string-literals">
    String Literals
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercice-1">
+     Exercice 1.
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -298,7 +305,106 @@ pandas-profiling==3.0.0
 <ul class="simple">
 <li><p><strong>Short strings</strong>: enclosed with single quotes (‘) or double quotes (“). For example,
 <span style="color:red;">’Hello’</span> and “Hello”.</p></li>
+<li><p><strong>Long strings</strong>: These strings are usually enclosed with three single
+(‘’’) or double quotes (“””) around the characters. Some examples
+are <span style="color:red;">”””Hello, I’m a long string”””</span> or ‘’’Hello I’m a long
+string ‘’’. Note the (‘) indicates an escape sequence which we
+shall talk about soon.</p></li>
 </ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">longStr</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Hello,</span>
+<span class="s2">I&#39;m a long</span>
+<span class="s2">string</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">longStr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello,
+I&#39;m a long
+string
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Escape sequences</strong>: the rule for escape sequences
+starts with a backslash (\) followed by any ASCII character. Popular escape sequences
+include</p>
+<ul>
+<li><p>(\n): a newline character</p></li>
+<li><p>(\t): a tab</p></li>
+<li><p>(\s): a space</p></li>
+<li><p>(\r): carrage return</p></li>
+</ul>
+</li>
+<li><p><strong>Raw strings</strong>: created specifically for regular expressions. These strings can be created using the r’…’ notation and keep the string in its raw or native form (verbatim). An example is r’Hello’.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sa">r</span><span class="s1">&#39;I\night&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;I\\night&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Unicode</strong>: These strings support Unicode characters in text and
+they are usually non-ASCII character sequences. These strings are
+denoted with the u’…’ notation and represent non-ASCII characters.
+Other examples include hex-digits: ‘H\xe8llo’ and  ‘H\u00e8llo’</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;H</span><span class="se">\u00e8</span><span class="s1">llo&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Hèllo&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="exercice-1">
+<h3>Exercice 1.<a class="headerlink" href="#exercice-1" title="Permalink to this headline">¶</a></h3>
+<p>How do you fix the following strings? If you run them, there will be an error (see below) because <strong>quotes</strong>
+and <strong>backslash</strong> are used for escape characters:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>   txt1 = &quot;We are the so-called &quot;Vikings&quot; from the north.&quot;  # invalid syntax
+
+   text2 = &#39;Hello, I&#39;m a string&#39; # invalid syntax
+
+   text3 = &quot;day\night&quot;   # this will print day new line ight (see below)
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text3</span> <span class="o">=</span> <span class="s2">&quot;day</span><span class="se">\n</span><span class="s2">ight&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>day
+ight
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
