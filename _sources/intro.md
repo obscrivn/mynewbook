@@ -19,5 +19,5 @@ Python programming, ML experience recommended
 ## Course Location:
 MTRF/10:00/J208
 
-## Tools
+
 
