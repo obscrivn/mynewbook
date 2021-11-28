@@ -16,8 +16,8 @@ Styling for Table of Contents
   font-size: 1.1em;
 }
 
-p {
-    font-size: 13pt;
+body {
+    font-size: 15pt;
 }
 /*--------------------------------------------------------------------*\
 Styling for Embedded Videos (iframes) 
