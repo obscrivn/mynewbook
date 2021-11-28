@@ -1,12 +1,13 @@
 # Welcome to CSSE-490 NLP
 
 ![](_static/quote.png)
-This is a small sample book to give you a feel for how book content is
+
+<> This is a small sample book to give you a feel for how book content is
 structured.
 
-:::{note}
-Here is a note!
-:::
+<> :::{note}
+<> Here is a note!
+<> :::
 
 And here is a code block:
 
