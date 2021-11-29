@@ -19,5 +19,14 @@ Python programming, ML experience recommended
 ## Course Location:
 MTRF/10:00/J208
 
+## Course Policy
+
+- Attendance is required
+- No late assignment
+- Course-related questions are posted via Piazza
+- Extensions are requested via email for medical reasons
+- For more details, see Course syllabus
+
+
 
 

@@ -2,9 +2,9 @@
 
 ## Day 1 Monday
 
-- [Setting up Tools](tools.md)
 - [NLP Challenges](challenges.md)
 - [Turing Test](turing.md)
+- [Setting up Tools](tools.md)
 
 ## Day 2 Tuesday
 

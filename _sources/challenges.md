@@ -1,12 +1,12 @@
-# NLP Challenges
+## NLP Challenges
 
-## What is NLP?
+### What is NLP?
 
-<object data="_static/demo.pdf" width="750" height="450" type='application/pdf'/></object>
+<object data="_static/demo.pdf" width="950" height="650" type='application/pdf'/></object>
 
-## Why NLP is hard?
+### Why NLP is hard?
 
-### Challenge 1 - Coreferences
+#### Challenge 1 - Coreferences
 
 ![](_static/challenge1.png)
 
@@ -15,7 +15,7 @@ Q1. Find references for "he, a boy, him, his"
 Q2. Who is Mr.Robin
 
 
-### Challenge 2 - Ambiguity
+#### Challenge 2 - Ambiguity
 
 ![](_static/challenge2.png)
 
@@ -24,7 +24,7 @@ Q2. Who is Mr.Robin
 Q3. Write an ambiguos statement (a sentence where the meaning could be ambiguous)
 
 
-### Challenge 3 - Informal Communication
+#### Challenge 3 - Informal Communication
 
 Provide the definition for:
 
