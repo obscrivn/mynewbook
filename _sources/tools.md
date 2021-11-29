@@ -12,5 +12,6 @@ Follow Quick Intro - [Google Colab](https://www.tutorialspoint.com/google_colab/
 
 ### DataCamp
 
-- Did you create aan account with rose-hulman.edu
+- Did you create an account with your rose-hulman email?
 - Did you get an invitation to join NLP group?
+- Update your profile withh a full first and last name.
