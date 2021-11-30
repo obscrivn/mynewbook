@@ -8,11 +8,12 @@
 
 ## Day 2 Tuesday
 
-- Natural Language 
+- [Natural Language](language.md)
+- [Regular expressions](regex.md)
 
 ## Day 3 Thursday
 
-- NLP Applications 
+- Forum: NLP Applications 
 
 ## Day 4 Friday
 
