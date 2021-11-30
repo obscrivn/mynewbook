@@ -8,7 +8,8 @@
 
 ![](_static/regexr.png)
 *Write a solution for each problem (pattern)*
-Q.4 Extract:
+
+**Q.4** Extract:
 - 10
 - (fox)
 - . (period)
@@ -19,10 +20,11 @@ Q.4 Extract:
 
 ### Problems
 *Write the solutions for each problem (pattern)*
-Q5. Extract all URLs - https://regexone.com/problem/extracting_url_data
 
-Q6. Extract names from emails - https://regexone.com/problem/extracting_url_data
+**Q5.** Extract all URLs - https://regexone.com/problem/extracting_url_data
 
-Q7. Extract phone numbers - https://regexone.com/problem/matching_phone_numbers
+**Q6.** Extract names from emails - https://regexone.com/problem/extracting_url_data
+
+**Q7.** Extract phone numbers - https://regexone.com/problem/matching_phone_numbers
 
 
