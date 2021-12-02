@@ -13,7 +13,7 @@
 
 ## Day 3 Thursday
 
-- Forum: NLP Applications 
+- Forum: [NLP Applications](applications.md)
 
 ## Day 4 Friday
 
