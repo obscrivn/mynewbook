@@ -92,6 +92,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="NLP Applications" href="applications.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -135,17 +136,17 @@
   </a>
  </li>
 </ul>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="week1.html">
    Introduction to NLP
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="challenges.html">
      NLP Challenges
@@ -174,6 +175,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="applications.html">
      NLP Applications
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Python for Natural Language
     </a>
    </li>
   </ul>
@@ -283,21 +289,46 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#installing-libraries">
-   Installing libraries
+  <a class="reference internal nav-link" href="#lab-activities">
+   Lab Activities
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#string-literals">
-   String Literals
+  <a class="reference internal nav-link" href="#part-1-sarkar-book-chapter-2">
+   PART 1. Sarkar Book Chapter 2
   </a>
   <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#installing-libraries">
+     Installing libraries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#string-literals">
+     String Literals
+    </a>
+   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#exercice-1">
      Exercice 1.
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#string-methods">
+     String Methods
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercice-2">
+     Exercice 2.
+    </a>
+   </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-2-nltk-book">
+   PART 2. NLTK Book
+  </a>
  </li>
 </ul>
 
@@ -313,6 +344,27 @@
   <div class="tex2jax_ignore mathjax_ignore section" id="python-for-natural-language">
 <h1>Python for Natural Language<a class="headerlink" href="#python-for-natural-language" title="Permalink to this headline">¶</a></h1>
 <p><strong>NLP and Unstuctured data</strong> - Python handles text (unstructured data) using several libraries (NLTK, Gensim, spaCy). We can perform text processing, information retrieval, and text analytics as well as we can apply machine learning algorithms.</p>
+<div class="section" id="lab-activities">
+<h2>Lab Activities<a class="headerlink" href="#lab-activities" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Open Jupyter Lab</p></li>
+<li><p>Create a folder for Lab files</p></li>
+<li><p>Create a new Python 3 Notebook</p></li>
+<li><p>Save it as lab1.ipynb</p></li>
+<li><p>Follow instructions and practice code</p></li>
+<li><p>Make sure to create section and code blocks (do not write the entirre lab code in one code cell</p>
+<ul>
+<li><p>Click + to addd new cells</p></li>
+<li><p>Change cells type to Markdown or Code as needed</p></li>
+</ul>
+</li>
+<li><p>Submit your work at the end of the class on Moodle</p></li>
+</ul>
+</div>
+<div class="section" id="part-1-sarkar-book-chapter-2">
+<h2>PART 1. Sarkar Book Chapter 2<a class="headerlink" href="#part-1-sarkar-book-chapter-2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="installing-libraries">
+<h3>Installing libraries<a class="headerlink" href="#installing-libraries" title="Permalink to this headline">¶</a></h3>
 <p>Check your python version:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -326,8 +378,6 @@
 </div>
 </div>
 </div>
-<div class="section" id="installing-libraries">
-<h2>Installing libraries<a class="headerlink" href="#installing-libraries" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">pip</span></code> and <code class="docutils literal notranslate"><span class="pre">conda</span></code> commands are used to install packages via terminal. In jupyter notebook enviroment you use <code class="docutils literal notranslate"><span class="pre">!pip</span></code> or <code class="docutils literal notranslate"><span class="pre">!pip3</span> <span class="pre">install</span> <span class="pre">__</span></code></p>
 <p>Check if you have some libraries installed: pandas, numpy, matplotlib, sklearn, scipy, spacy. If not installed, use the following command <code class="docutils literal notranslate"><span class="pre">!pip3</span> <span class="pre">install</span> <span class="pre">pandas</span></code> (and install remaining packages).</p>
 <div class="cell docutils container">
@@ -345,7 +395,7 @@ pandas-profiling==3.0.0
 </div>
 </div>
 <div class="section" id="string-literals">
-<h2>String Literals<a class="headerlink" href="#string-literals" title="Permalink to this headline">¶</a></h2>
+<h3>String Literals<a class="headerlink" href="#string-literals" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>The purpose of a string is to allow any sequence of printable characters and the space to be transmitted. A string is a sequence of ASCII characters, written using C’s notation for strings. Thus, a string is surrounded by double-quote characters and excludes control characters.
 <a class="reference external" href="https://www.w3.org/Notation.html">Backus-Naur Form (BNF) notation</a></p>
@@ -427,6 +477,7 @@ Other examples include hex-digits: ‘H\xe8llo’ and  ‘H\u00e8llo’</p></li>
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="exercice-1">
 <h3>Exercice 1.<a class="headerlink" href="#exercice-1" title="Permalink to this headline">¶</a></h3>
 <p>How do you fix the following strings? If you run them, there will be an error (see below) because <strong>quotes</strong>
@@ -452,7 +503,50 @@ ight
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Your solution</span>
+</pre></div>
 </div>
+</div>
+</div>
+</div>
+<div class="section" id="string-methods">
+<h3>String Methods<a class="headerlink" href="#string-methods" title="Permalink to this headline">¶</a></h3>
+<p>Python Documentation - <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#string-methods">https://docs.python.org/3/library/stdtypes.html#string-methods</a></p>
+<p><strong>Follow Along Sarkar Section Methods p. 98-100</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Continue Follow Along here. </span>
+<span class="c1"># Add more cells for each code concept presented in the boook</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="exercice-2">
+<h3>Exercice 2.<a class="headerlink" href="#exercice-2" title="Permalink to this headline">¶</a></h3>
+<p>Remove period, convert to lower cases and split by space. Your output should look like:
+[‘i’, ‘went’, ‘to’, ‘the’, ‘store’]</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sentence</span> <span class="o">=</span> <span class="s2">&quot;I went to the store.&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your solution</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="part-2-nltk-book">
+<h2>PART 2. NLTK Book<a class="headerlink" href="#part-2-nltk-book" title="Permalink to this headline">¶</a></h2>
+<p>Follow Along Chapter 1 - <a class="reference external" href="https://www.nltk.org/book/ch01.html">https://www.nltk.org/book/ch01.html</a></p>
 </div>
 </div>
 
@@ -480,7 +574,14 @@ ight
               
         
             <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="applications.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">NLP Applications</p>
+        </div>
+    </a>
 </div>
         
         </div>

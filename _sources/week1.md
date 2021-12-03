@@ -17,4 +17,4 @@
 
 ## Day 4 Friday
 
-- Lab: Working with Strings in Python
+- Lab: [Working with Strings in Python](python.ipynb)
