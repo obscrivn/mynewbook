@@ -1,0 +1,523 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Natural Language Processing w/ NLTK (Python3) &#8212; CSSE-490 Introduction to NLP</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">CSSE-490 Introduction to NLP</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="welcome.html">
+   Welcome to CSSE-490 NLP
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week1.html">
+   Introduction to NLP
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="challenges.html">
+     NLP Challenges
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="turing.html">
+     Turing Test
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tools.html">
+     Tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="language.html">
+     Natural Language
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="regex.html">
+     Regular Expressions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="applications.html">
+     NLP Applications
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="python.html">
+     Python for Natural Language
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/NLP_NLTK.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FNLP_NLTK.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pre-flight">
+   Pre-flight
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-a-text">
+   Getting a Text
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preparing-the-text-for-nltk">
+   Preparing the Text for NLTK
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tokenizing-the-text">
+   Tokenizing the Text
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#analyzing-and-cleaning-the-text">
+   Analyzing and Cleaning the Text
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#frequency-analysis">
+     Frequency Analysis
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#parts-of-speech-analysis">
+     Parts of Speech Analysis
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="natural-language-processing-w-nltk-python3">
+<h1>Natural Language Processing w/ NLTK (Python3)<a class="headerlink" href="#natural-language-processing-w-nltk-python3" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pre-flight">
+<h2>Pre-flight<a class="headerlink" href="#pre-flight" title="Permalink to this headline">¶</a></h2>
+<p>(assumes a working Anaconda installation)</p>
+<ol class="simple">
+<li><p>Create an <code class="docutils literal notranslate"><span class="pre">Anaconda</span></code> environment for this workshop: <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">-n</span> <span class="pre">scraping</span> <span class="pre">python=3.8</span></code></p></li>
+<li><p>Activate the <code class="docutils literal notranslate"><span class="pre">scraping</span></code> environment: <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">scraping</span></code></p></li>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">nltk</span></code> to our environment: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">nltk</span></code></p></li>
+<li><p>Instal <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> to our environment: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">matplotlib</span></code></p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code> in our environment: <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code></p></li>
+<li><p>Open a new <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">3</span></code> <code class="docutils literal notranslate"><span class="pre">Notebook</span></code></p></li>
+<li><p>In a <code class="docutils literal notranslate"><span class="pre">notebook</span></code> cell: <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">nltk</span></code></p></li>
+<li><p>Download <code class="docutils literal notranslate"><span class="pre">nltk</span></code> book: <code class="docutils literal notranslate"><span class="pre">nltk.download()</span></code>, find and select <code class="docutils literal notranslate"><span class="pre">book</span></code> and hit <code class="docutils literal notranslate"><span class="pre">download</span></code></p></li>
+</ol>
+</div>
+<div class="section" id="getting-a-text">
+<h2>Getting a Text<a class="headerlink" href="#getting-a-text" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Get a sample text! I like using <a class="reference external" href="https://www.gutenberg.org/">Project Gutenberg</a> for this.</p></li>
+<li><p>In the search field, search for an older book that you think might be in Project Gutenberg. For example, one could find Herman Melville’s Moby Dick or Lewis Carroll’s Alice’s Adventures in Wonderland. Take a moment to find a text to work with or, if you want, you can just follow along with me to <a class="reference external" href="https://www.gutenberg.org/ebooks/11">Alice’s Adventures in Wonderland</a></p></li>
+<li><p>We are looking for a <code class="docutils literal notranslate"><span class="pre">.txt</span></code>, or Plain Text, file. Once you have found it click on it to open it in your browser. For example: the Plain Text version of Alice’s Adventures in Wonderland is <a class="reference external" href="https://www.gutenberg.org/files/11/11-0.txt">here</a></p></li>
+<li><p>Next we open our <code class="docutils literal notranslate"><span class="pre">Terminal</span></code> and use <code class="docutils literal notranslate"><span class="pre">curl</span></code> to download the <code class="docutils literal notranslate"><span class="pre">.txt</span></code> file from the url, saving the output to a text file on our CPU: <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">https://www.gutenberg.org/files/11/11-0.txt</span> <span class="pre">--output</span> <span class="pre">alice.txt</span></code></p></li>
+</ol>
+</div>
+<div class="section" id="preparing-the-text-for-nltk">
+<h2>Preparing the Text for NLTK<a class="headerlink" href="#preparing-the-text-for-nltk" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>In Python Import <code class="docutils literal notranslate"><span class="pre">nltk</span></code>: <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">nltk</span></code></p></li>
+<li><p>Import your text file into Python:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;alice.txt&quot;</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+
+<span class="n">corpus</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p>Before moving forward let’s double check to make sure the text file looks right: <code class="docutils literal notranslate"><span class="pre">print(corpus)</span></code></p></li>
+</ol>
+</div>
+<div class="section" id="tokenizing-the-text">
+<h2>Tokenizing the Text<a class="headerlink" href="#tokenizing-the-text" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>A text is composed of tokens: words, sentences, punctuation, etc.
+<code class="docutils literal notranslate"><span class="pre">nltk</span></code> provides a variety of pre-built functions for <code class="docutils literal notranslate"><span class="pre">tokenization</span></code>, but the two that you will see used most frequently are <code class="docutils literal notranslate"><span class="pre">word</span></code> and <code class="docutils literal notranslate"><span class="pre">sentence</span></code> tokenization.</p>
+<p>We can split our corpus into words with</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">sent_tokenize</span><span class="p">,</span> <span class="n">word_tokenize</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">corpus</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>or sentences with</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">sent_tokenize</span><span class="p">,</span> <span class="n">word_tokenize</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">sent_tokenize</span><span class="p">(</span><span class="n">corpus</span><span class="p">))</span>
+</pre></div>
+</div>
+</li>
+<li><p>Run both of the tokenization processes again and store them to variables for usage later:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">sent_tokenize</span><span class="p">,</span> <span class="n">word_tokenize</span>
+
+<span class="n">alice_sents</span> <span class="o">=</span> <span class="n">sent_tokenize</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+<span class="n">alice_words</span> <span class="o">=</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Check the contents of <code class="docutils literal notranslate"><span class="pre">alice_sents</span></code> and <code class="docutils literal notranslate"><span class="pre">alice_words</span></code> with <code class="docutils literal notranslate"><span class="pre">print</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">print(alice_sents)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">print(alice_words)</span></code></p></li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section" id="analyzing-and-cleaning-the-text">
+<h2>Analyzing and Cleaning the Text<a class="headerlink" href="#analyzing-and-cleaning-the-text" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="frequency-analysis">
+<h3>Frequency Analysis<a class="headerlink" href="#frequency-analysis" title="Permalink to this headline">¶</a></h3>
+<ol>
+<li><p><code class="docutils literal notranslate"><span class="pre">nltk</span></code> has a built-in funciton for analyzing the frequency words occur in a corpus: <code class="docutils literal notranslate"><span class="pre">.FreqDist()</span></code>. Run it on your list of words and store it to a variable called <code class="docutils literal notranslate"><span class="pre">freq</span></code>: <code class="docutils literal notranslate"><span class="pre">freq</span> <span class="pre">=</span> <span class="pre">nltk.FreqDist(alice_words)</span></code></p></li>
+<li><p>check the output of <code class="docutils literal notranslate"><span class="pre">FreqDist()</span></code>: <code class="docutils literal notranslate"><span class="pre">print(freq)</span></code></p></li>
+<li><p>for a more specific example of the problem here: <code class="docutils literal notranslate"><span class="pre">freq.most_common(5)</span></code>
+the code above results in the following (assuming you are using Alice’s Adventures in Wonderland as input): <code class="docutils literal notranslate"><span class="pre">[(',',</span> <span class="pre">2574),</span> <span class="pre">('the',</span> <span class="pre">1686),</span> <span class="pre">('“',</span> <span class="pre">1118),</span> <span class="pre">('”',</span> <span class="pre">1114),</span> <span class="pre">('.',</span> <span class="pre">911)]</span></code></p></li>
+<li><p>We can modify our code a bit to try to condition, or clean, our data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<span class="n">sr</span><span class="o">=</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">)</span>
+<span class="n">clean_tokens</span> <span class="o">=</span> <span class="n">alice_words</span>
+
+<span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">alice_words</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;removed&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">token</span><span class="p">),</span> <span class="s1">&#39;from corpus&#39;</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">clean_tokens</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+<span class="n">freq</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">FreqDist</span><span class="p">(</span><span class="n">clean_tokens</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">val</span> <span class="ow">in</span> <span class="n">freq</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
+
+<span class="n">freq</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">cumulative</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Even when we filter out <code class="docutils literal notranslate"><span class="pre">stopwords</span></code>, though, we still have a ton of <code class="docutils literal notranslate"><span class="pre">symbols</span></code> left over to clean out. Perhaps another approach would be better!</p>
+</div>
+<div class="section" id="parts-of-speech-analysis">
+<h3>Parts of Speech Analysis<a class="headerlink" href="#parts-of-speech-analysis" title="Permalink to this headline">¶</a></h3>
+<ol>
+<li><p>Run the parts of speech tagger in <code class="docutils literal notranslate"><span class="pre">nltk</span></code> and store the output to a variable called <code class="docutils literal notranslate"><span class="pre">alice_pos</span></code>: <code class="docutils literal notranslate"><span class="pre">alice_pos</span> <span class="pre">=</span> <span class="pre">nltk.pos_tag(alice_words)</span></code></p></li>
+<li><p>Check to make sure that the output looks sane: <code class="docutils literal notranslate"><span class="pre">print(alice_pos)</span></code></p></li>
+<li><p>The parts of speech tagger outputs a <code class="docutils literal notranslate"><span class="pre">tuple</span></code>, an immutable (un-changeable) datatype that resembles a list. It’s a lot easier to deal with lists in Python than tuples (just trust me on this) so the first step is to split the tuple into a 2-dimensional <code class="docutils literal notranslate"><span class="pre">list</span></code>: <code class="docutils literal notranslate"><span class="pre">alice_pos</span> <span class="pre">=</span> <span class="pre">list(map(list,</span> <span class="pre">alice_pos))</span></code></p></li>
+<li><p>Next, we repurpose our previous example to identify every instance of a period, which we eventually want to remove, but will test first with the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">clean_pos</span> <span class="o">=</span> <span class="n">alice_pos</span>
+
+<span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">alice_pos</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;.&quot;</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s2">&quot;is a .&quot;</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>The above code reliably identifies ends of sentences (apparently also includes <code class="docutils literal notranslate"><span class="pre">!</span></code> and <code class="docutils literal notranslate"><span class="pre">?</span></code>), so lets go ahead and remove each token that meets this criteria from <code class="docutils literal notranslate"><span class="pre">clean_pos</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">clean_pos</span> <span class="o">=</span> <span class="n">alice_pos</span>
+
+<span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">alice_pos</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;.&quot;</span><span class="p">:</span>
+        <span class="n">clean_pos</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Check to make sure our output looks sane (there shouldn’t be any <code class="docutils literal notranslate"><span class="pre">.</span></code>): <code class="docutils literal notranslate"><span class="pre">clean_pos</span></code></p></li>
+<li><p>So right now we could iteratively update the symbol to look for, or we could rewrite our code slightly. In the following we have a list of <code class="docutils literal notranslate"><span class="pre">symbols</span></code> and check every token against that list. If a token matches <em>anything</em> on a symbol list we remove it from our <code class="docutils literal notranslate"><span class="pre">clean_pos</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">clean_pos</span> <span class="o">=</span> <span class="n">alice_pos</span>
+<span class="n">symbols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;$&#39;</span><span class="p">,</span><span class="s2">&quot;&#39;&#39;&quot;</span><span class="p">,</span><span class="s1">&#39;(&#39;</span><span class="p">,</span><span class="s1">&#39;)&#39;</span><span class="p">,</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="s1">&#39;:&#39;</span><span class="p">,</span><span class="s1">&#39;SYM&#39;</span><span class="p">,</span><span class="s2">&quot;``&quot;</span><span class="p">,</span> <span class="s1">&#39;#&#39;</span><span class="p">]</span>
+
+
+<span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">alice_pos</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">symbol</span> <span class="o">==</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">clean_pos</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Check to make sure our output looks sane (there should be substantially less symbols): <code class="docutils literal notranslate"><span class="pre">clean_pos</span></code></p></li>
+<li><p>And now lets remove all stopwords:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<span class="n">cleaner_pos</span> <span class="o">=</span> <span class="n">clean_pos</span>
+
+<span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">clean_pos</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s2">&quot;is a stopword&quot;</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">cleaner_pos</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>And now let’s unzip our list and trying running <code class="docutils literal notranslate"><span class="pre">FreqDist()</span></code> again and graphing our results:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">cleaner_pos</span><span class="p">)</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+<span class="n">freq</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">FreqDist</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">freq</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">cumulative</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Still getting some information in the output that we don’t really want, lets try throwing out everything but nouns next:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">only_nouns</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">nouns</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;NN&#39;</span><span class="p">,</span> <span class="s1">&#39;NNP&#39;</span><span class="p">,</span> <span class="s1">&#39;NNPS&#39;</span><span class="p">,</span> <span class="s1">&#39;NNS&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">cleaner_pos</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">nouns</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">symbol</span> <span class="o">==</span> <span class="n">token</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">only_nouns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</li>
+<li><p>Finally, lets graph our noun results:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">freq</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">FreqDist</span><span class="p">(</span><span class="n">only_nouns</span><span class="p">)</span>
+<span class="n">freq</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">cumulative</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Olga Scrivner<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

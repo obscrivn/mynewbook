@@ -55,6 +55,13 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="NLP Applications" href="applications.html" />
@@ -295,6 +302,28 @@
    PART 2. NLTK Book
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#nltk-missing-books-issues">
+   NLTK Missing Books Issues
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-1-check-your-nltk-data-directory">
+     STEP 1. Check your NLTK data directory
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-2-download-inaugural-zip">
+     STEP 2. Download Inaugural zip
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-3-rerun-your-notebook-code">
+     STEP 3. Rerun your notebook code
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
             </nav>
@@ -516,6 +545,28 @@ ight
 <li><p>Complete Sections 1,2. If time allows 4 and 3 during the class</p></li>
 <li><p>Work on the remaining sections at home</p></li>
 </ul>
+</div>
+<div class="section" id="nltk-missing-books-issues">
+<h2>NLTK Missing Books Issues<a class="headerlink" href="#nltk-missing-books-issues" title="Permalink to this headline">¶</a></h2>
+<p>If you are getting errors on missing a corpus (e.g. inaugural). Please download it manually as zip file and place in the NLTK directory.</p>
+<div class="section" id="step-1-check-your-nltk-data-directory">
+<h3>STEP 1. Check your NLTK data directory<a class="headerlink" href="#step-1-check-your-nltk-data-directory" title="Permalink to this headline">¶</a></h3>
+<p>NLTK directory: run <code class="docutils literal notranslate"><span class="pre">nltk.download()</span></code> and it will bring a NLTK downloader. Check where the NLTK directory is
+<img alt="" src="_images/nltk.png" /></p>
+</div>
+<div class="section" id="step-2-download-inaugural-zip">
+<h3>STEP 2. Download Inaugural zip<a class="headerlink" href="#step-2-download-inaugural-zip" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Link: <a class="reference external" href="https://github.com/nltk/nltk_data/tree/gh-pages/packages">https://github.com/nltk/nltk_data/tree/gh-pages/packages</a></p></li>
+<li><p>Go to Corpora and find inaugural.zip</p></li>
+<li><p>Download zip, unzip it inside your directory: nltk_data/corpora/
+<img alt="" src="_images/inaugural.png" /></p></li>
+</ul>
+</div>
+<div class="section" id="step-3-rerun-your-notebook-code">
+<h3>STEP 3. Rerun your notebook code<a class="headerlink" href="#step-3-rerun-your-notebook-code" title="Permalink to this headline">¶</a></h3>
+<p>Credits: Jeremiah</p>
+</div>
 </div>
 </div>
 
