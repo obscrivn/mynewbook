@@ -1,0 +1,1671 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tokenization Practice &#8212; CSSE-490 Introduction to NLP</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">CSSE-490 Introduction to NLP</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="welcome.html">
+   Welcome to CSSE-490 NLP
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week1.html">
+   Introduction to NLP
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="challenges.html">
+     NLP Challenges
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="turing.html">
+     Turing Test
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tools.html">
+     Tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="language.html">
+     Natural Language
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="regex.html">
+     Regular Expressions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="applications.html">
+     NLP Applications
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="python.html">
+     Python for Natural Language
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week2.html">
+   Tokenization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="pipeline.html">
+     NLP Pipeline
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/practice_tokenization.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fpractice_tokenization.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/practice_tokenization.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Tokenization Practice
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#upload-a-text">
+     1. Upload a text
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#clean-text">
+   2. Clean Text
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#replacements">
+     Replacements
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#step-2-tokenizer">
+   Step 2 Tokenizer
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#default-sentence-tokenizer">
+     Default Sentence Tokenizer
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#default-word-tokenizer">
+     Default Word Tokenizer
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#remove-punctuation-and-count-tokens">
+     Remove Punctuation and Count Tokens
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stemmers">
+     Stemmers
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lemmatizer">
+     Lemmatizer
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stopwords">
+     StopWords
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#customed-word-list">
+     Customed Word LIst
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pos">
+   POS
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#split-into-train-and-test">
+     Split into train and Test
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#precision-and-recall">
+   Precision and Recall
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="tokenization-practice">
+<h1>Tokenization Practice<a class="headerlink" href="#tokenization-practice" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!pip install nltk</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#libraries</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">nltk</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">gutenberg</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">RegexpTokenizer</span>
+<span class="kn">from</span> <span class="nn">string</span> <span class="kn">import</span> <span class="n">whitespace</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">PorterStemmer</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="upload-a-text">
+<h2>1. Upload a text<a class="headerlink" href="#upload-a-text" title="Permalink to this headline">¶</a></h2>
+<p>This text shows….</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ......</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://www.gutenberg.org/ebooks/35688.html.images&#39;</span><span class="p">)</span>
+    
+  <span class="c1">#  &#39;http://www.gutenberg.org/cache/epub/8001/pg8001.html&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">content</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">content</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">[</span><span class="mi">5163</span><span class="p">:</span><span class="mi">5500</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>b&#39;/p&gt;\r\n&lt;hr class=&quot;c2&quot;&gt;\r\n&lt;div class=&quot;note&quot;&gt;\r\n&lt;p&gt;This dramatic rendering of &lt;i&gt;Alice in Wonderland&lt;/i&gt;, by Alice Gerstenberg of Chicago, was produced by The Players Producing Company of Chicago (Aline Barnsdall and Arthur Bissell), at the Fine Arts Theater, Chicago, February 11, 1915. After a successful run it opened at the Booth Theater, &#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="clean-text">
+<h1>2. Clean Text<a class="headerlink" href="#clean-text" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">strip_html_tags</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
+    <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">soup</span><span class="p">([</span><span class="s1">&#39;iframe&#39;</span><span class="p">,</span> <span class="s1">&#39;script&#39;</span><span class="p">])]</span>
+    <span class="n">stripped_text</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
+    <span class="n">stripped_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[\r|\n|\r\n]+&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">stripped_text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">stripped_text</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stripped_text</span> <span class="o">=</span> <span class="n">strip_html_tags</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="replacements">
+<h2>Replacements<a class="headerlink" href="#replacements" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">replacement_patterns</span> <span class="o">=</span> <span class="p">[</span>
+<span class="p">(</span><span class="sa">r</span><span class="s1">&#39;won</span><span class="se">\&#39;</span><span class="s1">t&#39;</span><span class="p">,</span> <span class="s1">&#39;will not&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="sa">r</span><span class="s1">&#39;can</span><span class="se">\&#39;</span><span class="s1">t&#39;</span><span class="p">,</span> <span class="s1">&#39;cannot&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="sa">r</span><span class="s1">&#39;i</span><span class="se">\&#39;</span><span class="s1">m&#39;</span><span class="p">,</span> <span class="s1">&#39;i am&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="sa">r</span><span class="s1">&#39;ain</span><span class="se">\&#39;</span><span class="s1">t&#39;</span><span class="p">,</span> <span class="s1">&#39;is not&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\w+)(</span><span class="se">\&#39;</span><span class="s1">ll)&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\g&lt;1&gt; will&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\w+)(n</span><span class="se">\&#39;</span><span class="s1">t)&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\g&lt;1&gt; not&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\w+)(</span><span class="se">\&#39;</span><span class="s1">ve)&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\g&lt;1&gt; have&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(it)(</span><span class="se">\&#39;</span><span class="s1">s)&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\g&lt;1&gt; is&#39;</span><span class="p">),</span>
+<span class="c1">#(r&#39;(\w+)(\&#39;s)&#39;, r&#39;\g&lt;1&gt; s&#39;),</span>
+<span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\w+)(</span><span class="se">\&#39;</span><span class="s1">re)&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\g&lt;1&gt; are&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\w+)(</span><span class="se">\&#39;</span><span class="s1">d)&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\g&lt;1&gt; would&#39;</span><span class="p">)</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RegexpReplacer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patterns</span><span class="o">=</span><span class="n">replacement_patterns</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">patterns</span> <span class="o">=</span> <span class="p">[(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">regex</span><span class="p">),</span> <span class="n">repl</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">repl</span><span class="p">)</span> <span class="ow">in</span> <span class="n">patterns</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">text</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">repl</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">patterns</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">subn</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">repl</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_text</span> <span class="o">=</span> <span class="s2">&quot;I&#39;ve seen most powerful supercomputers. It&#39;s over twice as fast...&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">replacer</span><span class="o">=</span> <span class="n">RegexpReplacer</span><span class="p">()</span>
+<span class="n">replacer</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">sample_text</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;i have seen most powerful supercomputers. it is over twice as fast...&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">replacer</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">stripped_text</span><span class="p">[</span><span class="mi">2000</span><span class="p">:</span><span class="mi">2100</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39; cast:\nLewis Carroll\nFrank Stirling\nAlice\nVivian Tobin\nRed Queen\nFlorence LeClercq\nWhite Queen\nMary &#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;i&#39;ve seen most powerful supercomputers. it&#39;s over twice as fast...&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_text</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;I&#39;VE SEEN MOST POWERFUL SUPERCOMPUTERS. IT&#39;S OVER TWICE AS FAST...&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_text</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;I&#39;Ve Seen Most Powerful Supercomputers. It&#39;S Over Twice As Fast...&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&quot;I&#39;ve&quot;,
+ &#39;seen&#39;,
+ &#39;most&#39;,
+ &#39;powerful&#39;,
+ &#39;supercomputers.&#39;,
+ &quot;It&#39;s&quot;,
+ &#39;over&#39;,
+ &#39;twice&#39;,
+ &#39;as&#39;,
+ &#39;fast...&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="step-2-tokenizer">
+<h1>Step 2 Tokenizer<a class="headerlink" href="#step-2-tokenizer" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nltk</span><span class="o">.</span><span class="n">corpus</span><span class="o">.</span><span class="n">gutenberg</span><span class="o">.</span><span class="n">fileids</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;austen-emma.txt&#39;,
+ &#39;austen-persuasion.txt&#39;,
+ &#39;austen-sense.txt&#39;,
+ &#39;bible-kjv.txt&#39;,
+ &#39;blake-poems.txt&#39;,
+ &#39;bryant-stories.txt&#39;,
+ &#39;burgess-busterbrown.txt&#39;,
+ &#39;carroll-alice.txt&#39;,
+ &#39;chesterton-ball.txt&#39;,
+ &#39;chesterton-brown.txt&#39;,
+ &#39;chesterton-thursday.txt&#39;,
+ &#39;edgeworth-parents.txt&#39;,
+ &#39;melville-moby_dick.txt&#39;,
+ &#39;milton-paradise.txt&#39;,
+ &#39;shakespeare-caesar.txt&#39;,
+ &#39;shakespeare-hamlet.txt&#39;,
+ &#39;shakespeare-macbeth.txt&#39;,
+ &#39;whitman-leaves.txt&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alice</span> <span class="o">=</span> <span class="n">gutenberg</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="n">fileids</span><span class="o">=</span><span class="s1">&#39;carroll-alice.txt&#39;</span><span class="p">)</span>
+
+<span class="c1"># or https://www.gutenberg.org/cache/epub/35688/pg35688.txt</span>
+<span class="c1"># repeate steps witth beatiful soup</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="default-sentence-tokenizer">
+<h2>Default Sentence Tokenizer<a class="headerlink" href="#default-sentence-tokenizer" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">default_st</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">sent_tokenize</span>
+<span class="n">alice_sentences</span> <span class="o">=</span> <span class="n">default_st</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">alice</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total sentences in alice:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">alice_sentences</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;First 2 sentences in alice:-&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">alice_sentences</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total sentences in alice: 1625
+First 2 sentences in alice:-
+[&quot;[Alice&#39;s Adventures in Wonderland by Lewis Carroll 1865]\n\nCHAPTER I.&quot;
+ &quot;Down the Rabbit-Hole\n\nAlice was beginning to get very tired of sitting by her sister on the\nbank, and of having nothing to do: once or twice she had peeped into the\nbook her sister was reading, but it had no pictures or conversations in\nit, &#39;and what is the use of a book,&#39; thought Alice &#39;without pictures or\nconversation?&#39;&quot;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="default-word-tokenizer">
+<h2>Default Word Tokenizer<a class="headerlink" href="#default-word-tokenizer" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">default_wt</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span>
+<span class="n">words</span> <span class="o">=</span> <span class="n">default_wt</span><span class="p">(</span><span class="n">alice</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;[&#39;, &#39;Alice&#39;, &quot;&#39;s&quot;, &#39;Adventures&#39;, &#39;in&#39;], dtype=&#39;&lt;U10&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tokens_sentences</span> <span class="o">=</span> <span class="p">[</span><span class="n">default_wt</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">default_st</span><span class="p">(</span><span class="n">alice</span><span class="p">)]</span>
+<span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tokens_sentences</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([list([&#39;[&#39;, &#39;Alice&#39;, &quot;&#39;s&quot;, &#39;Adventures&#39;, &#39;in&#39;, &#39;Wonderland&#39;, &#39;by&#39;, &#39;Lewis&#39;, &#39;Carroll&#39;, &#39;1865&#39;, &#39;]&#39;, &#39;CHAPTER&#39;, &#39;I&#39;, &#39;.&#39;]),
+       list([&#39;Down&#39;, &#39;the&#39;, &#39;Rabbit-Hole&#39;, &#39;Alice&#39;, &#39;was&#39;, &#39;beginning&#39;, &#39;to&#39;, &#39;get&#39;, &#39;very&#39;, &#39;tired&#39;, &#39;of&#39;, &#39;sitting&#39;, &#39;by&#39;, &#39;her&#39;, &#39;sister&#39;, &#39;on&#39;, &#39;the&#39;, &#39;bank&#39;, &#39;,&#39;, &#39;and&#39;, &#39;of&#39;, &#39;having&#39;, &#39;nothing&#39;, &#39;to&#39;, &#39;do&#39;, &#39;:&#39;, &#39;once&#39;, &#39;or&#39;, &#39;twice&#39;, &#39;she&#39;, &#39;had&#39;, &#39;peeped&#39;, &#39;into&#39;, &#39;the&#39;, &#39;book&#39;, &#39;her&#39;, &#39;sister&#39;, &#39;was&#39;, &#39;reading&#39;, &#39;,&#39;, &#39;but&#39;, &#39;it&#39;, &#39;had&#39;, &#39;no&#39;, &#39;pictures&#39;, &#39;or&#39;, &#39;conversations&#39;, &#39;in&#39;, &#39;it&#39;, &#39;,&#39;, &quot;&#39;and&quot;, &#39;what&#39;, &#39;is&#39;, &#39;the&#39;, &#39;use&#39;, &#39;of&#39;, &#39;a&#39;, &#39;book&#39;, &#39;,&#39;, &quot;&#39;&quot;, &#39;thought&#39;, &#39;Alice&#39;, &quot;&#39;without&quot;, &#39;pictures&#39;, &#39;or&#39;, &#39;conversation&#39;, &#39;?&#39;, &quot;&#39;&quot;]),
+       list([&#39;So&#39;, &#39;she&#39;, &#39;was&#39;, &#39;considering&#39;, &#39;in&#39;, &#39;her&#39;, &#39;own&#39;, &#39;mind&#39;, &#39;(&#39;, &#39;as&#39;, &#39;well&#39;, &#39;as&#39;, &#39;she&#39;, &#39;could&#39;, &#39;,&#39;, &#39;for&#39;, &#39;the&#39;, &#39;hot&#39;, &#39;day&#39;, &#39;made&#39;, &#39;her&#39;, &#39;feel&#39;, &#39;very&#39;, &#39;sleepy&#39;, &#39;and&#39;, &#39;stupid&#39;, &#39;)&#39;, &#39;,&#39;, &#39;whether&#39;, &#39;the&#39;, &#39;pleasure&#39;, &#39;of&#39;, &#39;making&#39;, &#39;a&#39;, &#39;daisy-chain&#39;, &#39;would&#39;, &#39;be&#39;, &#39;worth&#39;, &#39;the&#39;, &#39;trouble&#39;, &#39;of&#39;, &#39;getting&#39;, &#39;up&#39;, &#39;and&#39;, &#39;picking&#39;, &#39;the&#39;, &#39;daisies&#39;, &#39;,&#39;, &#39;when&#39;, &#39;suddenly&#39;, &#39;a&#39;, &#39;White&#39;, &#39;Rabbit&#39;, &#39;with&#39;, &#39;pink&#39;, &#39;eyes&#39;, &#39;ran&#39;, &#39;close&#39;, &#39;by&#39;, &#39;her&#39;, &#39;.&#39;]),
+       list([&#39;There&#39;, &#39;was&#39;, &#39;nothing&#39;, &#39;so&#39;, &#39;VERY&#39;, &#39;remarkable&#39;, &#39;in&#39;, &#39;that&#39;, &#39;;&#39;, &#39;nor&#39;, &#39;did&#39;, &#39;Alice&#39;, &#39;think&#39;, &#39;it&#39;, &#39;so&#39;, &#39;VERY&#39;, &#39;much&#39;, &#39;out&#39;, &#39;of&#39;, &#39;the&#39;, &#39;way&#39;, &#39;to&#39;, &#39;hear&#39;, &#39;the&#39;, &#39;Rabbit&#39;, &#39;say&#39;, &#39;to&#39;, &#39;itself&#39;, &#39;,&#39;, &quot;&#39;Oh&quot;, &#39;dear&#39;, &#39;!&#39;]),
+       list([&#39;Oh&#39;, &#39;dear&#39;, &#39;!&#39;])], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">tokens_sentences</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">25</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Alice&#39;, &quot;&#39;s&quot;, &#39;Adventures&#39;, &#39;in&#39;, &#39;Wonderland&#39;, &#39;by&#39;, &#39;Lewis&#39;, &#39;Carroll&#39;, &#39;1865&#39;, &#39;]&#39;, &#39;CHAPTER&#39;, &#39;I&#39;, &#39;.&#39;, &#39;Down&#39;, &#39;the&#39;, &#39;Rabbit-Hole&#39;, &#39;Alice&#39;, &#39;was&#39;, &#39;beginning&#39;, &#39;to&#39;, &#39;get&#39;, &#39;very&#39;, &#39;tired&#39;, &#39;of&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.probability</span> <span class="kn">import</span> <span class="n">FreqDist</span> 
+<span class="n">fdist</span> <span class="o">=</span> <span class="n">FreqDist</span><span class="p">(</span><span class="n">words</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="n">fdist</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;FreqDist with 3185 samples and 33493 outcomes&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">fdist</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="n">cumulative</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/practice_tokenization_33_0.png" src="_images/practice_tokenization_33_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="remove-punctuation-and-count-tokens">
+<h2>Remove Punctuation and Count Tokens<a class="headerlink" href="#remove-punctuation-and-count-tokens" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">RegexpTokenizer</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\w+&#39;</span><span class="p">)</span> <span class="c1">#only words</span>
+<span class="n">tokens_sentences</span> <span class="o">=</span> <span class="p">[</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">default_st</span><span class="p">(</span><span class="n">alice</span><span class="p">)]</span>
+<span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">tokens_sentences</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">word_counts</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+<span class="n">word_counts</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;the&#39;, 1642),
+ (&#39;and&#39;, 872),
+ (&#39;to&#39;, 729),
+ (&#39;a&#39;, 632),
+ (&#39;it&#39;, 595),
+ (&#39;she&#39;, 553),
+ (&#39;i&#39;, 543),
+ (&#39;of&#39;, 514),
+ (&#39;said&#39;, 462),
+ (&#39;you&#39;, 411)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_chars</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">alice</span><span class="p">)</span>
+<span class="n">num_chars</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">alice</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">whitespace</span><span class="p">)))</span>
+<span class="n">num_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+<span class="n">num_sents</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens_sentences</span><span class="p">)</span>
+<span class="n">num_vocab</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">words</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">all_chars</span><span class="o">/</span><span class="n">num_words</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">num_chars</span><span class="o">/</span><span class="n">num_words</span><span class="p">),</span> 
+      <span class="nb">int</span><span class="p">(</span><span class="n">num_words</span><span class="o">/</span><span class="n">num_sents</span><span class="p">),</span> 
+      <span class="nb">int</span><span class="p">(</span><span class="n">num_words</span><span class="o">/</span><span class="n">num_vocab</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 4 16 10
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="stemmers">
+<h2>Stemmers<a class="headerlink" href="#stemmers" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">PorterStemmer</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ps</span> <span class="o">=</span> <span class="n">PorterStemmer</span><span class="p">()</span>
+<span class="n">ps</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s1">&#39;jumping&#39;</span><span class="p">),</span> <span class="n">ps</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s1">&#39;jumps&#39;</span><span class="p">),</span> <span class="n">ps</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s1">&#39;jumped&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;jump&#39;, &#39;jump&#39;, &#39;jump&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ps</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s1">&#39;speak&#39;</span><span class="p">),</span><span class="n">ps</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s1">&#39;speaker&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;speak&#39;, &#39;speaker&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">SnowballStemmer</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Supported Languages:&#39;</span><span class="p">,</span> <span class="n">SnowballStemmer</span><span class="o">.</span><span class="n">languages</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Supported Languages: (&#39;arabic&#39;, &#39;danish&#39;, &#39;dutch&#39;, &#39;english&#39;, &#39;finnish&#39;, &#39;french&#39;, &#39;german&#39;, &#39;hungarian&#39;, &#39;italian&#39;, &#39;norwegian&#39;, &#39;porter&#39;, &#39;portuguese&#39;, &#39;romanian&#39;, &#39;russian&#39;, &#39;spanish&#39;, &#39;swedish&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ss</span> <span class="o">=</span> <span class="n">SnowballStemmer</span><span class="p">(</span><span class="s2">&quot;german&quot;</span><span class="p">)</span>
+<span class="n">ss</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s1">&#39;autobahnen&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;autobahn&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="lemmatizer">
+<h2>Lemmatizer<a class="headerlink" href="#lemmatizer" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">WordNetLemmatizer</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lemmatizer</span> <span class="o">=</span> <span class="n">WordNetLemmatizer</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lemmatizer</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">(</span><span class="s2">&quot;running&quot;</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s1">&#39;v&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lemmatizer</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">(</span><span class="s2">&quot;running&quot;</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>run
+running
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">word</span> <span class="ow">in</span>  <span class="n">sample_text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">):</span>
+    <span class="n">lemmatizer</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>I&#39;ve
+seen
+most
+powerful
+supercomputers.
+It&#39;s
+over
+twice
+as
+fast...
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sent</span> <span class="o">=</span> <span class="s1">&#39;These guys brought three refrigerators upstairs.&#39;</span>
+<span class="n">lemmatizer</span> <span class="o">=</span> <span class="n">WordNetLemmatizer</span><span class="p">()</span>
+<span class="n">lem</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">lemmatizer</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">sent</span><span class="p">)])</span>
+<span class="n">lem</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;these guy brought three refrigerator upstairs .&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">word_list</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">sample_text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">word_list</span><span class="p">)</span>
+<span class="c1">#&gt; [&#39;The&#39;, &#39;striped&#39;, &#39;bats&#39;, &#39;are&#39;, &#39;hanging&#39;, &#39;on&#39;, &#39;their&#39;, &#39;feet&#39;, &#39;for&#39;, &#39;best&#39;]</span>
+
+<span class="c1"># Lemmatize list of words and join</span>
+<span class="n">lemmatized_output</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">lemmatizer</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">word_list</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lemmatized_output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;I&#39;, &quot;&#39;ve&quot;, &#39;seen&#39;, &#39;most&#39;, &#39;powerful&#39;, &#39;supercomputers&#39;, &#39;.&#39;, &#39;It&#39;, &quot;&#39;s&quot;, &#39;over&#39;, &#39;twice&#39;, &#39;as&#39;, &#39;fast&#39;, &#39;...&#39;]
+I &#39;ve seen most powerful supercomputer . It &#39;s over twice a fast ...
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="stopwords">
+<h2>StopWords<a class="headerlink" href="#stopwords" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">nltk</span><span class="o">.</span><span class="n">corpus</span><span class="o">.</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>179
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">RegexpTokenizer</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\w+&#39;</span><span class="p">)</span> <span class="c1">#only words</span>
+<span class="n">tokens_sentences</span> <span class="o">=</span> <span class="p">[</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">default_st</span><span class="p">(</span><span class="n">alice</span><span class="p">)]</span>
+<span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">tokens_sentences</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<span class="n">stop_words</span> <span class="o">=</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">)</span>
+<span class="n">filtered_words</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">stop_words</span><span class="p">]</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">word_counts</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">filtered_words</span><span class="p">)</span>
+<span class="n">word_counts</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;said&#39;, 462),
+ (&#39;alice&#39;, 398),
+ (&#39;little&#39;, 128),
+ (&#39;one&#39;, 104),
+ (&#39;know&#39;, 88),
+ (&#39;like&#39;, 85),
+ (&#39;would&#39;, 83),
+ (&#39;went&#39;, 83),
+ (&#39;could&#39;, 77),
+ (&#39;queen&#39;, 75)]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="customed-word-list">
+<h2>Customed Word LIst<a class="headerlink" href="#customed-word-list" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">custom_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;like&#39;</span><span class="p">,</span><span class="s1">&#39;would&#39;</span><span class="p">,</span><span class="s1">&#39;could&#39;</span><span class="p">,</span><span class="s1">&#39;said&#39;</span><span class="p">,</span><span class="s1">&#39;one&#39;</span><span class="p">]</span>
+<span class="n">stop_words</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">custom_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">extended_words</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">stop_words</span><span class="p">]</span> 
+<span class="n">word_counts</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">extended_words</span><span class="p">)</span>
+<span class="n">word_counts</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;alice&#39;, 398),
+ (&#39;little&#39;, 128),
+ (&#39;know&#39;, 88),
+ (&#39;went&#39;, 83),
+ (&#39;queen&#39;, 75),
+ (&#39;thought&#39;, 74),
+ (&#39;time&#39;, 71),
+ (&#39;see&#39;, 67),
+ (&#39;well&#39;, 63),
+ (&#39;king&#39;, 63)]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="pos">
+<h1>POS<a class="headerlink" href="#pos" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nltk_pos_tagged</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">pos_tag</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">40</span><span class="p">])</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">nltk_pos_tagged</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Word&#39;</span><span class="p">,</span> <span class="s1">&#39;POS tag&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>15</th>
+      <th>16</th>
+      <th>17</th>
+      <th>18</th>
+      <th>19</th>
+      <th>20</th>
+      <th>21</th>
+      <th>22</th>
+      <th>23</th>
+      <th>24</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Word</th>
+      <td>alice</td>
+      <td>was</td>
+      <td>beginning</td>
+      <td>to</td>
+      <td>get</td>
+      <td>very</td>
+      <td>tired</td>
+      <td>of</td>
+      <td>sitting</td>
+      <td>by</td>
+      <td>...</td>
+      <td>and</td>
+      <td>of</td>
+      <td>having</td>
+      <td>nothing</td>
+      <td>to</td>
+      <td>do</td>
+      <td>once</td>
+      <td>or</td>
+      <td>twice</td>
+      <td>she</td>
+    </tr>
+    <tr>
+      <th>POS tag</th>
+      <td>NN</td>
+      <td>VBD</td>
+      <td>VBG</td>
+      <td>TO</td>
+      <td>VB</td>
+      <td>RB</td>
+      <td>JJ</td>
+      <td>IN</td>
+      <td>VBG</td>
+      <td>IN</td>
+      <td>...</td>
+      <td>CC</td>
+      <td>IN</td>
+      <td>VBG</td>
+      <td>NN</td>
+      <td>TO</td>
+      <td>VB</td>
+      <td>RB</td>
+      <td>CC</td>
+      <td>RB</td>
+      <td>PRP</td>
+    </tr>
+  </tbody>
+</table>
+<p>2 rows × 25 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sent</span> <span class="o">=</span> <span class="s1">&#39;John and Mary bought a refrigerator with three doors.&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sent</span> <span class="o">=</span> <span class="s1">&#39;John and Mary bought a refrigerator with three doors.&#39;</span>
+<span class="n">default_st</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">sent_tokenize</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">RegexpTokenizer</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\w+&#39;</span><span class="p">)</span> <span class="c1">#only words</span>
+<span class="n">tokens_sentences</span> <span class="o">=</span> <span class="p">[</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">default_st</span><span class="p">(</span><span class="n">sent</span><span class="p">)]</span>
+<span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">tokens_sentences</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">]</span>
+<span class="n">nltk_pos_tagged</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">pos_tag</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+<span class="n">nltk_pos_tagged</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;john&#39;, &#39;NN&#39;),
+ (&#39;and&#39;, &#39;CC&#39;),
+ (&#39;mary&#39;, &#39;JJ&#39;),
+ (&#39;bought&#39;, &#39;VBD&#39;),
+ (&#39;a&#39;, &#39;DT&#39;),
+ (&#39;refrigerator&#39;, &#39;NN&#39;),
+ (&#39;with&#39;, &#39;IN&#39;),
+ (&#39;three&#39;, &#39;CD&#39;),
+ (&#39;doors&#39;, &#39;NNS&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nltk_pos_tagged</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;john&#39;, &#39;NN&#39;),
+ (&#39;and&#39;, &#39;CC&#39;),
+ (&#39;mary&#39;, &#39;JJ&#39;),
+ (&#39;bought&#39;, &#39;VBD&#39;),
+ (&#39;a&#39;, &#39;DT&#39;),
+ (&#39;refrigerator&#39;, &#39;NN&#39;),
+ (&#39;with&#39;, &#39;IN&#39;),
+ (&#39;three&#39;, &#39;CD&#39;),
+ (&#39;doors&#39;, &#39;NNS&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">pos_tag</span><span class="p">,</span> <span class="n">word_tokenize</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tags</span> <span class="o">=</span> <span class="n">pos_tag</span><span class="p">(</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">sent</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="s1">&#39;-&gt;&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>John -&gt; NNP
+and -&gt; CC
+Mary -&gt; NNP
+bought -&gt; VBD
+a -&gt; DT
+refrigerator -&gt; NN
+with -&gt; IN
+three -&gt; CD
+doors -&gt; NNS
+. -&gt; .
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nltk_pos_tagged</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">pos_tag</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="mi">40</span><span class="p">:</span><span class="mi">53</span><span class="p">])</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">nltk_pos_tagged</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Word&#39;</span><span class="p">,</span> <span class="s1">&#39;POS tag&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Word</th>
+    </tr>
+    <tr>
+      <th>POS tag</th>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="section" id="split-into-train-and-test">
+<h2>Split into train and Test<a class="headerlink" href="#split-into-train-and-test" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">tokens_sentences</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">tokens_sentences</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">56</span><span class="o">-</span><span class="n">ca1179889233</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">tokens_sentences</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/sklearn/model_selection/_split.py</span> in <span class="ni">train_test_split</span><span class="nt">(*arrays, **options)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2129</span>     <span class="n">n_samples</span> <span class="o">=</span> <span class="n">_num_samples</span><span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="g g-Whitespace">   </span><span class="mi">2130</span>     <span class="n">n_train</span><span class="p">,</span> <span class="n">n_test</span> <span class="o">=</span> <span class="n">_validate_shuffle_split</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">test_size</span><span class="p">,</span> <span class="n">train_size</span><span class="p">,</span>
+<span class="ne">-&gt; </span><span class="mi">2131</span>                                               <span class="n">default_test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2132</span> 
+<span class="g g-Whitespace">   </span><span class="mi">2133</span>     <span class="k">if</span> <span class="n">shuffle</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/sklearn/model_selection/_split.py</span> in <span class="ni">_validate_shuffle_split</span><span class="nt">(n_samples, test_size, train_size, default_test_size)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1812</span>             <span class="s1">&#39;resulting train set will be empty. Adjust any of the &#39;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1813</span>             <span class="s1">&#39;aforementioned parameters.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">test_size</span><span class="p">,</span>
+<span class="ne">-&gt; </span><span class="mi">1814</span>                                                 <span class="n">train_size</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1815</span>         <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1816</span> 
+
+<span class="ne">ValueError</span>: With n_samples=1, test_size=0.2 and train_size=None, the resulting train set will be empty. Adjust any of the aforementioned parameters.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(325, 1300)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grammar</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">NP: {&lt;DT&gt;?&lt;JJ&gt;?&lt;NN.*&gt;and&lt;NN.*&gt;}</span>
+<span class="s2">ADJP: {&lt;JJ&gt;}</span>
+<span class="s2">ADVP: {&lt;RB.*&gt;}</span>
+<span class="s2">PP: {&lt;IN&gt;}</span>
+<span class="s2">VP: {&lt;MD&gt;?&lt;VB.*&gt;+}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.chunk</span> <span class="kn">import</span> <span class="n">RegexpParser</span>
+<span class="n">rc</span> <span class="o">=</span> <span class="n">RegexpParser</span><span class="p">(</span><span class="n">grammar</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">rc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">nltk_pos_tagged</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(S
+  (ADVP once/RB)
+  or/CC
+  (VP twice/VB)
+  she/PRP
+  (VP had/VBD peeped/VBN)
+  (PP into/IN)
+  (NP the/DT book/NN)
+  her/PRP$
+  (NP sister/NN)
+  (VP was/VBD reading/VBG))
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="precision-and-recall">
+<h1>Precision and Recall<a class="headerlink" href="#precision-and-recall" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">precision_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">recall_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">f1_score</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;classification.csv&#39;</span><span class="p">,</span> 
+                          <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;latin1&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_true</span> <span class="o">=</span> <span class="n">example</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">example</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>example</th>
+      <th>output</th>
+      <th>correct</th>
+      <th>ypred</th>
+      <th>ytrue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Bugs Bunny</td>
+      <td>left</td>
+      <td>right</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Howard Stern</td>
+      <td>center</td>
+      <td>centre</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Jason Brown</td>
+      <td>left</td>
+      <td>center</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>John Major</td>
+      <td>right</td>
+      <td>center</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Jonathan Swift</td>
+      <td>left</td>
+      <td>left</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Karl Marx</td>
+      <td>left</td>
+      <td>left</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Mitt Romney</td>
+      <td>right</td>
+      <td>center</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Noam Chomsky</td>
+      <td>left</td>
+      <td>left</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Pippi Longstocking</td>
+      <td>center</td>
+      <td>center</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Ralph Nader</td>
+      <td>left</td>
+      <td>left</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Richard Cheney</td>
+      <td>right</td>
+      <td>right</td>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Rush Limbaugh</td>
+      <td>left</td>
+      <td>right</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Shaquille OÕNeal</td>
+      <td>center</td>
+      <td>right</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_true</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 3.,  2.,  2.,  2., nan,  1.,  2.,  1.,  2.,  1.,  3.,  3., nan])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy</span><span class="p">)</span>
+<span class="c1"># precision tp / (tp + fp)</span>
+<span class="n">precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Precision: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">precision</span><span class="p">)</span>
+<span class="c1"># recall: tp / (tp + fn)</span>
+<span class="n">recall</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Recall: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">recall</span><span class="p">)</span>
+<span class="c1"># f1: 2 tp / (2 tp + fp + fn)</span>
+<span class="n">f1</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;F1 score: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">f1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 0.538462
+Precision: 0.534799
+Recall: 0.538462
+F1 score: 0.503996
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Olga Scrivner<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

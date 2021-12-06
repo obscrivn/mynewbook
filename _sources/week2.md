@@ -3,7 +3,7 @@
 ## Day 1 Monday
 
 - [NLP Pipeline](pipeline.md)
-- [Corpora Tokenization](corpora.ipynb)
+- [Tokenization Practice 1](practice_tokenization.ipynb)
 
 
 ## Day 2 Tuesday
