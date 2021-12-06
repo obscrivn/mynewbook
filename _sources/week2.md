@@ -3,7 +3,7 @@
 ## Day 1 Monday
 
 - [NLP Pipeline](pipeline.md)
-- [Tokenization Practice 1](practice_tokenization.ipynb)
+- [Tokenization Practice 1](practice.ipynb)
 
 
 ## Day 2 Tuesday
