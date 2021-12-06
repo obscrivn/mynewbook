@@ -1,0 +1,783 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tokenization Practice &#8212; CSSE-490 Introduction to NLP</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">CSSE-490 Introduction to NLP</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="welcome.html">
+   Welcome to CSSE-490 NLP
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week1.html">
+   Introduction to NLP
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="challenges.html">
+     NLP Challenges
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="turing.html">
+     Turing Test
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tools.html">
+     Tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="language.html">
+     Natural Language
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="regex.html">
+     Regular Expressions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="applications.html">
+     NLP Pipeline
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="python.html">
+     Python for Natural Language
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week2.html">
+   Tokenization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="pipeline.html">
+     NLP Applications
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/NLP-pipeline.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FNLP-pipeline.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/NLP-pipeline.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#task-1-split-into-sentence">
+   Task 1. Split into sentence
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#task-2-non-english-sentence-split">
+   Task 2. Non-English sentence split
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#task-3-split-into-words">
+   Task 3. Split into words
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#task-4-tokenize-split-in-sentence-and-words">
+   Task 4. Tokenize - split in sentence and words
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#task-5-tokenize-tweeter-text">
+   Task 5. Tokenize Tweeter Text
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#task-6-stopwords-how-many-stopwords-are-in-french">
+   Task 6. Stopwords - how many stopwords are in French
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#task-7-remove-and-add-stopwords">
+   Task 7. Remove and Add stopwords
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#task-8-lemmatize-and-stem">
+   Task 8. Lemmatize and Stem
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#task-9-pos-tagging">
+   Task 9. POS Tagging
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#task-10-np-chunking">
+   Task 10. NP-Chunking
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="tokenization-practice">
+<h1>Tokenization Practice<a class="headerlink" href="#tokenization-practice" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">sent_tokenize</span>
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span>
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">TweetTokenizer</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">PorterStemmer</span>
+<span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">WordNetLemmatizer</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">nltk</span>
+<span class="kn">from</span> <span class="nn">nltk.chunk</span> <span class="kn">import</span> <span class="n">RegexpParser</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;Joe waited for the train. The train was late. Mary and Samantha took the bus. </span>
+<span class="s1">I looked for Mary and Samantha at the bus stations. &#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="task-1-split-into-sentence">
+<h2>Task 1. Split into sentence<a class="headerlink" href="#task-1-split-into-sentence" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">token_text</span> <span class="o">=</span> <span class="n">sent_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">token_text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Joe waited for the train.&#39;, &#39;The train was late.&#39;, &#39;Mary and Samantha took the bus.&#39;, &#39;I looked for Mary and Samantha at the bus stations.&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="task-2-non-english-sentence-split">
+<h2>Task 2. Non-English sentence split<a class="headerlink" href="#task-2-non-english-sentence-split" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;NLTK ist Open Source Software. Der Quellcode wird unter den Bedingungen der Apache License Version 2.0 vertrieben.  </span>
+<span class="s1">Die Dokumentation wird unter den Bedingungen der Creative Commons-Lizenz Namensnennung - Nicht kommerziell - Keine abgeleiteten Werke 3.0 in den Vereinigten Staaten verteilt.</span>
+<span class="s1">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">token_text_german</span> <span class="o">=</span> <span class="n">sent_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;german&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">token_text_german</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;NLTK ist Open Source Software.&#39;, &#39;Der Quellcode wird unter den Bedingungen der Apache License Version 2.0 vertrieben.&#39;, &#39;Die Dokumentation wird unter den Bedingungen der Creative Commons-Lizenz Namensnennung - Nicht kommerziell - Keine abgeleiteten Werke 3.0 in den Vereinigten Staaten verteilt.&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="task-3-split-into-words">
+<h2>Task 3. Split into words<a class="headerlink" href="#task-3-split-into-words" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">words</span> <span class="o">=</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;NLTK&#39;, &#39;ist&#39;, &#39;Open&#39;, &#39;Source&#39;, &#39;Software&#39;, &#39;.&#39;, &#39;Der&#39;, &#39;Quellcode&#39;, &#39;wird&#39;, &#39;unter&#39;, &#39;den&#39;, &#39;Bedingungen&#39;, &#39;der&#39;, &#39;Apache&#39;, &#39;License&#39;, &#39;Version&#39;, &#39;2.0&#39;, &#39;vertrieben&#39;, &#39;.&#39;, &#39;Die&#39;, &#39;Dokumentation&#39;, &#39;wird&#39;, &#39;unter&#39;, &#39;den&#39;, &#39;Bedingungen&#39;, &#39;der&#39;, &#39;Creative&#39;, &#39;Commons-Lizenz&#39;, &#39;Namensnennung&#39;, &#39;-&#39;, &#39;Nicht&#39;, &#39;kommerziell&#39;, &#39;-&#39;, &#39;Keine&#39;, &#39;abgeleiteten&#39;, &#39;Werke&#39;, &#39;3.0&#39;, &#39;in&#39;, &#39;den&#39;, &#39;Vereinigten&#39;, &#39;Staaten&#39;, &#39;verteilt&#39;, &#39;.&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="task-4-tokenize-split-in-sentence-and-words">
+<h2>Task 4. Tokenize - split in sentence and words<a class="headerlink" href="#task-4-tokenize-split-in-sentence-and-words" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">sent_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&#39;NLTK&#39;, &#39;ist&#39;, &#39;Open&#39;, &#39;Source&#39;, &#39;Software&#39;, &#39;.&#39;], [&#39;Der&#39;, &#39;Quellcode&#39;, &#39;wird&#39;, &#39;unter&#39;, &#39;den&#39;, &#39;Bedingungen&#39;, &#39;der&#39;, &#39;Apache&#39;, &#39;License&#39;, &#39;Version&#39;, &#39;2.0&#39;, &#39;vertrieben&#39;, &#39;.&#39;], [&#39;Die&#39;, &#39;Dokumentation&#39;, &#39;wird&#39;, &#39;unter&#39;, &#39;den&#39;, &#39;Bedingungen&#39;, &#39;der&#39;, &#39;Creative&#39;, &#39;Commons-Lizenz&#39;, &#39;Namensnennung&#39;, &#39;-&#39;, &#39;Nicht&#39;, &#39;kommerziell&#39;, &#39;-&#39;, &#39;Keine&#39;, &#39;abgeleiteten&#39;, &#39;Werke&#39;, &#39;3.0&#39;, &#39;in&#39;, &#39;den&#39;, &#39;Vereinigten&#39;, &#39;Staaten&#39;, &#39;verteilt&#39;, &#39;.&#39;]]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="task-5-tokenize-tweeter-text">
+<h2>Task 5. Tokenize Tweeter Text<a class="headerlink" href="#task-5-tokenize-tweeter-text" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tknzr</span> <span class="o">=</span> <span class="n">TweetTokenizer</span><span class="p">(</span><span class="n">strip_handles</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">reduce_len</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">tweet_text</span> <span class="o">=</span> <span class="s2">&quot;NoSQL introduction - w3resource http://bit.ly/1ngHC5F  #nosql #database #webdev&quot;</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">tknzr</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">tweet_text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;NoSQL&#39;, &#39;introduction&#39;, &#39;-&#39;, &#39;w3resource&#39;, &#39;http://bit.ly/1ngHC5F&#39;, &#39;#nosql&#39;, &#39;#database&#39;, &#39;#webdev&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="task-6-stopwords-how-many-stopwords-are-in-french">
+<h2>Task 6. Stopwords - how many stopwords are in French<a class="headerlink" href="#task-6-stopwords-how-many-stopwords-are-in-french" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;french&#39;</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>157
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="task-7-remove-and-add-stopwords">
+<h2>Task 7. Remove and Add stopwords<a class="headerlink" href="#task-7-remove-and-add-stopwords" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#sorted(list(stopwords.words(&#39;english&#39;)))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>remove some words from the list</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stop_words</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">))</span> <span class="o">-</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;again&#39;</span><span class="p">,</span> <span class="s1">&#39;once&#39;</span><span class="p">,</span> <span class="s1">&#39;from&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#sorted(stop_words)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Add could, would, should</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stop_words</span> <span class="o">=</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">)</span>
+<span class="n">custom_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;would&#39;</span><span class="p">,</span><span class="s1">&#39;could&#39;</span><span class="p">,</span><span class="s1">&#39;should&#39;</span><span class="p">]</span>
+<span class="n">stop_words</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">custom_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Remove stop words from your tokens</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filtered_words</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">stop_words</span><span class="p">]</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">word_counts</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">filtered_words</span><span class="p">)</span>
+<span class="n">word_counts</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;.&#39;, 3), (&#39;den&#39;, 3), (&#39;wird&#39;, 2), (&#39;unter&#39;, 2)]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="task-8-lemmatize-and-stem">
+<h2>Task 8. Lemmatize and Stem<a class="headerlink" href="#task-8-lemmatize-and-stem" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ps</span> <span class="o">=</span> <span class="n">PorterStemmer</span><span class="p">()</span>
+<span class="n">lemmatizer</span> <span class="o">=</span> <span class="n">WordNetLemmatizer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stems</span> <span class="o">=</span> <span class="p">[</span><span class="n">ps</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">line</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stems</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;nltk&#39;, &#39;ist&#39;, &#39;open&#39;, &#39;sourc&#39;, &#39;softwar&#39;, &#39;.&#39;, &#39;der&#39;, &#39;quellcod&#39;, &#39;wird&#39;, &#39;unter&#39;, &#39;den&#39;, &#39;bedingungen&#39;, &#39;der&#39;, &#39;apach&#39;, &#39;licens&#39;, &#39;version&#39;, &#39;2.0&#39;, &#39;vertrieben&#39;, &#39;.&#39;, &#39;die&#39;, &#39;dokument&#39;, &#39;wird&#39;, &#39;unter&#39;, &#39;den&#39;, &#39;bedingungen&#39;, &#39;der&#39;, &#39;creativ&#39;, &#39;commons-lizenz&#39;, &#39;namensnennung&#39;, &#39;-&#39;, &#39;nicht&#39;, &#39;kommerziel&#39;, &#39;-&#39;, &#39;kein&#39;, &#39;abgeleiteten&#39;, &#39;werk&#39;, &#39;3.0&#39;, &#39;in&#39;, &#39;den&#39;, &#39;vereinigten&#39;, &#39;staaten&#39;, &#39;verteilt&#39;, &#39;.&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lemmas</span> <span class="o">=</span> <span class="p">[</span><span class="n">lemmatizer</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">line</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lemmas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;NLTK&#39;, &#39;ist&#39;, &#39;Open&#39;, &#39;Source&#39;, &#39;Software&#39;, &#39;.&#39;, &#39;Der&#39;, &#39;Quellcode&#39;, &#39;wird&#39;, &#39;unter&#39;, &#39;den&#39;, &#39;Bedingungen&#39;, &#39;der&#39;, &#39;Apache&#39;, &#39;License&#39;, &#39;Version&#39;, &#39;2.0&#39;, &#39;vertrieben&#39;, &#39;.&#39;, &#39;Die&#39;, &#39;Dokumentation&#39;, &#39;wird&#39;, &#39;unter&#39;, &#39;den&#39;, &#39;Bedingungen&#39;, &#39;der&#39;, &#39;Creative&#39;, &#39;Commons-Lizenz&#39;, &#39;Namensnennung&#39;, &#39;-&#39;, &#39;Nicht&#39;, &#39;kommerziell&#39;, &#39;-&#39;, &#39;Keine&#39;, &#39;abgeleiteten&#39;, &#39;Werke&#39;, &#39;3.0&#39;, &#39;in&#39;, &#39;den&#39;, &#39;Vereinigten&#39;, &#39;Staaten&#39;, &#39;verteilt&#39;, &#39;.&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="task-9-pos-tagging">
+<h2>Task 9. POS Tagging<a class="headerlink" href="#task-9-pos-tagging" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nltk_pos_tagged</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">pos_tag</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">nltk_pos_tagged</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Word&#39;</span><span class="p">,</span> <span class="s1">&#39;POS tag&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>33</th>
+      <th>34</th>
+      <th>35</th>
+      <th>36</th>
+      <th>37</th>
+      <th>38</th>
+      <th>39</th>
+      <th>40</th>
+      <th>41</th>
+      <th>42</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Word</th>
+      <td>NLTK</td>
+      <td>ist</td>
+      <td>Open</td>
+      <td>Source</td>
+      <td>Software</td>
+      <td>.</td>
+      <td>Der</td>
+      <td>Quellcode</td>
+      <td>wird</td>
+      <td>unter</td>
+      <td>...</td>
+      <td>Keine</td>
+      <td>abgeleiteten</td>
+      <td>Werke</td>
+      <td>3.0</td>
+      <td>in</td>
+      <td>den</td>
+      <td>Vereinigten</td>
+      <td>Staaten</td>
+      <td>verteilt</td>
+      <td>.</td>
+    </tr>
+    <tr>
+      <th>POS tag</th>
+      <td>NNP</td>
+      <td>NN</td>
+      <td>NNP</td>
+      <td>NNP</td>
+      <td>NNP</td>
+      <td>.</td>
+      <td>NNP</td>
+      <td>NNP</td>
+      <td>NN</td>
+      <td>NN</td>
+      <td>...</td>
+      <td>NNP</td>
+      <td>VBP</td>
+      <td>NNP</td>
+      <td>CD</td>
+      <td>IN</td>
+      <td>JJ</td>
+      <td>NNP</td>
+      <td>NNP</td>
+      <td>NN</td>
+      <td>.</td>
+    </tr>
+  </tbody>
+</table>
+<p>2 rows × 43 columns</p>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="task-10-np-chunking">
+<h2>Task 10. NP-Chunking<a class="headerlink" href="#task-10-np-chunking" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grammar</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">NP: {&lt;DT&gt;?&lt;JJ&gt;?&lt;NN.*&gt;}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rc</span> <span class="o">=</span> <span class="n">RegexpParser</span><span class="p">(</span><span class="n">grammar</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">rc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">nltk_pos_tagged</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(S
+  (NP NLTK/NNP)
+  (NP ist/NN)
+  (NP Open/NNP)
+  (NP Source/NNP)
+  (NP Software/NNP)
+  ./.
+  (NP Der/NNP)
+  (NP Quellcode/NNP)
+  (NP wird/NN)
+  (NP unter/NN)
+  (NP den/NN)
+  (NP Bedingungen/NNP)
+  (NP der/NN)
+  (NP Apache/NNP)
+  (NP License/NNP)
+  (NP Version/NNP)
+  2.0/CD
+  (NP vertrieben/NN)
+  ./.
+  (NP Die/NNP)
+  (NP Dokumentation/NNP)
+  (NP wird/NN)
+  (NP unter/NN)
+  (NP den/NN)
+  (NP Bedingungen/NNP)
+  (NP der/NN)
+  (NP Creative/NNP)
+  (NP Commons-Lizenz/NNP)
+  (NP Namensnennung/NNP)
+  -/:
+  (NP Nicht/NNP)
+  (NP kommerziell/NNP)
+  -/:
+  (NP Keine/NNP)
+  abgeleiteten/VBP
+  (NP Werke/NNP)
+  3.0/CD
+  in/IN
+  (NP den/JJ Vereinigten/NNP)
+  (NP Staaten/NNP)
+  (NP verteilt/NN)
+  ./.)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Olga Scrivner<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

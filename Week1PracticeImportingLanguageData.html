@@ -1,0 +1,1341 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Language Data Sources &#8212; CSSE-490 Introduction to NLP</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">CSSE-490 Introduction to NLP</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="welcome.html">
+   Welcome to CSSE-490 NLP
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week1.html">
+   Introduction to NLP
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="challenges.html">
+     NLP Challenges
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="turing.html">
+     Turing Test
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tools.html">
+     Tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="language.html">
+     Natural Language
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="regex.html">
+     Regular Expressions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="applications.html">
+     NLP Pipeline
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="python.html">
+     Python for Natural Language
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week2.html">
+   Tokenization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="pipeline.html">
+     NLP Applications
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/Week1PracticeImportingLanguageData.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FWeek1PracticeImportingLanguageData.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/Week1PracticeImportingLanguageData.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pdf-import">
+   PDF Import
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#json-documents">
+   JSON Documents
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#html-import">
+   HTML Import
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tweeter-api">
+   Tweeter API
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#google-trends">
+   Google Trends
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="language-data-sources">
+<h1>Language Data Sources<a class="headerlink" href="#language-data-sources" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pdf-import">
+<h2>PDF Import<a class="headerlink" href="#pdf-import" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PyPDF2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pdfFileObject</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;test.pdf&#39;</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="n">afdb1a247136</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">pdfFileObject</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;test.pdf&#39;</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;test.pdf&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pdfReaderObject</span> <span class="o">=</span> <span class="n">PyPDF2</span><span class="o">.</span><span class="n">PdfFileReader</span><span class="p">(</span><span class="n">pdfFileObject</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pdfReaderObject</span><span class="o">.</span><span class="n">numPages</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">firstPageObject</span> <span class="o">=</span> <span class="n">pdfReaderObject</span><span class="o">.</span><span class="n">getPage</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1">#print(firstPageObject.extractText())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Extract all text for processing</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pdf_data</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">number_of_pages</span> <span class="o">=</span> <span class="n">pdfReaderObject</span><span class="o">.</span><span class="n">numPages</span>
+<span class="k">for</span> <span class="n">page_number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_pages</span><span class="p">):</span>   <span class="c1"># use xrange in Py2</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">pdfReaderObject</span><span class="o">.</span><span class="n">getPage</span><span class="p">(</span><span class="n">page_number</span><span class="p">)</span>
+    <span class="n">page_content</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">extractText</span><span class="p">()</span>
+    <span class="n">pdf_data</span><span class="o">+=</span><span class="n">page_content</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pdf_data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">number_of_pages</span> <span class="o">=</span> <span class="n">pdfReaderObject</span><span class="o">.</span><span class="n">numPages</span>
+<span class="k">for</span> <span class="n">page_number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_pages</span><span class="p">):</span>   <span class="c1"># use xrange in Py2</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">pdfReaderObject</span><span class="o">.</span><span class="n">getPage</span><span class="p">(</span><span class="n">page_number</span><span class="p">)</span>
+    <span class="n">page_content</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">extractText</span><span class="p">()</span>
+    <span class="n">pdf_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">page_content</span><span class="p">)</span>
+<span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pdf_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot; \nLorem Ipsum\n \nis simply dummy text of the printing and typesetting industry. Lorem Ipsum has been \nthe industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of \ntype and scrambled it to make a type specimen book. It has survived not o\nnly five centuries, but also \nthe leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s \nwith the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop \npublishing software like\n \nAldus PageMaker including versions of Lorem Ipsum.\n \nWhy do we use it?\n \nIt is a long established fact that a reader will be distracted by the readable content of a page when \nlooking at its layout. The point of using Lorem Ipsum is that it has a more\n-\nor\n-\nless \nnormal distribution \nof letters, as opposed to using &#39;Content here, content here&#39;, making it look like readable English. Many \ndesktop publishing packages and web page editors now use Lorem Ipsum as their default model text, \nand a search for &#39;lorem ipsum&#39; wi\nll uncover many web sites still in their infancy. Various versions have \nevolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n \n \n&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pdfFileObject</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#pdf_data</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="json-documents">
+<h2>JSON Documents<a class="headerlink" href="#json-documents" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://quotes.rest/qod.json&quot;</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
+    &quot;success&quot;: {
+        &quot;total&quot;: 1
+    },
+    &quot;contents&quot;: {
+        &quot;quotes&quot;: [
+            {
+                &quot;quote&quot;: &quot;Your time is limited, so don&#39;t waste it living someone else&#39;s life. Don&#39;t be trapped by dogma - which is living with the results of other people&#39;s thinking. Don&#39;t let the noise of other&#39;s opinions drown out your own inner voice. And most important, have the courage to follow your heart and intuition. They somehow already know what you truly want to become. Everything else is secondary.&quot;,
+                &quot;length&quot;: &quot;388&quot;,
+                &quot;author&quot;: &quot;Steve Jobs&quot;,
+                &quot;tags&quot;: [
+                    &quot;inspire&quot;,
+                    &quot;life&quot;,
+                    &quot;time&quot;,
+                    &quot;tod&quot;,
+                    &quot;truth&quot;,
+                    &quot;tso-top-100&quot;
+                ],
+                &quot;category&quot;: &quot;inspire&quot;,
+                &quot;language&quot;: &quot;en&quot;,
+                &quot;date&quot;: &quot;2020-08-11&quot;,
+                &quot;permalink&quot;: &quot;https://theysaidso.com/quote/steve-jobs-your-time-is-limited-so-dont-waste-it-living-someone-elses-life-dont&quot;,
+                &quot;id&quot;: &quot;RmGoiti7Oqz4LFSHrM_dIAeF&quot;,
+                &quot;background&quot;: &quot;https://theysaidso.com/img/qod/qod-inspire.jpg&quot;,
+                &quot;title&quot;: &quot;Inspiring Quote of the day&quot;
+            }
+        ]
+    },
+    &quot;baseurl&quot;: &quot;https://theysaidso.com&quot;,
+    &quot;copyright&quot;: {
+        &quot;year&quot;: 2022,
+        &quot;url&quot;: &quot;https://theysaidso.com&quot;
+    }
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#extract contents</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;contents&#39;</span><span class="p">][</span><span class="s1">&#39;quotes&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;quote&#39;: &quot;Your time is limited, so don&#39;t waste it living someone else&#39;s life. Don&#39;t be trapped by dogma - which is living with the results of other people&#39;s thinking. Don&#39;t let the noise of other&#39;s opinions drown out your own inner voice. And most important, have the courage to follow your heart and intuition. They somehow already know what you truly want to become. Everything else is secondary.&quot;,
+ &#39;length&#39;: &#39;388&#39;,
+ &#39;author&#39;: &#39;Steve Jobs&#39;,
+ &#39;tags&#39;: [&#39;inspire&#39;, &#39;life&#39;, &#39;time&#39;, &#39;tod&#39;, &#39;truth&#39;, &#39;tso-top-100&#39;],
+ &#39;category&#39;: &#39;inspire&#39;,
+ &#39;language&#39;: &#39;en&#39;,
+ &#39;date&#39;: &#39;2020-08-11&#39;,
+ &#39;permalink&#39;: &#39;https://theysaidso.com/quote/steve-jobs-your-time-is-limited-so-dont-waste-it-living-someone-elses-life-dont&#39;,
+ &#39;id&#39;: &#39;RmGoiti7Oqz4LFSHrM_dIAeF&#39;,
+ &#39;background&#39;: &#39;https://theysaidso.com/img/qod/qod-inspire.jpg&#39;,
+ &#39;title&#39;: &#39;Inspiring Quote of the day&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="s1">&#39;quote&#39;</span><span class="p">],</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">--&#39;</span><span class="p">,</span> <span class="n">q</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Your time is limited, so don&#39;t waste it living someone else&#39;s life. Don&#39;t be trapped by dogma - which is living with the results of other people&#39;s thinking. Don&#39;t let the noise of other&#39;s opinions drown out your own inner voice. And most important, have the courage to follow your heart and intuition. They somehow already know what you truly want to become. Everything else is secondary. 
+-- Steve Jobs
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="html-import">
+<h2>HTML Import<a class="headerlink" href="#html-import" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urllib.request</span> <span class="k">as</span> <span class="nn">urllib3</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="n">urllib3</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s1">&#39;https://en.wikipedia.org/wiki/Natural_language_processing&#39;</span><span class="p">)</span>
+<span class="n">html_doc</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html_doc</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+<span class="n">strhtm</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">prettify</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">strhtm</span><span class="p">[:</span><span class="mi">1000</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;!DOCTYPE html&gt;
+&lt;html class=&quot;client-nojs&quot; dir=&quot;ltr&quot; lang=&quot;en&quot;&gt;
+ &lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;/&gt;
+  &lt;title&gt;
+   Natural language processing - Wikipedia
+  &lt;/title&gt;
+  &lt;script&gt;
+   document.documentElement.className=&quot;client-js&quot;;RLCONF={&quot;wgBreakFrames&quot;:!1,&quot;wgSeparatorTransformTable&quot;:[&quot;&quot;,&quot;&quot;],&quot;wgDigitTransformTable&quot;:[&quot;&quot;,&quot;&quot;],&quot;wgDefaultDateFormat&quot;:&quot;dmy&quot;,&quot;wgMonthNames&quot;:[&quot;&quot;,&quot;January&quot;,&quot;February&quot;,&quot;March&quot;,&quot;April&quot;,&quot;May&quot;,&quot;June&quot;,&quot;July&quot;,&quot;August&quot;,&quot;September&quot;,&quot;October&quot;,&quot;November&quot;,&quot;December&quot;],&quot;wgRequestId&quot;:&quot;f6b1cf01-343e-4415-ada2-7fa2bdd0e4d5&quot;,&quot;wgCSPNonce&quot;:!1,&quot;wgCanonicalNamespace&quot;:&quot;&quot;,&quot;wgCanonicalSpecialPageName&quot;:!1,&quot;wgNamespaceNumber&quot;:0,&quot;wgPageName&quot;:&quot;Natural_language_processing&quot;,&quot;wgTitle&quot;:&quot;Natural language processing&quot;,&quot;wgCurRevisionId&quot;:971205596,&quot;wgRevisionId&quot;:971205596,&quot;wgArticleId&quot;:21652,&quot;wgIsArticle&quot;:!0,&quot;wgIsRedirect&quot;:!1,&quot;wgAction&quot;:&quot;view&quot;,&quot;wgUserName&quot;:null,&quot;wgUserGroups&quot;:[&quot;*&quot;],&quot;wgCategories&quot;:[&quot;CS1 maint: location&quot;,&quot;Wikipedia articles needing clarification from October 2019&quot;,&quot;All accuracy disputes&quot;,&quot;Arti
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">soup</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">soup</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">string</span><span class="p">)</span>
+<span class="c1">#for x in soup.find_all(&#39;p&#39;): print(x.text)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;title&gt;Natural language processing - Wikipedia&lt;/title&gt;
+Natural language processing - Wikipedia
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="tweeter-api">
+<h2>Tweeter API<a class="headerlink" href="#tweeter-api" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tweepy</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">tweepy</span> <span class="kn">import</span> <span class="n">OAuthHandler</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># credentials</span>
+<span class="n">consumer_key</span> <span class="o">=</span> <span class="s2">&quot;t2EWwOFYA91dahYP54R9BS4SI&quot;</span>
+<span class="n">consumer_secret</span> <span class="o">=</span> <span class="s2">&quot;wmYNqFUynYlZdlGWUf8GtcKWNCaYngpI8zasBcblSp2RcOALyf&quot;</span>
+<span class="n">access_token</span> <span class="o">=</span> <span class="s2">&quot;457996330-NI5b5oI9rBtPcFqWO17alHPYF7dlltYE8fUxPB5v&quot;</span>
+<span class="n">access_token_secret</span> <span class="o">=</span> <span class="s2">&quot;QAdmwDOXlA6WnpaIABZ5dy6MKsX1OztvjF9dIj0P9Lzq3&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calling API</span>
+<span class="n">auth</span> <span class="o">=</span> <span class="n">tweepy</span><span class="o">.</span><span class="n">OAuthHandler</span><span class="p">(</span><span class="n">consumer_key</span><span class="p">,</span> <span class="n">consumer_secret</span><span class="p">)</span>
+<span class="n">auth</span><span class="o">.</span><span class="n">set_access_token</span><span class="p">(</span><span class="n">access_token</span><span class="p">,</span> <span class="n">access_token_secret</span><span class="p">)</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">tweepy</span><span class="o">.</span><span class="n">API</span><span class="p">(</span><span class="n">auth</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Provide the query you want to pull the data. For example, pulling data for the mobile phone ABC</span>
+<span class="n">query</span> <span class="o">=</span><span class="s2">&quot;ABC&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Make call on home timeline, print each tweets text</span>
+<span class="n">public_tweets</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">home_timeline</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">tweet</span> <span class="ow">in</span> <span class="n">public_tweets</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">tweet</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RT @JoeBiden: Don&#39;t forget that in the middle of this pandemic, the Trump Administration is in court trying to eliminate Obamacare and rip…
+RT @pjlucky57: This is a strong combination and will return us to the nation we should be.  My vote is #BidenHarris2020 and can’t wait to p…
+&quot;Writing fanfiction allowed them to explore much of their own complicated feelings about gender and queerness.&quot; https://t.co/Gfhp9LOHtM
+By examining news narrative and sentiment, you can get a pretty good idea of the current trajectory of the state of… https://t.co/YdPJn8KwaL
+RT @ericweiskott: one thing you just gotta love about Middle English is the plethora of words for &#39;rebuke&#39;
+
+REBUKEN, yes,
+
+but also
+
+ARATEN…
+Android users in California will now get an earthquake warning from Google before they feel any shaking https://t.co/80FOflLvP6
+Humans are basically good: A hopeful look at history and our future https://t.co/o8wTSHNAZJ
+RT @willsommer: QAnon believer Marjorie Taylor Greene wins a GOP House nomination in a heavily Republican district, meaning a QAnon believe…
+These Lego-like bricks are actually robots https://t.co/c0sYCj7xZm
+In an almost entirely online presidential campaign, having a strong digital presence is more important than ever.… https://t.co/saHtVpdFq2
+10 film classics that are sure to make you love black and white movies: https://t.co/dXr0N3ZXIB https://t.co/2jb362JCMD
+Dirty Data � Quality Assessment &amp;amp; Cleaning Measures https://t.co/Zhp1vJ5kqp
+RT @caitlin__kelly: “Especially when we think about operating in this new reality that we’re in, where you really need to build compelling…
+Turn heads with this self-balancing scooter https://t.co/UXNOg0I80E
+This robot is training to become a construction worker https://t.co/IC8iFGaluF
+RT @ajstichter: Hey, we made it to the New &amp;amp; Popular on https://t.co/MjQhCwBSPR! https://t.co/ujyusIaofv #silverspooncaper #puzzlegame http…
+🔑 We know the importance of secure government apps.
+
+See our best practices guide on how to ensure security and pri… https://t.co/JZfjf8v3In
+ODSC West Virtual Conference 50% OFF Ends Friday. https://t.co/HDn1Y5J7w1  
+#DataScience #AI #KickStart https://t.co/KZNIciz9Sw
+If your power went out right now, do you know how long would your freezer would stay cold? https://t.co/IFPD2upWeU https://t.co/kfpL25tOMV
+Minecraft Education Edition now available for Chromebooks https://t.co/w7GhFENJyM
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#public_tweets[0]</span>
+<span class="n">status</span> <span class="o">=</span> <span class="n">public_tweets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">json_str</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">status</span><span class="o">.</span><span class="n">_json</span><span class="p">)</span>
+<span class="n">parsed</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
+<span class="c1">#print(json.dumps(parsed, indent=4, sort_keys=True))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">status</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;RT @JoeBiden: Don&#39;t forget that in the middle of this pandemic, the Trump Administration is in court trying to eliminate Obamacare and rip…&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fetching tweets with the query &quot;ABC&quot;</span>
+<span class="k">for</span> <span class="n">tweet</span> <span class="ow">in</span> <span class="n">tweepy</span><span class="o">.</span><span class="n">Cursor</span><span class="p">(</span><span class="n">api</span><span class="o">.</span><span class="n">search</span><span class="p">,</span>
+                           <span class="n">q</span><span class="o">=</span><span class="s2">&quot;ABC&quot;</span><span class="p">,</span>
+                           <span class="n">rpp</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                           <span class="n">result_type</span><span class="o">=</span><span class="s2">&quot;recent&quot;</span><span class="p">,</span>
+                           <span class="n">include_entities</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                           <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">tweet</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>@sarahcpr @JimmyKimmelLive @RedHourBen @ABC Whaaaa.....
+Nice shot
+Good luck
+Congrats
+RT @Wontawn_soup: *doesnt show the peaceful protests for 2 months*
+
+...
+RT @AltoCarol: He&#39;s not suing &quot;the government&quot; ABC - he&#39;s suing everyone in WA. Their schools, their hospitals, their services. 
+A whole ye…
+RT @angelinadivine_: what they forgot to mention was CPD shot a 15 year old
+@Fletchulator @marxdeane @ConversationEDU Well 10% probably work for ABC so they are #Buttrosed 
+
+It’s the 5%, our… https://t.co/Yv6xzfqdJ3
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="google-trends">
+<h2>Google Trends<a class="headerlink" href="#google-trends" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install pytrends
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pytrends in /Users/olgascrivner/anaconda3/lib/python3.7/site-packages (4.7.2)
+Requirement already satisfied: requests in /Users/olgascrivner/anaconda3/lib/python3.7/site-packages (from pytrends) (2.24.0)
+Requirement already satisfied: lxml in /Users/olgascrivner/anaconda3/lib/python3.7/site-packages (from pytrends) (4.4.1)
+Requirement already satisfied: pandas in /Users/olgascrivner/anaconda3/lib/python3.7/site-packages (from pytrends) (0.24.2)
+Requirement already satisfied: urllib3!=1.25.0,!=1.25.1,&lt;1.26,&gt;=1.21.1 in /Users/olgascrivner/anaconda3/lib/python3.7/site-packages (from requests-&gt;pytrends) (1.24.2)
+Requirement already satisfied: chardet&lt;4,&gt;=3.0.2 in /Users/olgascrivner/anaconda3/lib/python3.7/site-packages (from requests-&gt;pytrends) (3.0.4)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /Users/olgascrivner/anaconda3/lib/python3.7/site-packages (from requests-&gt;pytrends) (2020.6.20)
+Requirement already satisfied: idna&lt;3,&gt;=2.5 in /Users/olgascrivner/anaconda3/lib/python3.7/site-packages (from requests-&gt;pytrends) (2.8)
+Requirement already satisfied: python-dateutil&gt;=2.5.0 in /Users/olgascrivner/anaconda3/lib/python3.7/site-packages (from pandas-&gt;pytrends) (2.8.0)
+Requirement already satisfied: pytz&gt;=2011k in /Users/olgascrivner/anaconda3/lib/python3.7/site-packages (from pandas-&gt;pytrends) (2019.2)
+Requirement already satisfied: numpy&gt;=1.12.0 in /Users/olgascrivner/anaconda3/lib/python3.7/site-packages (from pandas-&gt;pytrends) (1.17.2)
+Requirement already satisfied: six&gt;=1.5 in /Users/olgascrivner/anaconda3/lib/python3.7/site-packages (from python-dateutil&gt;=2.5.0-&gt;pandas-&gt;pytrends) (1.12.0)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pytrends.request</span> <span class="kn">import</span> <span class="n">TrendReq</span>
+<span class="n">pytrend</span> <span class="o">=</span> <span class="n">TrendReq</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">keywords</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Python&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pytrend</span><span class="o">.</span><span class="n">build_payload</span><span class="p">(</span><span class="n">kw_list</span> <span class="o">=</span> <span class="n">keywords</span><span class="p">,</span> <span class="n">timeframe</span><span class="o">=</span><span class="s1">&#39;2020-07-28 2020-08-29&#39;</span><span class="p">,</span> <span class="n">geo</span><span class="o">=</span><span class="s1">&#39;US&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pytrend</span><span class="o">.</span><span class="n">interest_over_time</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Python</th>
+      <th>R</th>
+      <th>isPartial</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2020-07-28</th>
+      <td>66</td>
+      <td>94</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-07-29</th>
+      <td>65</td>
+      <td>95</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-07-30</th>
+      <td>63</td>
+      <td>92</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-07-31</th>
+      <td>56</td>
+      <td>88</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-01</th>
+      <td>34</td>
+      <td>85</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-02</th>
+      <td>36</td>
+      <td>85</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-03</th>
+      <td>57</td>
+      <td>91</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-04</th>
+      <td>60</td>
+      <td>93</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-05</th>
+      <td>60</td>
+      <td>89</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-06</th>
+      <td>60</td>
+      <td>89</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-07</th>
+      <td>55</td>
+      <td>90</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-08</th>
+      <td>36</td>
+      <td>84</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-09</th>
+      <td>36</td>
+      <td>82</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-10</th>
+      <td>54</td>
+      <td>90</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-11</th>
+      <td>58</td>
+      <td>91</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-12</th>
+      <td>59</td>
+      <td>88</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-13</th>
+      <td>58</td>
+      <td>92</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-14</th>
+      <td>52</td>
+      <td>89</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-15</th>
+      <td>35</td>
+      <td>83</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-16</th>
+      <td>35</td>
+      <td>83</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-17</th>
+      <td>50</td>
+      <td>92</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-18</th>
+      <td>58</td>
+      <td>89</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-19</th>
+      <td>56</td>
+      <td>90</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-20</th>
+      <td>60</td>
+      <td>89</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-21</th>
+      <td>53</td>
+      <td>89</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-22</th>
+      <td>35</td>
+      <td>83</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-23</th>
+      <td>35</td>
+      <td>85</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-24</th>
+      <td>54</td>
+      <td>89</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-25</th>
+      <td>58</td>
+      <td>94</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-26</th>
+      <td>57</td>
+      <td>90</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2020-08-27</th>
+      <td>58</td>
+      <td>100</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pytrend</span><span class="o">.</span><span class="n">interest_by_region</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;COUNTRY&#39;</span><span class="p">,</span> <span class="n">inc_low_vol</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inc_geo_code</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Python</th>
+      <th>R</th>
+    </tr>
+    <tr>
+      <th>geoName</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Alabama</th>
+      <td>25</td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <th>Alaska</th>
+      <td>22</td>
+      <td>78</td>
+    </tr>
+    <tr>
+      <th>Arizona</th>
+      <td>31</td>
+      <td>69</td>
+    </tr>
+    <tr>
+      <th>Arkansas</th>
+      <td>25</td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <th>California</th>
+      <td>52</td>
+      <td>48</td>
+    </tr>
+    <tr>
+      <th>Colorado</th>
+      <td>39</td>
+      <td>61</td>
+    </tr>
+    <tr>
+      <th>Connecticut</th>
+      <td>36</td>
+      <td>64</td>
+    </tr>
+    <tr>
+      <th>Delaware</th>
+      <td>27</td>
+      <td>73</td>
+    </tr>
+    <tr>
+      <th>District of Columbia</th>
+      <td>37</td>
+      <td>63</td>
+    </tr>
+    <tr>
+      <th>Florida</th>
+      <td>27</td>
+      <td>73</td>
+    </tr>
+    <tr>
+      <th>Georgia</th>
+      <td>29</td>
+      <td>71</td>
+    </tr>
+    <tr>
+      <th>Hawaii</th>
+      <td>28</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>Idaho</th>
+      <td>28</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>Illinois</th>
+      <td>33</td>
+      <td>67</td>
+    </tr>
+    <tr>
+      <th>Indiana</th>
+      <td>28</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>Iowa</th>
+      <td>32</td>
+      <td>68</td>
+    </tr>
+    <tr>
+      <th>Kansas</th>
+      <td>27</td>
+      <td>73</td>
+    </tr>
+    <tr>
+      <th>Kentucky</th>
+      <td>25</td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <th>Louisiana</th>
+      <td>20</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>Maine</th>
+      <td>30</td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <th>Maryland</th>
+      <td>42</td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <th>Massachusetts</th>
+      <td>47</td>
+      <td>53</td>
+    </tr>
+    <tr>
+      <th>Michigan</th>
+      <td>28</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>Minnesota</th>
+      <td>33</td>
+      <td>67</td>
+    </tr>
+    <tr>
+      <th>Mississippi</th>
+      <td>18</td>
+      <td>82</td>
+    </tr>
+    <tr>
+      <th>Missouri</th>
+      <td>28</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>Montana</th>
+      <td>24</td>
+      <td>76</td>
+    </tr>
+    <tr>
+      <th>Nebraska</th>
+      <td>22</td>
+      <td>78</td>
+    </tr>
+    <tr>
+      <th>Nevada</th>
+      <td>22</td>
+      <td>78</td>
+    </tr>
+    <tr>
+      <th>New Hampshire</th>
+      <td>39</td>
+      <td>61</td>
+    </tr>
+    <tr>
+      <th>New Jersey</th>
+      <td>41</td>
+      <td>59</td>
+    </tr>
+    <tr>
+      <th>New Mexico</th>
+      <td>29</td>
+      <td>71</td>
+    </tr>
+    <tr>
+      <th>New York</th>
+      <td>39</td>
+      <td>61</td>
+    </tr>
+    <tr>
+      <th>North Carolina</th>
+      <td>33</td>
+      <td>67</td>
+    </tr>
+    <tr>
+      <th>North Dakota</th>
+      <td>25</td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <th>Ohio</th>
+      <td>28</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>Oklahoma</th>
+      <td>23</td>
+      <td>77</td>
+    </tr>
+    <tr>
+      <th>Oregon</th>
+      <td>46</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th>Pennsylvania</th>
+      <td>31</td>
+      <td>69</td>
+    </tr>
+    <tr>
+      <th>Rhode Island</th>
+      <td>25</td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <th>South Carolina</th>
+      <td>22</td>
+      <td>78</td>
+    </tr>
+    <tr>
+      <th>South Dakota</th>
+      <td>22</td>
+      <td>78</td>
+    </tr>
+    <tr>
+      <th>Tennessee</th>
+      <td>25</td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <th>Texas</th>
+      <td>35</td>
+      <td>65</td>
+    </tr>
+    <tr>
+      <th>Utah</th>
+      <td>35</td>
+      <td>65</td>
+    </tr>
+    <tr>
+      <th>Vermont</th>
+      <td>32</td>
+      <td>68</td>
+    </tr>
+    <tr>
+      <th>Virginia</th>
+      <td>49</td>
+      <td>51</td>
+    </tr>
+    <tr>
+      <th>Washington</th>
+      <td>46</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th>West Virginia</th>
+      <td>21</td>
+      <td>79</td>
+    </tr>
+    <tr>
+      <th>Wisconsin</th>
+      <td>28</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>Wyoming</th>
+      <td>24</td>
+      <td>76</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Olga Scrivner<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
