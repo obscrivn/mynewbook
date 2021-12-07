@@ -7,7 +7,9 @@
 
 
 ## Day 2 Tuesday
-
+- [POS Tagging](pos.md)
+- [Lemmatization](lemma.md)
+- [Tokenization Practice 2](practice2.ipynb)
 
 ## Day 3 Thursday
 

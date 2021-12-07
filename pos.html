@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NLP Applications &#8212; CSSE-490 Introduction to NLP</title>
+    <title>POS Tagging &#8212; CSSE-490 Introduction to NLP</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -62,10 +62,59 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Python for Natural Language" href="python.html" />
-    <link rel="prev" title="Regular Expressions" href="regex.html" />
+    <link rel="next" title="Lemmatization and Stemming" href="lemma.html" />
+    <link rel="prev" title="Tokenization Practice" href="practice.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -110,16 +159,16 @@
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="week1.html">
    Introduction to NLP
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="challenges.html">
      NLP Challenges
@@ -145,8 +194,8 @@
      Regular Expressions
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="applications.html">
      NLP Applications
     </a>
    </li>
@@ -157,16 +206,16 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="week2.html">
    Tokenization
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="pipeline.html">
      NLP Pipeline
@@ -177,8 +226,8 @@
      Tokenization Practice
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="pos.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      POS Tagging
     </a>
    </li>
@@ -235,7 +284,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/applications.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/pos.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -255,7 +304,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fapplications.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fpos.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -282,13 +331,18 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#forum-discussion">
-   Forum Discussion
+  <a class="reference internal nav-link" href="#pos-pipeline">
+   POS Pipeline
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#homework-assignment">
-   Homework Assignment
+  <a class="reference internal nav-link" href="#penntreebank-tagset">
+   PennTreeBank Tagset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#np-chunks">
+   NP Chunks
   </a>
  </li>
 </ul>
@@ -302,49 +356,29 @@
         
               <div>
                 
-  <div class="section" id="nlp-applications">
-<h1>NLP Applications<a class="headerlink" href="#nlp-applications" title="Permalink to this headline">¶</a></h1>
-<p><object data="_static/nlp-applications.pdf" width="950" height="650" type='application/pdf'/></object></p>
-<div class="section" id="forum-discussion">
-<h2>Forum Discussion<a class="headerlink" href="#forum-discussion" title="Permalink to this headline">¶</a></h2>
-<p><strong>NLP Applications</strong></p>
+  <div class="section" id="pos-tagging">
+<h1>POS Tagging<a class="headerlink" href="#pos-tagging" title="Permalink to this headline">¶</a></h1>
+<p><object data="_static/pos.pdf" width="950" height="650" type='application/pdf'/></object></p>
+<div class="section" id="pos-pipeline">
+<h2>POS Pipeline<a class="headerlink" href="#pos-pipeline" title="Permalink to this headline">¶</a></h2>
+<p><img alt="" src="_images/pos.png" /></p>
+</div>
+<div class="section" id="penntreebank-tagset">
+<h2>PennTreeBank Tagset<a class="headerlink" href="#penntreebank-tagset" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Sentiment</p></li>
-<li><p>Name entities</p></li>
-<li><p>Translation</p></li>
-<li><p>NLP Inference</p></li>
-<li><p>Semantic Role Labeling</p></li>
-<li><p>Relation Extraction</p></li>
-<li><p>Semantic Parsing</p></li>
-<li><p>Machine Comprehension</p></li>
-<li><p>Textual Entailment</p></li>
-<li><p>Coreference Resolution</p></li>
-<li><p>Searching</p></li>
-<li><p>Question Answering</p></li>
-<li><p>Speaker Identification</p></li>
+<li><p>Read Section 4 <a class="reference external" href="https://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/Penn-Treebank-Tagset.pdf">TagGuide</a></p></li>
 </ul>
-<p><strong>Forum Tasks</strong></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Step 1. Read Sarkar (pages 62-68): Chapters [Natural  Language Processing] and Chapter [Text analytics]
-
-Step 2. Select one NLP application (work in a group of 2)
-
-Step 3. Answer the following questions (use any existing online resources):
-
-    Q1. Provide a definition for NLP task
-    
-    Q2. What methods/tools/data are commonly used?
-    
-    Q3. What are the challenges?
-    
-    Q4. How this task (performance/accuracy) can be improved?
-    
-Step 4. Present to the class
+<p>Question 1: Find two ambiguous cases (with different grammatical categories)</p>
+</div>
+<div class="section" id="np-chunks">
+<h2>NP Chunks<a class="headerlink" href="#np-chunks" title="Permalink to this headline">¶</a></h2>
+<p>Question 2: Create rules for NP-phrases in English and an example. Use Penn-Treebank Tagset (see <a class="reference external" href="https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html">taglist</a>)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grammar</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">NP: { &lt;NNP&gt;}</span>
+<span class="s2">&quot;&quot;&quot;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="homework-assignment">
-<h2>Homework Assignment<a class="headerlink" href="#homework-assignment" title="Permalink to this headline">¶</a></h2>
-<p>Compare 2 NLP online tools and provide your assessment (see Moodle for details) - due Sunday</p>
+<p>example: <strong>Yoda</strong> (a proper name)</p>
 </div>
 </div>
 
@@ -373,17 +407,17 @@ Step 4. Present to the class
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="regex.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="practice.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Regular Expressions</p>
+            <p class="prev-next-title">Tokenization Practice</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="python.html" title="next page">
+    <a class='right-next' id="next-link" href="lemma.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Python for Natural Language</p>
+        <p class="prev-next-title">Lemmatization and Stemming</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
