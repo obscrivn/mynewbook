@@ -13,8 +13,8 @@
 
 ## Day 3 Thursday
 
-- Forum: 
+- Forum: Select one paper from Paper with Code for presentation
 
 ## Day 4 Friday
 
-- Lab: 
+- Lab: Complete Sarkar Chapter 3 Practice from Github (3a)
