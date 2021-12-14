@@ -54,6 +54,63 @@ Which example has 1) **Same Words / Different Meaning**, 2) **Different Word / S
 
 
 
+### TF-IDF
+
+TF-IDF is composed of 2 algorithms:
+
+- **Term Frequency** - how common the term is
+
+ $$ TF(t) = \frac{Number \; of \; times \; term \; t \; appears\; in \; a \; document}{Total \; number \;of\; terms \; in \;the\; document}$$
+
+- **Inverse Document Frequency** - how unique / rare the term is
+
+$$
+IDF(t) = log{_e}(\frac{Total\; number\; of\; documents}{Number\; of\; documents\; with \;term \;t\; in \;it})
+$$
+
+Example:
+![](_static/tf-idf-example.png)
+
+<small> source: https://en.wikipedia.org/wiki/Tf%E2%80%93idf </small>
+
+What is tf (_this_, document1)?
+- Count = 1
+- Total terms = 5
+
+$$
+tf(this, d1) = \frac{1}{5} =0.2 
+$$
+
+What is tf (_this_, document2)?
+- Count = 1
+- Total terms = 7
+
+$$
+tf(this, d2) = \frac{1}{7} =0.14 
+$$
 
 
+What is idf (_this_, D)?
+- Total Documents = 2
+- Documents with _this_ = 2
+- IDF is constant per corpus
 
+$$
+idf(this, D) = log(\frac{2}{2}) = 0 
+$$
+
+What is tf-idf (_this_,d1,D)?
+
+$$
+tfidf(this, d1, D) = 0.2 * 0  = 0 
+$$
+
+What is tf-idf (_this_,d2,D)?
+
+$$
+tfidf(this, d2, D) = 0.14 * 0  = 0 
+$$
+
+**Conclusion**: word _this_ is not informative because it occures in all documents
+
+Q1. Find TF-IDF for _example_

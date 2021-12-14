@@ -78,6 +78,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="sklearn" href="sklearn.html" />
     <link rel="prev" title="Feature Engineering" href="week3.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -222,6 +223,11 @@
      Features
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="sklearn.html">
+     sklearn
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -331,6 +337,11 @@
    N-Grams
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tf-idf">
+   TF-IDF
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -423,6 +434,65 @@
 </tbody>
 </table>
 </div>
+<div class="section" id="tf-idf">
+<h2>TF-IDF<a class="headerlink" href="#tf-idf" title="Permalink to this headline">¶</a></h2>
+<p>TF-IDF is composed of 2 algorithms:</p>
+<ul class="simple">
+<li><p><strong>Term Frequency</strong> - how common the term is</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ TF(t) = \frac{Number \; of \; times \; term \; t \; appears\; in \; a \; document}{Total \; number \;of\; terms \; in \;the\; document}\]</div>
+<ul class="simple">
+<li><p><strong>Inverse Document Frequency</strong> - how unique / rare the term is</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+IDF(t) = log{_e}(\frac{Total\; number\; of\; documents}{Number\; of\; documents\; with \;term \;t\; in \;it})
+\]</div>
+<p>Example:
+<img alt="" src="_images/tf-idf-example.png" /></p>
+<p><small> source: <a class="reference external" href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">https://en.wikipedia.org/wiki/Tf–idf</a> </small></p>
+<p>What is tf (<em>this</em>, document1)?</p>
+<ul class="simple">
+<li><p>Count = 1</p></li>
+<li><p>Total terms = 5</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+tf(this, d1) = \frac{1}{5} =0.2 
+\]</div>
+<p>What is tf (<em>this</em>, document2)?</p>
+<ul class="simple">
+<li><p>Count = 1</p></li>
+<li><p>Total terms = 7</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+tf(this, d2) = \frac{1}{7} =0.14 
+\]</div>
+<p>What is idf (<em>this</em>, D)?</p>
+<ul class="simple">
+<li><p>Total Documents = 2</p></li>
+<li><p>Documents with <em>this</em> = 2</p></li>
+<li><p>IDF is constant per corpus</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+idf(this, D) = log(\frac{2}{2}) = 0 
+\]</div>
+<p>What is tf-idf (<em>this</em>,d1,D)?</p>
+<div class="math notranslate nohighlight">
+\[
+tfidf(this, d1, D) = 0.2 * 0  = 0 
+\]</div>
+<p>What is tf-idf (<em>this</em>,d2,D)?</p>
+<div class="math notranslate nohighlight">
+\[
+tfidf(this, d2, D) = 0.14 * 0  = 0 
+\]</div>
+<p><strong>Conclusion</strong>: word <em>this</em> is not informative because it occures in all documents</p>
+<p>Q1. Find TF-IDF for <em>example</em></p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -456,6 +526,13 @@
             <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title">Feature Engineering</p>
         </div>
+    </a>
+    <a class='right-next' id="next-link" href="sklearn.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">sklearn</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
         

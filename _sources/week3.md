@@ -8,6 +8,7 @@
 
 ## Day 2 Tuesday
 
+- [Sklearn](sklearn.md)
 
 ## Day 3 Thursday
 
