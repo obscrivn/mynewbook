@@ -55,6 +55,13 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Features" href="features.html" />
@@ -325,7 +332,9 @@
 <p><img alt="" src="_images/cv.png" /></p>
 <p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">sklearn.feature_extraction.text</span> <span class="pre">import</span> <span class="pre">CountVectorizer</span></code></p>
 <p>STEPS</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># initialize</span>
+<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
+<span class="c1"># generate word counts</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -353,10 +362,40 @@
 </div>
 <div class="section" id="tfidf-transformer">
 <h2>TfIdf Transformer<a class="headerlink" href="#tfidf-transformer" title="Permalink to this headline">¶</a></h2>
-<p>We can use Transformer for TF or Tf-Idf
-Reference:<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfTransformer.html">https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfTransformer.html</a></p>
-<p>Q2. What are the default parameters? How to set up TF?</p>
+<p>We can use Transformer for TF or Tf-Idf</p>
+<p>Reference:<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html">https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html</a></p>
+<p>Q2. How to set up TF (instead of Tf-Idf)?</p>
 <p><img alt="" src="_images/tf.png" /></p>
+<p><code class="docutils literal notranslate"><span class="pre">rom</span> <span class="pre">sklearn.feature_extraction.text</span> <span class="pre">import</span> <span class="pre">TfidfVectorizer</span></code></p>
+<p>STEPS for TF</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">use_idf</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>STEPS for TF-IDF</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Practice with Google Colab</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="n">corpus</span> <span class="o">=</span> <span class="p">[</span>
+ <span class="s1">&#39;This is the first document.&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;This document is the second document.&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;And this is the third one.&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Is this the first document?&#39;</span><span class="p">,</span>
+ <span class="p">]</span>
+<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+<span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+<span class="n">array</span><span class="p">([</span><span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="s1">&#39;document&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">,</span> <span class="s1">&#39;the&#39;</span><span class="p">,</span> <span class="s1">&#39;third&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;this&#39;</span><span class="p">],</span> <span class="o">...</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://towardsdatascience.com/tf-idf-explained-and-python-sklearn-implementation-b020c5e83275">https://towardsdatascience.com/tf-idf-explained-and-python-sklearn-implementation-b020c5e83275</a></p>
+<p>Practice Google Colab</p>
+<p><a class="reference external" href="https://colab.research.google.com/drive/1eo75oo80vSFdvfrooxNpWawCWGNAwYao?usp=sharing">https://colab.research.google.com/drive/1eo75oo80vSFdvfrooxNpWawCWGNAwYao?usp=sharing</a></p>
 </div>
 </div>
 
