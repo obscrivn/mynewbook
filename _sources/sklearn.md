@@ -92,3 +92,6 @@ https://towardsdatascience.com/tf-idf-explained-and-python-sklearn-implementatio
 Practice Google Colab
 
 [https://colab.research.google.com/drive/1eo75oo80vSFdvfrooxNpWawCWGNAwYao?usp=sharing](https://colab.research.google.com/drive/1eo75oo80vSFdvfrooxNpWawCWGNAwYao?usp=sharing)
+
+
+Smoothing - https://nbviewer.org/github/rasbt/pattern_classification/blob/master/machine_learning/scikit-learn/tfidf_scikit-learn.ipynb 

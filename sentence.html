@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>POS Tagging &#8212; CSSE-490 Introduction to NLP</title>
+    <title>Syntactic Structure &#8212; CSSE-490 Introduction to NLP</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -118,10 +118,51 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Lemmatization and Stemming" href="lemma.html" />
-    <link rel="prev" title="Tokenization Practice" href="practice.html" />
+    <link rel="prev" title="sklearn" href="sklearn.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -213,16 +254,16 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="week2.html">
    Tokenization
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="pipeline.html">
      NLP Pipeline
@@ -233,8 +274,8 @@
      Tokenization Practice
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="pos.html">
      POS Tagging
     </a>
    </li>
@@ -250,16 +291,16 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="week3.html">
    Feature Engineering
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="features.html">
      Features
@@ -270,8 +311,8 @@
      sklearn
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="sentence.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Syntactic Structure
     </a>
    </li>
@@ -318,7 +359,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/pos.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/sentence.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -338,7 +379,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fpos.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fsentence.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -365,19 +406,21 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#pos-pipeline">
-   POS Pipeline
+  <a class="reference internal nav-link" href="#phrases">
+   Phrases
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#penntreebank-tagset">
-   PennTreeBank Tagset
+  <a class="reference internal nav-link" href="#grammar">
+   Grammar
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#np-chunks">
-   NP Chunks
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#constituency-grammar">
+     Constituency Grammar
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -390,29 +433,43 @@
         
               <div>
                 
-  <div class="section" id="pos-tagging">
-<h1>POS Tagging<a class="headerlink" href="#pos-tagging" title="Permalink to this headline">¶</a></h1>
-<p><object data="_static/pos.pdf" width="950" height="650" type='application/pdf'/></object></p>
-<div class="section" id="pos-pipeline">
-<h2>POS Pipeline<a class="headerlink" href="#pos-pipeline" title="Permalink to this headline">¶</a></h2>
-<p><img alt="" src="_images/pos.png" /></p>
+  <div class="section" id="syntactic-structure">
+<h1>Syntactic Structure<a class="headerlink" href="#syntactic-structure" title="Permalink to this headline">¶</a></h1>
+<p>sentence = “The brown fox is quick and he is jumping over the lazy dog”</p>
+<p><img alt="" src="_images/sentence.png" />
+<small>Source: Figure 1-4 from Chapter1. Sarkar (2019) </small></p>
+<p>hierarchy of sentence → clause → phrase → word</p>
+<div class="section" id="phrases">
+<h2>Phrases<a class="headerlink" href="#phrases" title="Permalink to this headline">¶</a></h2>
+<p><img alt="" src="_images/phrases.png" /></p>
+<p><img alt="" src="_images/shallow.png" /></p>
 </div>
-<div class="section" id="penntreebank-tagset">
-<h2>PennTreeBank Tagset<a class="headerlink" href="#penntreebank-tagset" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="grammar">
+<h2>Grammar<a class="headerlink" href="#grammar" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Read Section 4 <a class="reference external" href="https://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/Penn-Treebank-Tagset.pdf">TagGuide</a></p></li>
+<li><p>Reading Sarkar Ch.1 (21-32)</p></li>
 </ul>
-<p>Question 1: Find two ambiguous cases (with different grammatical categories)</p>
+<div class="section" id="constituency-grammar">
+<h3>Constituency Grammar<a class="headerlink" href="#constituency-grammar" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Represents the internal structure of sentences in terms of a hierarchically ordered structure of its constituents.</p></li>
+<li><p>Constituents: NP (noun phrase), VP (verb phrase), PP (prepositional phrase), AdvP, AdjP, S (sentence)</p></li>
+</ul>
+<p><strong>Noun Phrase</strong>
+<img alt="" src="_images/tree1.png" /></p>
+<p><small>Source: Figure 1-13 from Chapter1. Sarkar (2019) </small></p>
+<p><strong>Verb Phrase</strong></p>
+<p><img alt="" src="_images/tree2.png" />
+<small>Source: Figure 1-14 from Chapter1. Sarkar (2019) </small></p>
+<p><strong>Prepopsitional Phrase</strong>
+<img alt="" src="_images/tree3.png" />
+<small>Source: Figure 1-15 from Chapter1. Sarkar (2019) </small></p>
+<p><strong>Sentence</strong>
+<img alt="" src="_images/tree4.png" />
+<small>Source: Figure 1-16 from Chapter1. Sarkar (2019) </small>
+Question 1: Write down a simple sentence (Noun Phrase and Verb Phrase)</p>
+<p>Question 2.: Draw a syntactic tree</p>
 </div>
-<div class="section" id="np-chunks">
-<h2>NP Chunks<a class="headerlink" href="#np-chunks" title="Permalink to this headline">¶</a></h2>
-<p>Question 2: Create rules for NP-phrases in English and an example. Use Penn-Treebank Tagset (see <a class="reference external" href="https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html">taglist</a>)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grammar</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">NP: { &lt;NNP&gt;}</span>
-<span class="s2">&quot;&quot;&quot;</span>
-</pre></div>
-</div>
-<p>example: <strong>Yoda</strong> (a proper name)</p>
 </div>
 </div>
 
@@ -441,19 +498,12 @@
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="practice.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="sklearn.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Tokenization Practice</p>
+            <p class="prev-next-title">sklearn</p>
         </div>
-    </a>
-    <a class='right-next' id="next-link" href="lemma.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Lemmatization and Stemming</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
     </a>
 </div>
         
