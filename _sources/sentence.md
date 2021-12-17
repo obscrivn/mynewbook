@@ -42,6 +42,7 @@ hierarchy of sentence → clause → phrase → word
 **Sentence**
 ![](_static/tree4.png)
 <small>Source: Figure 1-16 from Chapter1. Sarkar (2019) </small>
+
 Question 1: Write down a simple sentence (Noun Phrase and Verb Phrase)
 
 Question 2.: Draw a syntactic tree
