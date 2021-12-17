@@ -44,7 +44,7 @@ print(X.toarray())
 
 Q2. What are the feature names in row0: [0 1 1 1 0 0 1 0 1]?
 
-### TfIdf Transformer
+### TfIdf Vectorizer
 
 We can use Transformer for TF or Tf-Idf
 
@@ -86,6 +86,18 @@ array(['and', 'document', 'first', 'is', 'one', 'second', 'the', 'third',
        'this'], ...)
 print(X.shape)
 ```
+
+Smoothing
+
+- TfidfTransformer is the smooth_idf: 
+
+  - smooth_idf : boolean, default=True
+
+- Smooth idf prevents zero divisions and adds one to document frequencies, as if an extra document was seen containing every term in the collection exactly once.
+
+$$
+smoothIDF(t) = log{_e}(\frac{1+ Total\; number\; of\; documents}{Number\; of\; documents\; with \;term \;t\; in \;it + 1}) + 1
+$$
 
 https://towardsdatascience.com/tf-idf-explained-and-python-sklearn-implementation-b020c5e83275
 
