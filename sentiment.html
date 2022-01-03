@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Introduction to NLP &#8212; CSSE-490 Introduction to NLP</title>
+    <title>Sentiment &#8212; CSSE-490 Introduction to NLP</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -188,45 +188,8 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="NLP Challenges" href="challenges.html" />
-    <link rel="prev" title="Welcome to CSSE-490 NLP" href="welcome.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -270,12 +233,12 @@
   </a>
  </li>
 </ul>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week1.html">
    Introduction to NLP
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
@@ -450,7 +413,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/week1.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/sentiment.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -470,7 +433,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fweek1.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fsentiment.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -497,24 +460,26 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#day-1-monday">
-   Day 1 Monday
+  <a class="reference internal nav-link" href="#supervised-methods">
+   Supervised Methods
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#day-2-tuesday">
-   Day 2 Tuesday
+  <a class="reference internal nav-link" href="#sentiment-analysis">
+   Sentiment Analysis
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#day-3-thursday">
-   Day 3 Thursday
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#day-4-friday">
-   Day 4 Friday
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#vocabulary-mapping">
+     Vocabulary Mapping
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#feature-extraction">
+     Feature Extraction
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -527,36 +492,127 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="introduction-to-nlp">
-<h1>Introduction to NLP<a class="headerlink" href="#introduction-to-nlp" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="day-1-monday">
-<h2>Day 1 Monday<a class="headerlink" href="#day-1-monday" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="sentiment">
+<h1>Sentiment<a class="headerlink" href="#sentiment" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="supervised-methods">
+<h2>Supervised Methods<a class="headerlink" href="#supervised-methods" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="challenges.html"><span class="doc std std-doc">NLP Challenges</span></a></p></li>
-<li><p><a class="reference internal" href="turing.html"><span class="doc std std-doc">Turing Test</span></a></p></li>
-<li><p><a class="reference internal" href="tools.html"><span class="doc std std-doc">Setting up Tools</span></a></p></li>
+<li><p><span class="math notranslate nohighlight">\(X\)</span> is features (input), <span class="math notranslate nohighlight">\(Y\)</span> is labels (output)</p>
+<ul>
+<li><p>Often labels are binary (positive = 1, negative = 0)</p></li>
 </ul>
+</li>
+<li><p>Your task is <strong>to predict output label based on features</strong></p></li>
+<li><p><span class="math notranslate nohighlight">\(X\)</span> goes into your prediction function to get the output estimate <span class="math notranslate nohighlight">\(\hat{Y}\)</span></p></li>
+<li><p>Compare <span class="math notranslate nohighlight">\(\hat{Y}\)</span> with the <strong>true</strong> Y</p></li>
+<li><p>Obtain COST and update the parameters <span class="math notranslate nohighlight">\(\theta\)</span></p></li>
+</ul>
+<p><img alt="" src="_images/sentiment1.png" /></p>
 </div>
-<div class="section" id="day-2-tuesday">
-<h2>Day 2 Tuesday<a class="headerlink" href="#day-2-tuesday" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sentiment-analysis">
+<h2>Sentiment Analysis<a class="headerlink" href="#sentiment-analysis" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="language.html"><span class="doc std std-doc">Natural Language</span></a></p></li>
-<li><p><a class="reference internal" href="regex.html"><span class="doc std std-doc">Regular expressions</span></a></p></li>
+<li><p>Represent text as features</p></li>
+<li><p>Train Logistic Regression Classifier (for binary claassification: positive versus negative)</p></li>
+<li><p>Use the trained model to classify the new text</p></li>
+<li><p>If you data is not labeled for training, you can use pretrained models</p></li>
 </ul>
-</div>
-<div class="section" id="day-3-thursday">
-<h2>Day 3 Thursday<a class="headerlink" href="#day-3-thursday" title="Permalink to this headline">¶</a></h2>
+<p><img alt="" src="_images/sentiment2.png" /></p>
+<p>Poblems with a sparse representation:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}
+[\theta_1, \theta_2 ... \theta_n]\\n = |V|,\; where\; V \;= \;vocabulary\; size
+\end{aligned}\end{align} \]</div>
+<ol class="simple">
+<li><p>Longer traning time</p></li>
+<li><p>Longer prediction time</p></li>
+<li><p>Number of parameters for LR classifier = n+1</p></li>
+</ol>
+<p>Q1. How many parameters LR Classifier will have to learn for the following Twitter Corpus (assume you do not need to remove stopwords here)?
+s
+[“I just bought a new airpod”,”I like this movie”,”I bought a movie ticket” ]</p>
 <ul class="simple">
-<li><p>Forum: <a class="reference internal" href="applications.html"><span class="doc std std-doc">NLP Applications</span></a></p></li>
+<li><p>10, 11, 15, 16?</p></li>
 </ul>
+<div class="section" id="vocabulary-mapping">
+<h3>Vocabulary Mapping<a class="headerlink" href="#vocabulary-mapping" title="Permalink to this headline">¶</a></h3>
+<p>[“I am happy”, “I am sad”, “I am happy because I am learning NLP”, “I am sad, I am not learning AI”]</p>
+<p>Vocabulary V = [I, am, sad, happy, because, not, NLP, AI, learning]</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>Positive(1)</p></th>
+<th class="text-align:center head"><p>Negative(0)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>I am happy</p></td>
+<td class="text-align:center"><p>I am sad</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>I am happy because I am learning NLP</p></td>
+<td class="text-align:center"><p>I am sad, I am not learning AI</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>(Word, Class) Mapping</strong>: each word has a dimension of 3</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>Vocabulary</p></th>
+<th class="text-align:center head"><p>Positive(1)</p></th>
+<th class="text-align:center head"><p>Negative(0)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>I</p></td>
+<td class="text-align:center"><p>3</p></td>
+<td class="text-align:center"><p>3</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>am</p></td>
+<td class="text-align:center"><p>3</p></td>
+<td class="text-align:center"><p>3</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>happy</p></td>
+<td class="text-align:center"><p>2</p></td>
+<td class="text-align:center"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>because</p></td>
+<td class="text-align:center"><p>1</p></td>
+<td class="text-align:center"><p>0</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>learning</p></td>
+<td class="text-align:center"><p>1</p></td>
+<td class="text-align:center"><p>1</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>NLP</p></td>
+<td class="text-align:center"><p>1</p></td>
+<td class="text-align:center"><p>0</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>sad</p></td>
+<td class="text-align:center"><p>0</p></td>
+<td class="text-align:center"><p>2</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>AI</p></td>
+<td class="text-align:center"><p>0</p></td>
+<td class="text-align:center"><p>1</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>not</p></td>
+<td class="text-align:center"><p>0</p></td>
+<td class="text-align:center"><p>1</p></td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="section" id="day-4-friday">
-<h2>Day 4 Friday<a class="headerlink" href="#day-4-friday" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Lab: <a class="reference internal" href="python.html"><span class="doc std std-doc">Working with Strings in Python</span></a></p></li>
-</ul>
+<div class="section" id="feature-extraction">
+<h3>Feature Extraction<a class="headerlink" href="#feature-extraction" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}
+X_m = [1, \sum_w frequency(w,1), \sum_w frequency(w,0)]\\where \; 1 = \; bias\\\sum_w frequency(w,1) - \;all\; positive\\\sum_w frequency(w,0) - \;all \;negative
+\end{aligned}\end{align} \]</div>
+<p>What are the values for <span style="color:red;">”I am sad, I am not learning AI”</span>:</p>
+<p>[1, 7, 11]</p>
+<p>1 corresponds to the bias, 7 - sum of positive frequencies, and 11 - sum of  negative frequencies</p>
+<p>Q2. Calculate values for <span style="color:red;">”I am happy”</span>.</p>
+<p><small> Images source: <a class="reference external" href="http://DeepLearning.AI">DeepLearning.AI</a> Natural Language Processing with Classification and Vector Spaces. </small></p>
 </div>
-<div class="toctree-wrapper compound">
 </div>
 </div>
 
@@ -584,21 +640,7 @@
               
         
             <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="welcome.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Welcome to CSSE-490 NLP</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="challenges.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">NLP Challenges</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
+<div class='prev-next-area'>
 </div>
         
         </div>

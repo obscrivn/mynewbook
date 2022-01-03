@@ -47,6 +47,7 @@ Which example has 1) **Same Words / Different Meaning**, 2) **Different Word / S
 <span style="color:red">Tim Cook is the CEO of Apple</span>
 
 **Q4**. Write unigrams, bigrams, and trigrams of the above sentence (in a table format)
+
 | Unigrams   |      Bigrams      |  Trigrams |
 |:----------:|:-------------:|:------:|
 | token1 |  token1 token2 | token1 token2 token3 |

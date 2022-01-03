@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Introduction to NLP &#8212; CSSE-490 Introduction to NLP</title>
+    <title>Clustering &#8212; CSSE-490 Introduction to NLP</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -223,10 +223,31 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="NLP Challenges" href="challenges.html" />
-    <link rel="prev" title="Welcome to CSSE-490 NLP" href="welcome.html" />
+    <link rel="next" title="Review Tokenization" href="reviewweek4.html" />
+    <link rel="prev" title="Syntactic Structure" href="sentence.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -271,11 +292,11 @@
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week1.html">
    Introduction to NLP
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
@@ -382,11 +403,11 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="week4.html">
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
    Clustering
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
   <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
@@ -450,7 +471,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/week1.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/week4.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -470,7 +491,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fweek1.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fweek4.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -527,33 +548,32 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="introduction-to-nlp">
-<h1>Introduction to NLP<a class="headerlink" href="#introduction-to-nlp" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="clustering">
+<h1>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="day-1-monday">
 <h2>Day 1 Monday<a class="headerlink" href="#day-1-monday" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="challenges.html"><span class="doc std std-doc">NLP Challenges</span></a></p></li>
-<li><p><a class="reference internal" href="turing.html"><span class="doc std std-doc">Turing Test</span></a></p></li>
-<li><p><a class="reference internal" href="tools.html"><span class="doc std std-doc">Setting up Tools</span></a></p></li>
+<li><p><a class="reference internal" href="reviewweek4.html"><span class="doc std std-doc">Review Tokenization</span></a></p></li>
+<li><p><a class="reference internal" href="cbow.html"><span class="doc std std-doc">CBOW</span></a></p></li>
+<li><p><a class="reference internal" href="Welcome_To_Colaboratory_Review.html"><span class="doc std std-doc">Markdown Review</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="day-2-tuesday">
 <h2>Day 2 Tuesday<a class="headerlink" href="#day-2-tuesday" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="language.html"><span class="doc std std-doc">Natural Language</span></a></p></li>
-<li><p><a class="reference internal" href="regex.html"><span class="doc std std-doc">Regular expressions</span></a></p></li>
+<li><p>Distance Metrics</p></li>
 </ul>
 </div>
 <div class="section" id="day-3-thursday">
 <h2>Day 3 Thursday<a class="headerlink" href="#day-3-thursday" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Forum: <a class="reference internal" href="applications.html"><span class="doc std std-doc">NLP Applications</span></a></p></li>
+<li><p>Forum: Presentations and Q&amp;A (see Calendar)</p></li>
 </ul>
 </div>
 <div class="section" id="day-4-friday">
 <h2>Day 4 Friday<a class="headerlink" href="#day-4-friday" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Lab: <a class="reference internal" href="python.html"><span class="doc std std-doc">Working with Strings in Python</span></a></p></li>
+<li><p>Lab:</p></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -585,17 +605,17 @@
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="welcome.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="sentence.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Welcome to CSSE-490 NLP</p>
+            <p class="prev-next-title">Syntactic Structure</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="challenges.html" title="next page">
+    <a class='right-next' id="next-link" href="reviewweek4.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">NLP Challenges</p>
+        <p class="prev-next-title">Review Tokenization</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

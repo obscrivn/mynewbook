@@ -12,7 +12,7 @@
 
 ## Day 3 Thursday
 
-- Forum: Syntactic Structure (sentence.md)
+- Forum: [Syntactic Structure](sentence.md)
 
 ## Day 4 Friday
 
