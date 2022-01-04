@@ -4,7 +4,7 @@
 
 - [Review Tokenization](reviewweek4.md)
 - [CBOW](cbow.md)
-- [Markdown Review](Welcome_To_Colaboratory_Review.ipynb)
+
 
 
 ## Day 2 Tuesday
@@ -18,3 +18,5 @@
 ## Day 4 Friday
 
 - Lab: 
+- [Markdown Review](Welcome_To_Colaboratory_Review.ipynb)
+
