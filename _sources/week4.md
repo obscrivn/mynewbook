@@ -9,7 +9,7 @@
 
 ## Day 2 Tuesday
 
-- Distance Metrics
+- [Distance Metrics](distance.md)
 
 ## Day 3 Thursday
 

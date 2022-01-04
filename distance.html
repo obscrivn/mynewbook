@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lemmatization and Stemming &#8212; CSSE-490 Introduction to NLP</title>
+    <title>Distance Metrics &#8212; CSSE-490 Introduction to NLP</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -90,31 +90,9 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Tokenization Pipeline" href="practice2.html" />
-    <link rel="prev" title="POS Tagging" href="pos.html" />
+    <link rel="prev" title="Colab Review" href="Welcome_To_Colaboratory_Review.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -206,16 +184,16 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="week2.html">
    Tokenization
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="pipeline.html">
      NLP Pipeline
@@ -231,8 +209,8 @@
      POS Tagging
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="lemma.html">
      Lemmatization and Stemming
     </a>
    </li>
@@ -270,16 +248,16 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="week4.html">
    Clustering
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
   <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="reviewweek4.html">
      Review Tokenization
@@ -295,8 +273,8 @@
      Colab Review
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="distance.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Distance Metrics
     </a>
    </li>
@@ -343,7 +321,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/lemma.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/distance.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -363,7 +341,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Flemma.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdistance.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -390,13 +368,13 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#morphemes">
-   Morphemes
+  <a class="reference internal nav-link" href="#similarity-measurements">
+   Similarity Measurements
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#stop-words">
-   Stop Words
+  <a class="reference internal nav-link" href="#document-clustering">
+   Document Clustering
   </a>
  </li>
 </ul>
@@ -410,24 +388,26 @@
         
               <div>
                 
-  <div class="section" id="lemmatization-and-stemming">
-<h1>Lemmatization and Stemming<a class="headerlink" href="#lemmatization-and-stemming" title="Permalink to this headline">¶</a></h1>
-<p><object data="_static/stemming.pdf" width="950" height="650" type='application/pdf'/></object></p>
-<div class="section" id="morphemes">
-<h2>Morphemes<a class="headerlink" href="#morphemes" title="Permalink to this headline">¶</a></h2>
-<p>Question 3. Provide an example of <strong>prefix</strong>, <strong>base form</strong>, <strong>suffix</strong></p>
-<p>Question 4. Which suffix is <strong>derivational</strong> and <strong>inflectional</strong></p>
+  <div class="section" id="distance-metrics">
+<h1>Distance Metrics<a class="headerlink" href="#distance-metrics" title="Permalink to this headline">¶</a></h1>
+<p><img alt="" src="_images/distance-measures.png" /></p>
+<div class="section" id="similarity-measurements">
+<h2>Similarity Measurements<a class="headerlink" href="#similarity-measurements" title="Permalink to this headline">¶</a></h2>
+<p><object data="_static/doc-similarity.pdf" width="950" height="650" type='application/pdf'/></object></p>
+<p><strong>Group work</strong>:</p>
+<p>Present advantages/disadvantages, formula and use cases for:</p>
 <ul class="simple">
-<li><p>hat -&gt; hats</p></li>
-<li><p>build -&gt; builder</p></li>
+<li><p>Euclidean Distance</p></li>
+<li><p>Jaccard</p></li>
+<li><p>Cosine Similarity</p></li>
+<li><p>Manhattan Distance</p></li>
+<li><p>Minkowski Distance</p></li>
 </ul>
-<p>Question 5. What is the name of a commonly used Stemmer?</p>
+<p>Source:<a class="reference external" href="https://towardsdatascience.com/9-distance-measures-in-data-science-918109d069fa">https://towardsdatascience.com/9-distance-measures-in-data-science-918109d069fa</a></p>
 </div>
-<div class="section" id="stop-words">
-<h2>Stop Words<a class="headerlink" href="#stop-words" title="Permalink to this headline">¶</a></h2>
-<p>Question 6. What words are functional?</p>
-<p>Question 7. What words are lexical?</p>
-<p>Question 8. Is there a universal stopword list?</p>
+<div class="section" id="document-clustering">
+<h2>Document Clustering<a class="headerlink" href="#document-clustering" title="Permalink to this headline">¶</a></h2>
+<p><object data="_static/doc-clustering.pdf" width="950" height="650" type='application/pdf'/></object></p>
 </div>
 </div>
 
@@ -456,19 +436,12 @@
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="pos.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="Welcome_To_Colaboratory_Review.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">POS Tagging</p>
+            <p class="prev-next-title">Colab Review</p>
         </div>
-    </a>
-    <a class='right-next' id="next-link" href="practice2.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Tokenization Pipeline</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
     </a>
 </div>
         
