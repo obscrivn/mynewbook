@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sentiment &#8212; CSSE-490 Introduction to NLP</title>
+    <title>Classification &#8212; CSSE-490 Introduction to NLP</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -197,6 +197,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Classification" href="week5.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -240,7 +241,7 @@
   </a>
  </li>
 </ul>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="week1.html">
    Introduction to NLP
@@ -384,6 +385,23 @@
    </li>
   </ul>
  </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="week5.html">
+   Classification
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Classification
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
     </div>
@@ -504,8 +522,9 @@
         
               <div>
                 
-  <div class="section" id="sentiment">
-<h1>Sentiment<a class="headerlink" href="#sentiment" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="classification">
+<h1>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h1>
+<p><object data="_static/classification.pdf" width="950" height="650" type='application/pdf'/></object></p>
 <div class="section" id="supervised-methods">
 <h2>Supervised Methods<a class="headerlink" href="#supervised-methods" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -523,9 +542,10 @@
 </div>
 <div class="section" id="sentiment-analysis">
 <h2>Sentiment Analysis<a class="headerlink" href="#sentiment-analysis" title="Permalink to this headline">¶</a></h2>
+<p><object data="_static/sentiment.pdf" width="950" height="650" type='application/pdf'/></object></p>
 <ul class="simple">
 <li><p>Represent text as features</p></li>
-<li><p>Train Logistic Regression Classifier (for binary claassification: positive versus negative)</p></li>
+<li><p>Train Logistic Regression Classifier (for binary classification: positive versus negative)</p></li>
 <li><p>Use the trained model to classify the new text</p></li>
 <li><p>If you data is not labeled for training, you can use pretrained models</p></li>
 </ul>
@@ -652,7 +672,14 @@ X_m = [1, \sum_w frequency(w,1), \sum_w frequency(w,0)]\\where \; 1 = \; bias\\\
               
         
             <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="week5.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Classification</p>
+        </div>
+    </a>
 </div>
         
         </div>

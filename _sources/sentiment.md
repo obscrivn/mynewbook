@@ -1,4 +1,6 @@
-## Sentiment
+## Classification
+
+<object data="_static/classification.pdf" width="950" height="650" type='application/pdf'/></object>
 
 ### Supervised Methods
 
@@ -13,9 +15,11 @@
 
 ### Sentiment Analysis
  
- 
+<object data="_static/sentiment.pdf" width="950" height="650" type='application/pdf'/></object>
+
+
 - Represent text as features
-- Train Logistic Regression Classifier (for binary claassification: positive versus negative)
+- Train Logistic Regression Classifier (for binary classification: positive versus negative)
 - Use the trained model to classify the new text
 - If you data is not labeled for training, you can use pretrained models
 
