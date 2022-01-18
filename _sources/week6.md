@@ -8,7 +8,8 @@
 
 ## Day 2 Tuesday
 
-- Neural network
+- [Evaluation Metrics](evaluation.md)
+- [Models](models.md)
 
 ## Day 3 Thursday
 

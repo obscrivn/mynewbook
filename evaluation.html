@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Here’s my sample title &#8212; CSSE-490 Introduction to NLP</title>
+    <title>Evaluation Metrics &#8212; CSSE-490 Introduction to NLP</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -104,43 +104,10 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Models" href="models.html" />
+    <link rel="prev" title="Topic Modeling" href="topic.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -184,7 +151,7 @@
   </a>
  </li>
 </ul>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="week1.html">
    Introduction to NLP
@@ -345,23 +312,23 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="week6.html">
    Topic Modeling
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
   <label for="toctree-checkbox-6">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="topic.html">
      Topic Modeling
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="evaluation.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Evaluation Metrics
     </a>
    </li>
@@ -413,7 +380,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/mymarkdownfile.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/evaluation.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -433,7 +400,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmymarkdownfile.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fevaluation.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -460,9 +427,46 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#here-s-my-first-section">
-   Here’s my first section
+  <a class="reference internal nav-link" href="#confusion-matrix">
+   Confusion Matrix
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#types">
+   Types
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#accuracy">
+     Accuracy
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#precision">
+     Precision
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#recall">
+     Recall
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#f1">
+     F1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#practice">
+     Practice
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#roc-curve">
+     ROC Curve
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -475,12 +479,74 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="here-s-my-sample-title">
-<h1>Here’s my sample title<a class="headerlink" href="#here-s-my-sample-title" title="Permalink to this headline">¶</a></h1>
-<p>This is some sample text.</p>
-<div class="section" id="here-s-my-first-section">
-<span id="section-label"></span><h2>Here’s my first section<a class="headerlink" href="#here-s-my-first-section" title="Permalink to this headline">¶</a></h2>
-<p>Here is a <span class="xref myst">reference to the intro</span>. Here is a reference to <a class="reference internal" href="#section-label"><span class="std std-ref">Here’s my first section</span></a></p>
+  <div class="section" id="evaluation-metrics">
+<h1>Evaluation Metrics<a class="headerlink" href="#evaluation-metrics" title="Permalink to this headline">¶</a></h1>
+<p><small>Source: Kyrtis Pykes. 2020. Confusion Matrix</small></p>
+<ul class="simple">
+<li><p><strong>Intrinsic Evaluation</strong> — Focuses on intermediary objectives (i.e. the performance of an NLP component on a defined subtask)</p></li>
+<li><p><strong>Extrinsic Evaluation</strong> — Focuses on the performance of the final objective (i.e. the performance of the component on the complete application)</p></li>
+</ul>
+<div class="section" id="confusion-matrix">
+<h2>Confusion Matrix<a class="headerlink" href="#confusion-matrix" title="Permalink to this headline">¶</a></h2>
+<p><strong>What is the Confusion Matrix?</strong>
+The confusion matrix is a useful tool used for classification tasks in machine learning with the primary objective of visualizing the performance of a machine learning model.</p>
+<p><img alt="" src="_images/cmatrix.png" /></p>
+<ul class="simple">
+<li><p><strong>True Positives</strong>: The model predicted positive and the label was actually positive.</p></li>
+<li><p><strong>True Negatives</strong>: The model predicted negative and the label was actually negative.</p></li>
+<li><p><strong>False Positives</strong>: The model predicted positive and the label was actually negative.</p></li>
+<li><p><strong>False Negatives</strong>: The model predicted negative and the label was actually positive.</p></li>
+</ul>
+</div>
+<div class="section" id="types">
+<h2>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="accuracy">
+<h3>Accuracy<a class="headerlink" href="#accuracy" title="Permalink to this headline">¶</a></h3>
+<p><img alt="" src="_images/accuracy.png" />
+Whenever the accuracy metric is used, we aim to learn the closeness of a measured value to a known value. It is therefore typically used in instances where the output variable is categorical or discrete (classification task).</p>
+</div>
+<div class="section" id="precision">
+<h3>Precision<a class="headerlink" href="#precision" title="Permalink to this headline">¶</a></h3>
+<p><img alt="" src="_images/precision.png" />
+<em>the positive predictive value</em>
+In instances where we are concerned with how exact the model’s predictions are we would use Precision. The precision metric would inform us of the number of labels that are actually labeled as positive in correspondence to the instances that the classifier labeled as positive.</p>
+</div>
+<div class="section" id="recall">
+<h3>Recall<a class="headerlink" href="#recall" title="Permalink to this headline">¶</a></h3>
+<p><img alt="" src="_images/recall.png" />
+<em>sensitivity or the true positive rate</em>
+Recall measures how well the model can recall the positive class (i.e. the number of positive labels that the model identified as positive)</p>
+</div>
+<div class="section" id="f1">
+<h3>F1<a class="headerlink" href="#f1" title="Permalink to this headline">¶</a></h3>
+<p><img alt="" src="_images/f1.png" />
+When we need to strike a balance between precision and recall, a better known metric is the F1-score ( also know as the F measure). F1-score is a measure of accuracy that considers the precision and recall</p>
+</div>
+<div class="section" id="practice">
+<h3>Practice<a class="headerlink" href="#practice" title="Permalink to this headline">¶</a></h3>
+<p><img alt="" src="_images/dogs.png" /></p>
+<ul class="simple">
+<li><p>Q1. Identify: TP, TN, FP, FN</p></li>
+<li><p>Q2. Calculate accuracy</p></li>
+<li><p>Q3. Calculate Precision</p></li>
+<li><p>Q4. Calculate Recall</p></li>
+<li><p>Q5. Calculate F1</p></li>
+</ul>
+</div>
+<div class="section" id="roc-curve">
+<h3>ROC Curve<a class="headerlink" href="#roc-curve" title="Permalink to this headline">¶</a></h3>
+<p><img alt="" src="_images/roc.png" /></p>
+<p>An ROC curve (receiver operating characteristic curve) is a graph showing the performance of a classification model at all classification thresholds. This curve plots two parameters:</p>
+<ul class="simple">
+<li><p>True Positive Rate</p></li>
+<li><p>False Positive Rate</p></li>
+</ul>
+<p>An ROC curve plots TPR vs. FPR at different classification thresholds. Lowering the classification threshold classifies more items as positive, thus increasing both False Positives and True Positives. The following figure shows a typical ROC curve</p>
+<p>AUC stands for “Area under the ROC Curve.” That is, AUC measures the entire two-dimensional area underneath the entire ROC curve</p>
+<p><a class="reference external" href="https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc">https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc</a></p>
+<p>Source: <a class="reference external" href="https://towardsdatascience.com/confusion-matrix-un-confused-1ba98dee0d7f">https://towardsdatascience.com/confusion-matrix-un-confused-1ba98dee0d7f</a>
+Source: <a class="reference external" href="https://towardsdatascience.com/confusion-matrix-un-confused-1ba98dee0d7f">https://towardsdatascience.com/confusion-matrix-un-confused-1ba98dee0d7f</a></p>
+</div>
 </div>
 </div>
 
@@ -508,7 +574,21 @@
               
         
             <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="topic.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Topic Modeling</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="models.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Models</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
