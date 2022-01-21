@@ -1,11 +1,20 @@
 ## Topic Modeling
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-pgNW8Zr_fg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+<br>
 <object data="_static/topic-modeling.pdf" width="950" height="650" type='application/pdf'/></object>
 
-### Key Phrase Extraction
+### LDA
 
+![](_static/topics.png)
+
+
+> LDA is a hierarchical Bayesian model that assumes topics are probability distributions over words, and documents are distributions over topics. The model assumes that topics follow a sparse Dirichlet distribution, which implies that documents reflect only a small set of topics, and topics use only a limited number of terms frequently.
+
+- The percentage contribution of each topic to a document
+- The probabilistic association of each word with a topic
+
+### Key Phrase Extraction
 
 > This is one of the simplest yet most powerful techniques of extracting important information from unstructured text documents.
 
@@ -38,6 +47,29 @@ Various types of collocations can be formed based on parts of speech like nouns,
 - Construct n-grams out of a corpus 
 - Count the frequency of each n-gram and rank them based on their frequency of occurrence to get the most frequent n-gram collocations
  
- ### Practice Collocations
+ #### Practice Collocations
  
  Google Colab: [NLTK Collocations](https://colab.research.google.com/drive/1uiflgnsTjirMEW2WlfKKK8jIcRSZebpT?usp=sharing)
+
+### Topic Model Evaluation
+
+
+> Unsupervised Learning: there is no objective metric to assess the quality of the result as in supervised learning. Human topic evaluation is considered the gold standard, but it is potentially expensive and not readily available at scale.
+
+Two options to evaluate results more objectively include:
+
+- perplexity to evaluate the model on unseen documents 
+- topic coherence metrics to evaluate the semantic quality of the uncovered patterns
+
+#### Perplexity
+
+**Perplexity** measures how well the topic-word probability distribution recovered by the model predicts a sample of unseen text documents. It is based on the entropy H(p) - Measures closer to zero imply the distribution is better at predicting the sample.
+
+#### Topic coherence
+
+**Topic coherence** measures the semantic consistency of the topic model results, whether humans would perceive the words and their probabilities associated with topics as meaningful.Coherence measures are based on the probability of observing the set of words W that defines a topic together.
+
+### LDA Practice
+
+- Complete the following practice: [https://github.com/PacktPublishing/Machine-Learning-for-Algorithmic-Trading-Second-Edition/blob/master/15_topic_modeling/04_lda_with_sklearn.ipynb](https://github.com/PacktPublishing/Machine-Learning-for-Algorithmic-Trading-Second-Edition/blob/master/15_topic_modeling/04_lda_with_sklearn.ipynb)
+- Data: Download bbc.zip file from [https://github.com/PacktPublishing/Machine-Learning-for-Algorithmic-Trading-Second-Edition/tree/master/data](https://github.com/PacktPublishing/Machine-Learning-for-Algorithmic-Trading-Second-Edition/tree/master/data)

@@ -560,6 +560,11 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lda">
+   LDA
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#key-phrase-extraction">
    Key Phrase Extraction
   </a>
@@ -573,10 +578,34 @@
   <a class="reference internal nav-link" href="#collocations">
    Collocations
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#practice-collocations">
+     Practice Collocations
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#practice-collocations">
-   Practice Collocations
+  <a class="reference internal nav-link" href="#topic-model-evaluation">
+   Topic Model Evaluation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#perplexity">
+     Perplexity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#topic-coherence">
+     Topic coherence
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lda-practice">
+   LDA Practice
   </a>
  </li>
 </ul>
@@ -593,7 +622,19 @@
   <div class="section" id="topic-modeling">
 <h1>Topic Modeling<a class="headerlink" href="#topic-modeling" title="Permalink to this headline">¶</a></h1>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-pgNW8Zr_fg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<p><object data="_static/topic-modeling.pdf" width="950" height="650" type='application/pdf'/></object></p>
+<br>
+<object data="_static/topic-modeling.pdf" width="950" height="650" type='application/pdf'/></object>
+<div class="section" id="lda">
+<h2>LDA<a class="headerlink" href="#lda" title="Permalink to this headline">¶</a></h2>
+<p><img alt="" src="_images/topics.png" /></p>
+<blockquote>
+<div><p>LDA is a hierarchical Bayesian model that assumes topics are probability distributions over words, and documents are distributions over topics. The model assumes that topics follow a sparse Dirichlet distribution, which implies that documents reflect only a small set of topics, and topics use only a limited number of terms frequently.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>The percentage contribution of each topic to a document</p></li>
+<li><p>The probabilistic association of each word with a topic</p></li>
+</ul>
+</div>
 <div class="section" id="key-phrase-extraction">
 <h2>Key Phrase Extraction<a class="headerlink" href="#key-phrase-extraction" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -631,10 +672,36 @@
 <li><p>Construct n-grams out of a corpus</p></li>
 <li><p>Count the frequency of each n-gram and rank them based on their frequency of occurrence to get the most frequent n-gram collocations</p></li>
 </ul>
-</div>
 <div class="section" id="practice-collocations">
-<h2>Practice Collocations<a class="headerlink" href="#practice-collocations" title="Permalink to this headline">¶</a></h2>
+<h3>Practice Collocations<a class="headerlink" href="#practice-collocations" title="Permalink to this headline">¶</a></h3>
 <p>Google Colab: <a class="reference external" href="https://colab.research.google.com/drive/1uiflgnsTjirMEW2WlfKKK8jIcRSZebpT?usp=sharing">NLTK Collocations</a></p>
+</div>
+</div>
+<div class="section" id="topic-model-evaluation">
+<h2>Topic Model Evaluation<a class="headerlink" href="#topic-model-evaluation" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>Unsupervised Learning: there is no objective metric to assess the quality of the result as in supervised learning. Human topic evaluation is considered the gold standard, but it is potentially expensive and not readily available at scale.</p>
+</div></blockquote>
+<p>Two options to evaluate results more objectively include:</p>
+<ul class="simple">
+<li><p>perplexity to evaluate the model on unseen documents</p></li>
+<li><p>topic coherence metrics to evaluate the semantic quality of the uncovered patterns</p></li>
+</ul>
+<div class="section" id="perplexity">
+<h3>Perplexity<a class="headerlink" href="#perplexity" title="Permalink to this headline">¶</a></h3>
+<p><strong>Perplexity</strong> measures how well the topic-word probability distribution recovered by the model predicts a sample of unseen text documents. It is based on the entropy H(p) - Measures closer to zero imply the distribution is better at predicting the sample.</p>
+</div>
+<div class="section" id="topic-coherence">
+<h3>Topic coherence<a class="headerlink" href="#topic-coherence" title="Permalink to this headline">¶</a></h3>
+<p><strong>Topic coherence</strong> measures the semantic consistency of the topic model results, whether humans would perceive the words and their probabilities associated with topics as meaningful.Coherence measures are based on the probability of observing the set of words W that defines a topic together.</p>
+</div>
+</div>
+<div class="section" id="lda-practice">
+<h2>LDA Practice<a class="headerlink" href="#lda-practice" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Complete the following practice: <a class="reference external" href="https://github.com/PacktPublishing/Machine-Learning-for-Algorithmic-Trading-Second-Edition/blob/master/15_topic_modeling/04_lda_with_sklearn.ipynb">https://github.com/PacktPublishing/Machine-Learning-for-Algorithmic-Trading-Second-Edition/blob/master/15_topic_modeling/04_lda_with_sklearn.ipynb</a></p></li>
+<li><p>Data: Download bbc.zip file from <a class="reference external" href="https://github.com/PacktPublishing/Machine-Learning-for-Algorithmic-Trading-Second-Edition/tree/master/data">https://github.com/PacktPublishing/Machine-Learning-for-Algorithmic-Trading-Second-Edition/tree/master/data</a></p></li>
+</ul>
 </div>
 </div>
 
