@@ -50,7 +50,7 @@ the first sentence, and pragmatic reasoning to determine how the second sentence
 
 ![](_static/bert2.png)
 
-BERT Evaluation - [Psycholinguistic diagnostics](https://watermark.silverchair.com/tacl_a_00298.pdf)
+BERT Evaluation - [Psycholinguistic diagnostics](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00298/43535/What-BERT-Is-Not-Lessons-from-a-New-Suite-of)
 
 ##### GLue Benchmark
 
