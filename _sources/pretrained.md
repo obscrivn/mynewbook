@@ -126,3 +126,5 @@ Facebook’s RoBERTa is an optimised method for pre-training a self-supervised N
 
 <small>source: https://vitalflux.com/nlp-pre-trained-models-explained-with-examples/</small>
 <small>[Sejuti Das. 2020. Top 8 Pretrained NLP Models](https://analyticsindiamag.com/top-8-pre-trained-nlp-models-developers-must-know/) </small>
+
+<small>https://www.analyticsvidhya.com/blog/2017/06/transfer-learning-the-art-of-fine-tuning-a-pre-trained-model/</small>

@@ -1,0 +1,710 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Speech &#8212; CSSE-490 Introduction to NLP</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Speech Recognition" href="week8.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">CSSE-490 Introduction to NLP</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="welcome.html">
+   Welcome to CSSE-490 NLP
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week1.html">
+   Introduction to NLP
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="challenges.html">
+     NLP Challenges
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="turing.html">
+     Turing Test
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tools.html">
+     Tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="language.html">
+     Natural Language
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="regex.html">
+     Regular Expressions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="applications.html">
+     NLP Applications
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="python.html">
+     Python for Natural Language
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week2.html">
+   Tokenization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="pipeline.html">
+     NLP Pipeline
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="practice.html">
+     Tokenization Practice
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="pos.html">
+     POS Tagging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lemma.html">
+     Lemmatization and Stemming
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="practice2.html">
+     Tokenization Pipeline
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week3.html">
+   Feature Engineering
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="features.html">
+     Features
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="sklearn.html">
+     sklearn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="sentence.html">
+     Syntactic Structure
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week4.html">
+   Clustering
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="reviewweek4.html">
+     Review Tokenization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cbow.html">
+     Word2Vec
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="distance.html">
+     Distance Metrics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Welcome_To_Colaboratory_Review.html">
+     Colab Review
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week5.html">
+   Classification
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="sentiment.html">
+     Classification
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week6.html">
+   Topic Modeling
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="topic.html">
+     Topic Modeling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="evaluation.html">
+     Evaluation Metrics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="models.html">
+     Models
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="week7.html">
+   Neural Network
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="pretrained.html">
+     Pre-trained Models
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="week8.html">
+   Speech Recognition
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Speech
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/phonetics.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fphonetics.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#speech-chain">
+   Speech Chain
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#phonetics">
+   Phonetics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#phonetic-alphabet">
+   Phonetic Alphabet
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#phonology">
+   Phonology
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="speech">
+<h1>Speech<a class="headerlink" href="#speech" title="Permalink to this headline">¶</a></h1>
+<p>Reading: <a class="reference external" href="https://www.dpamicrophones.com/mic-university/facts-about-speech-intelligibility">https://www.dpamicrophones.com/mic-university/facts-about-speech-intelligibility</a></p>
+<div class="section" id="speech-chain">
+<h2>Speech Chain<a class="headerlink" href="#speech-chain" title="Permalink to this headline">¶</a></h2>
+<p><img alt="" src="_images/ph1.png" /></p>
+<p><small><a class="reference external" href="https://www.researchgate.net/figure/The-Speech-Chain_fig1_348706070">Source Link</a> </small></p>
+<ul class="simple">
+<li><p><strong>Language</strong> The desired thought passes through the language centers of the brain where it is given expression in words which are assembled together in the proper order and given final phonetic, intonational, and durational form.</p></li>
+<li><p><strong>Motor Program and Muscle Movement</strong> The results of the language-production centers of the brain may be considered a speech motor program which executes over time by conveying firing sequences to the lower neurological centers, which in turn impart motion to all of the muscles responsible for speech production: the diaphragm, the larynx, the tongue, the jaw, the lips, and so on. Much if not all of this activity is subconscious, and involves constant corrective feedback.</p></li>
+<li><p><strong>Airstream</strong> in the Vocal Tract As a result of the muscle movements, a stream of air emerges from the lungs, passes through the vocal cords where a phonation type (e.g. normal voicing, whispering, aspiration, creaky voice) is developed, and receives its final shape in the vocal tract before emerging from the mouth and the nose and through the tissues of the face.</p></li>
+<li><p><strong>Sound Wave</strong> The vibrations caused by the vocal apparatus of the speaker radiate through the air as a sound wave.</p></li>
+<li><p><strong>Electronic Transduction</strong> The sound wave may be converted to analog or digital form for storage or transmission, and in the form of electric waves may be transported thousands of miles to its destination, where the information in the electric waves is converted back to the form of sound. It is in the form of an electronic copy of the original sound wave that automatic speech recognition by computer gains access to speech data.</p></li>
+<li><p><strong>Hearing</strong> The sound wave strikes the eardrums of another human being, where it is first converted to waves on the surface of the tympanum membranes, next to mechanical motion via the ossicles of the middle ear, then to fluid pressure waves in the medium bathing the basiliar membrane of the inner ear, and finally to firings in the 30,000 neural fibers which combine to form the auditory nerve.</p></li>
+<li><p><strong>Auditory and Language Processing</strong> The lower centers of the brainstem, the thalamus, the auditory cortex, and the language centers of the brain all cooperate in the recognition of the phonemes which convey meaning, the intonational and durational contours which provide additional information, and the vocal quality which allows the listener to recognize who is speaking and to gain insight into the speaker’s health, emotional state, and intention in speaking.</p></li>
+<li><p><strong>Understanding</strong> The higher centers of the brain, both conscious and subconscious, bring to this incoming auditory and language data all the experience of the listener in the form of previous memories and understanding of the current context, allowing the listener to “manufacture” in his or her mind a more or less faithful “replica” of the thought which was originally formulated in the speaker’s consciousness and to update the listener’s description of the current state of the world. The listener may in turn become the speaker, and vice versa, and the speech chain will then operate in reverse.</p></li>
+</ul>
+<p><small>From Peter Denes. The Speech Chain </small></p>
+</div>
+<div class="section" id="phonetics">
+<h2>Phonetics<a class="headerlink" href="#phonetics" title="Permalink to this headline">¶</a></h2>
+<p><img alt="" src="_images/ph2.png" /></p>
+<p><strong>Sound</strong></p>
+<blockquote>
+<div><p>a compressional wave that produces a sensation in the human ear</p>
+</div></blockquote>
+<p>Sound waves are longitudinal mechanical waves with the following properties:</p>
+<ul class="simple">
+<li><p>Superposition: The existence of one wave does not affect the existence of properties of another wave.”</p></li>
+<li><p>Reflection: Waves can bounce off a surface like a light wave bounces off a mirror; the reflected angle is equal to the incident angle reflected around the normal to the surface.</p></li>
+<li><p>Refraction: The passage from one medium to another is normally accompanied by a change of the wavefront direction.</p></li>
+<li><p>Interference: Two similar waves can combine constructively or destructively; musical beats are an example of this behavior.</p></li>
+</ul>
+<p><img alt="" src="_images/ph3.png" /></p>
+<blockquote>
+<div><p>Spectogram is a visual representation of the spectrum of frequencies of a signal. It shows how much energy is at a particular frequency (Hertz - verticla axis) and time (milliseconds - horizontal axis)</p>
+</div></blockquote>
+<blockquote>
+<div><p>Speechwave - a sound wave where the pattern of disturbance is caused by the movement of energy traveling through a medium. It  shows how the air molecules move when you speak. If the wave is small, the sound is quiet. Of the wave is tall, the sound is louder.
+<small><a class="reference external" href="https://australianlinguistics.com/acoustic-analysis-2/">https://australianlinguistics.com/acoustic-analysis-2/</a></small></p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The idea that sound moves in waves goes back (at least) to about 240 B.C. The Greek philosopher Chrysippus (c. 240 B.C.), the Roman architect and engineer Vetruvius (c. 25 B.C.), and the Roman philosopher Boethius (A.D. 480-524) each theorized that sound movement might take a wave form.</p>
+</div>
+<p><img alt="" src="_images/ph4.png" /></p>
+<p><small>Source: <a class="reference external" href="https://australianlinguistics.com/acoustic-analysis-2/speach-waves/">https://australianlinguistics.com/acoustic-analysis-2/speach-waves/</a> </small></p>
+<p><strong>Vowels</strong></p>
+<ul class="simple">
+<li><p>A relatively slowly-changing pattern, regular and repeating</p></li>
+<li><p>It is impossible from the pattern (shape of wave) to predict a vowel</p></li>
+<li><p>Each cycle of the pattern is one opening and one closing of the vocal cords</p></li>
+</ul>
+<p><strong>Approximants</strong>
+/l,r,w/</p>
+<ul class="simple">
+<li><p>similar to vowels but quieter</p></li>
+<li><p>these are consonants but they do not have any airflow obstraction</p></li>
+</ul>
+<p><strong>Nasals</strong>
+/m,n/</p>
+<ul class="simple">
+<li><p>similar repeating wave like vowels but less complex patterns</p></li>
+<li><p>generally not as tall as vowels</p></li>
+<li><p>the air comes through the nose, so the wave is quiter than vowels</p></li>
+</ul>
+<p><strong>Fricatives</strong>
+/s,f,v,h,z/</p>
+<ul class="simple">
+<li><p>random pattern, rapid change</p></li>
+<li><p>the air is forced through a narrow passageway and it becomes turbulent and makes a hissing sound</p></li>
+</ul>
+<p><strong>Stops</strong>
+/p,t,d,g/</p>
+<ul class="simple">
+<li><p>a flat line with a sudden burst of energy</p></li>
+<li><p>the pattern is related to the aarticulation of a stop, in which the airflow is stoppped, held briefly and then released with a small explosive sound</p></li>
+</ul>
+<p><img alt="" src="_images/ph5.png" /></p>
+<p><img alt="" src="_images/ph6.png" /></p>
+<p><small><a class="reference external" href="https://www.ecophon.com/en/about-ecophon/acoustic-knowledge/basic-acoustics/generating-and-understanding-speech/">https://www.ecophon.com/en/about-ecophon/acoustic-knowledge/basic-acoustics/generating-and-understanding-speech/</a></small></p>
+<p><strong>Exercise</strong></p>
+<p><a class="reference external" href="https://australianlinguistics.com/acoustic-analysis-2/acoustic-analysis/">Open the link and identify speech sounds</a></p>
+</div>
+<div class="section" id="phonetic-alphabet">
+<h2>Phonetic Alphabet<a class="headerlink" href="#phonetic-alphabet" title="Permalink to this headline">¶</a></h2>
+<p>Question: Why not use a Roman alphabet to represent sounds?</p>
+<p><img alt="" src="_images/ph6.png" /></p>
+<p><img alt="" src="_images/ph7.png" /></p>
+<p><img alt="" src="_images/ph8.png" /></p>
+<p><small>Source: <a class="reference external" href="https://scholar.harvard.edu/files/adam/files/phonetics.ppt.pdf">https://scholar.harvard.edu/files/adam/files/phonetics.ppt.pdf</a></small></p>
+<blockquote>
+<div><p>In 1888 the International Phonetic
+Alphabet (IPA) was invented in order to have a system in which there was a oneto-one correspondence between each sound in language and each phonetic symbol</p>
+</div></blockquote>
+<p>If you know IPA, you kno whow to pronounce any word in anay language</p>
+</div>
+<div class="section" id="phonology">
+<h2>Phonology<a class="headerlink" href="#phonology" title="Permalink to this headline">¶</a></h2>
+<p><img alt="" src="_images/ph10.png" /></p>
+<p><img alt="" src="_images/ph11.png" /></p>
+<p><img alt="" src="_images/ph12.png" />
+<small><a class="reference external" href="http://www.cs.columbia.edu/~mcollins/6864/slides/asr.pdf">http://www.cs.columbia.edu/~mcollins/6864/slides/asr.pdf</a></small></p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="week8.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Speech Recognition</p>
+        </div>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Olga Scrivner<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

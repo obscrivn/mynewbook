@@ -10,7 +10,7 @@
 
 ## Day 2 Tuesday
 
-- [Neural Network](neural.md)
+- [Sentiment Lexicon](lexicon.md)
 
 
 ## Day 3 Thursday
