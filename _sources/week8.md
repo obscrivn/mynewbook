@@ -10,7 +10,7 @@
 
 ## Day 2 Tuesday
 
-- [Sentiment Lexicon](lexicon.md)
+- [Speech Recognizer](recognizer.md)
 
 
 ## Day 3 Thursday
