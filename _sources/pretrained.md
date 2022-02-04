@@ -1,6 +1,6 @@
 ## Pre-trained Models
 
->a good representation should express general-purpose priors that are not task-specific
+> a good representation should express general-purpose priors that are not task-specific
 but would be likely to be useful for a learning machine to solve AI-tasks. 
 
 <small>Source: [Qiu et al. 2021.](https://arxiv.org/pdf/2003.08271.pdf)</small>
