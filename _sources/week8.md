@@ -19,6 +19,6 @@
 
 ## Day 4 Friday
 
-- Lab:
+- Lab: Lab8
 
 
