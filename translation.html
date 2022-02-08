@@ -236,8 +236,16 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Neural Network" href="topic-dl.html" />
     <link rel="prev" title="Machine Translation" href="week9.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -504,6 +512,11 @@
      Machine Translation
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="topic-dl.html">
+     Neural Network
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -658,8 +671,13 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#challengess">
-   Challengess
+  <a class="reference internal nav-link" href="#challenges">
+   Challenges
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#biases">
+   Biases
   </a>
  </li>
 </ul>
@@ -762,6 +780,9 @@ to retrieve the information contained in the text.
 <li><p>Probabilities are determined automatically by training a statistical model using the parallel corpus</p></li>
 </ul>
 <p><img alt="" src="_images/tr10.png" /></p>
+<blockquote>
+<div><p>Presently, SMT is extraordinary for basic translation, however its most noteworthy disadvantage is that it does not factor in context, which implies translation can regularly be wrong or you can say, do not expect great quality translation. There are several types of statistical-based machine translation models which are: Hierarchical phrase-based translation, Syntax-based translation, Phrase-based translation, Word-based translation.</p>
+</div></blockquote>
 </div>
 <div class="section" id="neural-machine-translation">
 <h3>Neural Machine Translation<a class="headerlink" href="#neural-machine-translation" title="Permalink to this headline">¶</a></h3>
@@ -771,9 +792,29 @@ to retrieve the information contained in the text.
 <p><img alt="" src="_images/tr12.png" /></p>
 </div>
 </div>
-<div class="section" id="challengess">
-<h2>Challengess<a class="headerlink" href="#challengess" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="challenges">
+<h2>Challenges<a class="headerlink" href="#challenges" title="Permalink to this headline">¶</a></h2>
 <p><img alt="" src="_images/tr13.png" /></p>
+</div>
+<div class="section" id="biases">
+<h2>Biases<a class="headerlink" href="#biases" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>Google Translate is the world’s most popular web translation platform, but one Stanford University researcher says it doesn’t really understand sex and gender. Londa Schiebinger, who runs Stanford’s Gendered Innovations project, says Google’s choice of source databases causes a statistical bias toward male nouns and verbs in translation
+<small><a class="reference external" href="https://www.fastcompany.com/3010223/google-translates-gender-problem-and-bing-translates-and-systrans">https://www.fastcompany.com/3010223/google-translates-gender-problem-and-bing-translates-and-systrans</a></small></p>
+</div></blockquote>
+<blockquote>
+<div><p>In a peer-reviewed case study published in 2013, Schiebinger illustrated that Google Translate has a tendency to turn gender-neutral English words (such as the, or occupational names such as professor and doctor) into the male form in other languages once the word is translated. However, certain gender-neutral English words are translated into the female form … but only when they comply with certain gender stereotypes.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>For instance, the gender-neutral English terms a defendant and a nurse translate into the German as ein Angeklagter and eine Krankenschwester. Defendant translates as male, but nurse auto-translates as female.</p></li>
+</ul>
+<blockquote>
+<div><p>users discovered that translating “Men are men, and men should clean the kitchen” into German became “Männer sind Männer, und Frauen sollten die Küche sauber”–which means “Men are men and women should clean the kitchen.” Another German-language Google Translate user found job bias in multiple languages–the gender-netural English language terms French teacher, nursery teacher, and cooking teacher all showed up in Google Translate’s French and German editions in the feminine form, while engineer, doctor, journalist, and president were translated into the male form.</p>
+</div></blockquote>
+<blockquote>
+<div><p>Bias and discrimination have appeared time and again in various technological forms. A pressing issue is the discrimination found in many of the translation applications in use today, as Google Translate alone now serves roughly 200 million people daily.
+<small><a class="reference external" href="https://www.forbes.com/sites/forbesbusinesscouncil/2021/03/01/avoiding-bias-and-discrimination-in-machine-translation/?sh=2c4bea6146a7">https://www.forbes.com/sites/forbesbusinesscouncil/2021/03/01/avoiding-bias-and-discrimination-in-machine-translation/?sh=2c4bea6146a7</a></small></p>
+</div></blockquote>
 </div>
 </div>
 
@@ -808,6 +849,13 @@ to retrieve the information contained in the text.
             <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title">Machine Translation</p>
         </div>
+    </a>
+    <a class='right-next' id="next-link" href="topic-dl.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Neural Network</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
         

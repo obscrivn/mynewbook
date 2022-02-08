@@ -1,12 +1,31 @@
-## Topic Modeling
+## Neural Network
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-pgNW8Zr_fg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<br>
-<object data="_static/topic-modeling.pdf" width="950" height="650" type='application/pdf'/></object>
+### Playground
 
-### LDA
+Use the playground - http://playground.tensorflow.org/ (Links to an external site.) 
 
-![](_static/topics.png)
+change activation, learning rate, regularization, # epochs
+change problem types (classification versus regression)
+change # of hidden layers
+change datasets
+examine loss
+Question 1. Are you able to improve your training (loss is smaller)? What parameters can help you improve/optimize your training?
+
+Question 2. What have you learned from this playground?
+
+
+### Neural Zoo
+<object data="_static/The_Neural_Network_Zoo.pdf" width="950" height="650" type='application/pdf'/></object>
+
+
+
+
+### DL Models
+<object data="_static/deep-learning-lecture.pdf" width="950" height="650" type='application/pdf'/></object>
+
+### LSTM
+
+<object data="_static/rnn-lstm-neural-network.pdf" width="950" height="650" type='application/pdf'/></object>
 
 
 > LDA is a hierarchical Bayesian model that assumes topics are probability distributions over words, and documents are distributions over topics. The model assumes that topics follow a sparse Dirichlet distribution, which implies that documents reflect only a small set of topics, and topics use only a limited number of terms frequently.

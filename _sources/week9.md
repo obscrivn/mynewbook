@@ -10,7 +10,7 @@
 
 ## Day 2 Tuesday
 
-- [LSTM]
+- [Deep Learning](topic-dl.md)
 
 
 ## Day 3 Thursday
