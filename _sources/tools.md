@@ -10,8 +10,4 @@ To install Anaconda and practice using JupyterLab, follow the step-by-step instr
 
 Follow Quick Intro - [Google Colab](https://www.tutorialspoint.com/google_colab/google_colab_quick_guide.htm)
 
-### DataCamp
 
-- Did you create an account with your rose-hulman email?
-- Did you get an invitation to join NLP group?
-- Update your profile with a full first and last name.

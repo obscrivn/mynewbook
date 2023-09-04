@@ -1,14 +1,10 @@
 ## Natural Language
 
-Warm-up: Draw a couch
-
-![](_static/triangle.png)
-
 ### What is Natural Language?
 
 <object data="_static/natural-language-part1.pdf" width="950" height="650" type='application/pdf'/></object>
 
-#### Questions
+#### Practice Questions
 
 Q1. Name 3 main differences between Formal and Natural languages.
 

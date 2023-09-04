@@ -54,7 +54,7 @@ Q2. How to set up TF (instead of Tf-Idf)?
 
 ![](_static/tf.png)
 
-```rom sklearn.feature_extraction.text import TfidfVectorizer```
+```from sklearn.feature_extraction.text import TfidfVectorizer```
 
 STEPS for TF
 

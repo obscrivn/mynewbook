@@ -12,9 +12,7 @@
 
 ![](_static/challenge1.png)
 
-
-Q1. Find references for "he, a boy, him, his"
-Q2. Who is Mr.Robin
+Q1. Who is Mr.Robin?
 
 
 #### Challenge 2 - Ambiguity
@@ -23,17 +21,21 @@ Q2. Who is Mr.Robin
 
 ![](_static/challenge2b.png)
 
-Q3. Write an ambiguos statement (a sentence where the meaning could be ambiguous)
 
+#### Challenge 3 - Informal Communication (abbreviations)
 
-#### Challenge 3 - Informal Communication
+- ROFL
+- ICYMI
+- TL;DR
+- NVM
+- TGIF
+- TBH
 
-Provide the definition for:
-
-- LOL
-- G2G
-- BFN/B4N
-- IDK
-- FWIW
-
-Q4. Write your own abbreviation
+**Answers**
+ROFL: Rolling on floor laughing.
+ICYMI: In case you missed it.
+TL;DR: Too long, didn't read.
+LMK: Let me know.
+NVM: Nevermind.
+TGIF: Thank goodness it's Friday.
+TBH: To be honest.
