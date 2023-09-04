@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>sklearn &#8212; Introduction to NLP</title>
+    <title>Bag-of-words Using scikit-learn &#8212; Introduction to NLP</title>
   
   
   
@@ -165,7 +165,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="part2-features.html">Feature Engineering</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="features.html">Features</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">sklearn</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Bag-of-words Using scikit-learn</a></li>
 </ul>
 </li>
 </ul>
@@ -351,7 +351,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>sklearn</h1>
+    <h1>Bag-of-words Using scikit-learn</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -361,8 +361,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#countvectorizer">CountVectorizer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tfidf-vectorizer">TfIdf Vectorizer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bag-of-word-word-tokenization">Bag-of-word word tokenization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#countvectorizer">CountVectorizer</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tfidf-vectorizer">TfIdf Vectorizer</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -374,12 +377,38 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="sklearn">
-<h1>sklearn<a class="headerlink" href="#sklearn" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="bag-of-words-using-scikit-learn">
+<h1>Bag-of-words Using scikit-learn<a class="headerlink" href="#bag-of-words-using-scikit-learn" title="Permalink to this heading">#</a></h1>
+<p><strong>scikit-learn</strong> is a library in Python that provides many unsupervised and supervised learning algorithms.</p>
+<section id="bag-of-word-word-tokenization">
+<h2>Bag-of-word word tokenization<a class="headerlink" href="#bag-of-word-word-tokenization" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p>Dataset sample is represented as a string, which could be a sentence, a tweet (X), or book.</p>
+</div></blockquote>
+<p>To represent the sample:</p>
+<ul class="simple">
+<li><p>we split the string into a list of tokens (e.g., split by whitespace, and then lowercase the word)</p></li>
+<li><p>we build a vocabulary of all tokens (lowercased words) from the whole dataset.</p>
+<ul>
+<li><p>Usually a very large vocabulary</p></li>
+</ul>
+</li>
+<li><p>we show how often each word in the vocabulary appears</p>
+<ul>
+<li><p>We represent the string as a vector, where each entry is how often a given word in the vocabulary appears in the string</p></li>
+</ul>
+</li>
+</ul>
+<p><small>Source: Jason Kuruzovich. 2020. Analytics Dojo. </small>
+As each sample will only contain very few words, most entries will be zero, leading to a very high-dimensional but sparse representation.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The method is called “bag-of-words” : the order of the words is lost entirely.</p>
+</div>
+</section>
 <section id="countvectorizer">
 <h2>CountVectorizer<a class="headerlink" href="#countvectorizer" title="Permalink to this heading">#</a></h2>
 <p>Reference: <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html</a></p>
-<p>Q2. What are the default parameters?</p>
 <p><img alt="" src="_images/cv.png" /></p>
 <p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">sklearn.feature_extraction.text</span> <span class="pre">import</span> <span class="pre">CountVectorizer</span></code></p>
 <p>STEPS</p>
@@ -409,11 +438,12 @@ document.write(`
  <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]]</span>
 </pre></div>
 </div>
-<p>Q2. What are the feature names in row0: [0 1 1 1 0 0 1 0 1]?</p>
-</section>
+<p>Q1. What are the feature names in row0: [0 1 1 1 0 0 1 0 1]?</p>
 <section id="tfidf-vectorizer">
-<h2>TfIdf Vectorizer<a class="headerlink" href="#tfidf-vectorizer" title="Permalink to this heading">#</a></h2>
-<p>We can use Transformer for TF or Tf-Idf</p>
+<h3>TfIdf Vectorizer<a class="headerlink" href="#tfidf-vectorizer" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>A useful transformation that is often applied to the bag-of-word encoding is the so-called term-frequency inverse-document-frequency (tf-idf) scaling, which is a non-linear transformation of the word counts.</p>
+</div></blockquote>
 <p>Reference:<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html">https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html</a></p>
 <p>Q2. How to set up TF (instead of Tf-Idf)?</p>
 <p><img alt="" src="_images/tf.png" /></p>
@@ -457,10 +487,15 @@ document.write(`
 \[
 smoothIDF(t) = log{_e}(\frac{1+ Total\; number\; of\; documents}{Number\; of\; documents\; with \;term \;t\; in \;it + 1}) + 1
 \]</div>
+<p>RECAP</p>
+<blockquote>
+<div><p>tf-idfs are a way to represent documents as feature vectors. the tf is the count of how often a particular word occurs in a given document. tf-idfs is a modification of the raw term frequencies (tf).</p>
+</div></blockquote>
 <p><a class="reference external" href="https://towardsdatascience.com/tf-idf-explained-and-python-sklearn-implementation-b020c5e83275">https://towardsdatascience.com/tf-idf-explained-and-python-sklearn-implementation-b020c5e83275</a></p>
 <p>Practice Google Colab</p>
 <p><a class="reference external" href="https://colab.research.google.com/drive/1eo75oo80vSFdvfrooxNpWawCWGNAwYao?usp=sharing">https://colab.research.google.com/drive/1eo75oo80vSFdvfrooxNpWawCWGNAwYao?usp=sharing</a></p>
 <p>Smoothing - <a class="reference external" href="https://nbviewer.org/github/rasbt/pattern_classification/blob/master/machine_learning/scikit-learn/tfidf_scikit-learn.ipynb">https://nbviewer.org/github/rasbt/pattern_classification/blob/master/machine_learning/scikit-learn/tfidf_scikit-learn.ipynb</a></p>
+</section>
 </section>
 </section>
 
@@ -522,8 +557,11 @@ smoothIDF(t) = log{_e}(\frac{1+ Total\; number\; of\; documents}{Number\; of\; d
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#countvectorizer">CountVectorizer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tfidf-vectorizer">TfIdf Vectorizer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bag-of-word-word-tokenization">Bag-of-word word tokenization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#countvectorizer">CountVectorizer</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tfidf-vectorizer">TfIdf Vectorizer</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
