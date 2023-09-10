@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Turing Test &#8212; Introduction to NLP</title>
+    <title>Practice with K-Means Clustering &#8212; Introduction to NLP</title>
   
   
   
@@ -63,11 +63,10 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'turing';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'practice';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Natural Language" href="language.html" />
-    <link rel="prev" title="NLP Applications" href="applications.html" />
+    <link rel="prev" title="Document Similarity and Clustering" href="cluster.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -153,10 +152,10 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="part1-nlpconcepts.html">Introduction to NLP</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="part1-nlpconcepts.html">Introduction to NLP</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="challenges.html">NLP Challenges</a></li>
 <li class="toctree-l2"><a class="reference internal" href="applications.html">NLP Applications</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Turing Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="turing.html">Turing Test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="language.html">Natural Language</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tools.html">Tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="regex.html">Regex Coding Practice</a></li>
@@ -167,9 +166,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="sklearn.html">Bag-of-words Using scikit-learn</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="clustering.html">Clustering</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="clustering.html">Clustering</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cluster.html">Document Similarity and Clustering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="practice.html">Practice with K-Means Clustering</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Practice with K-Means Clustering</a></li>
 </ul>
 </li>
 </ul>
@@ -243,7 +242,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fturing.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fpractice.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -273,7 +272,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/turing.md" target="_blank"
+      <li><a href="_sources/practice.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -342,9 +341,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -355,27 +352,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Turing Test</h1>
+    <h1>Practice with K-Means Clustering</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">Your turn</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-questions">Practice Questions</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-reading-turing-original-paper">Optional Reading Turing Original Paper:</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#article">Article</a></li>
-</ul>
-</li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -385,39 +366,115 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="turing-test">
-<h1>Turing Test<a class="headerlink" href="#turing-test" title="Permalink to this heading">#</a></h1>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/3wLqsRLvV-c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<section id="your-turn">
-<h2>Your turn<a class="headerlink" href="#your-turn" title="Permalink to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="practice-with-k-means-clustering">
+<h1>Practice with K-Means Clustering<a class="headerlink" href="#practice-with-k-means-clustering" title="Permalink to this heading">#</a></h1>
+<p>Common steps for Document clustering:</p>
 <ul class="simple">
-<li><p>Chat with ELIZA [at least for 1 minute]
-<a class="reference external" href="https://www.eclecticenergies.com/ego/eliza">Link</a></p></li>
-<li><p>Chat with CLEVERBOT [at least for 1 minute]
-<a class="reference external" href="https://www.cleverbot.com/">Link</a>
-Select More (top Menu) &gt; Linking Cleverbot</p></li>
+<li><p>Loading or preparing the dataset [dataset link: <a class="reference external" href="https://github.com/PawanKrGunjan/Natural-Language-Processing/blob/main/Sarcasm%20Detection/sarcasm.json">https://github.com/PawanKrGunjan/Natural-Language-Processing/blob/main/Sarcasm Detection/sarcasm.json</a>]</p></li>
+<li><p>Vectorizing the text using TfidfVectorizer</p></li>
+<li><p>Reducing the dimension using PCA</p></li>
+<li><p>Clustering the documents</p></li>
+<li><p>Ploting the cluster using matplotlib</p></li>
 </ul>
-<section id="practice-questions">
-<h3>Practice Questions<a class="headerlink" href="#practice-questions" title="Permalink to this heading">#</a></h3>
-<p>Q1: Did any of chatbots pass your test?</p>
-<p>Q2: Did you notice any language features (structure, content, semantics etc) that revealed the non-human chatbot identity? Provide a couple of examples of your questions and their answers.</p>
-<p>Q3: Did they make any errors - what type of errors?</p>
-</section>
-</section>
-<section id="optional-reading-turing-original-paper">
-<h2>Optional Reading Turing Original Paper:<a class="headerlink" href="#optional-reading-turing-original-paper" title="Permalink to this heading">#</a></h2>
-<p>Scanned through Part 1 and Part 3 of the article below and answer the following questions (adding your own perspective as well).</p>
-<section id="questions">
-<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
-<p>Q1: What is the meaning of “machine”?</p>
-<p>Q2: What is the meaning of “think”?</p>
-<p>Q3: Can machine think?</p>
-</section>
-<section id="article">
-<h3>Article<a class="headerlink" href="#article" title="Permalink to this heading">#</a></h3>
-<p><object data="_static/turing-original-article.pdf" width="850" height="950" type='application/pdf'/></object></p>
-</section>
-</section>
+<p>We willl be loading data in <code class="docutils literal notranslate"><span class="pre">json</span></code> format and using <code class="docutils literal notranslate"><span class="pre">KMeans</span></code> from sklearn</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<p>We have a data from the github link: <a class="reference external" href="https://github.com/PawanKrGunjan/Natural-Language-Processing/blob/main/Sarcasm%20Detection/sarcasm.json">https://github.com/PawanKrGunjan/Natural-Language-Processing/blob/main/Sarcasm Detection/sarcasm.json</a></p>
+<p>If you open the github, ther eis an option Raw text which gives us the following link: <a class="reference external" href="https://raw.githubusercontent.com/PawanKrGunjan/Natural-Language-Processing/main/Sarcasm%20Detection/sarcasm.json">https://raw.githubusercontent.com/PawanKrGunjan/Natural-Language-Processing/main/Sarcasm Detection/sarcasm.json</a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Dataset</span> <span class="n">link</span><span class="p">:</span> 
+<span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/PawanKrGunjan/Natural-Language-Processing/main/Sarcasm%20Detection/sarcasm.json&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Extracting Features from headlines only</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sentence</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">headline</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>creating vectorizer</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">stop_words</span><span class="o">=</span><span class="s1">&#39;english&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>vectorizering the text documents</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vectorized_documents</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>We are going to reduce dimensions from a typically sparse NLP data</p>
+<ul>
+<li><p>Initializing a PCA (Principal Component Analysis) object</p></li>
+<li><p>Specifying to reduce the dimensionality to 2 principal components</p></li>
+</ul>
+</li>
+<li><p>PCA is applied to the vectorized_documents</p></li>
+<li><p>PCA will transform the data into a lower-dimensional representation</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">reduced_data</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">vectorized_documents</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>We set the number of clusters (groups) to 2, meaning the K-Means will attempt to partition the data into two distinct clusters</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_clusters</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">num_clusters</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                <span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">kmeans</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">reduced_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>`K-Means()`` is initialized with the specified number of clusters and some other parameters:
+- n_clusters specifies the number of clusters
+- n_init is the number of times the algorithm will be run with different centroid
+- max_iter is the maximum number of iterations the K-Means algorithm can run for each initialization
+- random_state is set to ensure reproducibility</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>We store results</p>
+<ul>
+<li><p>The original documents are stored in the column <code class="docutils literal notranslate"><span class="pre">document</span></code></p></li>
+<li><p>The cluster labels assigned by the K-Means algorithm are stored in a column called “cluster”</p></li>
+<li><p>Each document is assigned to one of the clusters</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">results</span><span class="p">[</span><span class="s1">&#39;document&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sentence</span>
+<span class="n">results</span><span class="p">[</span><span class="s1">&#39;cluster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+<center>
+<img src="_static/sample_cluster.png" alt="sample" width = 350 />
+</center>
+<ul class="simple">
+<li><p>We will visualze the results</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">]</span>
+<span class="n">cluster</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Not Sarcastic&#39;</span><span class="p">,</span><span class="s1">&#39;Sarcastic&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_clusters</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">reduced_data</span><span class="p">[</span><span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span> <span class="o">==</span> <span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="n">reduced_data</span><span class="p">[</span><span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span> <span class="o">==</span> <span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> 
+                <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> 
+                <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="n">cluster</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<center>
+<img src="_static/cluster.png" alt="cluster" width = 350 />
+</center>
 </section>
 
     <script type="text/x-thebe-config">
@@ -452,22 +509,13 @@ Select More (top Menu) &gt; Linking Cleverbot</p></li>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="applications.html"
+       href="cluster.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">NLP Applications</p>
+        <p class="prev-next-title">Document Similarity and Clustering</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="language.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Natural Language</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div></div>
   
@@ -478,28 +526,6 @@ Select More (top Menu) &gt; Linking Cleverbot</p></li>
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">Your turn</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-questions">Practice Questions</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-reading-turing-original-paper">Optional Reading Turing Original Paper:</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#article">Article</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
