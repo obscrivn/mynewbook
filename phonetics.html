@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Turing Test &#8212; Introduction to NLP</title>
+    <title>Speech &#8212; Introduction to NLP</title>
   
   
   
@@ -63,11 +63,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'turing';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'phonetics';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Natural Language" href="language.html" />
-    <link rel="prev" title="NLP Applications" href="applications.html" />
+    <link rel="next" title="Speech Recognition" href="recognizer.html" />
+    <link rel="prev" title="Speech" href="speech.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -153,10 +153,10 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="part1-nlpconcepts.html">Introduction to NLP</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="part1-nlpconcepts.html">Introduction to NLP</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="challenges.html">NLP Challenges</a></li>
 <li class="toctree-l2"><a class="reference internal" href="applications.html">NLP Applications</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Turing Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="turing.html">Turing Test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="language.html">Natural Language</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tools.html">Tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="regex.html">Regex Coding Practice</a></li>
@@ -172,8 +172,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="practice.html">Practice with K-Means Clustering</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="speech.html">Speech</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="phonetics.html">Speech</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="speech.html">Speech</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Speech</a></li>
 <li class="toctree-l2"><a class="reference internal" href="recognizer.html">Speech Recognition</a></li>
 </ul>
 </li>
@@ -248,7 +248,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fturing.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fphonetics.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -278,7 +278,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/turing.md" target="_blank"
+      <li><a href="_sources/phonetics.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -360,7 +360,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Turing Test</h1>
+    <h1>Speech</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -370,15 +370,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">Your turn</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-questions">Practice Questions</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-reading-turing-original-paper">Optional Reading Turing Original Paper:</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#article">Article</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speech-chain">Speech Chain</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phonetics">Phonetics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phonetic-alphabet">Phonetic Alphabet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phonology">Phonology</a></li>
 </ul>
             </nav>
         </div>
@@ -390,38 +385,109 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="turing-test">
-<h1>Turing Test<a class="headerlink" href="#turing-test" title="Permalink to this heading">#</a></h1>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/3wLqsRLvV-c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<section id="your-turn">
-<h2>Your turn<a class="headerlink" href="#your-turn" title="Permalink to this heading">#</a></h2>
+  <section id="speech">
+<h1>Speech<a class="headerlink" href="#speech" title="Permalink to this heading">#</a></h1>
+<p>Reading: <a class="reference external" href="https://www.dpamicrophones.com/mic-university/facts-about-speech-intelligibility">https://www.dpamicrophones.com/mic-university/facts-about-speech-intelligibility</a></p>
+<section id="speech-chain">
+<h2>Speech Chain<a class="headerlink" href="#speech-chain" title="Permalink to this heading">#</a></h2>
+<p><img alt="" src="_images/ph1.png" /></p>
+<p><small><a class="reference external" href="https://www.researchgate.net/figure/The-Speech-Chain_fig1_348706070">Source Link</a> </small></p>
 <ul class="simple">
-<li><p>Chat with ELIZA [at least for 1 minute]
-<a class="reference external" href="https://www.eclecticenergies.com/ego/eliza">Link</a></p></li>
-<li><p>Chat with CLEVERBOT [at least for 1 minute]
-<a class="reference external" href="https://www.cleverbot.com/">Link</a>
-Select More (top Menu) &gt; Linking Cleverbot</p></li>
+<li><p><strong>Language</strong> The desired thought passes through the language centers of the brain where it is given expression in words which are assembled together in the proper order and given final phonetic, intonational, and durational form.</p></li>
+<li><p><strong>Motor Program and Muscle Movement</strong> The results of the language-production centers of the brain may be considered a speech motor program which executes over time by conveying firing sequences to the lower neurological centers, which in turn impart motion to all of the muscles responsible for speech production: the diaphragm, the larynx, the tongue, the jaw, the lips, and so on. Much if not all of this activity is subconscious, and involves constant corrective feedback.</p></li>
+<li><p><strong>Airstream</strong> in the Vocal Tract As a result of the muscle movements, a stream of air emerges from the lungs, passes through the vocal cords where a phonation type (e.g. normal voicing, whispering, aspiration, creaky voice) is developed, and receives its final shape in the vocal tract before emerging from the mouth and the nose and through the tissues of the face.</p></li>
+<li><p><strong>Sound Wave</strong> The vibrations caused by the vocal apparatus of the speaker radiate through the air as a sound wave.</p></li>
+<li><p><strong>Electronic Transduction</strong> The sound wave may be converted to analog or digital form for storage or transmission, and in the form of electric waves may be transported thousands of miles to its destination, where the information in the electric waves is converted back to the form of sound. It is in the form of an electronic copy of the original sound wave that automatic speech recognition by computer gains access to speech data.</p></li>
+<li><p><strong>Hearing</strong> The sound wave strikes the eardrums of another human being, where it is first converted to waves on the surface of the tympanum membranes, next to mechanical motion via the ossicles of the middle ear, then to fluid pressure waves in the medium bathing the basiliar membrane of the inner ear, and finally to firings in the 30,000 neural fibers which combine to form the auditory nerve.</p></li>
+<li><p><strong>Auditory and Language Processing</strong> The lower centers of the brainstem, the thalamus, the auditory cortex, and the language centers of the brain all cooperate in the recognition of the phonemes which convey meaning, the intonational and durational contours which provide additional information, and the vocal quality which allows the listener to recognize who is speaking and to gain insight into the speaker’s health, emotional state, and intention in speaking.</p></li>
+<li><p><strong>Understanding</strong> The higher centers of the brain, both conscious and subconscious, bring to this incoming auditory and language data all the experience of the listener in the form of previous memories and understanding of the current context, allowing the listener to “manufacture” in his or her mind a more or less faithful “replica” of the thought which was originally formulated in the speaker’s consciousness and to update the listener’s description of the current state of the world. The listener may in turn become the speaker, and vice versa, and the speech chain will then operate in reverse.</p></li>
 </ul>
-<section id="practice-questions">
-<h3>Practice Questions<a class="headerlink" href="#practice-questions" title="Permalink to this heading">#</a></h3>
-<p>Q1: Did any of chatbots pass your test?</p>
-<p>Q2: Did you notice any language features (structure, content, semantics etc) that revealed the non-human chatbot identity? Provide a couple of examples of your questions and their answers.</p>
-<p>Q3: Did they make any errors - what type of errors?</p>
+<p><small>From Peter Denes. The Speech Chain </small></p>
 </section>
+<section id="phonetics">
+<h2>Phonetics<a class="headerlink" href="#phonetics" title="Permalink to this heading">#</a></h2>
+<p><img alt="" src="_images/ph2.png" /></p>
+<p><strong>Sound</strong></p>
+<blockquote>
+<div><p>a compressional wave that produces a sensation in the human ear</p>
+</div></blockquote>
+<p>Sound waves are longitudinal mechanical waves with the following properties:</p>
+<ul class="simple">
+<li><p>Superposition: The existence of one wave does not affect the existence of properties of another wave.”</p></li>
+<li><p>Reflection: Waves can bounce off a surface like a light wave bounces off a mirror; the reflected angle is equal to the incident angle reflected around the normal to the surface.</p></li>
+<li><p>Refraction: The passage from one medium to another is normally accompanied by a change of the wavefront direction.</p></li>
+<li><p>Interference: Two similar waves can combine constructively or destructively; musical beats are an example of this behavior.</p></li>
+</ul>
+<p><img alt="" src="_images/ph3.png" /></p>
+<blockquote>
+<div><p>Spectogram is a visual representation of the spectrum of frequencies of a signal. It shows how much energy is at a particular frequency (Hertz - verticla axis) and time (milliseconds - horizontal axis)</p>
+</div></blockquote>
+<blockquote>
+<div><p>Speechwave - a sound wave where the pattern of disturbance is caused by the movement of energy traveling through a medium. It  shows how the air molecules move when you speak. If the wave is small, the sound is quiet. Of the wave is tall, the sound is louder.
+<small><a class="reference external" href="https://australianlinguistics.com/acoustic-analysis-2/">https://australianlinguistics.com/acoustic-analysis-2/</a></small></p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The idea that sound moves in waves goes back (at least) to about 240 B.C. The Greek philosopher Chrysippus (c. 240 B.C.), the Roman architect and engineer Vetruvius (c. 25 B.C.), and the Roman philosopher Boethius (A.D. 480-524) each theorized that sound movement might take a wave form.</p>
+</div>
+<p><img alt="" src="_images/ph4.png" /></p>
+<p><small>Source: <a class="reference external" href="https://australianlinguistics.com/acoustic-analysis-2/speach-waves/">https://australianlinguistics.com/acoustic-analysis-2/speach-waves/</a> </small></p>
+<p><strong>Vowels</strong></p>
+<ul class="simple">
+<li><p>A relatively slowly-changing pattern, regular and repeating</p></li>
+<li><p>It is impossible from the pattern (shape of wave) to predict a vowel</p></li>
+<li><p>Each cycle of the pattern is one opening and one closing of the vocal cords</p></li>
+</ul>
+<p><strong>Approximants</strong>
+/l,r,w/</p>
+<ul class="simple">
+<li><p>similar to vowels but quieter</p></li>
+<li><p>these are consonants but they do not have any airflow obstraction</p></li>
+</ul>
+<p><strong>Nasals</strong>
+/m,n/</p>
+<ul class="simple">
+<li><p>similar repeating wave like vowels but less complex patterns</p></li>
+<li><p>generally not as tall as vowels</p></li>
+<li><p>the air comes through the nose, so the wave is quiter than vowels</p></li>
+</ul>
+<p><strong>Fricatives</strong>
+/s,f,v,h,z/</p>
+<ul class="simple">
+<li><p>random pattern, rapid change</p></li>
+<li><p>the air is forced through a narrow passageway and it becomes turbulent and makes a hissing sound</p></li>
+</ul>
+<p><strong>Stops</strong>
+/p,t,d,g/</p>
+<ul class="simple">
+<li><p>a flat line with a sudden burst of energy</p></li>
+<li><p>the pattern is related to the aarticulation of a stop, in which the airflow is stoppped, held briefly and then released with a small explosive sound</p></li>
+</ul>
+<p><img alt="" src="_images/ph5.png" /></p>
+<p><img alt="" src="_images/ph6.png" /></p>
+<p><small><a class="reference external" href="https://www.ecophon.com/en/about-ecophon/acoustic-knowledge/basic-acoustics/generating-and-understanding-speech/">https://www.ecophon.com/en/about-ecophon/acoustic-knowledge/basic-acoustics/generating-and-understanding-speech/</a></small></p>
+<p><strong>Exercise</strong></p>
+<p><a class="reference external" href="https://australianlinguistics.com/acoustic-analysis-2/acoustic-analysis/">Open the link and identify speech sounds</a></p>
 </section>
-<section id="optional-reading-turing-original-paper">
-<h2>Optional Reading Turing Original Paper:<a class="headerlink" href="#optional-reading-turing-original-paper" title="Permalink to this heading">#</a></h2>
-<p>Scanned through Part 1 and Part 3 of the article below and answer the following questions (adding your own perspective as well).</p>
-<section id="questions">
-<h3>Questions<a class="headerlink" href="#questions" title="Permalink to this heading">#</a></h3>
-<p>Q1: What is the meaning of “machine”?</p>
-<p>Q2: What is the meaning of “think”?</p>
-<p>Q3: Can machine think?</p>
+<section id="phonetic-alphabet">
+<h2>Phonetic Alphabet<a class="headerlink" href="#phonetic-alphabet" title="Permalink to this heading">#</a></h2>
+<p>Question: Why not use a Roman alphabet to represent sounds?</p>
+<p><img alt="" src="_images/ph6.png" /></p>
+<p><img alt="" src="_images/ph7.png" /></p>
+<p><img alt="" src="_images/ph8.png" /></p>
+<p><small>Source: <a class="reference external" href="https://scholar.harvard.edu/files/adam/files/phonetics.ppt.pdf">https://scholar.harvard.edu/files/adam/files/phonetics.ppt.pdf</a></small></p>
+<blockquote>
+<div><p>In 1888 the International Phonetic
+Alphabet (IPA) was invented in order to have a system in which there was a oneto-one correspondence between each sound in language and each phonetic symbol</p>
+</div></blockquote>
+<p>If you know IPA, you kno whow to pronounce any word in anay language</p>
 </section>
-<section id="article">
-<h3>Article<a class="headerlink" href="#article" title="Permalink to this heading">#</a></h3>
-<p><object data="_static/turing-original-article.pdf" width="850" height="950" type='application/pdf'/></object></p>
-</section>
+<section id="phonology">
+<h2>Phonology<a class="headerlink" href="#phonology" title="Permalink to this heading">#</a></h2>
+<p><img alt="" src="_images/ph10.png" /></p>
+<p><img alt="" src="_images/ph11.png" /></p>
+<p><img alt="" src="_images/ph12.png" />
+<small><a class="reference external" href="http://www.cs.columbia.edu/~mcollins/6864/slides/asr.pdf">http://www.cs.columbia.edu/~mcollins/6864/slides/asr.pdf</a></small></p>
 </section>
 </section>
 
@@ -457,20 +523,20 @@ Select More (top Menu) &gt; Linking Cleverbot</p></li>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="applications.html"
+       href="speech.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">NLP Applications</p>
+        <p class="prev-next-title">Speech</p>
       </div>
     </a>
     <a class="right-next"
-       href="language.html"
+       href="recognizer.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Natural Language</p>
+        <p class="prev-next-title">Speech Recognition</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -492,15 +558,10 @@ Select More (top Menu) &gt; Linking Cleverbot</p></li>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">Your turn</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-questions">Practice Questions</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-reading-turing-original-paper">Optional Reading Turing Original Paper:</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#article">Article</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speech-chain">Speech Chain</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phonetics">Phonetics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phonetic-alphabet">Phonetic Alphabet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phonology">Phonology</a></li>
 </ul>
   </nav></div>
 

@@ -1,0 +1,705 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Speech Recognition &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'recognizer';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Speech" href="phonetics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="welcome.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="welcome.html">
+                    Welcome to DS Introduction to NLP for Data Science
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="part1-nlpconcepts.html">Introduction to NLP</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="challenges.html">NLP Challenges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="applications.html">NLP Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="turing.html">Turing Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="language.html">Natural Language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regex.html">Regex Coding Practice</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="part2-features.html">Feature Engineering</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sklearn.html">Bag-of-words Using scikit-learn</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="clustering.html">Clustering</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cluster.html">Document Similarity and Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="practice.html">Practice with K-Means Clustering</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="speech.html">Speech</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="phonetics.html">Speech</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Speech Recognition</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Frecognizer.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/recognizer.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Speech Recognition</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges">Challenges</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linguistic-challenges">Linguistic Challenges</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning-challenges">Machine Learning Challenges</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-ear">Human Ear</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speech-recognizer-architecture">Speech Recognizer Architecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-speech-recognition-asr">Automatic Speech Recognition ASR</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#text-to-speech-tts">Text-to-Speech TTS</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speech-features">Speech Features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#properties">Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-rate">Sampling Rate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-hear">How do we hear?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mel-scale">Mel Scale</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mel-frequency-cepstral-coefficients-mfcc">Mel Frequency Cepstral Coefficients (MFCC)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="speech-recognition">
+<h1>Speech Recognition<a class="headerlink" href="#speech-recognition" title="Permalink to this heading">#</a></h1>
+<p><small>Source. Jurafsky. Chapter 26</small></p>
+<p><small>Source: <a class="reference external" href="http://www.cochlea.org/en/hear/human-auditory-range">Human Auditory Range</a></small></p>
+<p>Q1. Name current speech recognition systems</p>
+<blockquote>
+<div><p>Google assistant, Apple’s Siri, Amazon’s Alexa</p>
+</div></blockquote>
+<section id="challenges">
+<h2>Challenges<a class="headerlink" href="#challenges" title="Permalink to this heading">#</a></h2>
+<p>Q2. Why speech recognition is difficult?</p>
+<p><small>Adapted from Peter Ball Slides. ASR. 2022. <a class="reference external" href="http://www.inf.ed.ac.uk/teaching/courses/asr/2021-22/asr01-intro.pdf">Link</a> </small></p>
+<section id="linguistic-challenges">
+<h3>Linguistic Challenges<a class="headerlink" href="#linguistic-challenges" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Speaker</strong> Tuned for a particular speaker, or
+speaker-independent? Adaptation to speaker characteristics</p></li>
+<li><p><strong>Environment</strong> Noise, competing speakers, channel conditions (microphone, phone line, room acoustics)</p></li>
+<li><p><strong>Style</strong> Continuously spoken or isolated? Planned monologue or spontaneous conversation?</p></li>
+<li><p><strong>Vocabulary</strong> Machine-directed commands, scientific language, colloquial expressions</p></li>
+<li><p><strong>Accent/dialect</strong> Recognise the speech of all speakers who speak a particular language</p></li>
+<li><p><strong>Other paralinguistics</strong> Emotional state, social class, …</p></li>
+<li><p><strong>Language spoken</strong> Estimated 7,000 languages, most with limited training resources; code-switching; language change</p></li>
+</ul>
+</section>
+<section id="machine-learning-challenges">
+<h3>Machine Learning Challenges<a class="headerlink" href="#machine-learning-challenges" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Classification problem</strong>: very high dimensional output space</p></li>
+<li><p><strong>Sequence-to-sequence problem</strong>: very long input sequence</p></li>
+<li><p><strong>Data</strong>:</p>
+<ul>
+<li><p>often noisy, with many “nuisance” factors of variation in the data</p></li>
+<li><p>limited quantities of training data available (in terms of words) compared to text-based NLP</p></li>
+<li><p>Manual speech transcription is very expensive</p></li>
+</ul>
+</li>
+<li><p><strong>Complexity</strong>: Hierachical and compositional nature of speech productionand comprehension makes it difficult to handle with a single model</p></li>
+</ul>
+</section>
+<section id="human-ear">
+<h3>Human Ear<a class="headerlink" href="#human-ear" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>The human auditory field corresponds to a specific <strong>band of frequencies</strong> and a specific <strong>range of intensities</strong>, perceived by our ear. Acoustic vibrations outside of this field are not considered as “sounds”, even if they can be perceived by other animals.</p>
+</div></blockquote>
+<p><strong>Frequency</strong></p>
+<p><img alt="" src="_images/speech7.jpeg" />
+<small>Source: <a class="reference external" href="http://www.cochlea.org/en/hear/human-auditory-range">Human Auditory Range</a></small></p>
+<ul class="simple">
+<li><p>Human ear range - frequencies between 20 Hz (lowest pitch) to 20 kHz (highest pitch)</p></li>
+<li><p>Sounds below 20 Hz are qualified as infrasounds (mole-rat, or elephant can hear them).</p></li>
+<li><p>Sounds above 20 kHz are qualified as ultrasounds</p></li>
+</ul>
+<p><strong>Intensity/Amplitude</strong></p>
+<p><img alt="" src="_images/speech8.png" /></p>
+<ul class="simple">
+<li><p>The human ear -  a range from 0dB (threshold) to 120-130 dB</p></li>
+</ul>
+<p><strong>Frequency-Intensity</strong></p>
+<p><img alt="" src="_images/speech9.jpeg" /></p>
+<ul class="simple">
+<li><p>The human auditory field (green) is limited by the threshold curve (bottom) and the sound perception curve (top)</p></li>
+<li><p>At each frequency, between 20 Hz and 20 kHz, the threshold of our sensitivity is different</p></li>
+</ul>
+</section>
+</section>
+<section id="speech-recognizer-architecture">
+<h2>Speech Recognizer Architecture<a class="headerlink" href="#speech-recognizer-architecture" title="Permalink to this heading">#</a></h2>
+<p><img alt="" src="_images/speech1.png" /></p>
+<p><small>Source: <a class="reference external" href="https://medium.com/&#64;haejin2909/having-problems-with-voice-recognition-youre-not-wrong-c26f9eec8d4">https://medium.com/&#64;haejin2909/having-problems-with-voice-recognition-youre-not-wrong-c26f9eec8d4</a></small></p>
+<p><img alt="" src="_images/speech3.png" /></p>
+<blockquote>
+<div><p>a recorded utterance is a sequence of feature vectors</p>
+</div></blockquote>
+<p><img alt="" src="_images/speech4.png" /></p>
+<section id="automatic-speech-recognition-asr">
+<h3>Automatic Speech Recognition ASR<a class="headerlink" href="#automatic-speech-recognition-asr" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>The task of speech recognition (or speech-to-text) is to map acoustic waveforms to sequences of graphemes.</p>
+</div></blockquote>
+<p><img alt="" src="_images/speech5.png" /></p>
+<p><img alt="" src="_images/speech6.png" /></p>
+</section>
+<section id="text-to-speech-tts">
+<h3>Text-to-Speech TTS<a class="headerlink" href="#text-to-speech-tts" title="Permalink to this heading">#</a></h3>
+<p>Q3. What are different ways we can say <strong>1750</strong>?</p>
+<p><img alt="" src="_images/speech2.png" /></p>
+<blockquote>
+<div><p>The task of TTS (or text-to-speech) is to map sequences of graphemes to acoustic waveforms.</p>
+</div></blockquote>
+<p>TTS LINK - Convert text to mp3 <a class="reference external" href="https://colab.research.google.com/drive/1p08TLT1DxPA9Navfl12fmgZd3_3Xz_Mn?usp=sharing">https://colab.research.google.com/drive/1p08TLT1DxPA9Navfl12fmgZd3_3Xz_Mn?usp=sharing</a></p>
+<p>ASR LINK - Convert mp3 to WAV and to Text <a class="reference external" href="https://colab.research.google.com/drive/1Nb8dPMvQZVV97OROcU192gsJE1fRfFUv?usp=sharing">https://colab.research.google.com/drive/1Nb8dPMvQZVV97OROcU192gsJE1fRfFUv?usp=sharing</a></p>
+</section>
+</section>
+<section id="speech-features">
+<h2>Speech Features<a class="headerlink" href="#speech-features" title="Permalink to this heading">#</a></h2>
+<section id="properties">
+<h3>Properties<a class="headerlink" href="#properties" title="Permalink to this heading">#</a></h3>
+<p><small><a class="reference external" href="https://medium.com/analytics-vidhya/audio-data-processing-feature-extraction-science-concepts-behind-them-be97fbd587d8">Audio Processing</a></small></p>
+<p>Speech Wave has the following properties:</p>
+<ul class="simple">
+<li><p><strong>Amplitude</strong>: the magnitude of the wave signal and it is usually measured in decibels (dB). It is a measure of the strength or intensity of the wave</p></li>
+<li><p><strong>Time</strong>  the time scale</p></li>
+<li><p><strong>Frequency</strong> is the number of times per second that the wave cycles (how many complete cycle the wave takes in one second) and it is measured in Hz. This is how fast the sound wave is oscillating</p>
+<ul>
+<li><p>Hertz (Hz) equals the number of cycles per second (electric currents, electromagnetic waves (light, radar, etc.), and sound)</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="" src="_images/speech12.png" /></p>
+<ul class="simple">
+<li><p><strong>Wavelength</strong> The wavelength of a wave is the distance between two corresponding points on back-to-back cycles of a wave. This can be measured between two crests of a wave. The wavelength is usually represented in physics by the Greek letter lambda.</p></li>
+</ul>
+<p><img alt="" src="_images/speech11.png" />
+<small>Source: <a class="reference external" href="https://www.ducksters.com/science/physics/properties_of_waves.php">Waves</a></small></p>
+</section>
+<section id="sampling-rate">
+<h3>Sampling Rate<a class="headerlink" href="#sampling-rate" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The input to a speech recognizer is a series of <strong>acoustic waves</strong></p>
+<ul>
+<li><p>Audio waves are continuous in nature — but most of our processing engines are built to process digital/discrete signals</p></li>
+<li><p>waves are sampled, quantized, and converted to a spectral representation like the log mel spectrum</p></li>
+<li><p>As human hearing range is around 20K Hz, sampling rate of audio files in many libraries are by default set at 22050 per sec.</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="" src="_images/speech10.png" /></p>
+<blockquote>
+<div><p>When you initiate the recording — recorder records the magnitude of audio signal at a very high rate in the range of 22K values per second. For example, you have recorded the audio for 5 seconds — then the audio file will contain (22K * 5) magnitude values of recorded signal.</p>
+</div></blockquote>
+</section>
+<section id="how-do-we-hear">
+<h3>How do we hear?<a class="headerlink" href="#how-do-we-hear" title="Permalink to this heading">#</a></h3>
+<p>How do we hear frequency?</p>
+<blockquote>
+<div><p>The way we hear frequencies in sound is known as ‘pitch’. It is a subjective impression of the frequency. A high-pitched sound has a higher frequency than a low-pitched sound.</p>
+</div></blockquote>
+<blockquote>
+<div><p>We are more sensitive to differences between lower frequencies than higher frequencies.</p>
+</div></blockquote>
+<blockquote>
+<div><p>We hear frequencies on a logarithmic scale rather than a linear scale. The pair at 100Hz and 200Hz will sound further apart than the pair at 1000Hz and 1100Hz.</p>
+</div></blockquote>
+<section id="mel-scale">
+<h4>Mel Scale<a class="headerlink" href="#mel-scale" title="Permalink to this heading">#</a></h4>
+<blockquote>
+<div><p>mel scale is a non-linear transformation scale where it transforms the frequency range of audio to a different value range — whose difference would sound identical to the end user irrespective of values.</p>
+</div></blockquote>
+<p><img alt="" src="_images/speech12.png" /></p>
+<p>How do we hear amplitudes?</p>
+<blockquote>
+<div><p>The human perception of the amplitude of a sound is its loudness. And similar to frequency, we hear loudness logarithmically rather than linearly. We account for this using the Decibel scale.</p>
+</div></blockquote>
+</section>
+<section id="mel-frequency-cepstral-coefficients-mfcc">
+<h4>Mel Frequency Cepstral Coefficients (MFCC)<a class="headerlink" href="#mel-frequency-cepstral-coefficients-mfcc" title="Permalink to this heading">#</a></h4>
+<p>MFCC is that one feature you would see being used in any machine learning experiment involving audio files.</p>
+<ul class="simple">
+<li><p>any periodic component (for eg, echoes) shows up as sharp peaks in the corresponding frequency spectrum</p></li>
+<li><p>cepstrum is the information of rate of change in spectral bands</p></li>
+</ul>
+<p><img alt="" src="_images/speech14.jpeg" /></p>
+<p>Filter Bank refers to the mel filters (coverting to mel scale) and Cepstral Coefficients are MFCCs.</p>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="phonetics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Speech</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges">Challenges</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linguistic-challenges">Linguistic Challenges</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning-challenges">Machine Learning Challenges</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-ear">Human Ear</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speech-recognizer-architecture">Speech Recognizer Architecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-speech-recognition-asr">Automatic Speech Recognition ASR</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#text-to-speech-tts">Text-to-Speech TTS</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#speech-features">Speech Features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#properties">Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-rate">Sampling Rate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-hear">How do we hear?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mel-scale">Mel Scale</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mel-frequency-cepstral-coefficients-mfcc">Mel Frequency Cepstral Coefficients (MFCC)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
