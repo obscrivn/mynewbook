@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>NLP Challenges &#8212; Introduction to NLP</title>
+    <title>Machine Translation &#8212; Introduction to NLP</title>
   
   
   
@@ -63,11 +63,10 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'challenges';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'translation';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="NLP Applications" href="applications.html" />
-    <link rel="prev" title="Introduction to NLP" href="part1-nlpconcepts.html" />
+    <link rel="prev" title="Speech Recognition" href="recognizer.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -153,8 +152,8 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="part1-nlpconcepts.html">Introduction to NLP</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">NLP Challenges</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="part1-nlpconcepts.html">Introduction to NLP</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="challenges.html">NLP Challenges</a></li>
 <li class="toctree-l2"><a class="reference internal" href="applications.html">NLP Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="turing.html">Turing Test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="language.html">Natural Language</a></li>
@@ -177,7 +176,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="recognizer.html">Speech Recognition</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="translation.html">Machine Translation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Machine Translation</a></li>
 </ul>
 
     </div>
@@ -249,7 +248,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fchallenges.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ftranslation.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -279,7 +278,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/challenges.md" target="_blank"
+      <li><a href="_sources/translation.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -361,7 +360,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>NLP Challenges</h1>
+    <h1>Machine Translation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -371,13 +370,24 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-nlp">What is NLP?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-nlp-is-hard">Why NLP is hard?</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-1-coreferences">Challenge 1 - Coreferences</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-2-ambiguity">Challenge 2 - Ambiguity</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-3-informal-communication-abbreviations">Challenge 3 - Informal Communication (abbreviations)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#history">History</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chalengess">Chalengess</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#word-orders">Word Orders</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#word-sense-ambiguity">Word Sense Ambiguity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correference">Correference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pronouns">Pronouns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#different-tenses">Different Tenses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idioms">Idioms</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches">Approaches</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-based-translation">Rule-Based Translation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-machine-translation">Statistical Machine Translation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-machine-translation">Neural Machine Translation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges">Challenges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#biases">Biases</a></li>
 </ul>
             </nav>
         </div>
@@ -389,44 +399,130 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="nlp-challenges">
-<h1>NLP Challenges<a class="headerlink" href="#nlp-challenges" title="Permalink to this heading">#</a></h1>
-<p><img alt="" src="_images/textanalytics.png" /></p>
-<section id="what-is-nlp">
-<h2>What is NLP?<a class="headerlink" href="#what-is-nlp" title="Permalink to this heading">#</a></h2>
-<p><object data="_static/demo.pdf" width="950" height="650" type='application/pdf'/></object></p>
-</section>
-<section id="why-nlp-is-hard">
-<h2>Why NLP is hard?<a class="headerlink" href="#why-nlp-is-hard" title="Permalink to this heading">#</a></h2>
-<section id="challenge-1-coreferences">
-<h3>Challenge 1 - Coreferences<a class="headerlink" href="#challenge-1-coreferences" title="Permalink to this heading">#</a></h3>
-<p><img alt="" src="_images/challenge1.png" /></p>
-<p>Q1. Who is Mr.Robin?</p>
-</section>
-<section id="challenge-2-ambiguity">
-<h3>Challenge 2 - Ambiguity<a class="headerlink" href="#challenge-2-ambiguity" title="Permalink to this heading">#</a></h3>
-<p><img alt="" src="_images/challenge2.png" /></p>
-<p><img alt="" src="_images/challenge2b.png" /></p>
-</section>
-<section id="challenge-3-informal-communication-abbreviations">
-<h3>Challenge 3 - Informal Communication (abbreviations)<a class="headerlink" href="#challenge-3-informal-communication-abbreviations" title="Permalink to this heading">#</a></h3>
+  <section id="machine-translation">
+<h1>Machine Translation<a class="headerlink" href="#machine-translation" title="Permalink to this heading">#</a></h1>
+<p><small>Source. Jurafsky. Chapter 26</small></p>
+<p><small>Source: <a class="reference external" href="http://www.cochlea.org/en/hear/human-auditory-range">Human Auditory Range</a></small></p>
+<blockquote>
+<div><p>Machine Translation (MT) is the task of automatically converting one natural language into another, preserving the meaning of the input text, and producing fluent text in the output language (<a class="reference external" href="https://nlp.stanford.edu/projects/mt.shtmls">NLP Stanford Grooup</a>)</p>
+</div></blockquote>
+<section id="history">
+<h2>History<a class="headerlink" href="#history" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>ROFL</p></li>
-<li><p>ICYMI</p></li>
-<li><p>TL;DR</p></li>
-<li><p>NVM</p></li>
-<li><p>TGIF</p></li>
-<li><p>TBH</p></li>
+<li><p>Machine Translation (MT) was one of the first applications envisaged for computers</p></li>
+<li><p>First demonstrated by IBM in 1954 with a basic word-for-word translation system</p></li>
 </ul>
-<p><strong>Answers</strong>
-ROFL: Rolling on floor laughing.
-ICYMI: In case you missed it.
-TL;DR: Too long, didn’t read.
-LMK: Let me know.
-NVM: Nevermind.
-TGIF: Thank goodness it’s Friday.
-TBH: To be honest.</p>
+<blockquote>
+<div><p>Warren Weaver (1949): I have a text in front of me which is written in Russian but I am going to pretend that it is really written in English and that it has been coded
+in some strange symbols. All I need to do is strip off the code in order
+to retrieve the information contained in the text.
+<small>Adapted from Stephen Clark Slides. Machine Translation. 2022. <a class="reference external" href="https://www.cl.cam.ac.uk/teaching/0809/NLP/slides-steve.pdf">Link</a> </small></p>
+</div></blockquote>
 </section>
+<section id="chalengess">
+<h2>Chalengess<a class="headerlink" href="#chalengess" title="Permalink to this heading">#</a></h2>
+<p>Q1. Why Machine Tranlation is hard?</p>
+<ul class="simple">
+<li><p>Word order</p></li>
+<li><p>Word sense</p></li>
+<li><p>Pronouns</p></li>
+<li><p>Tense</p></li>
+<li><p>Idioms</p></li>
+</ul>
+<section id="word-orders">
+<h3>Word Orders<a class="headerlink" href="#word-orders" title="Permalink to this heading">#</a></h3>
+<p><img alt="" src="_images/tr1.png" /></p>
+</section>
+<section id="word-sense-ambiguity">
+<h3>Word Sense Ambiguity<a class="headerlink" href="#word-sense-ambiguity" title="Permalink to this heading">#</a></h3>
+<p><img alt="" src="_images/tr2.png" /></p>
+</section>
+<section id="correference">
+<h3>Correference<a class="headerlink" href="#correference" title="Permalink to this heading">#</a></h3>
+<p><img alt="" src="_images/tr9.png" /></p>
+</section>
+<section id="pronouns">
+<h3>Pronouns<a class="headerlink" href="#pronouns" title="Permalink to this heading">#</a></h3>
+<p><img alt="" src="_images/tr3.png" /></p>
+<p>Q2. Do you know any other pro-drop language? How some languages encode information when the personal pronoun is omitted?</p>
+<p><img alt="" src="_images/tr7.png" /></p>
+<p>Q3. Use Google translate for <strong>I saw the movie and it is good</strong>. Does your translation is correct for <strong>it</strong>? Copy the translation  and translate it back to English.</p>
+</section>
+<section id="different-tenses">
+<h3>Different Tenses<a class="headerlink" href="#different-tenses" title="Permalink to this heading">#</a></h3>
+<p><img alt="" src="_images/tr4.png" /></p>
+</section>
+<section id="idioms">
+<h3>Idioms<a class="headerlink" href="#idioms" title="Permalink to this heading">#</a></h3>
+<p>Q4. Use Google translate and find a translation in aanotherr language for <code class="docutils literal notranslate"><span class="pre">spill</span> <span class="pre">the</span> <span class="pre">beans</span></code></p>
+<p><img alt="" src="_images/tr5.png" /></p>
+</section>
+</section>
+<section id="approaches">
+<h2>Approaches<a class="headerlink" href="#approaches" title="Permalink to this heading">#</a></h2>
+<p><img alt="" src="_images/tr6.png" /></p>
+<section id="rule-based-translation">
+<h3>Rule-Based Translation<a class="headerlink" href="#rule-based-translation" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>Classical machine translation methods often involve rules for converting text in the source language to the target language. The rules are often developed by linguists and may operate at the lexical, syntactic, or semantic level. This focus on rules gives the name to this area of study: Rule-based Machine Translation, or RBMT.
+<img alt="" src="_images/tr11.png" /></p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Foreign input is segmented in phrases</p></li>
+<li><p>Each phrase is translated into English</p></li>
+<li><p>Phrases are reordered</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The key limitations of the classical machine translation approaches are both the expertise required to develop the rules, and the vast number of rules and exceptions required.</p>
+</div>
+</section>
+<section id="statistical-machine-translation">
+<h3>Statistical Machine Translation<a class="headerlink" href="#statistical-machine-translation" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>Statistical machine translation, or SMT for short, is the use of statistical models that learn to translate text from a source language to a target language gives a large corpus of examples.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Find most probable English sentence given a foreign language sentence</p></li>
+<li><p>Automatically align words and phrases within sentence pairs in a parallel corpus</p></li>
+<li><p>Probabilities are determined automatically by training a statistical model using the parallel corpus</p></li>
+</ul>
+<p><img alt="" src="_images/tr10.png" /></p>
+<blockquote>
+<div><p>Presently, SMT is extraordinary for basic translation, however its most noteworthy disadvantage is that it does not factor in context, which implies translation can regularly be wrong or you can say, do not expect great quality translation. There are several types of statistical-based machine translation models which are: Hierarchical phrase-based translation, Syntax-based translation, Phrase-based translation, Word-based translation.</p>
+</div></blockquote>
+</section>
+<section id="neural-machine-translation">
+<h3>Neural Machine Translation<a class="headerlink" href="#neural-machine-translation" title="Permalink to this heading">#</a></h3>
+<blockquote>
+<div><p>Neural machine translation, or NMT for short, is the use of neural network models to learn a statistical model for machine translation.</p>
+</div></blockquote>
+<p><img alt="" src="_images/tr12.png" /></p>
+</section>
+</section>
+<section id="challenges">
+<h2>Challenges<a class="headerlink" href="#challenges" title="Permalink to this heading">#</a></h2>
+<p><img alt="" src="_images/tr13.png" /></p>
+</section>
+<section id="biases">
+<h2>Biases<a class="headerlink" href="#biases" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p>Google Translate is the world’s most popular web translation platform, but one Stanford University researcher says it doesn’t really understand sex and gender. Londa Schiebinger, who runs Stanford’s Gendered Innovations project, says Google’s choice of source databases causes a statistical bias toward male nouns and verbs in translation
+<small><a class="reference external" href="https://www.fastcompany.com/3010223/google-translates-gender-problem-and-bing-translates-and-systrans">https://www.fastcompany.com/3010223/google-translates-gender-problem-and-bing-translates-and-systrans</a></small></p>
+</div></blockquote>
+<blockquote>
+<div><p>In a peer-reviewed case study published in 2013, Schiebinger illustrated that Google Translate has a tendency to turn gender-neutral English words (such as the, or occupational names such as professor and doctor) into the male form in other languages once the word is translated. However, certain gender-neutral English words are translated into the female form … but only when they comply with certain gender stereotypes.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>For instance, the gender-neutral English terms a defendant and a nurse translate into the German as ein Angeklagter and eine Krankenschwester. Defendant translates as male, but nurse auto-translates as female.</p></li>
+</ul>
+<blockquote>
+<div><p>users discovered that translating “Men are men, and men should clean the kitchen” into German became “Männer sind Männer, und Frauen sollten die Küche sauber”–which means “Men are men and women should clean the kitchen.” Another German-language Google Translate user found job bias in multiple languages–the gender-netural English language terms French teacher, nursery teacher, and cooking teacher all showed up in Google Translate’s French and German editions in the feminine form, while engineer, doctor, journalist, and president were translated into the male form.</p>
+</div></blockquote>
+<blockquote>
+<div><p>Bias and discrimination have appeared time and again in various technological forms. A pressing issue is the discrimination found in many of the translation applications in use today, as Google Translate alone now serves roughly 200 million people daily.
+<small><a class="reference external" href="https://www.forbes.com/sites/forbesbusinesscouncil/2021/03/01/avoiding-bias-and-discrimination-in-machine-translation/?sh=2c4bea6146a7">https://www.forbes.com/sites/forbesbusinesscouncil/2021/03/01/avoiding-bias-and-discrimination-in-machine-translation/?sh=2c4bea6146a7</a></small></p>
+</div></blockquote>
 </section>
 </section>
 
@@ -462,22 +558,13 @@ TBH: To be honest.</p>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="part1-nlpconcepts.html"
+       href="recognizer.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introduction to NLP</p>
+        <p class="prev-next-title">Speech Recognition</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="applications.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">NLP Applications</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div></div>
   
@@ -497,13 +584,24 @@ TBH: To be honest.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-nlp">What is NLP?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-nlp-is-hard">Why NLP is hard?</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-1-coreferences">Challenge 1 - Coreferences</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-2-ambiguity">Challenge 2 - Ambiguity</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-3-informal-communication-abbreviations">Challenge 3 - Informal Communication (abbreviations)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#history">History</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chalengess">Chalengess</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#word-orders">Word Orders</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#word-sense-ambiguity">Word Sense Ambiguity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correference">Correference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pronouns">Pronouns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#different-tenses">Different Tenses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idioms">Idioms</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approaches">Approaches</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rule-based-translation">Rule-Based Translation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-machine-translation">Statistical Machine Translation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-machine-translation">Neural Machine Translation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges">Challenges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#biases">Biases</a></li>
 </ul>
   </nav></div>
 
