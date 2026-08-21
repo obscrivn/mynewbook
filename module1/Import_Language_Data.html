@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>1.2 Language as Data &#8212; Introduction to NLP</title>
+    <title>1.3 Extracting Language Data &#8212; Introduction to NLP</title>
   
   
   
@@ -64,9 +64,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'module1/week1_coding_practice';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module1/Import_Language_Data';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Chapter 2. Features" href="../module2/module2.html" />
+    <link rel="prev" title="1.2 Working with Strings" href="Working_with_Text_Data.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -129,8 +131,6 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -169,15 +169,15 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module1.html">Chapter 1. Natural Language</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="language.html">1.1 From Language To Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Working_with_Text_Data.html">1.2 Working with Strings</a></li>
 
 
 
 
-<li class="toctree-l2"><a class="reference internal" href="Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.3 Extracting Language Data</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2. Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -269,7 +269,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule1/week1_coding_practice.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule1/Import_Language_Data.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -299,7 +299,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/module1/week1_coding_practice.ipynb" target="_blank"
+      <li><a href="../_sources/module1/Import_Language_Data.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -383,7 +383,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>1.2 Language as Data</h1>
+    <h1>1.3 Extracting Language Data</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -393,23 +393,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use-this-notebook">How to use this notebook</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#can-python-understand-language">1. Can Python Understand Language?</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#think-first">Think first</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-happened">What happened?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pdf-import">PDF Import</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-all-text-for-processing">Extract all text for processing</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#language-is-data">2. Language Is Data</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-the-output">Think about the output</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#same-word-different-meaning">3. Same word, different meaning</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Think first</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#small-changes-big-changes-in-meaning">4. Small changes, big changes in meaning</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-can-simple-string-operations-tell-us">5. What can simple string operations tell us?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-just-discovered">What You Just Discovered</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#json-documents">JSON Documents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#html-import">HTML Import</a></li>
 </ul>
             </nav>
         </div>
@@ -421,182 +410,193 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="language-as-data">
-<h1>1.2 Language as Data<a class="headerlink" href="#language-as-data" title="Permalink to this heading">#</a></h1>
-<p>This activity is a short reflection exercise, not a full Python tutorial.</p>
-<p>You will use a few basic Python string operations to explore how computers (python) interact with text.</p>
-<p>Focus on the bigger question:</p>
-<p><strong>What information about language is easy for a computer to detect, and what requires deeper analysis?</strong></p>
-<section id="how-to-use-this-notebook">
-<h2>How to use this notebook<a class="headerlink" href="#how-to-use-this-notebook" title="Permalink to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p>Download this file as ipynb</p></li>
-<li><p>Open this file in Google Colab (upload to <a class="reference external" href="https://colab.research.google.com/">https://colab.research.google.com/</a>) or VS Code.</p></li>
-<li><p>Choose a Python kernel.</p></li>
-<li><p>Run each code cell from top to bottom, or use Run All.</p></li>
-<li><p>No extra files, installs, or database setup are required.</p></li>
-</ol>
-<p>This activity is self-contained and works from a clean checkout or a downloaded notebook.</p>
-</section>
-<section id="can-python-understand-language">
-<h2>1. Can Python Understand Language?<a class="headerlink" href="#can-python-understand-language" title="Permalink to this heading">#</a></h2>
-<p>Before running the code, look at these two sentences:</p>
-<ul class="simple">
-<li><p>“I love this movie.”</p></li>
-<li><p>“I do not love this movie.”</p></li>
-</ul>
-<section id="think-first">
-<h3>Think first<a class="headerlink" href="#think-first" title="Permalink to this heading">#</a></h3>
-<ol class="arabic simple">
-<li><p>Which sentence is positive?</p></li>
-<li><p>Which sentence is negative?</p></li>
-<li><p>What word appears in both sentences?</p></li>
-<li><p>If a program only searched for the word <code class="docutils literal notranslate"><span class="pre">love</span></code>, would that be enough to understand the meaning?</p></li>
-</ol>
+  <section class="tex2jax_ignore mathjax_ignore" id="extracting-language-data">
+<h1>1.3 Extracting Language Data<a class="headerlink" href="#extracting-language-data" title="Permalink to this heading">#</a></h1>
+<p>The goal of this practice is to introduce learners to different kind of sources for unstructured text.</p>
+<p><a class="reference external" href="https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module1/Import_Language_Data.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<section id="pdf-import">
+<h2>PDF Import<a class="headerlink" href="#pdf-import" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text1</span> <span class="o">=</span> <span class="s2">&quot;I love this movie.&quot;</span>
-<span class="n">text2</span> <span class="o">=</span> <span class="s2">&quot;I do not love this movie.&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install PyPDF2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">PyPDF2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Choose any sample pdf (for example, an article, course syllabus)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">files</span>
+<span class="n">uploaded</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Replace the name with your file name</span>
+<span class="n">pdfFileObject</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;name.pdf&#39;</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reader</span> <span class="o">=</span> <span class="n">PyPDF2</span><span class="o">.</span><span class="n">PdfReader</span><span class="p">(</span><span class="n">pdfFileObject</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">reader</span><span class="o">.</span><span class="n">pages</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">firstPage</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">pages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">firstPage</span><span class="o">.</span><span class="n">extract_text</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="extract-all-text-for-processing">
+<h3>Extract all text for processing<a class="headerlink" href="#extract-all-text-for-processing" title="Permalink to this heading">#</a></h3>
+<p>Option 1: keep adding processed text to the string</p>
+<p>Option 2: Create an array - every page is a separate element. Then join them</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Option 1</span>
+<span class="n">pdf_data</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">number_of_pages</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">reader</span><span class="o">.</span><span class="n">pages</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">page_number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_pages</span><span class="p">):</span>   <span class="c1"># use xrange in Py2</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">pages</span><span class="p">[</span><span class="n">page_number</span><span class="p">]</span>
+    <span class="n">page_content</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">extract_text</span><span class="p">()</span>
+    <span class="n">pdf_data</span><span class="o">+=</span><span class="n">page_content</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Option 2</span>
+<span class="n">pdf_data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">number_of_pages</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">reader</span><span class="o">.</span><span class="n">pages</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">page_number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_pages</span><span class="p">):</span>   <span class="c1"># use xrange in Py2</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">pages</span><span class="p">[</span><span class="n">page_number</span><span class="p">]</span>
+    <span class="n">page_content</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">extract_text</span><span class="p">()</span>
+    <span class="n">pdf_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">page_content</span><span class="p">)</span>
+<span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pdf_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pdfFileObject</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#pdf_data</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="json-documents">
+<h2>JSON Documents<a class="headerlink" href="#json-documents" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Learn how to extract a text from API in a json format</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># An example from API request whic has json format</span>
+<span class="c1"># Note: while working with API, you should always consult the documentation to undertsand what fields contain data/text</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api.chucknorris.io/jokes/random&quot;</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract contents</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="html-import">
+<h2>HTML Import<a class="headerlink" href="#html-import" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">bs4</span><span class="w"> </span><span class="kn">import</span> <span class="n">BeautifulSoup</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;love&quot;</span> <span class="ow">in</span> <span class="n">text1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;love&quot;</span> <span class="ow">in</span> <span class="n">text2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="what-happened">
-<h3>What happened?<a class="headerlink" href="#what-happened" title="Permalink to this heading">#</a></h3>
-<p>Python found the word <code class="docutils literal notranslate"><span class="pre">love</span></code> in both sentences.</p>
-<p>But the two sentences do not communicate the same meaning.</p>
-<p><strong>Question:</strong> What information is Python missing?</p>
-</section>
-</section>
-<section id="language-is-data">
-<h2>2. Language Is Data<a class="headerlink" href="#language-is-data" title="Permalink to this heading">#</a></h2>
-<p>Python stores text as strings.</p>
-<p>Before running the code below, predict:</p>
-<ol class="arabic simple">
-<li><p>What data type is <code class="docutils literal notranslate"><span class="pre">text</span></code>?</p></li>
-<li><p>How many characters do you think it contains?</p></li>
-<li><p>Does Python treat spaces and punctuation as characters?</p></li>
-</ol>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Natural language is messy!&quot;</span>
+<span class="c1"># Define a User-Agent header to mimic a browser</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36&#39;</span><span class="p">}</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://en.wikipedia.org/wiki/Natural_language_processing&#39;</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<section id="think-about-the-output">
-<h3>Think about the output<a class="headerlink" href="#think-about-the-output" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>What change when we use <code class="docutils literal notranslate"><span class="pre">.lower()</span></code>?</p></li>
-<li><p>What does <code class="docutils literal notranslate"><span class="pre">.split()</span></code> consider a separate unit?</p></li>
-<li><p>What happens to the punctuation?</p></li>
-<li><p>Is splitting on spaces always enough to identify words?</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="same-word-different-meaning">
-<h2>3. Same word, different meaning<a class="headerlink" href="#same-word-different-meaning" title="Permalink to this heading">#</a></h2>
-<p>Consider:</p>
-<ul class="simple">
-<li><p>“Apple released a new laptop.”</p></li>
-<li><p>“She ate an apple.”</p></li>
-</ul>
-<section id="id1">
-<h3>Think first<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
-<p>Does the word <code class="docutils literal notranslate"><span class="pre">apple</span></code> mean the same thing in both sentences?</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text1</span> <span class="o">=</span> <span class="s2">&quot;Apple released a new laptop.&quot;</span>
-<span class="n">text2</span> <span class="o">=</span> <span class="s2">&quot;She ate an apple.&quot;</span>
+<span class="c1"># Make the GET request with the defined headers</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;apple&quot;</span> <span class="ow">in</span> <span class="n">text1</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;apple&quot;</span> <span class="ow">in</span> <span class="n">text2</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+<span class="c1"># Raise an HTTPError for bad responses (4xx or 5xx status codes)</span>
+<span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+<span class="c1"># Get the content as text</span>
+<span class="n">html_doc</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Python can detect the same sequence of characters.</p>
-<p>But can it determine what <code class="docutils literal notranslate"><span class="pre">apple</span></code> refers to?</p>
-<p>This is an example of why <strong>context</strong> matters in NLP.</p>
-</section>
-</section>
-<section id="small-changes-big-changes-in-meaning">
-<h2>4. Small changes, big changes in meaning<a class="headerlink" href="#small-changes-big-changes-in-meaning" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Which changes affect meaning?</p></li>
-<li><p>Which affect tone?</p></li>
-<li><p>Which might affect a model?</p></li>
-<li><p>Which could be normalized away?</p></li>
-<li><p>Should they always be normalized away?</p></li>
-</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sentences</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;This is good.&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;This is not good.&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;This is very good.&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;This is good?&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;This is GOOD!!!&quot;</span>
-<span class="p">]</span>
-
-<span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html_doc</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+<span class="n">strhtm</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">prettify</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">strhtm</span><span class="p">[:</span><span class="mi">1000</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </div>
-</section>
-<section id="what-can-simple-string-operations-tell-us">
-<h2>5. What can simple string operations tell us?<a class="headerlink" href="#what-can-simple-string-operations-tell-us" title="Permalink to this heading">#</a></h2>
-<p>We can build a simple rule detecting the word <code class="docutils literal notranslate"><span class="pre">amazing</span></code> in the reviews.</p>
-<p>But does it correctly determine sentiment in every example?</p>
-<p>What would a more intelligent NLP system need to consider besides individual words?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reviews</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;Amazing product! 😍&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Not amazing at all.&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;The product arrived yesterday.&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;AMAZING!!!&quot;</span><span class="p">,</span>
-<span class="p">]</span>
-
-<span class="k">for</span> <span class="n">review</span> <span class="ow">in</span> <span class="n">reviews</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">review</span><span class="p">,</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;amazing&quot;</span> <span class="ow">in</span> <span class="n">review</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">soup</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">soup</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">string</span><span class="p">)</span>
+<span class="c1">#for x in soup.find_all(&#39;p&#39;): print(x.text)</span>
 </pre></div>
 </div>
 </div>
 </div>
-</section>
-<section id="what-you-just-discovered">
-<h2>What You Just Discovered<a class="headerlink" href="#what-you-just-discovered" title="Permalink to this heading">#</a></h2>
-<p>Basic Python lets us:</p>
-<ul class="simple">
-<li><p>store text</p></li>
-<li><p>inspect text</p></li>
-<li><p>search text</p></li>
-<li><p>transform strings</p></li>
-<li><p>split text into pieces</p></li>
-</ul>
-<p>But language meaning depends on more than characters and keywords.</p>
-<p>NLP gives us methods for representing and analyzing that additional structure.</p>
-<p>In the next modules, we will move from:</p>
-<p><strong>strings → tokens → features → vectors → models</strong></p>
 </section>
 </section>
 
@@ -630,6 +630,24 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="Working_with_Text_Data.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">1.2 Working with Strings</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../module2/module2.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 2. Features</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -646,23 +664,12 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-use-this-notebook">How to use this notebook</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#can-python-understand-language">1. Can Python Understand Language?</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#think-first">Think first</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-happened">What happened?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pdf-import">PDF Import</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-all-text-for-processing">Extract all text for processing</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#language-is-data">2. Language Is Data</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#think-about-the-output">Think about the output</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#same-word-different-meaning">3. Same word, different meaning</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Think first</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#small-changes-big-changes-in-meaning">4. Small changes, big changes in meaning</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-can-simple-string-operations-tell-us">5. What can simple string operations tell us?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-just-discovered">What You Just Discovered</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#json-documents">JSON Documents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#html-import">HTML Import</a></li>
 </ul>
   </nav></div>
 
