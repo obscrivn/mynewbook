@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Chapter 1. NLP in the Age of Generative AI &#8212; Introduction to NLP</title>
+    <title>Chapter 1. Natural Language &#8212; Introduction to NLP</title>
   
   
   
@@ -68,7 +68,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="1.1 From Language To Data" href="language.html" />
-    <link rel="prev" title="Welcome to DS Introduction to NLP for Data Science" href="../welcome.html" />
+    <link rel="prev" title="Introduction" href="../welcome.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -165,12 +165,12 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../welcome.html">
-                    Welcome to DS Introduction to NLP for Data Science
+                    Introduction
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Chapter 1. NLP in the Age of Generative AI</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Chapter 1. Natural Language</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="language.html">1.1 From Language To Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="week1_coding_practice.html">1.2 Language as Data</a></li>
 </ul>
@@ -192,6 +192,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 </ul>
 
     </div>
@@ -364,9 +365,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -377,20 +376,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Chapter 1. NLP in the Age of Generative AI</h1>
+    <h1>Chapter 1. Natural Language</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-what-is-nlp">Part 1: What is NLP</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-coding-practice">Part 2: Coding Practice</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -400,20 +390,62 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-nlp-in-the-age-of-generative-ai">
-<h1>Chapter 1. NLP in the Age of Generative AI<a class="headerlink" href="#chapter-1-nlp-in-the-age-of-generative-ai" title="Permalink to this heading">#</a></h1>
-<section id="part-1-what-is-nlp">
-<h2>Part 1: What is NLP<a class="headerlink" href="#part-1-what-is-nlp" title="Permalink to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-1-natural-language">
+<h1>Chapter 1. Natural Language<a class="headerlink" href="#chapter-1-natural-language" title="Permalink to this heading">#</a></h1>
+<p><strong>NLP in the Age of Generative AI</strong></p>
+<p>Natural language is one of the most familiar forms of data we encounter and one of the most difficult to model computationally.</p>
+<p>Humans routinely interpret incomplete sentences, ambiguous words, indirect requests, sarcasm, metaphor, references to earlier conversations, and assumptions that are never explicitly stated. We perform much of this interpretation almost automatically.</p>
+<p><strong>What is NLP?</strong>
+Natural Language Processing (NLP) studies computational methods for representing, analyzing, understanding, and generating human language. Modern NLP spans linguistic analysis, statistical learning, neural models, information retrieval, speech technology, and large language models. <span id="id1">[<a class="reference internal" href="../references.html#id3" title="Jacob Eisenstein. Introduction to Natural Language Processing. MIT Press, 2019. ISBN 9780262042840.">Eis19</a>, <a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Big idea:</strong> Modern generative AI did not make traditional NLP obsolete.</p>
+<p>Large language models still rely on tokens, numerical representations, learned patterns, similarity, retrieval, classification, and context. What has changed is how many of these problems are modeled and combined within increasingly general-purpose systems.</p>
+</div>
+<p><strong>What is NLP, NLU, and NLG?</strong></p>
+<figure class="align-default" id="nlp-nlu-nlg">
+<img alt="../_images/NLP-NLU-NLG.png" src="../_images/NLP-NLU-NLG.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Three subfields of NLP.</span><a class="headerlink" href="#nlp-nlu-nlg" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Three related terms appear frequently in language technology:</p>
 <ul class="simple">
-<li><p><span class="xref myst">From Language To Data</span></p></li>
+<li><p>Natural Language Processing (NLP) is the broad field concerned with computational methods for working with human language.</p></li>
+<li><p>Natural Language Understanding (NLU) focuses on interpreting language, such as identifying intent, extracting information, determining sentiment, or resolving meaning from context.</p></li>
+<li><p>Natural Language Generation (NLG) focuses on producing language, such as generating responses, summaries, reports, or translations.</p></li>
 </ul>
-</section>
-<section id="part-2-coding-practice">
-<h2>Part 2: Coding Practice<a class="headerlink" href="#part-2-coding-practice" title="Permalink to this heading">#</a></h2>
+<p>This chapter begins with a simple question:</p>
+<blockquote>
+<div><p><strong>What makes human language so difficult for computers to process?</strong></p>
+</div></blockquote>
+<figure class="align-default" id="multiplelevels">
+<img alt="../_images/ch1_Natural_Language.png" src="../_images/ch1_Natural_Language.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Multiple Levels of Language from Processing to Understanding</span><a class="headerlink" href="#multiplelevels" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>We will examine how language differs from ordinary structured data, why meaning depends on context and ambiguity, and how computational systems begin transforming language into representations they can work with.</p>
+<p><strong>What you’ll learn</strong></p>
+<p>By the end of this chapter, you should be able to:</p>
 <ul class="simple">
-<li><p><span class="xref myst">Language as Data</span></p></li>
+<li><p>explain what natural language processing is</p></li>
+<li><p>distinguish NLP, NLU, NLG, and LLMs</p></li>
+<li><p>describe why context and ambiguity make language difficult to process</p></li>
+<li><p>inspect text as data using basic Python string operations</p></li>
+<li><p>explain why simple string matching is not enough for NLP</p></li>
 </ul>
-</section>
+<p><strong>Why this matters</strong></p>
+<p>Modern language models can generate remarkably fluent text, but fluency does not eliminate the underlying problems of language processing.</p>
+<p>Throughout this course, you will return to core questions such as:</p>
+<ul class="simple">
+<li><p>How should language be divided into computational units?</p></li>
+<li><p>How should text be represented numerically?</p></li>
+<li><p>How can we measure similarity between texts?</p></li>
+<li><p>How can a system classify, retrieve, or generate language?</p></li>
+<li><p>How much context is needed to interpret meaning?</p></li>
+</ul>
+<p>Chapter 1 establishes that foundation before we begin turning language into data a computer can process.</p>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -454,7 +486,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Welcome to DS Introduction to NLP for Data Science</p>
+        <p class="prev-next-title">Introduction</p>
       </div>
     </a>
     <a class="right-next"
@@ -472,22 +504,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-what-is-nlp">Part 1: What is NLP</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-coding-practice">Part 2: Coding Practice</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>

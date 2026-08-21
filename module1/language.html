@@ -68,7 +68,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="1.2 Language as Data" href="week1_coding_practice.html" />
-    <link rel="prev" title="Chapter 1. NLP in the Age of Generative AI" href="module1.html" />
+    <link rel="prev" title="Chapter 1. Natural Language" href="module1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -165,12 +165,12 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../welcome.html">
-                    Welcome to DS Introduction to NLP for Data Science
+                    Introduction
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="module1.html">Chapter 1. NLP in the Age of Generative AI</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module1.html">Chapter 1. Natural Language</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">1.1 From Language To Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="week1_coding_practice.html">1.2 Language as Data</a></li>
 </ul>
@@ -192,6 +192,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 </ul>
 
     </div>
@@ -387,12 +388,24 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-natural-language">What is Natural Language?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-nlp">What is NLP?</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#natural-language-is-not-just-unstructured-data">Natural Language Is Not Just “Unstructured Data”</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-symbols-to-meaning">From Symbols to Meaning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#language-operates-at-multiple-levels">Language Operates at Multiple Levels</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ambiguity-is-a-core-property-of-language">Ambiguity Is a Core Property of Language</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-and-meaning-are-not-the-same-thing">Structure and Meaning Are Not the Same Thing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#humans-are-part-of-the-nlp-system">Humans Are Part of the NLP System</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#foundational-questions">Foundational Questions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenization">Tokenization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#representation">Representation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#similarity">Similarity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classification">Classification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#context">Context</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval">Retrieval</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation">Evaluation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nlp-vs-llm-whats-the-difference">NLP vs LLM: What’s the difference?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nlp-applications">NLP Applications</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linguistic-challenges">Linguistic Challenges</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#terminology">Terminology</a></li>
 </ul>
             </nav>
@@ -407,24 +420,317 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="from-language-to-data">
 <h1>1.1 From Language To Data<a class="headerlink" href="#from-language-to-data" title="Permalink to this heading">#</a></h1>
-<section id="what-is-natural-language">
-<h2>What is Natural Language?<a class="headerlink" href="#what-is-natural-language" title="Permalink to this heading">#</a></h2>
-<p><strong>Natural language</strong> is the language people use to communicate with one another, such as English, Spanish, Arabic, Mandarin, or Hindi. Unlike programming languages, natural languages were not designed according to a <strong>fixed set of computational rules</strong>. They evolved through human communication, culture, and social interaction.</p>
-<p>This makes language remarkably <strong>expressive</strong>, but also remarkably <strong>difficult</strong> for computers to process.</p>
+<section id="natural-language-is-not-just-unstructured-data">
+<h2>Natural Language Is Not Just “Unstructured Data”<a class="headerlink" href="#natural-language-is-not-just-unstructured-data" title="Permalink to this heading">#</a></h2>
+<p>In data science, text is often described as <strong>unstructured data</strong>. This is useful when contrasting text with relational tables, but it can also be misleading.</p>
+<p>Natural language is not without structure. In fact, it contains many overlapping forms of structure:</p>
+<ul class="simple">
+<li><p>words and subwords</p></li>
+<li><p>morphological patterns</p></li>
+<li><p>grammatical relationships</p></li>
+<li><p>sentence structure</p></li>
+<li><p>semantic relationships</p></li>
+<li><p>discourse structure</p></li>
+<li><p>conversational conventions</p></li>
+<li><p>social and pragmatic meaning</p></li>
+</ul>
+<p>The difficulty is that these structures are rarely presented to a computer explicitly.</p>
+<p>Consider a seemingly trivial task: <strong>count the words in a document</strong>.</p>
+<p>Counting bytes is a straightforward computational operation. Counting words is not.</p>
+<p>What should count as one word?</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>don&#39;t
+New York
+state-of-the-art
+😊
+中文
+</pre></div>
+</div>
+<p>Even before we attempt to infer meaning, we have already encountered assumptions about language.</p>
+<p>This distinction is important. NLP is not simply conventional data processing applied to a large collection of strings. It requires decisions about <strong>how language should be represented computationally</strong>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The challenge is that the computation over language requires assumptions about <strong>linguistic structure and meaning</strong>.</p>
+</div>
+</section>
+<section id="from-symbols-to-meaning">
+<h2>From Symbols to Meaning<a class="headerlink" href="#from-symbols-to-meaning" title="Permalink to this heading">#</a></h2>
+<p>A computer can easily store the string:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>The bank is closed.
+</pre></div>
+</div>
+<p>But storing a sequence of characters is not the same as understanding what the sentence communicates.</p>
+<p>The word <code class="docutils literal notranslate"><span class="pre">bank</span></code> might refer to:</p>
+<ul class="simple">
+<li><p>a financial institution,</p></li>
+<li><p>the side of a river,</p></li>
+<li><p>or an action such as banking an aircraft.</p></li>
+</ul>
+<p>Humans usually resolve the intended meaning from context.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>The bank approved my loan.
+The children sat on the river bank.
+</pre></div>
+</div>
+<p>The spelling is nearly identical, but the interpretation is different.</p>
+<p>This distinction points toward a central problem in NLP:</p>
+<blockquote>
+<div><p>How can a computational representation preserve enough information about language for a system to perform a useful task?</p>
+</div></blockquote>
+<p>Different NLP approaches answer this question differently <span id="id1">[<a class="reference internal" href="../references.html#id3" title="Jacob Eisenstein. Introduction to Natural Language Processing. MIT Press, 2019. ISBN 9780262042840.">Eis19</a>, <a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>, <a class="reference internal" href="../references.html#id4" title="Dipanjan Sarkar. Text Analytics with Python: A Practitioner's Guide to Natural Language Processing. Apress, 2 edition, 2019. doi:10.1007/978-1-4842-4354-1.">Sar19</a>]</span>.</p>
+<p>A system might represent text using:</p>
+<ul class="simple">
+<li><p>symbolic linguistic rules,</p></li>
+<li><p>word counts,</p></li>
+<li><p>probabilities,</p></li>
+<li><p>sparse feature vectors,</p></li>
+<li><p>dense embeddings,</p></li>
+<li><p>contextual neural representations,</p></li>
+<li><p>or hidden states learned by a large language model.</p></li>
+</ul>
+</section>
+<section id="language-operates-at-multiple-levels">
+<h2>Language Operates at Multiple Levels<a class="headerlink" href="#language-operates-at-multiple-levels" title="Permalink to this heading">#</a></h2>
+<p>One reason natural language is difficult computationally is that meaning emerges from interactions across multiple linguistic levels.</p>
+<figure class="align-default" id="pyramid">
+<img alt="../_images/language-pyramid.png" src="../_images/language-pyramid.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Multiple Levels of Language Structure</span><a class="headerlink" href="#pyramid" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Morphology<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><strong>Morphology</strong> concerns the internal structure of words.</p>
+<p class="sd-card-text">Consider:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>walk
+walked
+walking
+walker
+</pre></div>
+</div>
+<p class="sd-card-text">These forms are related, but they are not identical strings. A computational system must decide whether those relationships matter for the task it is performing.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Syntax<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><strong>Syntax</strong> concerns the structural relationships among words in a sentence.</p>
+<p class="sd-card-text">Compare:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>The dog chased the cat.
+The cat chased the dog.
+</pre></div>
+</div>
+<p class="sd-card-text">The same content words appear in both sentences, but their relationships change the meaning completely.</p>
+<p class="sd-card-text">A simple bag of words would treat these sentences as nearly identical.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Semantics<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><strong>Semantics</strong> concerns meaning.</p>
+<p class="sd-card-text">Words that look different may express similar concepts:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>car
+automobile
+vehicle
+</pre></div>
+</div>
+<p class="sd-card-text">Meanwhile, identical words can express different meanings depending on context.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Pragmatics<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><strong>Pragmatics</strong> concerns how meaning interacts with intention, situation, and social context.</p>
+<p class="sd-card-text">Consider:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Can you open the window?
+</pre></div>
+</div>
+<p class="sd-card-text">At the level of literal syntax, this is a question about someone’s ability.</p>
+<p class="sd-card-text">In ordinary conversation, it is usually interpreted as a <strong>request</strong>.</p>
+<p class="sd-card-text">This distinction matters for computational systems because language does not merely describe the world. It can also perform actions within it.</p>
+<p class="sd-card-text">Dialogue research therefore treats utterances as forms of action, often called <strong>speech acts</strong> or <strong>dialogue acts</strong>. <span id="id2">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span></p>
+<p class="sd-card-text">A sentence might function as:</p>
+<ul class="simple">
+<li><p class="sd-card-text">an assertion,</p></li>
+<li><p class="sd-card-text">a request,</p></li>
+<li><p class="sd-card-text">a promise,</p></li>
+<li><p class="sd-card-text">an apology,</p></li>
+<li><p class="sd-card-text">a command,</p></li>
+<li><p class="sd-card-text">or another socially meaningful action.</p></li>
+</ul>
+<p class="sd-card-text">This becomes especially important when language models are embedded inside systems capable of taking actions.</p>
+</div>
+</details></section>
+<section id="ambiguity-is-a-core-property-of-language">
+<h2>Ambiguity Is a Core Property of Language<a class="headerlink" href="#ambiguity-is-a-core-property-of-language" title="Permalink to this heading">#</a></h2>
+<p>Consider the classic NLP example:</p>
+<blockquote>
+<div><p><strong>I made her duck.</strong></p>
+</div></blockquote>
+<p>The sentence admits several interpretations. Can you name a few?</p>
+<p>Jurafsky and Martin use this example to illustrate a broader insight: many language-processing problems can be viewed as selecting among multiple plausible linguistic interpretations. <span id="id3">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span></p>
+<p>We can describe some of the uncertainty more systematically:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Level</p></th>
+<th class="head"><p>Question</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Morphological</p></td>
+<td><p>What grammatical role can each word take?</p></td>
+</tr>
+<tr class="row-odd"><td><p>Lexical</p></td>
+<td><p>Which sense of <code class="docutils literal notranslate"><span class="pre">make</span></code> or <code class="docutils literal notranslate"><span class="pre">duck</span></code> is intended?</p></td>
+</tr>
+<tr class="row-even"><td><p>Syntactic</p></td>
+<td><p>How are the words structurally related?</p></td>
+</tr>
+<tr class="row-odd"><td><p>Semantic</p></td>
+<td><p>Who did what to whom?</p></td>
+</tr>
+<tr class="row-even"><td><p>Pragmatic</p></td>
+<td><p>Which interpretation is plausible in context?</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Ambiguity is not noise that can simply be cleaned away.</strong></p>
+<p>It is a fundamental property of natural language.</p>
+<p>A central goal of NLP is therefore not to eliminate ambiguity from language, but to construct models that can resolve useful ambiguities from context.</p>
+</div>
+</section>
+<section id="structure-and-meaning-are-not-the-same-thing">
+<h2>Structure and Meaning Are Not the Same Thing<a class="headerlink" href="#structure-and-meaning-are-not-the-same-thing" title="Permalink to this heading">#</a></h2>
+<p>A famous sentence introduced by Noam Chomsky illustrates another important distinction:</p>
+<blockquote>
+<div><p><strong>Colorless green ideas sleep furiously.</strong></p>
+</div></blockquote>
+<p>The sentence follows recognizable English syntactic patterns, yet its literal interpretation is difficult to make coherent.</p>
+<p>That distinction leads to several computational questions:</p>
+<ul class="simple">
+<li><p>Can a model recognize grammatical patterns?</p></li>
+<li><p>Can it recognize semantic relationships?</p></li>
+<li><p>Can it distinguish common language from merely possible language?</p></li>
+<li><p>Does a highly probable sequence necessarily make sense?</p></li>
+</ul>
+</section>
+<section id="humans-are-part-of-the-nlp-system">
+<h2>Humans Are Part of the NLP System<a class="headerlink" href="#humans-are-part-of-the-nlp-system" title="Permalink to this heading">#</a></h2>
+<p>Language technologies are not interpreted in isolation. They interact with people who bring expectations about communication, intelligence, personality, and intention.</p>
+<p>One of the earliest demonstrations of this phenomenon was <strong>ELIZA</strong>, Joseph Weizenbaum’s 1960s conversational program.</p>
+<p>ELIZA used comparatively simple pattern-matching rules. Yet some users responded to the system as though it possessed substantially more understanding than its implementation supported.</p>
+<p>This tendency became associated with what is now commonly called the <strong>ELIZA effect</strong>: people may attribute understanding, intelligence, or intention to computational systems because their outputs resemble human communication.</p>
+<p>An LLM can produce fluent explanations, apologies, recommendations, summaries, and arguments.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Linguistic fluency is evidence about linguistic behavior, not proof of human-like understanding.</strong></p>
+<p>When evaluating an NLP system, we must distinguish what the system <em>produces</em> from what we infer about the mechanism producing it.</p>
+<p class="rubric">From Linguistic Rules to Learned Representations</p>
+<p>Early NLP research frequently represented linguistic knowledge explicitly through:</p>
+<ul class="simple">
+<li><p>grammars,</p></li>
+<li><p>lexicons,</p></li>
+<li><p>symbolic rules,</p></li>
+<li><p>manually designed features,</p></li>
+<li><p>and structured representations.</p></li>
+</ul>
+<p>Statistical NLP shifted much of the emphasis toward learning patterns from language data.</p>
+<p>Machine-learning approaches learned mappings between text features and outcomes such as:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>document → topic
+review → sentiment
+email → spam / not spam
+sentence → named entities
+</pre></div>
+</div>
+</div>
+<p>Neural NLP pushed this further by learning the representations themselves.</p>
+<p>Rather than designing every feature manually, neural systems can learn dense numerical representations that capture useful relationships from data.</p>
+<p>Large language models extend this trajectory. While Traditional NLP systems were often designed around a specific task, Large language models support a more general interface.</p>
+</section>
+<section id="foundational-questions">
+<h2>Foundational Questions<a class="headerlink" href="#foundational-questions" title="Permalink to this heading">#</a></h2>
+<p>Beneath the new NLP interface are familiar foundational questions.</p>
+<section id="tokenization">
+<h3>Tokenization<a class="headerlink" href="#tokenization" title="Permalink to this heading">#</a></h3>
+<p>How should language be divided into computational units?</p>
+</section>
+<section id="representation">
+<h3>Representation<a class="headerlink" href="#representation" title="Permalink to this heading">#</a></h3>
+<p>How should those units be encoded numerically?</p>
+</section>
+<section id="similarity">
+<h3>Similarity<a class="headerlink" href="#similarity" title="Permalink to this heading">#</a></h3>
+<p>How can we determine whether two texts express related information?</p>
+</section>
+<section id="classification">
+<h3>Classification<a class="headerlink" href="#classification" title="Permalink to this heading">#</a></h3>
+<p>How can a system choose among possible categories or interpretations?</p>
+</section>
+<section id="context">
+<h3>Context<a class="headerlink" href="#context" title="Permalink to this heading">#</a></h3>
+<p>How much surrounding information is necessary to interpret an utterance?</p>
+</section>
+<section id="retrieval">
+<h3>Retrieval<a class="headerlink" href="#retrieval" title="Permalink to this heading">#</a></h3>
+<p>How can a system identify relevant information from a larger collection?</p>
+</section>
+<section id="evaluation">
+<h3>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this heading">#</a></h3>
+<p>How do we determine whether the output is correct, useful, fair, grounded, or safe?</p>
+<p><strong>Natural Language Processing</strong>, or NLP, is the area of artificial intelligence concerned with computational methods for <strong>analyzing</strong>, <strong>representing</strong>, <strong>understanding</strong>, and <strong>generating</strong> human language. NLP includes tasks such as text classification, information extraction, search, question answering, translation, summarization, sentiment analysis, speech recognition, and text generation.</p>
+</section>
+<section id="nlp-vs-llm-whats-the-difference">
+<h3>NLP vs LLM: What’s the difference?<a class="headerlink" href="#nlp-vs-llm-whats-the-difference" title="Permalink to this heading">#</a></h3>
+<p>Modern NLP increasingly includes large language models (LLMs), but NLP is broader than LLMs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Big idea:</strong> Modern generative AI did not make traditional NLP obsolete. LLMs still operate on text representations, tokens, learned language patterns, similarity, classification-like decisions, information retrieval, and other concepts developed throughout NLP.</p>
+</div>
+<ul class="simple">
+<li><p>LLMs are a powerful subset of NLP models characterized by their massive size, extensive training data, and ability to perform a wide range of language tasks with minimal task-specific training. Models like the Llama, GPT, or Claude series are examples of LLMs that have revolutionized what’s possible in NLP.
+Source: <a class="reference external" href="https://huggingface.co/docs/course/chapter1/1">https://huggingface.co/docs/course/chapter1/1</a></p></li>
+</ul>
+</section>
+</section>
+<section id="linguistic-challenges">
+<h2>Linguistic Challenges<a class="headerlink" href="#linguistic-challenges" title="Permalink to this heading">#</a></h2>
 <p>Try out these challenges:
-<strong>Challenge 1 - Coreferences</strong></p>
-<p><img alt="" src="module1/_static/challenge1.png" /></p>
-<p>Question: Who is Mr.Robin?</p>
-<p><strong>Challenge 2 - Ambiguity</strong></p>
+<strong>Challenge 1: Who is Mr.Robin?</strong></p>
+<figure class="align-default" id="challenge1">
+<img alt="../_images/challenge1.png" src="../_images/challenge1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">NLP challenge example 1: Coreference.</span><a class="headerlink" href="#challenge1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Challenge 2: Have a seat</strong></p>
 <figure class="align-default" id="challenge2">
 <img alt="../_images/challenge2.png" src="../_images/challenge2.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">NLP challenge example 1.</span><a class="headerlink" href="#challenge2" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Example A: Ambiguity</span><a class="headerlink" href="#challenge2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p><img alt="" src="../_images/challenge2.png" /></p>
-<p><img alt="" src="../_images/challenge2b.png" /></p>
-<p><strong>Challenge 3 - Informal Communication</strong></p>
+<figure class="align-default" id="challenge2b">
+<img alt="../_images/challenge2b.png" src="../_images/challenge2b.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Example B: Ambiguity</span><a class="headerlink" href="#challenge2b" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Challenge 3: Informal Communication</strong></p>
 <p>Do you know these abreviations?</p>
 <ul class="simple">
 <li><p>ROFL</p></li>
@@ -442,43 +748,6 @@ LMK: Let me know.
 NVM: Nevermind.
 TGIF: Thank goodness it’s Friday.
 TBH: To be honest.</p>
-</section>
-<section id="what-is-nlp">
-<h2>What is NLP?<a class="headerlink" href="#what-is-nlp" title="Permalink to this heading">#</a></h2>
-<p><object data="../_static/demo.pdf" width="950" height="650" type='application/pdf'/></object></p>
-<p><strong>Natural Language Processing</strong>, or NLP, is the area of artificial intelligence concerned with computational methods for <strong>analyzing</strong>, <strong>representing</strong>, <strong>understanding</strong>, and <strong>generating</strong> human language. NLP includes tasks such as text classification, information extraction, search, question answering, translation, summarization, sentiment analysis, speech recognition, and text generation.</p>
-<section id="nlp-vs-llm-whats-the-difference">
-<h3>NLP vs LLM: What’s the difference?<a class="headerlink" href="#nlp-vs-llm-whats-the-difference" title="Permalink to this heading">#</a></h3>
-<p>Modern NLP increasingly includes large language models (LLMs), but NLP is broader than LLMs.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>Big idea:</strong> Modern generative AI did not make traditional NLP obsolete. LLMs still operate on text representations, tokens, learned language patterns, similarity, classification-like decisions, information retrieval, and other concepts developed throughout NLP.</p>
-</div>
-<ul class="simple">
-<li><p>LLMs are a powerful subset of NLP models characterized by their massive size, extensive training data, and ability to perform a wide range of language tasks with minimal task-specific training. Models like the Llama, GPT, or Claude series are examples of LLMs that have revolutionized what’s possible in NLP.
-Source: <a class="reference external" href="https://huggingface.co/docs/course/chapter1/1">https://huggingface.co/docs/course/chapter1/1</a></p></li>
-</ul>
-</section>
-<section id="nlp-applications">
-<h3>NLP Applications<a class="headerlink" href="#nlp-applications" title="Permalink to this heading">#</a></h3>
-<p><object data="_static/nlp-applications.pdf" width="950" height="650" type='application/pdf'/></object></p>
-<ul class="simple">
-<li><p>Sentiment</p></li>
-<li><p>Name entities</p></li>
-<li><p>Translation</p></li>
-<li><p>NLP Inference</p></li>
-<li><p>Semantic Role Labeling</p></li>
-<li><p>Relation Extraction</p></li>
-<li><p>Semantic Parsing</p></li>
-<li><p>Machine Comprehension</p></li>
-<li><p>Textual Entailment</p></li>
-<li><p>Coreference Resolution</p></li>
-<li><p>Searching</p></li>
-<li><p>Question Answering</p></li>
-<li><p>Speaker Identification</p></li>
-<li><p>and more…</p></li>
-</ul>
-</section>
 </section>
 <section id="terminology">
 <h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this heading">#</a></h2>
@@ -539,7 +808,7 @@ A numerical vector used to represent a word, token, sentence, document, or other
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Chapter 1. NLP in the Age of Generative AI</p>
+        <p class="prev-next-title">Chapter 1. Natural Language</p>
       </div>
     </a>
     <a class="right-next"
@@ -567,12 +836,24 @@ A numerical vector used to represent a word, token, sentence, document, or other
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-natural-language">What is Natural Language?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-nlp">What is NLP?</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#natural-language-is-not-just-unstructured-data">Natural Language Is Not Just “Unstructured Data”</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-symbols-to-meaning">From Symbols to Meaning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#language-operates-at-multiple-levels">Language Operates at Multiple Levels</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ambiguity-is-a-core-property-of-language">Ambiguity Is a Core Property of Language</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-and-meaning-are-not-the-same-thing">Structure and Meaning Are Not the Same Thing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#humans-are-part-of-the-nlp-system">Humans Are Part of the NLP System</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#foundational-questions">Foundational Questions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenization">Tokenization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#representation">Representation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#similarity">Similarity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classification">Classification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#context">Context</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval">Retrieval</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation">Evaluation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nlp-vs-llm-whats-the-difference">NLP vs LLM: What’s the difference?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nlp-applications">NLP Applications</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linguistic-challenges">Linguistic Challenges</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#terminology">Terminology</a></li>
 </ul>
   </nav></div>

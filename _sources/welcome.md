@@ -1,4 +1,4 @@
-# Welcome to DS Introduction to NLP for Data Science
+# Introduction
 
 ![banner](_static/Banner-NLP.gif)
 
@@ -8,10 +8,7 @@ This course provides breadth of knowledge of many tools/technologies rather than
 
 ## Course Description
 
-- Introduction to Natural Language processing with practical applications. 
-- Understanding the difference between Formal and Natural languages. 
-- Tokenization, Feature engineering, Feature generation 
-- NLP applications with state-of-the-art python libraries (spaCy, sklearn, keras, NLTK). 
+This course develops NLP as a progression from linguistic and text-processing foundations to vector representations, classical machine learning, neural NLP, transformers, large language models, semantic retrieval, and retrieval-augmented generation. Students use practical Python-based workflows to compare older and newer approaches and to understand when each remains useful.
 
 ## Course Prerequisites:
 Python programming, ML experience recommended
