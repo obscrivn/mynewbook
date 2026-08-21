@@ -14,10 +14,14 @@ Try out these challenges:
 Question: Who is Mr.Robin?
 
 **Challenge 2 - Ambiguity**
+```{figure} ../_static/challenge2.png
+:name: challenge2
+NLP challenge example 1.
+```
 
-![](_static/challenge2.png)
+![](../_static/challenge2.png)
 
-![](_static/challenge2b.png)
+![](../_static/challenge2b.png)
 
 **Challenge 3 - Informal Communication**
 
@@ -41,7 +45,7 @@ TBH: To be honest.
 
 ## What is NLP?
 
-<object data="_static/demo.pdf" width="950" height="650" type='application/pdf'/></object>
+<object data="../_static/demo.pdf" width="950" height="650" type='application/pdf'/></object>
 
 **Natural Language Processing**, or NLP, is the area of artificial intelligence concerned with computational methods for **analyzing**, **representing**, **understanding**, and **generating** human language. NLP includes tasks such as text classification, information extraction, search, question answering, translation, summarization, sentiment analysis, speech recognition, and text generation.
 
