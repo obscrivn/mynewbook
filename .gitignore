@@ -1,0 +1,13 @@
+.DS_Store
+**/.DS_Store
+**/.ipynb_checkpoints/
+_build/
+.jupyter_cache/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+*.log
+Untitled*.ipynb

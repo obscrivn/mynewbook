@@ -1,9 +1,10 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: My sample book
-author: The Jupyter Book Community
+title: CSSE-490 Introduction to NLP
+author: Olga Scrivner
 logo: logo.png
+description: This website presents a set of lectures and practice on Natural Language Prrocessing, designed and written by Olga Scrivner with some material adapted from NLTK book (Bird et al., 2019) and Text Analytics with Python (Sarkar, 2019).
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
@@ -14,6 +15,8 @@ execute:
 latex:
   latex_documents:
     targetname: book.tex
+
+
 
 # Add a bibtex file so that we can create citations
 bibtex_bibfiles:

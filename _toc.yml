@@ -2,7 +2,27 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-book
-root: intro
+root: welcome
 chapters:
-- file: markdown
-- file: notebooks
+- file: module1/module1
+  sections:
+    - file: module1/language
+    - file: module1/week1_coding_practice
+ 
+- file: module2/module2
+  sections:
+    - file: module2/features
+    - file: module2/sklearn
+    - file: module2/regex
+    
+- file: clustering
+  sections:
+    - file: cluster
+    - file: practice
+    
+- file: speech
+  sections:
+    - file: phonetics
+    - file: recognizer  
+- file: translation
+- file: references
