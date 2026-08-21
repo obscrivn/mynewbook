@@ -1,12 +1,8 @@
-## NLP Challenges
+# 1.2 NLP Challenges
 
-![](_static/textanalytics.png)
 
-### What is NLP?
 
-<object data="_static/demo.pdf" width="950" height="650" type='application/pdf'/></object>
-
-### Why NLP is hard?
+## Why Language is hard?
 
 #### Challenge 1 - Coreferences
 

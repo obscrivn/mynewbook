@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'module1/language';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="1.2 Coding Practice: Language as Data" href="week1_coding_practice.html" />
+    <link rel="next" title="1.2 Language as Data" href="week1_coding_practice.html" />
     <link rel="prev" title="Chapter 1. NLP in the Age of Generative AI" href="module1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -172,7 +172,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="module1.html">Chapter 1. NLP in the Age of Generative AI</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">1.1 From Language To Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="week1_coding_practice.html">1.2 Coding Practice: Language as Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week1_coding_practice.html">1.2 Language as Data</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2. Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -411,9 +411,35 @@ document.write(`
 <h2>What is Natural Language?<a class="headerlink" href="#what-is-natural-language" title="Permalink to this heading">#</a></h2>
 <p><strong>Natural language</strong> is the language people use to communicate with one another, such as English, Spanish, Arabic, Mandarin, or Hindi. Unlike programming languages, natural languages were not designed according to a <strong>fixed set of computational rules</strong>. They evolved through human communication, culture, and social interaction.</p>
 <p>This makes language remarkably <strong>expressive</strong>, but also remarkably <strong>difficult</strong> for computers to process.</p>
+<p>Try out these challenges:
+<strong>Challenge 1 - Coreferences</strong></p>
+<p><img alt="" src="module1/_static/challenge1.png" /></p>
+<p>Question: Who is Mr.Robin?</p>
+<p><strong>Challenge 2 - Ambiguity</strong></p>
+<p><img alt="" src="module1/_static/challenge2.png" /></p>
+<p><img alt="" src="module1/_static/challenge2b.png" /></p>
+<p><strong>Challenge 3 - Informal Communication</strong></p>
+<p>Do you know these abreviations?</p>
+<ul class="simple">
+<li><p>ROFL</p></li>
+<li><p>ICYMI</p></li>
+<li><p>TL;DR</p></li>
+<li><p>NVM</p></li>
+<li><p>TGIF</p></li>
+<li><p>TBH</p></li>
+</ul>
+<p><em>Answers</em>
+ROFL: Rolling on floor laughing.
+ICYMI: In case you missed it.
+TL;DR: Too long, didn’t read.
+LMK: Let me know.
+NVM: Nevermind.
+TGIF: Thank goodness it’s Friday.
+TBH: To be honest.</p>
 </section>
 <section id="what-is-nlp">
 <h2>What is NLP?<a class="headerlink" href="#what-is-nlp" title="Permalink to this heading">#</a></h2>
+<p><object data="_static/demo.pdf" width="950" height="650" type='application/pdf'/></object></p>
 <p><strong>Natural Language Processing</strong>, or NLP, is the area of artificial intelligence concerned with computational methods for <strong>analyzing</strong>, <strong>representing</strong>, <strong>understanding</strong>, and <strong>generating</strong> human language. NLP includes tasks such as text classification, information extraction, search, question answering, translation, summarization, sentiment analysis, speech recognition, and text generation.</p>
 <section id="nlp-vs-llm-whats-the-difference">
 <h3>NLP vs LLM: What’s the difference?<a class="headerlink" href="#nlp-vs-llm-whats-the-difference" title="Permalink to this heading">#</a></h3>
@@ -423,7 +449,6 @@ document.write(`
 <p><strong>Big idea:</strong> Modern generative AI did not make traditional NLP obsolete. LLMs still operate on text representations, tokens, learned language patterns, similarity, classification-like decisions, information retrieval, and other concepts developed throughout NLP.</p>
 </div>
 <ul class="simple">
-<li><p>NLP  is the broader field focused on enabling computers to understand, interpret, and generate human language. NLP encompasses many techniques and tasks such as sentiment analysis, named entity recognition, and machine translation.</p></li>
 <li><p>LLMs are a powerful subset of NLP models characterized by their massive size, extensive training data, and ability to perform a wide range of language tasks with minimal task-specific training. Models like the Llama, GPT, or Claude series are examples of LLMs that have revolutionized what’s possible in NLP.
 Source: <a class="reference external" href="https://huggingface.co/docs/course/chapter1/1">https://huggingface.co/docs/course/chapter1/1</a></p></li>
 </ul>
@@ -516,7 +541,7 @@ A numerical vector used to represent a word, token, sentence, document, or other
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">1.2 Coding Practice: Language as Data</p>
+        <p class="prev-next-title">1.2 Language as Data</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
