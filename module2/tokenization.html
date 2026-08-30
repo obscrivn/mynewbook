@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Chapter 2: Text, Tokens &amp; Linguistic Processing &#8212; Introduction to NLP</title>
+    <title>2.1 From Text to Tokens &#8212; Introduction to NLP</title>
   
   
   
@@ -64,13 +64,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'module2/module2';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module2/tokenization';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2.1 From Text to Tokens" href="tokenization.html" />
-    <link rel="prev" title="1.3 Extracting Language Data" href="../module1/Import_Language_Data.html" />
+    <link rel="next" title="2.2 Modern Tokenization" href="modern_tokenization.html" />
+    <link rel="prev" title="Chapter 2: Text, Tokens &amp; Linguistic Processing" href="module2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -182,8 +180,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.1 From Text to Tokens</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modern_tokenization.html">2.2 Modern Tokenization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="regex.html">2.3 Regex Coding Practice</a></li>
 <li class="toctree-l2"><a class="reference internal" href="spacy_tokenization.html">2.4 Tokenization Using spaCy</a></li>
@@ -276,7 +274,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule2/module2.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule2/tokenization.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -306,7 +304,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/module2/module2.md" target="_blank"
+      <li><a href="../_sources/module2/tokenization.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -390,7 +388,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Chapter 2: Text, Tokens & Linguistic Processing</h1>
+    <h1>2.1 From Text to Tokens</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -400,16 +398,18 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#big-idea">Big Idea</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-text-to-linguistic-structure">From text to linguistic structure</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#word">Word</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#morphemes">Morphemes</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#characters-and-encoding">Characters and Encoding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-token">What Is a Token?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#word-tokenization">Word Tokenization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#morphological-processing">Morphological Processing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stemming">Stemming</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lemmatization">Lemmatization</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-linguistic-units-to-computational-units">From Linguistic Units to Computational Units</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-matters">Why This Matters</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references-further-reading">References &amp; Further Reading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-of-speech-tagging">Part-of-Speech Tagging</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-penn-treebank-tagset">The Penn Treebank Tagset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tagging-as-a-sequence-labeling-problem">Tagging as a Sequence-Labeling Problem</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -421,143 +421,191 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="chapter-2-text-tokens-linguistic-processing">
-<h1>Chapter 2: Text, Tokens &amp; Linguistic Processing<a class="headerlink" href="#chapter-2-text-tokens-linguistic-processing" title="Permalink to this heading">#</a></h1>
-<p><strong>From Human Text to Model Input</strong></p>
-<p>Humans experience language as words, sentences, and meaning. Computers do not. Before language can be analyzed by an NLP system or processed by a language model, text must first be represented computationally.</p>
-<p>One of the most important steps in this transformation is <strong>tokenization</strong>: dividing text into units called <strong>tokens</strong>.</p>
-<p>A token, however, is not necessarily a word. Depending on the system, a token may represent a whole word, part of a word, punctuation, a character, or even a byte. There is therefore no universally correct way to divide language into tokens. <strong>Tokenization is a modeling decision.</strong></p>
+  <section class="tex2jax_ignore mathjax_ignore" id="from-text-to-tokens">
+<h1>2.1 From Text to Tokens<a class="headerlink" href="#from-text-to-tokens" title="Permalink to this heading">#</a></h1>
 <blockquote>
-<div><p>“Understanding tokenization is essential for anyone working with large language models (LLMs). It helps you <strong>control model behavior</strong>, <strong>optimize costs</strong>, and <strong>avoid hitting hard limits like the context window</strong>.”</p>
-<p>— Berkov (2025)</p>
+<div><p>A tokenizer is not a universal preprocessing tool. Its vocabulary and segmentation choices affect efficiency, usable context, and potentially model performance across languages.</p>
 </div></blockquote>
-<section id="big-idea">
-<h2>Big Idea<a class="headerlink" href="#big-idea" title="Permalink to this heading">#</a></h2>
-<p>Language must be <strong>segmented, represented, and interpreted</strong> before it can be processed computationally.</p>
-<p>This chapter begins with the linguistic structure of text and then examines how traditional NLP systems and modern language models transform that structure into computational units.</p>
-</section>
-<section id="from-text-to-linguistic-structure">
-<h2>From text to linguistic structure<a class="headerlink" href="#from-text-to-linguistic-structure" title="Permalink to this heading">#</a></h2>
-<p>Natural language has structure at several levels. Before asking how a computer should tokenize text, it helps to understand some of the units that humans recognize in language.</p>
-<section id="word">
-<h3>Word<a class="headerlink" href="#word" title="Permalink to this heading">#</a></h3>
-<p>A <strong>word</strong> may seem like an obvious unit of language, particularly in English, where spaces often separate words. Computationally, however, defining a word is not always straightforward.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Consider the sentence:</p>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">Don't</span> <span class="pre">stop!</span></code></p>
-</div></blockquote>
-<p>How many words are there?</p>
+<section id="what-is-a-token">
+<h2>What Is a Token?<a class="headerlink" href="#what-is-a-token" title="Permalink to this heading">#</a></h2>
+<p><strong>What counts as a word?</strong>
+Whitespace seems obvious until you encounter punctuation, contractions, compounds, URLs, emoji, hashtags, clitics, or languages without whitespace word boundaries.</p>
+<p><strong>What counts as a token?</strong>
+Depending on the tokenizer, a token may represent:</p>
 <ul class="simple">
-<li><p>Is <code class="docutils literal notranslate"><span class="pre">Don't</span></code> one word or two?</p></li>
-<li><p>Should <code class="docutils literal notranslate"><span class="pre">!</span></code> count as a separate token?</p></li>
+<li><p>a whole word</p></li>
+<li><p>part of a word</p></li>
+<li><p>punctuation</p></li>
+<li><p>a character</p></li>
+<li><p>or, in some modern systems, a byte</p></li>
 </ul>
-<p>The answer depends on the task and the tokenization strategy.</p>
-</div>
-<p>We also distinguish between <strong>word instances</strong> and <strong>word types</strong>:</p>
-<ul class="simple">
-<li><p><strong>Word instances (<span class="math notranslate nohighlight">\(N\)</span>):</strong> all occurrences of words in a text.</p></li>
-<li><p><strong>Word types (<span class="math notranslate nohighlight">\(|V|\)</span>):</strong> the unique words occurring in the text. The set of word types forms a <strong>vocabulary</strong>.</p></li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Example</p>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">the</span> <span class="pre">cat</span> <span class="pre">saw</span> <span class="pre">the</span> <span class="pre">dog</span></code></p>
-</div></blockquote>
-<p>contains <strong>5 word instances</strong> but only <strong>4 word types</strong>: <code class="docutils literal notranslate"><span class="pre">the</span></code>, <code class="docutils literal notranslate"><span class="pre">cat</span></code>, <code class="docutils literal notranslate"><span class="pre">saw</span></code>, and <code class="docutils literal notranslate"><span class="pre">dog</span></code>.</p>
-</div>
-<p>Writing systems such as Chinese, Japanese, and Thai do not consistently use spaces to mark word boundaries. Tokenization therefore involves both computational and linguistic decisions.</p>
+<p><strong>Tokenization</strong>: The process of splitting text into smaller units (tokens).	All NLP models rely on tokens as their “language,” so knowing how they are formed helps with model usage, efficiency, and fairness.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>A linguistic <strong>word</strong> and a computational <strong>token</strong> are not necessarily the same thing.</p>
+<p>Tokens do not strictly align with orthographic words. They can represent a flexible mix of whole words, subword fragments, single characters, or individual bytes</p>
 </div>
 </section>
-<section id="morphemes">
-<h3>Morphemes<a class="headerlink" href="#morphemes" title="Permalink to this heading">#</a></h3>
-<p>Words themselves can contain smaller meaningful units called <strong>morphemes</strong>. Each morpheme contributes meaning.</p>
+<section id="word-tokenization">
+<h2>Word Tokenization<a class="headerlink" href="#word-tokenization" title="Permalink to this heading">#</a></h2>
+<p>The simplest approach to tokenization is to treat words as the basic units of text.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Example</p>
 <blockquote>
-<div><p>unhelpful</p>
+<div><p>The students studied NLP.</p>
 </div></blockquote>
-<p>This word can be analyzed as:</p>
+<p>a simple tokenizer might produce:</p>
+<p>[“The”, “students”, “studied”, “NLP”, “.”]</p>
+</div>
+<p>However, whitespace alone is not enough to identify words reliably. Traditional NLP systems often use rule-based tokenizers or regular expressions to identify these boundaries.</p>
+<p><strong>This is one reason regular expressions remain useful in NLP even when working with modern language models.</strong></p>
+</section>
+<section id="morphological-processing">
+<h2>Morphological Processing<a class="headerlink" href="#morphological-processing" title="Permalink to this heading">#</a></h2>
+<p>Tokenization identifies units in text. Morphological processing helps us understand how those units are related.</p>
 <blockquote>
-<div><p>un + help + ful</p>
+<div><p><strong>Morphology</strong> is the study of how words are formed from smaller meaningful components.</p>
+</div></blockquote>
+<p>Consider these related word forms:</p>
+<p><code class="docutils literal notranslate"><span class="pre">walk</span></code><br />
+<code class="docutils literal notranslate"><span class="pre">walks</span></code><br />
+<code class="docutils literal notranslate"><span class="pre">walked</span></code><br />
+<code class="docutils literal notranslate"><span class="pre">walking</span></code></p>
+<p>A computer initially sees these as different strings, even though they share the same underlying meaning.</p>
+<p>Two common NLP techniques used to reduce this variation are <strong>stemming</strong> and <strong>lemmatization</strong>.</p>
+<section id="stemming">
+<h3>Stemming<a class="headerlink" href="#stemming" title="Permalink to this heading">#</a></h3>
+<p><strong>Stemming</strong> removes or modifies word endings using relatively simple rules.</p>
+<p>Examples:</p>
+<p><code class="docutils literal notranslate"><span class="pre">connected</span> <span class="pre">→</span> <span class="pre">connect</span></code><br />
+<code class="docutils literal notranslate"><span class="pre">connecting</span> <span class="pre">→</span> <span class="pre">connect</span></code><br />
+<code class="docutils literal notranslate"><span class="pre">connection</span> <span class="pre">→</span> <span class="pre">connect</span></code></p>
+<p>A stem does not always correspond to a valid dictionary word. The goal is usually to reduce related word forms to a common representation.</p>
+</section>
+<section id="lemmatization">
+<h3>Lemmatization<a class="headerlink" href="#lemmatization" title="Permalink to this heading">#</a></h3>
+<p><strong>Lemmatization</strong> maps an inflected word to its dictionary base form, called its <strong>lemma</strong>.</p>
+<p>Examples:</p>
+<p><code class="docutils literal notranslate"><span class="pre">cars</span> <span class="pre">→</span> <span class="pre">car</span></code><br />
+<code class="docutils literal notranslate"><span class="pre">running</span> <span class="pre">→</span> <span class="pre">run</span></code><br />
+<code class="docutils literal notranslate"><span class="pre">was</span> <span class="pre">→</span> <span class="pre">be</span></code></p>
+<p>Lemmatization usually requires more linguistic information than stemming because the correct base form may depend on the word’s grammatical role.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Stem vs. Lemma</p>
+<p>A <strong>stem</strong> is a computationally reduced form.</p>
+<p>A <strong>lemma</strong> is a linguistically valid base form.</p>
+</div>
+</section>
+</section>
+<section id="part-of-speech-tagging">
+<h2>Part-of-Speech Tagging<a class="headerlink" href="#part-of-speech-tagging" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p>Words do more than carry meaning. They also play different <strong>grammatical roles</strong> in a sentence.</p>
+</div></blockquote>
+<p><strong>Part-of-speech (POS) tagging</strong> is the process of assigning a grammatical category to each token in a sequence.</p>
+<p>Common part-of-speech categories include:</p>
+<ul class="simple">
+<li><p>nouns</p></li>
+<li><p>verbs</p></li>
+<li><p>adjectives</p></li>
+<li><p>adverbs</p></li>
+<li><p>pronouns</p></li>
+<li><p>determiners</p></li>
+<li><p>prepositions</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">book</span></code></p>
+<p>In the sentence:</p>
+<p><code class="docutils literal notranslate"><span class="pre">I</span> <span class="pre">read</span> <span class="pre">a</span> <span class="pre">book.</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">book</span></code> functions as a <strong>noun</strong>.</p>
+<p>But in:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Book</span> <span class="pre">the</span> <span class="pre">flight.</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">book</span></code> functions as a <strong>verb</strong>.</p>
+<p>The word itself has not changed. Its grammatical role depends on the surrounding context.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Tokenization and POS tagging solve different problems.</p>
+<p><strong>Tokenization</strong> asks:</p>
+<blockquote>
+<div><p>Where are the units in the text?</p>
+</div></blockquote>
+<p><strong>POS tagging</strong> asks:</p>
+<blockquote>
+<div><p>What grammatical role does each unit play in this context?</p>
 </div></blockquote>
 </div>
-<p>Morphemes include:</p>
-<ol class="arabic simple">
-<li><p><strong>Roots:</strong> carry the central lexical meaning of a word, such as <code class="docutils literal notranslate"><span class="pre">help</span></code>.</p></li>
-<li><p><strong>Affixes:</strong> Sub-units attached to roots, divided into <strong>inflectional morphemes</strong> (like English plural <em>-s</em> or past tense <em>-ed</em>) and <strong>derivational morphemes</strong> (which alter word class or meaning, such as <em>un-</em> or <em>-ly</em>).</p></li>
-<li><p><strong>Clitics:</strong> Syntactically independent units that attach phonologically or orthographically to neighboring words (e.g., English <em>‘ve</em> or <em>‘s</em>).</p></li>
-</ol>
-<p><strong>Morphology matters computationally</strong> because a model must decide whether related forms such as:</p>
-<blockquote>
-<div><p>walk, walks, walked, walking</p>
-</div></blockquote>
-<p>should be treated as completely separate units or represented through smaller shared components.</p>
-<p>Modern subword tokenization revisits this problem from a computational perspective, although subword tokens do not necessarily correspond to linguistic morphemes.</p>
-</section>
-<section id="characters-and-encoding">
-<h3>Characters and Encoding<a class="headerlink" href="#characters-and-encoding" title="Permalink to this heading">#</a></h3>
-<p>At an even smaller level, written text consists of <strong>characters</strong>. Computers represent characters using numerical encodings (such as <code class="docutils literal notranslate"><span class="pre">U+0061</span></code> for <code class="docutils literal notranslate"><span class="pre">a</span></code>).</p>
-</section>
-</section>
-<section id="from-linguistic-units-to-computational-units">
-<h2>From Linguistic Units to Computational Units<a class="headerlink" href="#from-linguistic-units-to-computational-units" title="Permalink to this heading">#</a></h2>
-<p>These levels give us several possible ways to divide language:</p>
-<figure class="align-default" id="tokenization">
-<img alt="../_images/ch2_tokenization.png" src="../_images/ch2_tokenization.png" />
-<figcaption>
-<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Levels of Text Processing.</span><a class="headerlink" href="#tokenization" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<p>Different NLP systems make different choices about which units should become tokens.</p>
-<p>Traditional NLP often emphasizes linguistically meaningful word boundaries and performs additional processing such as <strong>stemming, lemmatization, and part-of-speech tagging</strong>.</p>
-<p>Modern language models commonly rely on <strong>subword tokenization</strong>, in which frequent words may remain intact while uncommon or complex words are divided into smaller pieces.</p>
-<p>Tokenization therefore sits at an important intersection between <strong>language</strong> and <strong>computation</strong>.</p>
-</section>
-<section id="why-this-matters">
-<h2>Why This Matters<a class="headerlink" href="#why-this-matters" title="Permalink to this heading">#</a></h2>
-<p>Tokenization is not simply a preprocessing trick. The way text is divided can affect what a model receives and how efficiently it processes language.</p>
-<p>Tokenization influences:</p>
-<ul class="simple">
-<li><p><strong>Vocabulary</strong>: which text units the system can represent directly.</p></li>
-<li><p><strong>Sequence length</strong>: how many tokens are needed to represent a piece of text.</p></li>
-<li><p><strong>Context windows</strong>: how much information an LLM can process at once.</p></li>
-<li><p><strong>Computational cost</strong>: longer token sequences require more processing.</p></li>
-<li><p><strong>Multilingual processing</strong>: the same amount of information may require very different numbers of tokens across languages.</p></li>
-<li><p><strong>Linguistic analysis</strong>: token boundaries influence downstream tasks such as stemming, lemmatization, and part-of-speech tagging.</p></li>
-</ul>
-<p>The central question throughout the chapter is simple:</p>
-<blockquote>
-<div><p>How should human language be divided and represented so that a machine can work with it?</p>
-</div></blockquote>
-</section>
-<section id="references-further-reading">
-<h2>References &amp; Further Reading<a class="headerlink" href="#references-further-reading" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Berkov, M. (2025). <em>What Is LLM Tokenization and Why Is It Important?</em> Thinking Sand, Medium.<br />
-<a class="reference external" href="https://medium.com/thinking-sand/what-is-llm-tokenization-and-why-is-it-important-4eb5fbefb075">https://medium.com/thinking-sand/what-is-llm-tokenization-and-why-is-it-important-4eb5fbefb075</a></p></li>
-<li><p>Jurafsky, D., &amp; Martin, J. H. (2026). <em>Speech and Language Processing: An Introduction to Natural Language Processing, Computational Linguistics, and Speech Recognition with Language Models</em> (3rd ed.). See Chapter 2, <strong>Words and Tokens</strong>.<br />
-<a class="reference external" href="https://web.stanford.edu/~jurafsky/slp3/">https://web.stanford.edu/~jurafsky/slp3/</a></p></li>
-<li><p>Sennrich, R., Haddow, B., &amp; Birch, A. (2016). <em>Neural Machine Translation of Rare Words with Subword Units.</em> Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics, 1715–1725.<br />
-<a class="reference external" href="https://aclanthology.org/P16-1162/">https://aclanthology.org/P16-1162/</a></p></li>
-<li><p>Kudo, T. (2018). <em>Subword Regularization: Improving Neural Network Translation Models with Multiple Subword Candidates.</em> Proceedings of the 56th Annual Meeting of the Association for Computational Linguistics, 66–75.<br />
-<a class="reference external" href="https://aclanthology.org/P18-1007/">https://aclanthology.org/P18-1007/</a></p></li>
-<li><p>Kudo, T., &amp; Richardson, J. (2018). <em>SentencePiece: A Simple and Language Independent Subword Tokenizer and Detokenizer for Neural Text Processing.</em> Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing: System Demonstrations, 66–71.<br />
-<a class="reference external" href="https://aclanthology.org/D18-2012/">https://aclanthology.org/D18-2012/</a></p></li>
-<li><p>Hugging Face. (n.d.). <em>Tokenization Algorithms.</em> Transformers Documentation.<br />
-<a class="reference external" href="https://huggingface.co/docs/transformers/main/tokenizer_summary">https://huggingface.co/docs/transformers/main/tokenizer_summary</a></p></li>
-<li><p>OpenAI. (2026). <em>What Are Tokens and How to Count Them?</em> OpenAI Help Center.<br />
-<a class="reference external" href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them">https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them</a></p></li>
-</ul>
-</section>
-<div class="toctree-wrapper compound">
+<section id="the-penn-treebank-tagset">
+<h3>The Penn Treebank Tagset<a class="headerlink" href="#the-penn-treebank-tagset" title="Permalink to this heading">#</a></h3>
+<p>One influential annotation scheme for English is the Penn Treebank Part-of-Speech Tagset.</p>
+<p>It uses short labels to represent grammatical categories.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tag</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NN</span></code></p></td>
+<td><p>singular noun</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">book</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NNS</span></code></p></td>
+<td><p>plural noun</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">books</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">VB</span></code></p></td>
+<td><p>base-form verb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">book</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">VBD</span></code></p></td>
+<td><p>past-tense verb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">booked</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">JJ</span></code></p></td>
+<td><p>adjective</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">useful</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">RB</span></code></p></td>
+<td><p>adverb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">quickly</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DT</span></code></p></td>
+<td><p>determiner</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">the</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PRP</span></code></p></td>
+<td><p>personal pronoun</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">she</span></code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
+</section>
+<section id="tagging-as-a-sequence-labeling-problem">
+<h3>Tagging as a Sequence-Labeling Problem<a class="headerlink" href="#tagging-as-a-sequence-labeling-problem" title="Permalink to this heading">#</a></h3>
+<p>POS tagging is not simply a lookup task. The correct label for a token often depends on the words that appear before and after it.</p>
+<blockquote>
+<div><p>I can/MD swim vs I opened a can/NN</p>
+</div></blockquote>
+<p>n the first sentence, can functions as a <strong>modal verb</strong>.</p>
+<p>In the second sentence, can functions as a <strong>noun</strong>.</p>
+<p>Each token is assigned a grammatical label, but the surrounding sequence helps determine which label is appropriate.</p>
+<p>So far, we have focused mostly on <strong>word-oriented tokenization and linguistic processing</strong>.</p>
+<p>In the next section, we move to <strong>modern tokenization</strong> and compare different ways of dividing text into computational units, including:</p>
+<ul class="simple">
+<li><p>word-based tokenization</p></li>
+<li><p>character-based tokenization</p></li>
+<li><p>subword tokenization</p></li>
+<li><p>Byte Pair Encoding (BPE)</p></li>
+<li><p>WordPiece</p></li>
+<li><p>Unigram and SentencePiece</p></li>
+</ul>
+<p>We will also examine how tokenizers map text to <strong>token IDs</strong>, why different models tokenize the same text differently, and how tokenization affects <strong>context windows, efficiency, and model behavior</strong>.</p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -591,20 +639,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../module1/Import_Language_Data.html"
+       href="module2.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">1.3 Extracting Language Data</p>
+        <p class="prev-next-title">Chapter 2: Text, Tokens &amp; Linguistic Processing</p>
       </div>
     </a>
     <a class="right-next"
-       href="tokenization.html"
+       href="modern_tokenization.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">2.1 From Text to Tokens</p>
+        <p class="prev-next-title">2.2 Modern Tokenization</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -624,16 +672,18 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#big-idea">Big Idea</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-text-to-linguistic-structure">From text to linguistic structure</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#word">Word</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#morphemes">Morphemes</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#characters-and-encoding">Characters and Encoding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-token">What Is a Token?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#word-tokenization">Word Tokenization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#morphological-processing">Morphological Processing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stemming">Stemming</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lemmatization">Lemmatization</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-linguistic-units-to-computational-units">From Linguistic Units to Computational Units</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-matters">Why This Matters</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references-further-reading">References &amp; Further Reading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-of-speech-tagging">Part-of-Speech Tagging</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-penn-treebank-tagset">The Penn Treebank Tagset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tagging-as-a-sequence-labeling-problem">Tagging as a Sequence-Labeling Problem</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

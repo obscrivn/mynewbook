@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Regex Coding Practice &#8212; Introduction to NLP</title>
+    <title>2.3 Regex Coding Practice &#8212; Introduction to NLP</title>
   
   
   
@@ -67,8 +67,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'module2/regex';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Clustering" href="../clustering.html" />
-    <link rel="prev" title="Bag-of-words Using scikit-learn" href="sklearn.html" />
+    <link rel="next" title="2.4 Tokenization Using spaCy" href="spacy_tokenization.html" />
+    <link rel="prev" title="2.2 Modern Tokenization" href="modern_tokenization.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,15 +180,20 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="module2.html">Chapter 2. Features</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="features.html">Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sklearn.html">Bag-of-words Using scikit-learn</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Regex Coding Practice</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spacy_tokenization.html">2.4 Tokenization Using spaCy</a></li>
+
+
+
+
+
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../clustering.html">Clustering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../cluster.html">Document Similarity and Clustering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../practice.html">Practice with K-Means Clustering</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Undestanding Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">Features</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -383,7 +388,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Regex Coding Practice</h1>
+    <h1>2.3 Regex Coding Practice</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -419,7 +424,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="regex-coding-practice">
-<h1>Regex Coding Practice<a class="headerlink" href="#regex-coding-practice" title="Permalink to this heading">#</a></h1>
+<h1>2.3 Regex Coding Practice<a class="headerlink" href="#regex-coding-practice" title="Permalink to this heading">#</a></h1>
 <p>Regular Expressions can be used in various NLP tasks: data pre-processing, pattern matching, text feature engineering, web scraping, data extractions and can be applied in many programming languages (e.g., Java, JS, python, unix sed, R …)</p>
 <p>For comparison between python, Perl, Vim - see <a class="reference external" href="https://remram44.github.io/regex-cheatsheet/regex.html">https://remram44.github.io/regex-cheatsheet/regex.html</a></p>
 <section id="regex-syntax">
@@ -566,10 +571,10 @@ zero count parameter (default) will replace all the matches</p></li>
 </div>
 </div>
 </div>
-<p><strong>Ex.2</strong> replace text surrounded with (*) (markdown format) with the <strong> tag in HTML</p>
+<p><strong>Ex.2</strong> replace text surrounded with (*) (markdown format) with the <code class="docutils literal notranslate"><span class="pre">&lt;strong&gt;</span></code> tag in HTML</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">r</span></code> means the string will be treated as raw string</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&lt;strong&gt;&lt;/strong&gt;</span></code> are two HTML tags. Because the closing tag <code class="docutils literal notranslate"><span class="pre">&lt;/strong&gt;</span></code> has a literal backslash, you need to add a second backslash, otherwise it will be treaated as a metacharacter</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;strong&gt;&lt;/strong&gt;</span></code> are two HTML tags. Because the closing tag <code class="docutils literal notranslate"><span class="pre">&lt;/strong&gt;</span></code> has a literal backslash, you need to add a second backslash, otherwise it will be treated as a metacharacter</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -587,7 +592,6 @@ zero count parameter (default) will replace all the matches</p></li>
 </div>
 </div>
 </div>
-<p>Translation</p>
 </section>
 <section id="re-match">
 <h3>re.match<a class="headerlink" href="#re-match" title="Permalink to this heading">#</a></h3>
@@ -644,20 +648,20 @@ zero count parameter (default) will replace all the matches</p></li>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="sklearn.html"
+       href="modern_tokenization.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Bag-of-words Using scikit-learn</p>
+        <p class="prev-next-title">2.2 Modern Tokenization</p>
       </div>
     </a>
     <a class="right-next"
-       href="../clustering.html"
+       href="spacy_tokenization.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Clustering</p>
+        <p class="prev-next-title">2.4 Tokenization Using spaCy</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
