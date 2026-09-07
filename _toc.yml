@@ -15,6 +15,10 @@ chapters:
     - file: module2/sklearn
     - file: module2/regex
     
+- file: module3/module3
+  sections:
+    - file: module3/week3_coding_practice
+
 - file: clustering
   sections:
     - file: cluster
