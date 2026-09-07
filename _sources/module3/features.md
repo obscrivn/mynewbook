@@ -117,7 +117,7 @@ Suppose a corpus has two documents:
 For the term "the":
 
 - $TF(\text{the}, D_1) = 2/6$
-- $TF(\text{the}, D_2) = 1/6$
+- $TF(\text{the}, D_2) = 2/6$
 - $DF(\text{the}) = 2$
 - $IDF(\text{the}) = \log(2/2) = 0$
 
@@ -133,7 +133,7 @@ $$
 TF\text{-}IDF(\text{the}, D_2) = 0
 $$
 
-The word "the" is common across the corpus, so it gets a low weight.
+The word "the" appears in every document in the corpus, so its IDF is 0 and it receives no weight under this simple TF-IDF formulation.
 
 Now consider the term "cat":
 
@@ -144,10 +144,13 @@ Now consider the term "cat":
 So:
 
 $$
-TF\text{-}IDF(\text{cat}, D_1) \approx 0.17
+TF\text{-}IDF(\text{cat}, D_1)
+=
+\frac{1}{6}\times 0.69
+\approx 0.115
 $$
 
-This makes sense: "cat" is informative because it appears in one document and not the other.
+This makes sense: "cat" is more informative because it appears in only one document rather than throughout the corpus.
 
 ```{important}
 TF-IDF is not magic, and it is not a representation of meaning in the deep semantic sense. It is a good lexical weighting scheme that upweights terms that are both frequent within a document and relatively rare across the corpus.

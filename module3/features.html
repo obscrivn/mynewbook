@@ -555,7 +555,7 @@ TF\text{-}IDF(t, d, D) = TF(t, d) \times IDF(t, D)
 <p>For the term “the”:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(TF(\text{the}, D_1) = 2/6\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(TF(\text{the}, D_2) = 1/6\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(TF(\text{the}, D_2) = 2/6\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(DF(\text{the}) = 2\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(IDF(\text{the}) = \log(2/2) = 0\)</span></p></li>
 </ul>
@@ -569,7 +569,7 @@ TF\text{-}IDF(\text{the}, D_1) = 0
 \[
 TF\text{-}IDF(\text{the}, D_2) = 0
 \]</div>
-<p>The word “the” is common across the corpus, so it gets a low weight.</p>
+<p>The word “the” appears in every document in the corpus, so its IDF is 0 and it receives no weight under this simple TF-IDF formulation.</p>
 <p>Now consider the term “cat”:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(TF(\text{cat}, D_1) = 1/6\)</span></p></li>
@@ -579,9 +579,12 @@ TF\text{-}IDF(\text{the}, D_2) = 0
 <p>So:</p>
 <div class="math notranslate nohighlight">
 \[
-TF\text{-}IDF(\text{cat}, D_1) \approx 0.17
+TF\text{-}IDF(\text{cat}, D_1)
+=
+\frac{1}{6}\times 0.69
+\approx 0.115
 \]</div>
-<p>This makes sense: “cat” is informative because it appears in one document and not the other.</p>
+<p>This makes sense: “cat” is more informative because it appears in only one document rather than throughout the corpus.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>TF-IDF is not magic, and it is not a representation of meaning in the deep semantic sense. It is a good lexical weighting scheme that upweights terms that are both frequent within a document and relatively rare across the corpus.</p>

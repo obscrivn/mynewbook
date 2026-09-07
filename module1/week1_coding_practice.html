@@ -456,11 +456,11 @@ document.write(`
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text1</span> <span class="o">=</span> <span class="s2">"I love this movie."</span>
-<span class="n">text2</span> <span class="o">=</span> <span class="s2">"I do not love this movie."</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text1</span> <span class="o">=</span> <span class="s2">&quot;I love this movie.&quot;</span>
+<span class="n">text2</span> <span class="o">=</span> <span class="s2">&quot;I do not love this movie.&quot;</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"love"</span> <span class="ow">in</span> <span class="n">text1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"love"</span> <span class="ow">in</span> <span class="n">text2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;love&quot;</span> <span class="ow">in</span> <span class="n">text1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;love&quot;</span> <span class="ow">in</span> <span class="n">text2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -484,7 +484,7 @@ document.write(`
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">"Natural language is messy!"</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Natural language is messy!&quot;</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
@@ -523,11 +523,11 @@ document.write(`
 <p>Does the word <code class="docutils literal notranslate"><span class="pre">apple</span></code> mean the same thing in both sentences?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text1</span> <span class="o">=</span> <span class="s2">"Apple released a new laptop."</span>
-<span class="n">text2</span> <span class="o">=</span> <span class="s2">"She ate an apple."</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text1</span> <span class="o">=</span> <span class="s2">&quot;Apple released a new laptop.&quot;</span>
+<span class="n">text2</span> <span class="o">=</span> <span class="s2">&quot;She ate an apple.&quot;</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"apple"</span> <span class="ow">in</span> <span class="n">text1</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"apple"</span> <span class="ow">in</span> <span class="n">text2</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;apple&quot;</span> <span class="ow">in</span> <span class="n">text1</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;apple&quot;</span> <span class="ow">in</span> <span class="n">text2</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -549,11 +549,11 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sentences</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"This is good."</span><span class="p">,</span>
-    <span class="s2">"This is not good."</span><span class="p">,</span>
-    <span class="s2">"This is very good."</span><span class="p">,</span>
-    <span class="s2">"This is good?"</span><span class="p">,</span>
-    <span class="s2">"This is GOOD!!!"</span>
+    <span class="s2">&quot;This is good.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;This is not good.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;This is very good.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;This is good?&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;This is GOOD!!!&quot;</span>
 <span class="p">]</span>
 
 <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
@@ -571,14 +571,14 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reviews</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"Amazing product! 😍"</span><span class="p">,</span>
-    <span class="s2">"Not amazing at all."</span><span class="p">,</span>
-    <span class="s2">"The product arrived yesterday."</span><span class="p">,</span>
-    <span class="s2">"AMAZING!!!"</span><span class="p">,</span>
+    <span class="s2">&quot;Amazing product! 😍&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Not amazing at all.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The product arrived yesterday.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;AMAZING!!!&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="k">for</span> <span class="n">review</span> <span class="ow">in</span> <span class="n">reviews</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">review</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="s2">"amazing"</span> <span class="ow">in</span> <span class="n">review</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">review</span><span class="p">,</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;amazing&quot;</span> <span class="ow">in</span> <span class="n">review</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>

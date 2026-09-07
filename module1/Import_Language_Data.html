@@ -428,7 +428,7 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">PyPDF2</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -445,7 +445,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Replace the name with your file name</span>
-<span class="n">pdfFileObject</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'name.pdf'</span><span class="p">,</span><span class="s1">'rb'</span><span class="p">)</span>
+<span class="n">pdfFileObject</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;name.pdf&#39;</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -473,7 +473,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Option 1</span>
-<span class="n">pdf_data</span> <span class="o">=</span> <span class="s2">""</span>
+<span class="n">pdf_data</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 <span class="n">number_of_pages</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">reader</span><span class="o">.</span><span class="n">pages</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">page_number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_pages</span><span class="p">):</span>   <span class="c1"># use xrange in Py2</span>
     <span class="n">page</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">pages</span><span class="p">[</span><span class="n">page_number</span><span class="p">]</span>
@@ -492,7 +492,7 @@ document.write(`
     <span class="n">page</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">pages</span><span class="p">[</span><span class="n">page_number</span><span class="p">]</span>
     <span class="n">page_content</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">extract_text</span><span class="p">()</span>
     <span class="n">pdf_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">page_content</span><span class="p">)</span>
-<span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pdf_data</span><span class="p">)</span>
+<span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pdf_data</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -528,7 +528,7 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># An example from API request whic has json format</span>
 <span class="c1"># Note: while working with API, you should always consult the documentation to undertsand what fields contain data/text</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"https://api.chucknorris.io/jokes/random"</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api.chucknorris.io/jokes/random&quot;</span><span class="p">)</span>
 <span class="n">res</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="mi">4</span><span class="p">))</span>
 </pre></div>
@@ -538,7 +538,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract contents</span>
-<span class="n">q</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -565,8 +565,8 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
 
 <span class="c1"># Define a User-Agent header to mimic a browser</span>
-<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'User-Agent'</span><span class="p">:</span> <span class="s1">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'</span><span class="p">}</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s1">'https://en.wikipedia.org/wiki/Natural_language_processing'</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36&#39;</span><span class="p">}</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://en.wikipedia.org/wiki/Natural_language_processing&#39;</span>
 
 <span class="c1"># Make the GET request with the defined headers</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
@@ -582,7 +582,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html_doc</span><span class="p">,</span> <span class="s1">'html.parser'</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html_doc</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
 <span class="n">strhtm</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">prettify</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">strhtm</span><span class="p">[:</span><span class="mi">1000</span><span class="p">])</span>
 </pre></div>
@@ -593,7 +593,7 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">soup</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">soup</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">string</span><span class="p">)</span>
-<span class="c1">#for x in soup.find_all('p'): print(x.text)</span>
+<span class="c1">#for x in soup.find_all(&#39;p&#39;): print(x.text)</span>
 </pre></div>
 </div>
 </div>

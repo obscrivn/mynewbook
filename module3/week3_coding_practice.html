@@ -441,7 +441,7 @@ document.write(`
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">TfidfVectorizer</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"display.max_columns"</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_columns&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -450,15 +450,15 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">documents</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"Students study data science in the library."</span><span class="p">,</span>
-    <span class="s2">"Data science students analyze text data."</span><span class="p">,</span>
-    <span class="s2">"The library offers quiet study space."</span><span class="p">,</span>
-    <span class="s2">"Students analyze language data with code."</span><span class="p">,</span>
+    <span class="s2">&quot;Students study data science in the library.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Data science students analyze text data.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The library offers quiet study space.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Students analyze language data with code.&quot;</span><span class="p">,</span>
 <span class="p">]</span>
-<span class="n">document_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"D1"</span><span class="p">,</span> <span class="s2">"D2"</span><span class="p">,</span> <span class="s2">"D3"</span><span class="p">,</span> <span class="s2">"D4"</span><span class="p">]</span>
+<span class="n">document_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;D1&quot;</span><span class="p">,</span> <span class="s2">&quot;D2&quot;</span><span class="p">,</span> <span class="s2">&quot;D3&quot;</span><span class="p">,</span> <span class="s2">&quot;D4&quot;</span><span class="p">]</span>
 
 <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">document</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">document_labels</span><span class="p">,</span> <span class="n">documents</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">document</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">document</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -484,7 +484,7 @@ document.write(`
     <span class="n">index</span><span class="o">=</span><span class="n">document_labels</span><span class="p">,</span>
     <span class="n">columns</span><span class="o">=</span><span class="n">feature_names</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Matrix shape: </span><span class="si">{</span><span class="n">count_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> documents x </span><span class="si">{</span><span class="n">count_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> features"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matrix shape: </span><span class="si">{</span><span class="n">count_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> documents x </span><span class="si">{</span><span class="n">count_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> features&quot;</span><span class="p">)</span>
 <span class="n">count_df</span>
 </pre></div>
 </div>
@@ -494,9 +494,9 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Transparent checks: these should pass if we interpreted the matrix correctly.</span>
 <span class="k">assert</span> <span class="n">count_df</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">count_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"D2"</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span>
-<span class="k">assert</span> <span class="n">count_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"D3"</span><span class="p">,</span> <span class="s2">"science"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Count-matrix checks passed."</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">count_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;D2&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="k">assert</span> <span class="n">count_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;D3&quot;</span><span class="p">,</span> <span class="s2">&quot;science&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Count-matrix checks passed.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -522,11 +522,11 @@ document.write(`
 <span class="p">)</span>
 
 <span class="n">count_binary_comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">"count"</span><span class="p">:</span> <span class="n">count_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"D2"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"science"</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">]],</span>
-    <span class="s2">"binary"</span><span class="p">:</span> <span class="n">binary_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"D2"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"science"</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">]],</span>
+    <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="n">count_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;D2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;science&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">]],</span>
+    <span class="s2">&quot;binary&quot;</span><span class="p">:</span> <span class="n">binary_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;D2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;science&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">]],</span>
 <span class="p">})</span>
-<span class="k">assert</span> <span class="n">count_binary_comparison</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"count"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span>
-<span class="k">assert</span> <span class="n">count_binary_comparison</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"binary"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="k">assert</span> <span class="n">count_binary_comparison</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="k">assert</span> <span class="n">count_binary_comparison</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;binary&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
 <span class="n">count_binary_comparison</span>
 </pre></div>
 </div>
@@ -549,10 +549,10 @@ document.write(`
 
 <span class="n">document_frequency</span> <span class="o">=</span> <span class="p">(</span><span class="n">bigram_df</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">repeated_bigrams</span> <span class="o">=</span> <span class="n">document_frequency</span><span class="p">[</span><span class="n">document_frequency</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Bigram matrix shape: </span><span class="si">{</span><span class="n">bigram_df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Bigrams found in more than one document:"</span><span class="p">,</span> <span class="n">repeated_bigrams</span><span class="p">)</span>
-<span class="k">assert</span> <span class="s2">"data science"</span> <span class="ow">in</span> <span class="n">bigram_df</span><span class="o">.</span><span class="n">columns</span>
-<span class="k">assert</span> <span class="s2">"students analyze"</span> <span class="ow">in</span> <span class="n">repeated_bigrams</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bigram matrix shape: </span><span class="si">{</span><span class="n">bigram_df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bigrams found in more than one document:&quot;</span><span class="p">,</span> <span class="n">repeated_bigrams</span><span class="p">)</span>
+<span class="k">assert</span> <span class="s2">&quot;data science&quot;</span> <span class="ow">in</span> <span class="n">bigram_df</span><span class="o">.</span><span class="n">columns</span>
+<span class="k">assert</span> <span class="s2">&quot;students analyze&quot;</span> <span class="ow">in</span> <span class="n">repeated_bigrams</span>
 <span class="n">bigram_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">repeated_bigrams</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -563,8 +563,8 @@ document.write(`
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Guided modification: include both unigrams and bigrams.</span>
 <span class="n">combined_vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="n">combined_matrix</span> <span class="o">=</span> <span class="n">combined_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Unigram-only shape:     "</span><span class="p">,</span> <span class="n">count_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Unigram + bigram shape:"</span><span class="p">,</span> <span class="n">combined_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unigram-only shape:     &quot;</span><span class="p">,</span> <span class="n">count_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unigram + bigram shape:&quot;</span><span class="p">,</span> <span class="n">combined_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">combined_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">count_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -588,14 +588,14 @@ document.write(`
 <span class="n">idf_values</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
     <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">idf_</span><span class="p">,</span>
     <span class="n">index</span><span class="o">=</span><span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(),</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">"idf"</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;idf&quot;</span><span class="p">,</span>
 <span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
 
 <span class="k">assert</span> <span class="n">tfidf_df</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">count_df</span><span class="o">.</span><span class="n">shape</span>
-<span class="k">assert</span> <span class="n">idf_values</span><span class="p">[</span><span class="s2">"data"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">idf_values</span><span class="p">[</span><span class="s2">"quiet"</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"IDF values, from common to rare:"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">idf_values</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">idf_values</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;IDF values, from common to rare:&quot;</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">idf_values</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"TF-IDF document-term matrix:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;TF-IDF document-term matrix:&quot;</span><span class="p">)</span>
 <span class="n">tfidf_df</span>
 </pre></div>
 </div>
@@ -603,10 +603,10 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selected_terms</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"science"</span><span class="p">,</span> <span class="s2">"students"</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selected_terms</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;science&quot;</span><span class="p">,</span> <span class="s2">&quot;students&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">]</span>
 <span class="n">d2_comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">"D2 count"</span><span class="p">:</span> <span class="n">count_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"D2"</span><span class="p">,</span> <span class="n">selected_terms</span><span class="p">],</span>
-    <span class="s2">"D2 TF-IDF"</span><span class="p">:</span> <span class="n">tfidf_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"D2"</span><span class="p">,</span> <span class="n">selected_terms</span><span class="p">],</span>
+    <span class="s2">&quot;D2 count&quot;</span><span class="p">:</span> <span class="n">count_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;D2&quot;</span><span class="p">,</span> <span class="n">selected_terms</span><span class="p">],</span>
+    <span class="s2">&quot;D2 TF-IDF&quot;</span><span class="p">:</span> <span class="n">tfidf_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;D2&quot;</span><span class="p">,</span> <span class="n">selected_terms</span><span class="p">],</span>
 <span class="p">})</span>
 <span class="n">d2_comparison</span>
 </pre></div>
@@ -629,11 +629,11 @@ document.write(`
 <span class="n">unsmoothed_vectorizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
 
 <span class="n">smoothing_comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">"document frequency"</span><span class="p">:</span> <span class="p">(</span><span class="n">count_df</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
-    <span class="s2">"smoothed IDF"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">smooth_vectorizer</span><span class="o">.</span><span class="n">idf_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">smooth_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()),</span>
-    <span class="s2">"unsmoothed IDF"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">unsmoothed_vectorizer</span><span class="o">.</span><span class="n">idf_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">unsmoothed_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()),</span>
-<span class="p">})</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">"document frequency"</span><span class="p">,</span> <span class="s2">"smoothed IDF"</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
-<span class="k">assert</span> <span class="p">(</span><span class="n">smoothing_comparison</span><span class="p">[</span><span class="s2">"smoothed IDF"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">smoothing_comparison</span><span class="p">[</span><span class="s2">"unsmoothed IDF"</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="s2">&quot;document frequency&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">count_df</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="s2">&quot;smoothed IDF&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">smooth_vectorizer</span><span class="o">.</span><span class="n">idf_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">smooth_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()),</span>
+    <span class="s2">&quot;unsmoothed IDF&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">unsmoothed_vectorizer</span><span class="o">.</span><span class="n">idf_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">unsmoothed_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()),</span>
+<span class="p">})</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;document frequency&quot;</span><span class="p">,</span> <span class="s2">&quot;smoothed IDF&quot;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">smoothing_comparison</span><span class="p">[</span><span class="s2">&quot;smoothed IDF&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">smoothing_comparison</span><span class="p">[</span><span class="s2">&quot;unsmoothed IDF&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 <span class="n">smoothing_comparison</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -647,7 +647,7 @@ document.write(`
 <p>Suppose an AI assistant suggests calling <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code> again on new documents. Predict why that can make the new vectors incompatible with the original matrix, then inspect the evidence below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_documents</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Researchers study data science."</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_documents</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Researchers study data science.&quot;</span><span class="p">]</span>
 
 <span class="c1"># Unsafe suggestion: fitting again creates a different vocabulary and column layout.</span>
 <span class="n">refit_vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
@@ -657,9 +657,9 @@ document.write(`
 <span class="n">aligned_matrix</span> <span class="o">=</span> <span class="n">count_vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">new_documents</span><span class="p">)</span>
 
 <span class="n">workflow_check</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">"workflow"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"refit on new text"</span><span class="p">,</span> <span class="s2">"transform with fitted vectorizer"</span><span class="p">],</span>
-    <span class="s2">"columns"</span><span class="p">:</span> <span class="p">[</span><span class="n">refit_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">aligned_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
-    <span class="s2">"matches original feature count"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;workflow&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;refit on new text&quot;</span><span class="p">,</span> <span class="s2">&quot;transform with fitted vectorizer&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;columns&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">refit_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">aligned_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+    <span class="s2">&quot;matches original feature count&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="n">refit_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">count_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
         <span class="n">aligned_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">count_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
     <span class="p">],</span>
@@ -678,29 +678,29 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">practice_documents</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"Doctors review patient notes."</span><span class="p">,</span>
-    <span class="s2">"Nurses review clinical notes."</span><span class="p">,</span>
-    <span class="s2">"Doctors and nurses analyze patient data."</span><span class="p">,</span>
+    <span class="s2">&quot;Doctors review patient notes.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Nurses review clinical notes.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Doctors and nurses analyze patient data.&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="n">practice_models</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"count"</span><span class="p">:</span> <span class="n">CountVectorizer</span><span class="p">(),</span>
-    <span class="s2">"binary"</span><span class="p">:</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">binary</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="s2">"unigram + bigram"</span><span class="p">:</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
-    <span class="s2">"TF-IDF"</span><span class="p">:</span> <span class="n">TfidfVectorizer</span><span class="p">(),</span>
+    <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="n">CountVectorizer</span><span class="p">(),</span>
+    <span class="s2">&quot;binary&quot;</span><span class="p">:</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">binary</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">&quot;unigram + bigram&quot;</span><span class="p">:</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+    <span class="s2">&quot;TF-IDF&quot;</span><span class="p">:</span> <span class="n">TfidfVectorizer</span><span class="p">(),</span>
 <span class="p">}</span>
 
 <span class="n">practice_summary</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">practice_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="n">matrix</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">practice_documents</span><span class="p">)</span>
     <span class="n">practice_summary</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-        <span class="s2">"representation"</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
-        <span class="s2">"documents"</span><span class="p">:</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-        <span class="s2">"features"</span><span class="p">:</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-        <span class="s2">"nonzero values"</span><span class="p">:</span> <span class="n">matrix</span><span class="o">.</span><span class="n">nnz</span><span class="p">,</span>
+        <span class="s2">&quot;representation&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+        <span class="s2">&quot;documents&quot;</span><span class="p">:</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="s2">&quot;nonzero values&quot;</span><span class="p">:</span> <span class="n">matrix</span><span class="o">.</span><span class="n">nnz</span><span class="p">,</span>
     <span class="p">})</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">practice_summary</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"representation"</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">practice_summary</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;representation&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -708,10 +708,10 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Student response area: these fields are intentionally blank.</span>
-<span class="n">chosen_representation</span> <span class="o">=</span> <span class="s2">""</span>
-<span class="n">justification</span> <span class="o">=</span> <span class="s2">""</span>
-<span class="n">evidence_from_output</span> <span class="o">=</span> <span class="s2">""</span>
-<span class="n">information_lost</span> <span class="o">=</span> <span class="s2">""</span>
+<span class="n">chosen_representation</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">justification</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">evidence_from_output</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">information_lost</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 </pre></div>
 </div>
 </div>

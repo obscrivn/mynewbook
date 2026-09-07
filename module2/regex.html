@@ -554,9 +554,9 @@ zero count parameter (default) will replace all the matches</p></li>
 <p><strong>Ex.1</strong> Replace the current phone number format (212)-456-7890 by digits only (no other characters). Note: review regex shortcuts.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phone_no</span> <span class="o">=</span> <span class="s1">'(212)-456-7890'</span>
-<span class="n">pattern</span> <span class="o">=</span> <span class="s1">'\D'</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s1">''</span><span class="p">,</span><span class="n">phone_no</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phone_no</span> <span class="o">=</span> <span class="s1">&#39;(212)-456-7890&#39;</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="s1">&#39;\D&#39;</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">phone_no</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -574,9 +574,9 @@ zero count parameter (default) will replace all the matches</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">string</span> <span class="o">=</span> <span class="s1">'Restaurant Review *Better Place*'</span>
-<span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'\*(.*?)\*'</span> 
-<span class="n">replacement</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'&lt;strong&gt;\1&lt;</span><span class="se">\\</span><span class="s1">strong&gt;'</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;Restaurant Review *Better Place*&#39;</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\*(.*?)\*&#39;</span> 
+<span class="n">replacement</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;&lt;strong&gt;\1&lt;</span><span class="se">\\</span><span class="s1">strong&gt;&#39;</span>
 <span class="n">html</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">replacement</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
 </pre></div>
@@ -598,7 +598,7 @@ zero count parameter (default) will replace all the matches</p></li>
 
 <span class="c1">#match a word at the beginning of a string</span>
 
-<span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">'NLP'</span><span class="p">,</span><span class="sa">r</span><span class="s1">'NLP is '</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;NLP&#39;</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;NLP is &#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </pre></div>
 </div>

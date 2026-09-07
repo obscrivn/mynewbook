@@ -419,7 +419,7 @@ document.write(`
 <p>We have a data from the github link: <a class="reference external" href="https://github.com/PawanKrGunjan/Natural-Language-Processing/blob/main/Sarcasm%20Detection/sarcasm.json">https://github.com/PawanKrGunjan/Natural-Language-Processing/blob/main/Sarcasm Detection/sarcasm.json</a></p>
 <p>If you open the github, ther eis an option Raw text which gives us the following link: <a class="reference external" href="https://raw.githubusercontent.com/PawanKrGunjan/Natural-Language-Processing/main/Sarcasm%20Detection/sarcasm.json">https://raw.githubusercontent.com/PawanKrGunjan/Natural-Language-Processing/main/Sarcasm Detection/sarcasm.json</a></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Dataset</span> <span class="n">link</span><span class="p">:</span> 
-<span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="s1">'https://raw.githubusercontent.com/PawanKrGunjan/Natural-Language-Processing/main/Sarcasm%20Detection/sarcasm.json'</span><span class="p">)</span>
+<span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/PawanKrGunjan/Natural-Language-Processing/main/Sarcasm%20Detection/sarcasm.json&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -431,7 +431,7 @@ document.write(`
 <ul class="simple">
 <li><p>creating vectorizer</p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">stop_words</span><span class="o">=</span><span class="s1">'english'</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">stop_words</span><span class="o">=</span><span class="s1">&#39;english&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -480,8 +480,8 @@ document.write(`
 </li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-<span class="n">results</span><span class="p">[</span><span class="s1">'document'</span><span class="p">]</span> <span class="o">=</span> <span class="n">sentence</span>
-<span class="n">results</span><span class="p">[</span><span class="s1">'cluster'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span>
+<span class="n">results</span><span class="p">[</span><span class="s1">&#39;document&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sentence</span>
+<span class="n">results</span><span class="p">[</span><span class="s1">&#39;cluster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -491,13 +491,13 @@ document.write(`
 <ul class="simple">
 <li><p>We will visualze the results</p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'red'</span><span class="p">,</span> <span class="s1">'green'</span><span class="p">]</span>
-<span class="n">cluster</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Not Sarcastic'</span><span class="p">,</span><span class="s1">'Sarcastic'</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">]</span>
+<span class="n">cluster</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Not Sarcastic&#39;</span><span class="p">,</span><span class="s1">&#39;Sarcastic&#39;</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_clusters</span><span class="p">):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">reduced_data</span><span class="p">[</span><span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span> <span class="o">==</span> <span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
                 <span class="n">reduced_data</span><span class="p">[</span><span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span> <span class="o">==</span> <span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> 
                 <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> 
-                <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">' </span><span class="si">{</span><span class="n">cluster</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+                <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="n">cluster</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>

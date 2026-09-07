@@ -474,7 +474,7 @@ document.write(`
 <li><p><strong>GPT Pre-tokenization:</strong> some modern tokenizers use a regex-based pre-tokenization step before applying a subword algorithm (e.g., GPT-2’s regex using <code class="docutils literal notranslate"><span class="pre">\p{L}+</span></code> for letters, <code class="docutils literal notranslate"><span class="pre">\p{N}+</span></code> for numbers, and explicit contraction rules) as a preliminary <strong>pre-tokenization step</strong> to prevent subword token algorithms from merging across word or punctuation boundaries.</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># GPT-2 Pre-tokenizer Regex Pattern Structure</span>
-<span class="sa">r</span><span class="s2">"'s|'t|'re|'ve|'m|'ll|'d| ?\p</span><span class="si">{L}</span><span class="s2">+| ?\p</span><span class="si">{N}</span><span class="s2">+| ?[^\s\p</span><span class="si">{L}</span><span class="s2">\p</span><span class="si">{N}</span><span class="s2">]+|\s+(?!\S)|\s+"</span>
+<span class="sa">r</span><span class="s2">&quot;&#39;s|&#39;t|&#39;re|&#39;ve|&#39;m|&#39;ll|&#39;d| ?\p</span><span class="si">{L}</span><span class="s2">+| ?\p</span><span class="si">{N}</span><span class="s2">+| ?[^\s\p</span><span class="si">{L}</span><span class="s2">\p</span><span class="si">{N}</span><span class="s2">]+|\s+(?!\S)|\s+&quot;</span>
 </pre></div>
 </div>
 <div class="admonition important">
