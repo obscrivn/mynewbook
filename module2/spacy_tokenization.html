@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'module2/spacy_tokenization';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Chapter 3. Undestanding Features" href="../module3/module3.html" />
+    <link rel="next" title="Chapter 3. Feature Engineering" href="../module3/module3.html" />
     <link rel="prev" title="2.3 Regex Coding Practice" href="regex.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -187,8 +187,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">2.4 Tokenization with spaCy</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Undestanding Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">Features</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -483,27 +484,27 @@ document.write(`
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 
 <span class="n">required_packages</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;spacy&quot;</span><span class="p">:</span> <span class="s2">&quot;spacy&gt;=3.7,&lt;4&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;snowballstemmer&quot;</span><span class="p">:</span> <span class="s2">&quot;snowballstemmer&gt;=2.2,&lt;3&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tiktoken&quot;</span><span class="p">:</span> <span class="s2">&quot;tiktoken&gt;=0.7,&lt;1&quot;</span><span class="p">,</span>
+    <span class="s2">"spacy"</span><span class="p">:</span> <span class="s2">"spacy&gt;=3.7,&lt;4"</span><span class="p">,</span>
+    <span class="s2">"snowballstemmer"</span><span class="p">:</span> <span class="s2">"snowballstemmer&gt;=2.2,&lt;3"</span><span class="p">,</span>
+    <span class="s2">"tiktoken"</span><span class="p">:</span> <span class="s2">"tiktoken&gt;=0.7,&lt;1"</span><span class="p">,</span>
 <span class="p">}</span>
 
 <span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">package</span> <span class="k">for</span> <span class="n">module</span><span class="p">,</span> <span class="n">package</span> <span class="ow">in</span> <span class="n">required_packages</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
            <span class="k">if</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="n">module</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">]</span>
 <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
-    <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="s2">&quot;-q&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">missing</span><span class="p">])</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">"-m"</span><span class="p">,</span> <span class="s2">"pip"</span><span class="p">,</span> <span class="s2">"install"</span><span class="p">,</span> <span class="s2">"-q"</span><span class="p">,</span> <span class="o">*</span><span class="n">missing</span><span class="p">])</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">spacy</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">tiktoken</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+    <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"en_core_web_sm"</span><span class="p">)</span>
 <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">spacy.cli</span><span class="w"> </span><span class="kn">import</span> <span class="n">download</span>
-    <span class="n">download</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
-    <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_sm&quot;</span><span class="p">)</span>
+    <span class="n">download</span><span class="p">(</span><span class="s2">"en_core_web_sm"</span><span class="p">)</span>
+    <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"en_core_web_sm"</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;spaCy </span><span class="si">{</span><span class="n">spacy</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">; pipeline: </span><span class="si">{</span><span class="n">nlp</span><span class="o">.</span><span class="n">pipe_names</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"spaCy </span><span class="si">{</span><span class="n">spacy</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">; pipeline: </span><span class="si">{</span><span class="n">nlp</span><span class="o">.</span><span class="n">pipe_names</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -524,11 +525,11 @@ document.write(`
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prediction_text</span> <span class="o">=</span> <span class="s2">&quot;We&#39;re visiting the U.S. next week!&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prediction_text</span> <span class="o">=</span> <span class="s2">"We're visiting the U.S. next week!"</span>
 <span class="n">prediction_doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">prediction_text</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">([</span><span class="n">token</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">prediction_doc</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Token count:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">prediction_doc</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Token count:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">prediction_doc</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -559,15 +560,15 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">challenge_texts</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;contractions&quot;</span><span class="p">:</span> <span class="s2">&quot;I can&#39;t believe we&#39;re early!&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;abbreviation&quot;</span><span class="p">:</span> <span class="s2">&quot;Let&#39;s meet in St. Louis.&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;URL and email&quot;</span><span class="p">:</span> <span class="s2">&quot;Visit https://example.com or email hello@example.com.&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;price, emoji, hashtag&quot;</span><span class="p">:</span> <span class="s2">&quot;The ticket costs $100.60 😊 #NLP.&quot;</span><span class="p">,</span>
+    <span class="s2">"contractions"</span><span class="p">:</span> <span class="s2">"I can't believe we're early!"</span><span class="p">,</span>
+    <span class="s2">"abbreviation"</span><span class="p">:</span> <span class="s2">"Let's meet in St. Louis."</span><span class="p">,</span>
+    <span class="s2">"URL and email"</span><span class="p">:</span> <span class="s2">"Visit https://example.com or email hello@example.com."</span><span class="p">,</span>
+    <span class="s2">"price, emoji, hashtag"</span><span class="p">:</span> <span class="s2">"The ticket costs $100.60 😊 #NLP."</span><span class="p">,</span>
 <span class="p">}</span>
 
 <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">challenge_texts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="s2">  </span><span class="si">{</span><span class="n">tokens</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="s2">  </span><span class="si">{</span><span class="n">tokens</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -595,14 +596,14 @@ document.write(`
 <p>These annotations are properties of each token; they do not create additional tokens.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">attribute_doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;We&#39;re visiting the U.S. next week!&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">attribute_doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">"We're visiting the U.S. next week!"</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;text&#39;</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;lemma&#39;</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;POS&#39;</span><span class="si">:</span><span class="s2">&lt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;is_stop&#39;</span><span class="si">:</span><span class="s2">&lt;9</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;is_punct&#39;</span><span class="si">:</span><span class="s2">&lt;9</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">55</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'text'</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'lemma'</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'POS'</span><span class="si">:</span><span class="s2">&lt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'is_stop'</span><span class="si">:</span><span class="s2">&lt;9</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'is_punct'</span><span class="si">:</span><span class="s2">&lt;9</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">55</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">attribute_doc</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">lemma_</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">pos_</span><span class="si">:</span><span class="s2">&lt;8</span><span class="si">}</span><span class="s2"> &quot;</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">is_stop</span><span class="p">)</span><span class="si">:</span><span class="s2">&lt;9</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">is_punct</span><span class="p">)</span><span class="si">:</span><span class="s2">&lt;9</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">lemma_</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">pos_</span><span class="si">:</span><span class="s2">&lt;8</span><span class="si">}</span><span class="s2"> "</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">is_stop</span><span class="p">)</span><span class="si">:</span><span class="s2">&lt;9</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">is_punct</span><span class="p">)</span><span class="si">:</span><span class="s2">&lt;9</span><span class="si">}</span><span class="s2">"</span>
     <span class="p">)</span>
 </pre></div>
 </div>
@@ -621,11 +622,11 @@ document.write(`
 <p><strong>Lemmatization</strong> maps an inflected word to a meaningful base form, or <em>lemma</em>. It uses linguistic context: for example, forms such as <code class="docutils literal notranslate"><span class="pre">studies</span></code> and <code class="docutils literal notranslate"><span class="pre">studied</span></code> can map to <code class="docutils literal notranslate"><span class="pre">study</span></code>, while <code class="docutils literal notranslate"><span class="pre">were</span></code> maps to <code class="docutils literal notranslate"><span class="pre">be</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lemma_doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;She studies languages and studied linguistics while they were traveling.&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lemma_doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">"She studies languages and studied linguistics while they were traveling."</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">lemma_doc</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">is_alpha</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> → </span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">lemma_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> → </span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">lemma_</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -645,12 +646,12 @@ document.write(`
 <p>Rather than printing or modifying spaCy’s full stop-word list, inspect the decision in the context of a sentence.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stop_doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;I do not want to miss the flight.&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stop_doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">"I do not want to miss the flight."</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">([(</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">is_stop</span><span class="p">)</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">stop_doc</span><span class="p">])</span>
 <span class="n">kept_tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">stop_doc</span>
                <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="o">.</span><span class="n">is_stop</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">token</span><span class="o">.</span><span class="n">is_punct</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After filtering:&quot;</span><span class="p">,</span> <span class="n">kept_tokens</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"After filtering:"</span><span class="p">,</span> <span class="n">kept_tokens</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -690,17 +691,17 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">snowballstemmer</span>
 
-<span class="n">stemmer</span> <span class="o">=</span> <span class="n">snowballstemmer</span><span class="o">.</span><span class="n">stemmer</span><span class="p">(</span><span class="s2">&quot;english&quot;</span><span class="p">)</span>
+<span class="n">stemmer</span> <span class="o">=</span> <span class="n">snowballstemmer</span><span class="o">.</span><span class="n">stemmer</span><span class="p">(</span><span class="s2">"english"</span><span class="p">)</span>
 <span class="n">morphology_doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span>
-    <span class="s2">&quot;The researchers studied several studies and were studying better methods.&quot;</span>
+    <span class="s2">"The researchers studied several studies and were studying better methods."</span>
 <span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;word&#39;</span><span class="si">:</span><span class="s2">&lt;14</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;stem&#39;</span><span class="si">:</span><span class="s2">&lt;14</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;lemma&#39;</span><span class="si">:</span><span class="s2">&lt;14</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">42</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'word'</span><span class="si">:</span><span class="s2">&lt;14</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'stem'</span><span class="si">:</span><span class="s2">&lt;14</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'lemma'</span><span class="si">:</span><span class="s2">&lt;14</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">42</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">morphology_doc</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">is_alpha</span><span class="p">:</span>
         <span class="n">stem</span> <span class="o">=</span> <span class="n">stemmer</span><span class="o">.</span><span class="n">stemWord</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="si">:</span><span class="s2">&lt;14</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">stem</span><span class="si">:</span><span class="s2">&lt;14</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">lemma_</span><span class="si">:</span><span class="s2">&lt;14</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="si">:</span><span class="s2">&lt;14</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">stem</span><span class="si">:</span><span class="s2">&lt;14</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">lemma_</span><span class="si">:</span><span class="s2">&lt;14</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -721,9 +722,9 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos_examples</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;I read a book.&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Book the flight.&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Please book the flight.&quot;</span><span class="p">,</span>
+    <span class="s2">"I read a book."</span><span class="p">,</span>
+    <span class="s2">"Book the flight."</span><span class="p">,</span>
+    <span class="s2">"Please book the flight."</span><span class="p">,</span>
 <span class="p">]</span>
 
 <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">pos_examples</span><span class="p">:</span>
@@ -731,8 +732,8 @@ document.write(`
     <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="o">.</span><span class="n">is_punct</span><span class="p">:</span>
-            <span class="n">explanation</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">pos_</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="si">:</span><span class="s2">&lt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">pos_</span><span class="si">:</span><span class="s2">&lt;6</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">explanation</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">explanation</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">pos_</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">""</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="si">:</span><span class="s2">&lt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">pos_</span><span class="si">:</span><span class="s2">&lt;6</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">explanation</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -755,15 +756,15 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">spacy</span><span class="w"> </span><span class="kn">import</span> <span class="n">displacy</span>
 
-<span class="n">dependency_doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot;Book the flight after you read the schedule.&quot;</span><span class="p">)</span>
+<span class="n">dependency_doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">"Book the flight after you read the schedule."</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">dependency_doc</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2"> dependency=</span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">dep_</span><span class="si">:</span><span class="s2">&lt;8</span><span class="si">}</span><span class="s2"> head=</span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2"> dependency=</span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">dep_</span><span class="si">:</span><span class="s2">&lt;8</span><span class="si">}</span><span class="s2"> head=</span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
     <span class="n">dependency_doc</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;dep&quot;</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="s2">"dep"</span><span class="p">,</span>
     <span class="n">jupyter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;distance&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">},</span>
+    <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">"distance"</span><span class="p">:</span> <span class="mi">90</span><span class="p">},</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -784,18 +785,18 @@ document.write(`
 <p>The example below uses the <code class="docutils literal notranslate"><span class="pre">cl100k_base</span></code> byte-pair encoding available in <code class="docutils literal notranslate"><span class="pre">tiktoken</span></code>. Exact pieces depend on the tokenizer’s learned vocabulary, so another model may split the same text differently.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">comparison_text</span> <span class="o">=</span> <span class="s2">&quot;Tokenization helps with antidisestablishmentarianism.&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">comparison_text</span> <span class="o">=</span> <span class="s2">"Tokenization helps with antidisestablishmentarianism."</span>
 
 <span class="n">spacy_pieces</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">nlp</span><span class="p">(</span><span class="n">comparison_text</span><span class="p">)]</span>
 
-<span class="n">encoding</span> <span class="o">=</span> <span class="n">tiktoken</span><span class="o">.</span><span class="n">get_encoding</span><span class="p">(</span><span class="s2">&quot;cl100k_base&quot;</span><span class="p">)</span>
+<span class="n">encoding</span> <span class="o">=</span> <span class="n">tiktoken</span><span class="o">.</span><span class="n">get_encoding</span><span class="p">(</span><span class="s2">"cl100k_base"</span><span class="p">)</span>
 <span class="n">subword_ids</span> <span class="o">=</span> <span class="n">encoding</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">comparison_text</span><span class="p">)</span>
 <span class="n">subword_pieces</span> <span class="o">=</span> <span class="p">[</span><span class="n">encoding</span><span class="o">.</span><span class="n">decode</span><span class="p">([</span><span class="n">token_id</span><span class="p">])</span> <span class="k">for</span> <span class="n">token_id</span> <span class="ow">in</span> <span class="n">subword_ids</span><span class="p">]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Text:&quot;</span><span class="p">,</span> <span class="n">comparison_text</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;spaCy tokens:&quot;</span><span class="p">,</span> <span class="n">spacy_pieces</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Subword pieces:&quot;</span><span class="p">,</span> <span class="n">subword_pieces</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Subword token IDs:&quot;</span><span class="p">,</span> <span class="n">subword_ids</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Text:"</span><span class="p">,</span> <span class="n">comparison_text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"spaCy tokens:"</span><span class="p">,</span> <span class="n">spacy_pieces</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Subword pieces:"</span><span class="p">,</span> <span class="n">subword_pieces</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Subword token IDs:"</span><span class="p">,</span> <span class="n">subword_ids</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -865,7 +866,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Chapter 3. Undestanding Features</p>
+        <p class="prev-next-title">Chapter 3. Feature Engineering</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

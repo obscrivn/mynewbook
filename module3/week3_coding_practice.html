@@ -1,0 +1,865 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>3.2 Coding Practice: From Text to Feature Vectors &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module3/week3_coding_practice';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Speech" href="../speech.html" />
+    <link rel="prev" title="3.1 Feature Engineering and Vector Representations" href="features.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module3.html">Chapter 3. Feature Engineering</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phonetics.html">Speech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recognizer.html">Speech Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule3/week3_coding_practice.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module3/week3_coding_practice.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>3.2 Coding Practice: From Text to Feature Vectors</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">1. Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-a-count-based-document-term-matrix">2. Worked example: a count-based document-term matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guided-comparison-counts-versus-binary-occurrence">3. Guided comparison: counts versus binary occurrence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#n-grams-preserve-limited-local-order">4. N-grams preserve limited local order</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-idf-weight-terms-by-corpus-level-rarity">5. TF-IDF: weight terms by corpus-level rarity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting-smooth-idf">Inspecting <code class="docutils literal notranslate"><span class="pre">smooth_idf</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#critique-and-validate-a-new-document-workflow">6. Critique and validate a new-document workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#independent-practice-choose-a-representation">7. Independent practice: choose a representation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bridge-to-embeddings">8. Bridge to embeddings</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="coding-practice-from-text-to-feature-vectors">
+<h1>3.2 Coding Practice: From Text to Feature Vectors<a class="headerlink" href="#coding-practice-from-text-to-feature-vectors" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module3/week3_coding_practice.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>In this formative activity, you will turn a small text corpus into numerical representations and inspect what each representation preserves or loses. Run the cells in order. Pause for each <strong>Predict</strong> or <strong>Interpret</strong> prompt before continuing.</p>
+<section id="learning-objectives">
+<h2>Learning objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this heading">#</a></h2>
+<p>By the end, you should be able to:</p>
+<ul class="simple">
+<li><p>connect vocabulary terms to columns in a document-term matrix;</p></li>
+<li><p>interpret matrix shape and individual feature values;</p></li>
+<li><p>compare count, binary, n-gram, and TF-IDF representations;</p></li>
+<li><p>validate a vectorizer workflow and identify a feature-space mismatch;</p></li>
+<li><p>explain why sparse lexical vectors motivate a transition to embeddings.</p></li>
+</ul>
+</section>
+<section id="setup">
+<h2>1. Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
+<p>The activity uses only packages already available in Google Colab. The corpus is defined in the notebook, so no files or network access are required.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">TfidfVectorizer</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"display.max_columns"</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">documents</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"Students study data science in the library."</span><span class="p">,</span>
+    <span class="s2">"Data science students analyze text data."</span><span class="p">,</span>
+    <span class="s2">"The library offers quiet study space."</span><span class="p">,</span>
+    <span class="s2">"Students analyze language data with code."</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">document_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"D1"</span><span class="p">,</span> <span class="s2">"D2"</span><span class="p">,</span> <span class="s2">"D3"</span><span class="p">,</span> <span class="s2">"D4"</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">document</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">document_labels</span><span class="p">,</span> <span class="n">documents</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">document</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Predict before running:</strong></p>
+<ol class="arabic simple">
+<li><p>Which terms do you expect to become features?</p></li>
+<li><p>What value should the feature <code class="docutils literal notranslate"><span class="pre">data</span></code> have for D2?</p></li>
+<li><p>Which information about the original sentences will a unigram count matrix lose?</p></li>
+</ol>
+</section>
+<section id="worked-example-a-count-based-document-term-matrix">
+<h2>2. Worked example: a count-based document-term matrix<a class="headerlink" href="#worked-example-a-count-based-document-term-matrix" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> lowercases and tokenizes the documents, builds a vocabulary, and counts each vocabulary term in each document. Rows represent documents; columns represent features.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">count_vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
+<span class="n">count_matrix</span> <span class="o">=</span> <span class="n">count_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+<span class="n">feature_names</span> <span class="o">=</span> <span class="n">count_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+
+<span class="n">count_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">count_matrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span>
+    <span class="n">index</span><span class="o">=</span><span class="n">document_labels</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="n">feature_names</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Matrix shape: </span><span class="si">{</span><span class="n">count_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> documents x </span><span class="si">{</span><span class="n">count_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> features"</span><span class="p">)</span>
+<span class="n">count_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Transparent checks: these should pass if we interpreted the matrix correctly.</span>
+<span class="k">assert</span> <span class="n">count_df</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">count_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"D2"</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="k">assert</span> <span class="n">count_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"D3"</span><span class="p">,</span> <span class="s2">"science"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Count-matrix checks passed."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Interpret:</strong></p>
+<ul class="simple">
+<li><p>Explain the values at D2–<code class="docutils literal notranslate"><span class="pre">data</span></code> and D3–<code class="docutils literal notranslate"><span class="pre">science</span></code> in words.</p></li>
+<li><p>Why does the matrix contain many zeros?</p></li>
+<li><p>Could you reconstruct the exact word order of D1 from its row? Why or why not?</p></li>
+</ul>
+</section>
+<section id="guided-comparison-counts-versus-binary-occurrence">
+<h2>3. Guided comparison: counts versus binary occurrence<a class="headerlink" href="#guided-comparison-counts-versus-binary-occurrence" title="Permalink to this heading">#</a></h2>
+<p>A count representation preserves term frequency. With <code class="docutils literal notranslate"><span class="pre">binary=True</span></code>, every nonzero count becomes 1, so the representation preserves presence or absence but not repetition.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">binary_vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">binary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">binary_matrix</span> <span class="o">=</span> <span class="n">binary_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+<span class="n">binary_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">binary_matrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span>
+    <span class="n">index</span><span class="o">=</span><span class="n">document_labels</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="n">binary_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(),</span>
+<span class="p">)</span>
+
+<span class="n">count_binary_comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"count"</span><span class="p">:</span> <span class="n">count_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"D2"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"science"</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">]],</span>
+    <span class="s2">"binary"</span><span class="p">:</span> <span class="n">binary_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"D2"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"science"</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">]],</span>
+<span class="p">})</span>
+<span class="k">assert</span> <span class="n">count_binary_comparison</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"count"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="k">assert</span> <span class="n">count_binary_comparison</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"binary"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="n">count_binary_comparison</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Interpret:</strong> For what kind of analysis might repeated mentions matter? When might simple presence or absence be preferable? Give one reason for each choice.</p>
+</section>
+<section id="n-grams-preserve-limited-local-order">
+<h2>4. N-grams preserve limited local order<a class="headerlink" href="#n-grams-preserve-limited-local-order" title="Permalink to this heading">#</a></h2>
+<p>A unigram is one token; a bigram is a sequence of two adjacent tokens. Predict which bigrams occur in more than one document before running the next cell.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bigram_vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">bigram_matrix</span> <span class="o">=</span> <span class="n">bigram_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+<span class="n">bigram_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">bigram_matrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span>
+    <span class="n">index</span><span class="o">=</span><span class="n">document_labels</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="n">bigram_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(),</span>
+<span class="p">)</span>
+
+<span class="n">document_frequency</span> <span class="o">=</span> <span class="p">(</span><span class="n">bigram_df</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">repeated_bigrams</span> <span class="o">=</span> <span class="n">document_frequency</span><span class="p">[</span><span class="n">document_frequency</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Bigram matrix shape: </span><span class="si">{</span><span class="n">bigram_df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Bigrams found in more than one document:"</span><span class="p">,</span> <span class="n">repeated_bigrams</span><span class="p">)</span>
+<span class="k">assert</span> <span class="s2">"data science"</span> <span class="ow">in</span> <span class="n">bigram_df</span><span class="o">.</span><span class="n">columns</span>
+<span class="k">assert</span> <span class="s2">"students analyze"</span> <span class="ow">in</span> <span class="n">repeated_bigrams</span>
+<span class="n">bigram_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">repeated_bigrams</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Guided modification: include both unigrams and bigrams.</span>
+<span class="n">combined_vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">combined_matrix</span> <span class="o">=</span> <span class="n">combined_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Unigram-only shape:     "</span><span class="p">,</span> <span class="n">count_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Unigram + bigram shape:"</span><span class="p">,</span> <span class="n">combined_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">combined_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">count_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Interpret:</strong> What local information did bigrams add? What sentence-level information is still missing? Explain the cost of the larger feature space.</p>
+</section>
+<section id="tf-idf-weight-terms-by-corpus-level-rarity">
+<h2>5. TF-IDF: weight terms by corpus-level rarity<a class="headerlink" href="#tf-idf-weight-terms-by-corpus-level-rarity" title="Permalink to this heading">#</a></h2>
+<p>TF-IDF starts from term frequency and reduces the influence of terms that appear in many documents. scikit-learn also applies L2 normalization by default, so values reflect both rarity and the document vector’s length.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tfidf_vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">()</span>
+<span class="n">tfidf_matrix</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+<span class="n">tfidf_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">tfidf_matrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span>
+    <span class="n">index</span><span class="o">=</span><span class="n">document_labels</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">idf_values</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+    <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">idf_</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(),</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"idf"</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+
+<span class="k">assert</span> <span class="n">tfidf_df</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">count_df</span><span class="o">.</span><span class="n">shape</span>
+<span class="k">assert</span> <span class="n">idf_values</span><span class="p">[</span><span class="s2">"data"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">idf_values</span><span class="p">[</span><span class="s2">"quiet"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"IDF values, from common to rare:"</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">idf_values</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"TF-IDF document-term matrix:"</span><span class="p">)</span>
+<span class="n">tfidf_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selected_terms</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"science"</span><span class="p">,</span> <span class="s2">"students"</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">]</span>
+<span class="n">d2_comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"D2 count"</span><span class="p">:</span> <span class="n">count_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"D2"</span><span class="p">,</span> <span class="n">selected_terms</span><span class="p">],</span>
+    <span class="s2">"D2 TF-IDF"</span><span class="p">:</span> <span class="n">tfidf_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"D2"</span><span class="p">,</span> <span class="n">selected_terms</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="n">d2_comparison</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Interpret:</strong></p>
+<ul class="simple">
+<li><p>Why is <code class="docutils literal notranslate"><span class="pre">quiet</span></code> assigned a larger IDF than <code class="docutils literal notranslate"><span class="pre">data</span></code>?</p></li>
+<li><p>In D2, <code class="docutils literal notranslate"><span class="pre">data</span></code> has the largest raw count. Does it automatically have the largest TF-IDF weight? Explain using both corpus rarity and normalization.</p></li>
+</ul>
+<section id="inspecting-smooth-idf">
+<h3>Inspecting <code class="docutils literal notranslate"><span class="pre">smooth_idf</span></code><a class="headerlink" href="#inspecting-smooth-idf" title="Permalink to this heading">#</a></h3>
+<p>Smoothing behaves as if one extra document contained every term once. It avoids zero divisions and makes extreme IDF values less extreme. We set <code class="docutils literal notranslate"><span class="pre">norm=None</span></code> below to isolate IDF from vector-length normalization.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">smooth_vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">smooth_idf</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">unsmoothed_vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">smooth_idf</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">smooth_vectorizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+<span class="n">unsmoothed_vectorizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+
+<span class="n">smoothing_comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"document frequency"</span><span class="p">:</span> <span class="p">(</span><span class="n">count_df</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="s2">"smoothed IDF"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">smooth_vectorizer</span><span class="o">.</span><span class="n">idf_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">smooth_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()),</span>
+    <span class="s2">"unsmoothed IDF"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">unsmoothed_vectorizer</span><span class="o">.</span><span class="n">idf_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">unsmoothed_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()),</span>
+<span class="p">})</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">"document frequency"</span><span class="p">,</span> <span class="s2">"smoothed IDF"</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">smoothing_comparison</span><span class="p">[</span><span class="s2">"smoothed IDF"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">smoothing_comparison</span><span class="p">[</span><span class="s2">"unsmoothed IDF"</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="n">smoothing_comparison</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Interpret:</strong> Compare one common term and one rare term. Which changes more when smoothing is disabled? Why?</p>
+</section>
+</section>
+<section id="critique-and-validate-a-new-document-workflow">
+<h2>6. Critique and validate a new-document workflow<a class="headerlink" href="#critique-and-validate-a-new-document-workflow" title="Permalink to this heading">#</a></h2>
+<p>Suppose an AI assistant suggests calling <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code> again on new documents. Predict why that can make the new vectors incompatible with the original matrix, then inspect the evidence below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_documents</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Researchers study data science."</span><span class="p">]</span>
+
+<span class="c1"># Unsafe suggestion: fitting again creates a different vocabulary and column layout.</span>
+<span class="n">refit_vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
+<span class="n">refit_matrix</span> <span class="o">=</span> <span class="n">refit_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">new_documents</span><span class="p">)</span>
+
+<span class="c1"># Valid workflow: transform with the vectorizer fitted on the original corpus.</span>
+<span class="n">aligned_matrix</span> <span class="o">=</span> <span class="n">count_vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">new_documents</span><span class="p">)</span>
+
+<span class="n">workflow_check</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"workflow"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"refit on new text"</span><span class="p">,</span> <span class="s2">"transform with fitted vectorizer"</span><span class="p">],</span>
+    <span class="s2">"columns"</span><span class="p">:</span> <span class="p">[</span><span class="n">refit_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">aligned_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+    <span class="s2">"matches original feature count"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">refit_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">count_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">aligned_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">count_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="p">],</span>
+<span class="p">})</span>
+<span class="k">assert</span> <span class="n">aligned_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">count_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">workflow_check</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Explain:</strong> Why must evaluation or future documents use <code class="docutils literal notranslate"><span class="pre">transform</span></code> rather than <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code>? What happens to a word such as <code class="docutils literal notranslate"><span class="pre">researchers</span></code> that was not in the fitted vocabulary?</p>
+</section>
+<section id="independent-practice-choose-a-representation">
+<h2>7. Independent practice: choose a representation<a class="headerlink" href="#independent-practice-choose-a-representation" title="Permalink to this heading">#</a></h2>
+<p>Run the starter analysis. Then choose <strong>count</strong>, <strong>binary</strong>, <strong>unigram + bigram</strong>, or <strong>TF-IDF</strong> for one plausible analysis of these clinical-workflow notes. Modify or add code to inspect the evidence you need.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">practice_documents</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"Doctors review patient notes."</span><span class="p">,</span>
+    <span class="s2">"Nurses review clinical notes."</span><span class="p">,</span>
+    <span class="s2">"Doctors and nurses analyze patient data."</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">practice_models</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"count"</span><span class="p">:</span> <span class="n">CountVectorizer</span><span class="p">(),</span>
+    <span class="s2">"binary"</span><span class="p">:</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">binary</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">"unigram + bigram"</span><span class="p">:</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+    <span class="s2">"TF-IDF"</span><span class="p">:</span> <span class="n">TfidfVectorizer</span><span class="p">(),</span>
+<span class="p">}</span>
+
+<span class="n">practice_summary</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">practice_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">matrix</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">practice_documents</span><span class="p">)</span>
+    <span class="n">practice_summary</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">"representation"</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+        <span class="s2">"documents"</span><span class="p">:</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="s2">"features"</span><span class="p">:</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="s2">"nonzero values"</span><span class="p">:</span> <span class="n">matrix</span><span class="o">.</span><span class="n">nnz</span><span class="p">,</span>
+    <span class="p">})</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">practice_summary</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"representation"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Student response area: these fields are intentionally blank.</span>
+<span class="n">chosen_representation</span> <span class="o">=</span> <span class="s2">""</span>
+<span class="n">justification</span> <span class="o">=</span> <span class="s2">""</span>
+<span class="n">evidence_from_output</span> <span class="o">=</span> <span class="s2">""</span>
+<span class="n">information_lost</span> <span class="o">=</span> <span class="s2">""</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Use your code and observations to answer:</p>
+<ol class="arabic simple">
+<li><p>Which representation did you choose, and what analysis is it suitable for?</p></li>
+<li><p>Cite one matrix value, feature, or shape as evidence.</p></li>
+<li><p>What useful information does your chosen representation lose?</p></li>
+<li><p>How would one preprocessing change from Week 02 alter the vocabulary or values?</p></li>
+</ol>
+</section>
+<section id="bridge-to-embeddings">
+<h2>8. Bridge to embeddings<a class="headerlink" href="#bridge-to-embeddings" title="Permalink to this heading">#</a></h2>
+<p>The representations above are <strong>sparse</strong> and <strong>lexical</strong>: their columns correspond to observable terms or n-grams, which makes them interpretable. They usually do not recognize that different words can have related meanings, and they cannot represent unseen vocabulary without a defined fallback.</p>
+<p>Dense embeddings trade much of that direct column-level interpretability for compact features that can capture patterns of usage and semantic relatedness. This does not make Bag-of-Words or TF-IDF obsolete; the right representation depends on the task, data, need for interpretation, and validation evidence. Week 04 will use numerical representations for comparison and retrieval.</p>
+<p><strong>Final reflection:</strong> Identify one situation where you would prefer TF-IDF and one where an embedding may be more appropriate. State what evidence you would use to validate the choice.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module3"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="features.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">3.1 Feature Engineering and Vector Representations</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../speech.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Speech</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">1. Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-a-count-based-document-term-matrix">2. Worked example: a count-based document-term matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guided-comparison-counts-versus-binary-occurrence">3. Guided comparison: counts versus binary occurrence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#n-grams-preserve-limited-local-order">4. N-grams preserve limited local order</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-idf-weight-terms-by-corpus-level-rarity">5. TF-IDF: weight terms by corpus-level rarity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting-smooth-idf">Inspecting <code class="docutils literal notranslate"><span class="pre">smooth_idf</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#critique-and-validate-a-new-document-workflow">6. Critique and validate a new-document workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#independent-practice-choose-a-representation">7. Independent practice: choose a representation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bridge-to-embeddings">8. Bridge to embeddings</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

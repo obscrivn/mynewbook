@@ -180,15 +180,16 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="Import_Language_Data.html">1.3 Extracting Language Data</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2. Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../module2/features.html">Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../module2/sklearn.html">Bag-of-words Using scikit-learn</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">Regex Coding Practice</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../clustering.html">Clustering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../cluster.html">Document Similarity and Clustering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../practice.html">Practice with K-Means Clustering</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -433,11 +434,11 @@ document.write(`
 <p><a class="reference external" href="https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module1/Working_with_Text_Data.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_string</span> <span class="o">=</span> <span class="s2">&quot;This is a String&quot;</span>  <span class="c1"># storing a string</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_string</span> <span class="o">=</span> <span class="s2">"This is a String"</span>  <span class="c1"># storing a string</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ID:&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">new_string</span><span class="p">))</span>  <span class="c1"># shows the object identifier (address)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Type:&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">new_string</span><span class="p">))</span>  <span class="c1"># shows the object type</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Value:&#39;</span><span class="p">,</span> <span class="n">new_string</span><span class="p">)</span>  <span class="c1"># shows the object value</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'ID:'</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">new_string</span><span class="p">))</span>  <span class="c1"># shows the object identifier (address)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Type:'</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">new_string</span><span class="p">))</span>  <span class="c1"># shows the object type</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Value:'</span><span class="p">,</span> <span class="n">new_string</span><span class="p">)</span>  <span class="c1"># shows the object value</span>
 </pre></div>
 </div>
 </div>
@@ -445,7 +446,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># simple string</span>
-<span class="n">simple_string</span> <span class="o">=</span> <span class="s1">&#39;Hello!&#39;</span> <span class="o">+</span> <span class="s2">&quot; I&#39;m a simple string&quot;</span>
+<span class="n">simple_string</span> <span class="o">=</span> <span class="s1">'Hello!'</span> <span class="o">+</span> <span class="s2">" I'm a simple string"</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">simple_string</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -454,9 +455,9 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># multi-line string, note the \n (newline) escape character automatically created</span>
-<span class="n">multi_line_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Hello I&#39;m</span>
+<span class="n">multi_line_string</span> <span class="o">=</span> <span class="s2">"""Hello I'm</span>
 <span class="s2">a multi-line</span>
-<span class="s2">string!&quot;&quot;&quot;</span>
+<span class="s2">string!"""</span>
 
 <span class="n">multi_line_string</span>
 </pre></div>
@@ -473,7 +474,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Normal string with escape sequences leading to a wrong file path!</span>
-<span class="n">escaped_string</span> <span class="o">=</span> <span class="s2">&quot;C:</span><span class="se">\t</span><span class="s2">he_folder</span><span class="se">\n</span><span class="s2">ew_dir</span><span class="se">\f</span><span class="s2">ile.txt&quot;</span>
+<span class="n">escaped_string</span> <span class="o">=</span> <span class="s2">"C:</span><span class="se">\t</span><span class="s2">he_folder</span><span class="se">\n</span><span class="s2">ew_dir</span><span class="se">\f</span><span class="s2">ile.txt"</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">escaped_string</span><span class="p">)</span>  <span class="c1"># will cause errors if we try to open a file here</span>
 </pre></div>
 </div>
@@ -482,7 +483,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># raw string keeping the backslashes in its normal form</span>
-<span class="n">raw_string</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\the_folder\new_dir\file.txt&#39;</span>
+<span class="n">raw_string</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'C:\the_folder\new_dir\file.txt'</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">raw_string</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -491,7 +492,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># unicode string literals</span>
-<span class="n">string_with_unicode</span> <span class="o">=</span> <span class="s1">&#39;H</span><span class="se">\u00e8</span><span class="s1">llo!&#39;</span>
+<span class="n">string_with_unicode</span> <span class="o">=</span> <span class="s1">'H</span><span class="se">\u00e8</span><span class="s1">llo!'</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">string_with_unicode</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -499,7 +500,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">more_unicode</span> <span class="o">=</span> <span class="s1">&#39;I love Pizza 🍕!  Shall we book a cab 🚕 to get pizza?&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">more_unicode</span> <span class="o">=</span> <span class="s1">'I love Pizza 🍕!  Shall we book a cab 🚕 to get pizza?'</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">more_unicode</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -507,14 +508,14 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">string_with_unicode</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">more_unicode</span><span class="p">)</span> <span class="c1"># \n is new line</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">string_with_unicode</span> <span class="o">+</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span> <span class="o">+</span> <span class="n">more_unicode</span><span class="p">)</span> <span class="c1"># \n is new line</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">string_with_unicode</span><span class="p">,</span> <span class="n">more_unicode</span><span class="p">])</span> <span class="c1"># joining two strings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">string_with_unicode</span><span class="p">,</span> <span class="n">more_unicode</span><span class="p">])</span> <span class="c1"># joining two strings</span>
 </pre></div>
 </div>
 </div>
@@ -533,14 +534,14 @@ document.write(`
 <h2>Different ways of String concatenation<a class="headerlink" href="#different-ways-of-string-concatenation" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;Hello 😊&#39;</span> <span class="o">+</span> <span class="s1">&#39; and welcome &#39;</span> <span class="o">+</span> <span class="s1">&#39;to Python 🐍!&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">'Hello 😊'</span> <span class="o">+</span> <span class="s1">' and welcome '</span> <span class="o">+</span> <span class="s1">'to Python 🐍!'</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;Hello 😊&#39;</span> <span class="s1">&#39; and welcome &#39;</span> <span class="s1">&#39;to Python 🐍!&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">'Hello 😊'</span> <span class="s1">' and welcome '</span> <span class="s1">'to Python 🐍!'</span>
 </pre></div>
 </div>
 </div>
@@ -554,8 +555,8 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s1</span> <span class="o">=</span> <span class="s1">&#39;Python 💻!&#39;</span>
-<span class="s1">&#39;Hello 😊 &#39;</span> <span class="o">+</span> <span class="n">s1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s1</span> <span class="o">=</span> <span class="s1">'Python 💻!'</span>
+<span class="s1">'Hello 😊 '</span> <span class="o">+</span> <span class="n">s1</span>
 </pre></div>
 </div>
 </div>
@@ -563,7 +564,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This will produce an error! You need plus sign!</span>
-<span class="s1">&#39;Hello 😊 &#39;</span> <span class="n">s1</span>
+<span class="s1">'Hello 😊 '</span> <span class="n">s1</span>
 </pre></div>
 </div>
 </div>
@@ -578,7 +579,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># You can multiply the same string!</span>
-<span class="n">s2</span> <span class="o">=</span> <span class="s1">&#39;--🐍Python🐍--&#39;</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="s1">'--🐍Python🐍--'</span>
 <span class="n">s2</span> <span class="o">*</span> <span class="mi">5</span>
 </pre></div>
 </div>
@@ -593,14 +594,14 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;Python&#39;</span> <span class="ow">in</span> <span class="n">s1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">'Python'</span> <span class="ow">in</span> <span class="n">s1</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;python&#39;</span> <span class="ow">in</span> <span class="n">s2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">'python'</span> <span class="ow">in</span> <span class="n">s2</span>
 </pre></div>
 </div>
 </div>
@@ -626,7 +627,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># creating a string</span>
-<span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;PYTHON&#39;</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s1">'PYTHON'</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
 </pre></div>
@@ -639,7 +640,7 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># depicting string indexes</span>
 <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">character</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Character -&gt;&#39;</span><span class="p">,</span> <span class="n">character</span><span class="p">,</span> <span class="s1">&#39;has index-&gt;&#39;</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'Character -&gt;'</span><span class="p">,</span> <span class="n">character</span><span class="p">,</span> <span class="s1">'has index-&gt;'</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -695,7 +696,7 @@ document.write(`
 <h2>Case conversions<a class="headerlink" href="#case-conversions" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;python is great&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s1">'python is great'</span>
 </pre></div>
 </div>
 </div>
@@ -726,7 +727,7 @@ document.write(`
 <h2>String replace<a class="headerlink" href="#string-replace" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="s1">&#39;NLP&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'python'</span><span class="p">,</span> <span class="s1">'NLP'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -736,14 +737,14 @@ document.write(`
 <h2>Numeric checks<a class="headerlink" href="#numeric-checks" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;12345&#39;</span><span class="o">.</span><span class="n">isdecimal</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">'12345'</span><span class="o">.</span><span class="n">isdecimal</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;apollo11&#39;</span><span class="o">.</span><span class="n">isdecimal</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">'apollo11'</span><span class="o">.</span><span class="n">isdecimal</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -753,7 +754,7 @@ document.write(`
 <h2>Alphabet checks<a class="headerlink" href="#alphabet-checks" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;python&#39;</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">'python'</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -764,21 +765,21 @@ document.write(`
 <p>(Letter and digits)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;total&#39;</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">'total'</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;abc123&#39;</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">'abc123'</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;1+1&#39;</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">'1+1'</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -789,15 +790,15 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># very useful!</span>
-<span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;I,am,a,comma,separated,string&#39;</span>
-<span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s1">'I,am,a,comma,separated,string'</span>
+<span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -805,7 +806,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># stripping whitespace characters</span>
-<span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;   I am surrounded by spaces    &#39;</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s1">'   I am surrounded by spaces    '</span>
 <span class="n">s</span>
 </pre></div>
 </div>
@@ -822,8 +823,8 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Split by dot</span>
-<span class="n">sentences</span> <span class="o">=</span> <span class="s1">&#39;Python is great. NLP is also good.&#39;</span>
-<span class="n">sentences</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">sentences</span> <span class="o">=</span> <span class="s1">'Python is great. NLP is also good.'</span>
+<span class="n">sentences</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -831,15 +832,15 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># split by dot and join with \n new line</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sentences</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sentences</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">sentence</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                     <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">sentence</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                     <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
                          <span class="k">if</span> <span class="n">sentence</span><span class="p">]))</span>
 </pre></div>
 </div>
@@ -854,14 +855,14 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># can you see what goes into each curly brackets?</span>
-<span class="s1">&#39;Hello </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">, it is a great </span><span class="si">{}</span><span class="s1"> to meet you at </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;Mr.&#39;</span><span class="p">,</span> <span class="s1">&#39;Jones&#39;</span><span class="p">,</span> <span class="s1">&#39;pleasure&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="s1">'Hello </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">, it is a great </span><span class="si">{}</span><span class="s1"> to meet you at </span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">'Mr.'</span><span class="p">,</span> <span class="s1">'Jones'</span><span class="p">,</span> <span class="s1">'pleasure'</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;Hello </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">, it is a great </span><span class="si">{}</span><span class="s1"> to meet you at </span><span class="si">{}</span><span class="s1"> o</span><span class="se">\&#39;</span><span class="s1"> clock&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;Sir&#39;</span><span class="p">,</span> <span class="s1">&#39;Arthur&#39;</span><span class="p">,</span> <span class="s1">&#39;honor&#39;</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">'Hello </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">, it is a great </span><span class="si">{}</span><span class="s1"> to meet you at </span><span class="si">{}</span><span class="s1"> o</span><span class="se">\'</span><span class="s1"> clock'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">'Sir'</span><span class="p">,</span> <span class="s1">'Arthur'</span><span class="p">,</span> <span class="s1">'honor'</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

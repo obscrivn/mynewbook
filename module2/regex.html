@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'module2/regex';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2.4 Tokenization Using spaCy" href="spacy_tokenization.html" />
+    <link rel="next" title="2.4 Tokenization with spaCy" href="spacy_tokenization.html" />
     <link rel="prev" title="2.2 Modern Tokenization" href="modern_tokenization.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -184,16 +184,12 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="tokenization.html">2.1 From Text to Tokens</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modern_tokenization.html">2.2 Modern Tokenization</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">2.3 Regex Coding Practice</a></li>
-<li class="toctree-l2"><a class="reference internal" href="spacy_tokenization.html">2.4 Tokenization Using spaCy</a></li>
-
-
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Undestanding Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">Features</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -558,9 +554,9 @@ zero count parameter (default) will replace all the matches</p></li>
 <p><strong>Ex.1</strong> Replace the current phone number format (212)-456-7890 by digits only (no other characters). Note: review regex shortcuts.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phone_no</span> <span class="o">=</span> <span class="s1">&#39;(212)-456-7890&#39;</span>
-<span class="n">pattern</span> <span class="o">=</span> <span class="s1">&#39;\D&#39;</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">phone_no</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phone_no</span> <span class="o">=</span> <span class="s1">'(212)-456-7890'</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="s1">'\D'</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s1">''</span><span class="p">,</span><span class="n">phone_no</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -578,9 +574,9 @@ zero count parameter (default) will replace all the matches</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;Restaurant Review *Better Place*&#39;</span>
-<span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\*(.*?)\*&#39;</span> 
-<span class="n">replacement</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;&lt;strong&gt;\1&lt;</span><span class="se">\\</span><span class="s1">strong&gt;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">string</span> <span class="o">=</span> <span class="s1">'Restaurant Review *Better Place*'</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'\*(.*?)\*'</span> 
+<span class="n">replacement</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'&lt;strong&gt;\1&lt;</span><span class="se">\\</span><span class="s1">strong&gt;'</span>
 <span class="n">html</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">replacement</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
 </pre></div>
@@ -602,7 +598,7 @@ zero count parameter (default) will replace all the matches</p></li>
 
 <span class="c1">#match a word at the beginning of a string</span>
 
-<span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;NLP&#39;</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;NLP is &#39;</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">'NLP'</span><span class="p">,</span><span class="sa">r</span><span class="s1">'NLP is '</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -661,7 +657,7 @@ zero count parameter (default) will replace all the matches</p></li>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">2.4 Tokenization Using spaCy</p>
+        <p class="prev-next-title">2.4 Tokenization with spaCy</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

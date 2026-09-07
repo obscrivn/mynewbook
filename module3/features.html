@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Features &#8212; Introduction to NLP</title>
+    <title>3.1 Feature Engineering and Vector Representations &#8212; Introduction to NLP</title>
   
   
   
@@ -69,8 +69,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'module3/features';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Speech" href="../speech.html" />
-    <link rel="prev" title="Chapter 3. Undestanding Features" href="module3.html" />
+    <link rel="next" title="3.2 Coding Practice: From Text to Feature Vectors" href="week3_coding_practice.html" />
+    <link rel="prev" title="Chapter 3. Feature Engineering" href="module3.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -189,8 +189,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="module3.html">Chapter 3. Undestanding Features</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Features</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module3.html">Chapter 3. Feature Engineering</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -385,7 +386,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Features</h1>
+    <h1>3.1 Feature Engineering and Vector Representations</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -395,11 +396,23 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-space">Vector Space</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#count-frequency">Count Frequency</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#term-frequency">Term Frequency</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#n-grams">N-Grams</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-idf">TF-IDF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-text-to-feature-vectors">From text to feature vectors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bag-of-words-and-document-term-matrices">Bag-of-Words and document-term matrices</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-versus-count-based-features">Binary versus count-based features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#n-grams-and-local-context">N-grams and local context</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-idf-balancing-frequency-and-rarity">TF-IDF: balancing frequency and rarity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compact-worked-example">Compact worked example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sparse-lexical-vectors-and-dense-embeddings">Sparse lexical vectors and dense embeddings</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cbow-as-a-bridge-concept">CBOW as a bridge concept</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-representation-choice-matters">Why representation choice matters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#week-04-bridge-similarity-clustering-and-retrieval">Week 04 bridge: similarity, clustering, and retrieval</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 </ul>
             </nav>
         </div>
@@ -411,148 +424,222 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="features">
-<h1>Features<a class="headerlink" href="#features" title="Permalink to this heading">#</a></h1>
-<p><object data="_static/features.pdf" width="950" height="650" type='application/pdf'/></object></p>
-<section id="vector-space">
-<h2>Vector Space<a class="headerlink" href="#vector-space" title="Permalink to this heading">#</a></h2>
-<p>Which example has 1) <strong>Same Words / Different Meaning</strong>, 2) <strong>Different Word / Same Meaning</strong> ?</p>
-<p><img alt="" src="module3/_static/vectorspace1.png" /></p>
-<p><small> source: <a class="reference external" href="https://towardsdatascience.com/vector-space-models-48b42a15d86d">https://towardsdatascience.com/vector-space-models-48b42a15d86d</a> </small></p>
-<blockquote>
-<div><p><span style="font-size:2em;"> “You shall know a word by the company it keeps” — J.R.Firth </span></p>
-</div></blockquote>
+  <section class="tex2jax_ignore mathjax_ignore" id="feature-engineering-and-vector-representations">
+<h1>3.1 Feature Engineering and Vector Representations<a class="headerlink" href="#feature-engineering-and-vector-representations" title="Permalink to this heading">#</a></h1>
+<p>The central idea of this week is simple: before a machine can compare, classify, cluster, or retrieve text, that text must be converted into numbers.</p>
+<p>This transformation is not just a technical detail. The representation we choose changes what information is preserved, what is lost, and how a downstream model behaves. A naïve representation may capture surface word overlap, while a richer representation may capture context or semantic similarity.</p>
+<figure class="align-default" id="text-to-vectors-flow">
+<img alt="../_images/text-to-vectors-flow.svg" src="../_images/text-to-vectors-flow.svg" /><figcaption>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text">From text to numerical representation.</span><a class="headerlink" href="#text-to-vectors-flow" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="from-text-to-feature-vectors">
+<h2>From text to feature vectors<a class="headerlink" href="#from-text-to-feature-vectors" title="Permalink to this heading">#</a></h2>
+<p>A text document is a sequence of symbols, but most NLP algorithms expect a fixed numerical representation. The first step is usually to tokenize the text into units such as words or subword pieces, then build a vocabulary of the tokens that appear in a corpus.</p>
+<p>Once the vocabulary is defined, each document can be represented as a vector whose entries correspond to the vocabulary items. This is the basic idea behind the document-term matrix.</p>
+<p>A document-term matrix has:</p>
+<ul class="simple">
+<li><p>one row per document,</p></li>
+<li><p>one column per vocabulary term,</p></li>
+<li><p>and cell values that reflect some measure of term importance, such as raw count or TF-IDF weight.</p></li>
+</ul>
+<p>This representation is called a sparse vector because most entries are zero for any single document. The vocabulary may be very large, but each document usually contains only a small subset of the terms.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The vocabulary is not just a list of words. It is the model’s working definition of what counts as a token in the dataset. That choice shapes every later representation.</p>
+</div>
 </section>
-<section id="count-frequency">
-<h2>Count Frequency<a class="headerlink" href="#count-frequency" title="Permalink to this heading">#</a></h2>
-<p><strong>Count frequency</strong> - the frequency of tokens in a text document</p>
-<p><span style="color:red">it was the best of times it was the worst of times</span></p>
-<p><strong>Q1</strong>. Write the dictionary (list of unique words).</p>
-<p><strong>Q2</strong>. Provide a Count Frequency for each unique token (in a table format):</p>
+<section id="bag-of-words-and-document-term-matrices">
+<h2>Bag-of-Words and document-term matrices<a class="headerlink" href="#bag-of-words-and-document-term-matrices" title="Permalink to this heading">#</a></h2>
+<p>The simplest document representation is the bag-of-words model. It discards word order and treats a document as an unordered collection of tokens.</p>
+<p>For the two short documents below:</p>
+<ul class="simple">
+<li><p>Document 1: “the cat sat on the mat”</p></li>
+<li><p>Document 2: “the dog sat on the log”</p></li>
+</ul>
+<p>The vocabulary is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{the, cat, sat, on, mat, dog, log}
+</pre></div>
+</div>
+<p>A document-term matrix could look like this:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head text-center"><p>Token1</p></th>
-<th class="head text-center"><p>Token2</p></th>
-<th class="head text-center"><p>Token3</p></th>
-<th class="head text-center"><p>…</p></th>
+<tr class="row-odd"><th class="head"><p>Term</p></th>
+<th class="head text-right"><p>D1 count</p></th>
+<th class="head text-right"><p>D2 count</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-center"><p>count</p></td>
-<td class="text-center"><p>count</p></td>
-<td class="text-center"><p>count</p></td>
-<td class="text-center"><p>count</p></td>
+<tr class="row-even"><td><p>the</p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>cat</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>sat</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>on</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>mat</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>dog</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>log</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>1</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<p>This representation is useful because it makes it easy to compare documents numerically, but it also makes an important assumption: word order is ignored. That is why a bag-of-words model may treat two sentences with the same vocabulary as similar even if their meanings differ.</p>
+<section id="binary-versus-count-based-features">
+<h3>Binary versus count-based features<a class="headerlink" href="#binary-versus-count-based-features" title="Permalink to this heading">#</a></h3>
+<p>A count representation records how often each term appears. A binary representation records only presence or absence.</p>
+<p>For example, if the term “the” appears twice in one document and once in another, the count vector captures that difference. But the binary vector would treat both documents as having the token present.</p>
+<p>This distinction matters because some tasks are more sensitive to repeated emphasis, while others mainly care whether a term is present at all.</p>
 </section>
-<section id="term-frequency">
-<h2>Term Frequency<a class="headerlink" href="#term-frequency" title="Permalink to this heading">#</a></h2>
-<p><strong>Term frequency</strong> (TF) is how often a token appears in a text document, divided by how many words there are.</p>
-<p><span style="color:red">it was the best of times it was the worst of times</span></p>
-<p><strong>Q3</strong>.Provide a Term Frequency for each unique token (in a table format):</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head text-center"><p>Token1</p></th>
-<th class="head text-center"><p>Token2</p></th>
-<th class="head text-center"><p>Token3</p></th>
-<th class="head text-center"><p>…</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-center"><p>tf</p></td>
-<td class="text-center"><p>tf</p></td>
-<td class="text-center"><p>tf</p></td>
-<td class="text-center"><p>tf</p></td>
-</tr>
-</tbody>
-</table>
+</section>
+<section id="n-grams-and-local-context">
+<h2>N-grams and local context<a class="headerlink" href="#n-grams-and-local-context" title="Permalink to this heading">#</a></h2>
+<p>One way to preserve some local ordering is to use n-grams. An n-gram is a sequence of n adjacent tokens.</p>
+<ul class="simple">
+<li><p>unigram: “the”, “cat”, “sat”</p></li>
+<li><p>bigram: “the cat”, “cat sat”</p></li>
+<li><p>trigram: “the cat sat”</p></li>
+</ul>
+<p>N-grams are useful because they preserve limited context. A bag-of-words model loses sequence information, while a bigram or trigram model may preserve a few important word combinations, like “New York” or “not good”.</p>
+<p>However, n-grams also increase the vocabulary size very quickly. A model that uses too many n-grams may become high-dimensional and sparse, which is why practitioners often combine them with careful preprocessing and feature selection.</p>
+</section>
+<section id="tf-idf-balancing-frequency-and-rarity">
+<h2>TF-IDF: balancing frequency and rarity<a class="headerlink" href="#tf-idf-balancing-frequency-and-rarity" title="Permalink to this heading">#</a></h2>
+<p>A raw count is not always the best measure of importance. Very common words such as “the”, “is”, or “and” may appear often in almost every document, but they do not necessarily help distinguish one document from another.</p>
+<p>This is where TF-IDF is useful. It combines:</p>
+<ul class="simple">
+<li><p>term frequency (TF): how often a term appears in a document,</p></li>
+<li><p>inverse document frequency (IDF): how rare the term is across the corpus.</p></li>
+</ul>
+<p>The intuition is simple: a term is more informative when it appears often in one document but not across many documents.</p>
+<p>The formula for term frequency is:</p>
+<div class="math notranslate nohighlight">
+\[
+TF(t, d) = \frac{\text{count of term } t \text{ in document } d}{\text{total terms in } d}
+\]</div>
+<p>The inverse document frequency is approximately:</p>
+<div class="math notranslate nohighlight">
+\[
+IDF(t, D) = \log \left( \frac{N}{1 + DF(t)} \right) + 1
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(N\)</span> is the total number of documents and <span class="math notranslate nohighlight">\(DF(t)\)</span> is the number of documents containing term <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p>Then:</p>
+<div class="math notranslate nohighlight">
+\[
+TF\text{-}IDF(t, d, D) = TF(t, d) \times IDF(t, D)
+\]</div>
+<section id="compact-worked-example">
+<h3>Compact worked example<a class="headerlink" href="#compact-worked-example" title="Permalink to this heading">#</a></h3>
+<p>Suppose a corpus has two documents:</p>
+<ul class="simple">
+<li><p>Document 1: “the cat sat on the mat”</p></li>
+<li><p>Document 2: “the dog sat on the log”</p></li>
+</ul>
+<p>For the term “the”:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(TF(\text{the}, D_1) = 2/6\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(TF(\text{the}, D_2) = 1/6\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(DF(\text{the}) = 2\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(IDF(\text{the}) = \log(2/2) = 0\)</span></p></li>
+</ul>
+<p>So:</p>
+<div class="math notranslate nohighlight">
+\[
+TF\text{-}IDF(\text{the}, D_1) = 0
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+TF\text{-}IDF(\text{the}, D_2) = 0
+\]</div>
+<p>The word “the” is common across the corpus, so it gets a low weight.</p>
+<p>Now consider the term “cat”:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(TF(\text{cat}, D_1) = 1/6\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(DF(\text{cat}) = 1\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(IDF(\text{cat}) = \log(2/1) \approx 0.69\)</span></p></li>
+</ul>
+<p>So:</p>
+<div class="math notranslate nohighlight">
+\[
+TF\text{-}IDF(\text{cat}, D_1) \approx 0.17
+\]</div>
+<p>This makes sense: “cat” is informative because it appears in one document and not the other.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>TF-IDF is not magic, and it is not a representation of meaning in the deep semantic sense. It is a good lexical weighting scheme that upweights terms that are both frequent within a document and relatively rare across the corpus.</p>
+</div>
+<p>It is also worth noting that classical lexical ranking methods such as BM25 are related to this intuition, but they are not simply interchangeable with a basic TF-IDF vectorizer. BM25 is a classical lexical ranking method that incorporates term-frequency and inverse-document-frequency-style weighting <span id="id1">[<a class="reference internal" href="../references.html#id5" title="Christopher D. Manning, Prabhakar Raghavan, and Hinrich Schütze. An Introduction to Information Retrieval, chapter 11. Cambridge University Press, 2009. URL: https://nlp.stanford.edu/IR-book/.">MRS09</a>]</span>.</p>
+</section>
+</section>
+<section id="sparse-lexical-vectors-and-dense-embeddings">
+<h2>Sparse lexical vectors and dense embeddings<a class="headerlink" href="#sparse-lexical-vectors-and-dense-embeddings" title="Permalink to this heading">#</a></h2>
+<p>Count vectors, binary vectors, and TF-IDF vectors are all sparse lexical representations. They are useful because they are easy to interpret and often very effective for straightforward text classification and retrieval tasks.</p>
+<p>However, they also have major limitations:</p>
+<ul class="simple">
+<li><p>they ignore word order,</p></li>
+<li><p>they usually treat words as separate dimensions,</p></li>
+<li><p>they cannot easily capture synonymy or semantic similarity,</p></li>
+<li><p>and they can become very large and sparse as the vocabulary grows.</p></li>
+</ul>
+<p>This is one reason embeddings became so important. Dense embeddings map words, phrases, or documents into a lower-dimensional vector space where semantically similar items are located near one another.</p>
+<p>This is a different design from the sparse lexical vectors above. A sparse vector may represent a document by measuring the presence or importance of each word. A dense embedding may represent the same document in a latent space where similarity is learned from patterns in large corpora.</p>
+<section id="cbow-as-a-bridge-concept">
+<h3>CBOW as a bridge concept<a class="headerlink" href="#cbow-as-a-bridge-concept" title="Permalink to this heading">#</a></h3>
+<p>Word2Vec introduced a very influential approach to learning dense word vectors. The Continuous Bag of Words (CBOW) model predicts a target word from its surrounding context words. In contrast, Skip-gram predicts surrounding words from a target word <span id="id2">[<a class="reference internal" href="../references.html#id6" title="Tomas Mikolov, Kai Chen, Greg Corrado, and Jeffrey Dean. Efficient estimation of word representations in vector space. arXiv preprint arXiv:1301.3781, 2013. URL: https://arxiv.org/abs/1301.3781.">MCCD13</a>]</span>.</p>
+<p>CBOW is mainly a historical bridge and conceptual stepping stone here. It helps explain why dense word vectors can capture distributional similarity: words that appear in similar contexts tend to end up near one another in a learned vector space. This idea is foundational for more modern embedding-based systems.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>CBOW is a useful bridge concept in Week 03, but it is not the main topic of the week. The main conceptual goal is to understand how text becomes a vector and why representation choice matters.</p>
 </div>
 </section>
-<section id="n-grams">
-<h2>N-Grams<a class="headerlink" href="#n-grams" title="Permalink to this heading">#</a></h2>
-<p><strong>N-grams</strong> – breaking down text into chunks. A unigram is a one word chunk. A bigram is a two word chunk. A trigram is a three word chunk.</p>
-<p><span style="color:red">Tim Cook is the CEO of Apple</span></p>
-<p><strong>Q4</strong>. Write unigrams, bigrams, and trigrams of the above sentence (in a table format)</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head text-center"><p>Unigrams</p></th>
-<th class="head text-center"><p>Bigrams</p></th>
-<th class="head text-center"><p>Trigrams</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-center"><p>token1</p></td>
-<td class="text-center"><p>token1 token2</p></td>
-<td class="text-center"><p>token1 token2 token3</p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p>…</p></td>
-<td class="text-center"><p>…</p></td>
-<td class="text-center"><p>…</p></td>
-</tr>
-</tbody>
-</table>
-</div>
 </section>
-<section id="tf-idf">
-<h2>TF-IDF<a class="headerlink" href="#tf-idf" title="Permalink to this heading">#</a></h2>
-<p>TF-IDF is composed of 2 algorithms:</p>
+<section id="why-representation-choice-matters">
+<h2>Why representation choice matters<a class="headerlink" href="#why-representation-choice-matters" title="Permalink to this heading">#</a></h2>
+<p>Representation choice affects downstream behavior:</p>
 <ul class="simple">
-<li><p><strong>Term Frequency</strong> - how common the term is</p></li>
+<li><p>count vectors are transparent and easy to inspect,</p></li>
+<li><p>TF-IDF can weight unique terms more strongly,</p></li>
+<li><p>n-grams can capture local phrase structure,</p></li>
+<li><p>dense embeddings can model semantic similarity.</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[ TF(t) = \frac{Number \; of \; times \; term \; t \; appears\; in \; a \; document}{Total \; number \;of\; terms \; in \;the\; document}\]</div>
+<p>No representation is universally best. A simple lexical model may work well for exact-term retrieval or simple classification, while a dense embedding model may work better when semantic similarity matters.</p>
+<p>That is why it is valuable to understand classical vector space models before moving to embedding-based systems.</p>
+</section>
+<section id="week-04-bridge-similarity-clustering-and-retrieval">
+<h2>Week 04 bridge: similarity, clustering, and retrieval<a class="headerlink" href="#week-04-bridge-similarity-clustering-and-retrieval" title="Permalink to this heading">#</a></h2>
+<p>Week 04 will build on this foundation by asking a new question: once text has been converted into vectors, how do we compare vectors numerically?</p>
+<p>This leads to:</p>
 <ul class="simple">
-<li><p><strong>Inverse Document Frequency</strong> - how unique / rare the term is</p></li>
+<li><p>similarity scores,</p></li>
+<li><p>document clustering,</p></li>
+<li><p>nearest-neighbor search,</p></li>
+<li><p>and semantic retrieval.</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[
-IDF(t) = log{_e}(\frac{Total\; number\; of\; documents}{Number\; of\; documents\; with \;term \;t\; in \;it})
-\]</div>
-<p>Example:
-<img alt="" src="module3/_static/tf-idf-example.png" /></p>
-<p><small> source: <a class="reference external" href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">https://en.wikipedia.org/wiki/Tf–idf</a> </small></p>
-<p>What is tf (<em>this</em>, document1)?</p>
-<ul class="simple">
-<li><p>Count = 1</p></li>
-<li><p>Total terms = 5</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[
-tf(this, d1) = \frac{1}{5} =0.2 
-\]</div>
-<p>What is tf (<em>this</em>, document2)?</p>
-<ul class="simple">
-<li><p>Count = 1</p></li>
-<li><p>Total terms = 7</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[
-tf(this, d2) = \frac{1}{7} =0.14 
-\]</div>
-<p>What is idf (<em>this</em>, D)?</p>
-<ul class="simple">
-<li><p>Total Documents = 2</p></li>
-<li><p>Documents with <em>this</em> = 2</p></li>
-<li><p>IDF is constant per corpus</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[
-idf(this, D) = log(\frac{2}{2}) = 0 
-\]</div>
-<p>What is tf-idf (<em>this</em>,d1,D)?</p>
-<div class="math notranslate nohighlight">
-\[
-tfidf(this, d1, D) = 0.2 * 0  = 0 
-\]</div>
-<p>What is tf-idf (<em>this</em>,d2,D)?</p>
-<div class="math notranslate nohighlight">
-\[
-tfidf(this, d2, D) = 0.14 * 0  = 0 
-\]</div>
-<p><strong>Conclusion</strong>: word <em>this</em> is not informative because it occures in all documents</p>
-<p>Q1. Find TF-IDF for <em>example</em></p>
+<p>The main Week 03 takeaway is therefore this: a vector representation is not an end in itself. It is a numerical interface that allows later systems to compare documents, retrieve relevant results, and support downstream NLP tasks.</p>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
+<p>This week introduces the conceptual path from text to vector representation:</p>
+<p>text → tokens → vocabulary → document-term matrix → n-grams → TF-IDF → sparse lexical vectors → dense embeddings</p>
+<p>This sequence matters because it shows how NLP systems move from raw language to computational representations that can be compared, ranked, and learned from. The core lesson is not merely that we can convert text to numbers, but that the choice of representation determines what information is preserved and what is lost.</p>
 </section>
 </section>
 
@@ -592,15 +679,15 @@ tfidf(this, d2, D) = 0.14 * 0  = 0
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Chapter 3. Undestanding Features</p>
+        <p class="prev-next-title">Chapter 3. Feature Engineering</p>
       </div>
     </a>
     <a class="right-next"
-       href="../speech.html"
+       href="week3_coding_practice.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Speech</p>
+        <p class="prev-next-title">3.2 Coding Practice: From Text to Feature Vectors</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -620,11 +707,23 @@ tfidf(this, d2, D) = 0.14 * 0  = 0
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-space">Vector Space</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#count-frequency">Count Frequency</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#term-frequency">Term Frequency</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#n-grams">N-Grams</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-idf">TF-IDF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-text-to-feature-vectors">From text to feature vectors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bag-of-words-and-document-term-matrices">Bag-of-Words and document-term matrices</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-versus-count-based-features">Binary versus count-based features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#n-grams-and-local-context">N-grams and local context</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-idf-balancing-frequency-and-rarity">TF-IDF: balancing frequency and rarity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compact-worked-example">Compact worked example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sparse-lexical-vectors-and-dense-embeddings">Sparse lexical vectors and dense embeddings</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cbow-as-a-bridge-concept">CBOW as a bridge concept</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-representation-choice-matters">Why representation choice matters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#week-04-bridge-similarity-clustering-and-retrieval">Week 04 bridge: similarity, clustering, and retrieval</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 </ul>
   </nav></div>
 

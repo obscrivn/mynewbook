@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Bag-of-words Using scikit-learn &#8212; Introduction to NLP</title>
+    <title>Coding Practice: Inspecting Text Feature Vectors &#8212; Introduction to NLP</title>
   
   
   
@@ -64,8 +64,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'module3/sklearn';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -189,8 +187,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="module3.html">Chapter 3. Undestanding Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -385,7 +384,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Bag-of-words Using scikit-learn</h1>
+    <h1>Coding Practice: Inspecting Text Feature Vectors</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -395,11 +394,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bag-of-word-word-tokenization">Bag-of-word word tokenization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#countvectorizer">CountVectorizer</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tfidf-vectorizer">TfIdf Vectorizer</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-will-do">What you will do</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
         </div>
@@ -411,125 +408,42 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="bag-of-words-using-scikit-learn">
-<h1>Bag-of-words Using scikit-learn<a class="headerlink" href="#bag-of-words-using-scikit-learn" title="Permalink to this heading">#</a></h1>
-<p><strong>scikit-learn</strong> is a library in Python that provides many unsupervised and supervised learning algorithms.</p>
-<section id="bag-of-word-word-tokenization">
-<h2>Bag-of-word word tokenization<a class="headerlink" href="#bag-of-word-word-tokenization" title="Permalink to this heading">#</a></h2>
-<blockquote>
-<div><p>Dataset sample is represented as a string, which could be a sentence, a tweet (X), or book.</p>
-</div></blockquote>
-<p>To represent the sample:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="coding-practice-inspecting-text-feature-vectors">
+<h1>Coding Practice: Inspecting Text Feature Vectors<a class="headerlink" href="#coding-practice-inspecting-text-feature-vectors" title="Permalink to this heading">#</a></h1>
+<p>This formative notebook turns a small text corpus into numerical features with scikit-learn. You will inspect the vocabulary and document-term matrix, compare representations, and explain what each representation preserves or loses.</p>
+<p><a class="reference external" href="https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module3/week3_coding_practice.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p><a class="reference internal" href="week3_coding_practice.html"><span class="doc std std-doc">Download the notebook</span></a> if you prefer to run it in a local Jupyter environment.</p>
+<section id="learning-objectives">
+<h2>Learning objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this heading">#</a></h2>
+<p>By the end of the activity, you should be able to:</p>
 <ul class="simple">
-<li><p>we split the string into a list of tokens (e.g., split by whitespace, and then lowercase the word)</p></li>
-<li><p>we build a vocabulary of all tokens (lowercased words) from the whole dataset.</p>
-<ul>
-<li><p>Usually a very large vocabulary</p></li>
+<li><p>connect vocabulary terms to columns in a document-term matrix;</p></li>
+<li><p>interpret matrix shape and individual feature values;</p></li>
+<li><p>compare count, binary, n-gram, and TF-IDF features;</p></li>
+<li><p>validate a vectorizer workflow and identify an unsafe refit;</p></li>
+<li><p>explain why sparse lexical vectors motivate—but are not replaced by—dense embeddings.</p></li>
 </ul>
-</li>
-<li><p>we show how often each word in the vocabulary appears</p>
-<ul>
-<li><p>We represent the string as a vector, where each entry is how often a given word in the vocabulary appears in the string</p></li>
-</ul>
-</li>
-</ul>
-<p><small>Source: Jason Kuruzovich. 2020. Analytics Dojo. </small>
-As each sample will only contain very few words, most entries will be zero, leading to a very high-dimensional but sparse representation.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The method is called “bag-of-words” : the order of the words is lost entirely.</p>
-</div>
 </section>
-<section id="countvectorizer">
-<h2>CountVectorizer<a class="headerlink" href="#countvectorizer" title="Permalink to this heading">#</a></h2>
-<p>Reference: <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html</a></p>
-<p><img alt="" src="module3/_static/cv.png" /></p>
-<p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">sklearn.feature_extraction.text</span> <span class="pre">import</span> <span class="pre">CountVectorizer</span></code></p>
-<p>STEPS</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># initialize</span>
-<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
-<span class="c1"># generate word counts</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Practice with Google Colab:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">CountVectorizer</span>
-<span class="n">corpus</span> <span class="o">=</span> <span class="p">[</span>
- <span class="s1">&#39;This is the first document.&#39;</span><span class="p">,</span>
- <span class="s1">&#39;This document is the second document.&#39;</span><span class="p">,</span>
- <span class="s1">&#39;And this is the third one.&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Is this the first document?&#39;</span><span class="p">,</span>
- <span class="p">]</span>
-<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
-<span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
-<span class="n">array</span><span class="p">([</span><span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="s1">&#39;document&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">,</span> <span class="s1">&#39;the&#39;</span><span class="p">,</span> <span class="s1">&#39;third&#39;</span><span class="p">,</span>
-       <span class="s1">&#39;this&#39;</span><span class="p">],</span> <span class="o">...</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
-<span class="p">[[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">0</span> <span class="mi">2</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span><span class="p">]]</span>
-</pre></div>
-</div>
-<p>Q1. What are the feature names in row0: [0 1 1 1 0 0 1 0 1]?</p>
-<section id="tfidf-vectorizer">
-<h3>TfIdf Vectorizer<a class="headerlink" href="#tfidf-vectorizer" title="Permalink to this heading">#</a></h3>
-<blockquote>
-<div><p>A useful transformation that is often applied to the bag-of-word encoding is the so-called term-frequency inverse-document-frequency (tf-idf) scaling, which is a non-linear transformation of the word counts.</p>
-</div></blockquote>
-<p>Reference:<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html">https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html</a></p>
-<p>Q2. How to set up TF (instead of Tf-Idf)?</p>
-<p><img alt="" src="module3/_static/tf.png" /></p>
-<p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">sklearn.feature_extraction.text</span> <span class="pre">import</span> <span class="pre">TfidfVectorizer</span></code></p>
-<p>STEPS for TF</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">use_idf</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>STEPS for TF-IDF</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">()</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Practice with Google Colab</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">TfidfVectorizer</span>
-<span class="n">corpus</span> <span class="o">=</span> <span class="p">[</span>
- <span class="s1">&#39;This is the first document.&#39;</span><span class="p">,</span>
- <span class="s1">&#39;This document is the second document.&#39;</span><span class="p">,</span>
- <span class="s1">&#39;And this is the third one.&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Is this the first document?&#39;</span><span class="p">,</span>
- <span class="p">]</span>
-<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">()</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
-<span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
-<span class="n">array</span><span class="p">([</span><span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="s1">&#39;document&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">,</span> <span class="s1">&#39;the&#39;</span><span class="p">,</span> <span class="s1">&#39;third&#39;</span><span class="p">,</span>
-       <span class="s1">&#39;this&#39;</span><span class="p">],</span> <span class="o">...</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Smoothing</p>
+<section id="what-you-will-do">
+<h2>What you will do<a class="headerlink" href="#what-you-will-do" title="Permalink to this heading">#</a></h2>
+<p>The notebook follows a worked-example-to-independent-practice progression:</p>
+<ol class="arabic simple">
+<li><p>predict features before running a vectorizer;</p></li>
+<li><p>build and label a count matrix;</p></li>
+<li><p>compare count and binary features;</p></li>
+<li><p>explore which local word order bigrams preserve;</p></li>
+<li><p>compare counts with TF-IDF weights and inspect smoothing;</p></li>
+<li><p>critique a feature-space mismatch;</p></li>
+<li><p>choose and justify a representation for a new corpus.</p></li>
+</ol>
+<p>The corpus is included directly in the notebook. No downloads, accounts, API keys, or installation cells are required in Google Colab.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>TfidfTransformer is the smooth_idf:</p>
-<ul>
-<li><p>smooth_idf : boolean, default=True</p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">CountVectorizer documentation</a></p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html">TfidfVectorizer documentation</a></p></li>
 </ul>
-</li>
-<li><p>Smooth idf prevents zero divisions and adds one to document frequencies, as if an extra document was seen containing every term in the collection exactly once.</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[
-smoothIDF(t) = log{_e}(\frac{1+ Total\; number\; of\; documents}{Number\; of\; documents\; with \;term \;t\; in \;it + 1}) + 1
-\]</div>
-<p>RECAP</p>
-<blockquote>
-<div><p>tf-idfs are a way to represent documents as feature vectors. the tf is the count of how often a particular word occurs in a given document. tf-idfs is a modification of the raw term frequencies (tf).</p>
-</div></blockquote>
-<p><a class="reference external" href="https://towardsdatascience.com/tf-idf-explained-and-python-sklearn-implementation-b020c5e83275">https://towardsdatascience.com/tf-idf-explained-and-python-sklearn-implementation-b020c5e83275</a></p>
-<p>Practice Google Colab</p>
-<p><a class="reference external" href="https://colab.research.google.com/drive/1eo75oo80vSFdvfrooxNpWawCWGNAwYao?usp=sharing">https://colab.research.google.com/drive/1eo75oo80vSFdvfrooxNpWawCWGNAwYao?usp=sharing</a></p>
-<p>Smoothing - <a class="reference external" href="https://nbviewer.org/github/rasbt/pattern_classification/blob/master/machine_learning/scikit-learn/tfidf_scikit-learn.ipynb">https://nbviewer.org/github/rasbt/pattern_classification/blob/master/machine_learning/scikit-learn/tfidf_scikit-learn.ipynb</a></p>
-</section>
 </section>
 </section>
 
@@ -579,11 +493,9 @@ smoothIDF(t) = log{_e}(\frac{1+ Total\; number\; of\; documents}{Number\; of\; d
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bag-of-word-word-tokenization">Bag-of-word word tokenization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#countvectorizer">CountVectorizer</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tfidf-vectorizer">TfIdf Vectorizer</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-will-do">What you will do</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
 

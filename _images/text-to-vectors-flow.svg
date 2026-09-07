@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">From text to vector representations</title>
+  <desc id="desc">A conceptual flow from raw text to tokens to a document-term matrix, n-grams, TF-IDF, and finally dense embeddings.</desc>
+  <defs>
+    <style>
+      .label { font: 700 24px 'Segoe UI', Arial, sans-serif; fill: #1f2937; }
+      .small { font: 500 18px 'Segoe UI', Arial, sans-serif; fill: #374151; }
+      .box { fill: #e0f2fe; stroke: #0f172a; stroke-width: 2; rx: 18; }
+      .box2 { fill: #dcfce7; stroke: #0f172a; stroke-width: 2; rx: 18; }
+      .box3 { fill: #fef3c7; stroke: #0f172a; stroke-width: 2; rx: 18; }
+      .box4 { fill: #f3e8ff; stroke: #0f172a; stroke-width: 2; rx: 18; }
+      .arrow { stroke: #1d4ed8; stroke-width: 4; fill: none; marker-end: url(#arrowhead); }
+      .textBox { fill: #ffffff; opacity: 0.9; }
+    </style>
+    <marker id="arrowhead" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#1d4ed8"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="520" fill="#f8fafc"/>
+
+  <rect class="box" x="40" y="180" width="150" height="110" rx="18"/>
+  <text class="label" x="115" y="225" text-anchor="middle">Raw text</text>
+  <text class="small" x="115" y="255" text-anchor="middle">“The cat sat ...”</text>
+
+  <line class="arrow" x1="190" y1="235" x2="260" y2="235"/>
+
+  <rect class="box2" x="260" y="160" width="180" height="150" rx="18"/>
+  <text class="label" x="350" y="205" text-anchor="middle">Tokens</text>
+  <text class="small" x="350" y="240" text-anchor="middle">[the, cat, sat, ...]</text>
+  <text class="small" x="350" y="268" text-anchor="middle">lowercasing,</text>
+  <text class="small" x="350" y="292" text-anchor="middle">stopword choices</text>
+
+  <line class="arrow" x1="440" y1="235" x2="510" y2="235"/>
+
+  <rect class="box3" x="510" y="120" width="200" height="220" rx="18"/>
+  <text class="label" x="610" y="165" text-anchor="middle">Vocabulary</text>
+  <text class="small" x="610" y="205" text-anchor="middle">document-term</text>
+  <text class="small" x="610" y="232" text-anchor="middle">matrix</text>
+  <text class="small" x="610" y="268" text-anchor="middle">counts / binary</text>
+  <text class="small" x="610" y="295" text-anchor="middle">sparse vectors</text>
+
+  <line class="arrow" x1="710" y1="235" x2="785" y2="235"/>
+
+  <rect class="box3" x="785" y="120" width="170" height="220" rx="18"/>
+  <text class="label" x="870" y="165" text-anchor="middle">N-grams</text>
+  <text class="small" x="870" y="205" text-anchor="middle">unigrams</text>
+  <text class="small" x="870" y="232" text-anchor="middle">bigrams</text>
+  <text class="small" x="870" y="259" text-anchor="middle">trigrams</text>
+  <text class="small" x="870" y="286" text-anchor="middle">local context</text>
+
+  <line class="arrow" x1="955" y1="235" x2="1030" y2="235"/>
+
+  <rect class="box4" x="1030" y="120" width="150" height="220" rx="18"/>
+  <text class="label" x="1105" y="165" text-anchor="middle">TF-IDF</text>
+  <text class="small" x="1105" y="205" text-anchor="middle">frequency ×</text>
+  <text class="small" x="1105" y="232" text-anchor="middle">rarity</text>
+  <text class="small" x="1105" y="268" text-anchor="middle">lexical</text>
+  <text class="small" x="1105" y="295" text-anchor="middle">weighting</text>
+
+  <line class="arrow" x1="610" y1="340" x2="610" y2="395"/>
+  <line class="arrow" x1="870" y1="340" x2="870" y2="395"/>
+
+  <rect class="box4" x="500" y="395" width="540" height="80" rx="20"/>
+  <text class="label" x="770" y="435" text-anchor="middle">Dense embeddings / semantic vectors</text>
+  <text class="small" x="770" y="462" text-anchor="middle">Words and documents live in a learned vector space</text>
+
+</svg>
