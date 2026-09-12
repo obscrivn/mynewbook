@@ -1,4 +1,4 @@
-# Semantic Similarity and Retrieval
+# 4.1 Semantic Similarity and Retrieval
 
 Week 03 showed how text can be represented as vectors. This week asks the next question:
 

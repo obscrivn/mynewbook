@@ -1,6 +1,6 @@
-# Discussion Experiment: From Similarity Scores to Retrieval
+# 4.2 Discussion Experiment: From Similarity Scores to Retrieval
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/week4_coding_practice.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module4/week4_coding_practice.ipynb)
 
 [Download the student notebook](week4_coding_practice.ipynb)
 
