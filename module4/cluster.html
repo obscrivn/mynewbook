@@ -409,18 +409,16 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cosine-similarity">Cosine similarity</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-cosine-similarity-matters">4. Why cosine similarity matters</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sparse-vs-dense-similarity">5. Sparse vs. dense similarity</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-cosine-similarity-matters">4. Why cosine similarity matters</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparse-tf-idf-similarity">Sparse TF-IDF similarity</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dense-embedding-similarity">Dense embedding similarity</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-textual-similarity">6. Semantic textual similarity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-search-and-retrieval">7. Semantic search and retrieval</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-in-modern-ai-systems">8. Retrieval in modern AI systems</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-as-a-downstream-application">9. Clustering as a downstream application</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-similarity-goes-wrong">10. When similarity goes wrong</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">11. Key takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-similarity-to-retrieval">6. From Similarity to Retrieval</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ranking-and-top-k-retrieval">Ranking and top-k retrieval</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">7. Key takeaways</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
@@ -436,32 +434,46 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="semantic-similarity-and-retrieval">
 <h1>4.1 Semantic Similarity and Retrieval<a class="headerlink" href="#semantic-similarity-and-retrieval" title="Permalink to this heading">#</a></h1>
 <p>Week 03 showed how text can be represented as vectors. This week asks the next question:</p>
-<p>Once a document, sentence, or query is represented as a vector, how do we decide which items are similar and which ones should be retrieved?</p>
+<p><strong>Once a document, sentence, or query is represented as a vector, how do we decide which items are similar and which ones should be retrieved?</strong></p>
 <p>The conceptual progression is simple:</p>
-<p>text representation → similarity → ranking → retrieval → downstream NLP / AI applications</p>
+<figure class="align-default" id="retrieval">
+<img alt="../_images/retrieval.png" src="../_images/retrieval.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">From Text Representation to AI Retrieval</span><a class="headerlink" href="#retrieval" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>This is the foundation for semantic search, recommendation, duplicate detection, clustering, and the retrieval step in many modern AI systems.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This chapter builds directly on Week 03. It assumes students already understand bag-of-words, TF-IDF, sparse vectors, and dense embeddings at a conceptual level.</p>
-</div>
 <section id="what-does-similar-mean">
 <h2>1. What does “similar” mean?<a class="headerlink" href="#what-does-similar-mean" title="Permalink to this heading">#</a></h2>
 <p>Two pieces of text can be similar in different ways.</p>
 <ul class="simple">
-<li><p>Lexical similarity is about shared surface form: same words, same token overlap, or similar vocabulary.</p></li>
-<li><p>Semantic similarity is about shared meaning or intent, even when the wording differs.</p></li>
+<li><p><strong>Lexical similarity</strong> is about shared surface form: same words, same token overlap, or similar vocabulary.</p></li>
+<li><p><strong>Semantic similarity</strong> is about shared meaning or intent, even when the wording differs.</p></li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>For example, the sentences below are not identical in wording, but they are close in meaning:</p>
 <ul class="simple">
 <li><p>“The patient reported chest pain after exercise.”</p></li>
-<li><p>“After physical activity, the patient experienced discomfort in the chest.”</p></li>
+<li><p>“Physical exertion caused discomfort near the upper torso.”</p></li>
 </ul>
+</div>
 <p>A bag-of-words or TF-IDF representation may score them low on lexical overlap, but a semantic embedding model may place them nearby in vector space.</p>
 <p>This is why text similarity depends on representation choice, not only on the text itself.</p>
 </section>
 <section id="lexical-similarity">
 <h2>2. Lexical similarity<a class="headerlink" href="#lexical-similarity" title="Permalink to this heading">#</a></h2>
 <p>A simple baseline for text similarity is lexical overlap. Jaccard similarity is a standard choice when we compare sets of tokens.</p>
+<p>Jaccard similarity compares:</p>
+<ul class="simple">
+<li><p><strong>the words that appear in both texts</strong></p></li>
+<li><p><strong>with the total number of unique words</strong> that appear across the two texts</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>In set notation:</p>
+<p><strong>intersection</strong> = words shared by both texts
+<strong>union</strong> = all unique words that appear in either text</p>
 <p>For two sets A and B:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -473,8 +485,17 @@ J(A, B) = \frac{|A \cap B|}{|A \cup B|}
 <li><p>0 means they share no tokens;</p></li>
 <li><p>intermediate values mean partial overlap.</p></li>
 </ul>
-<p>Jaccard is useful because it focuses on shared vocabulary. It tells us how much two documents overlap at the token-set level. It does not tell us whether they mean the same thing, and it is insensitive to repeated words if we compare sets rather than counts.</p>
-<p>This is a good lexical baseline, but it is limited. Two texts may share few words and still be semantically related, or they may share many words and still be about different topics.</p>
+</div>
+<p>Jaccard is useful because it focuses on shared vocabulary. It tells us <strong>how much two documents overlap at the token-set level</strong>. It does not tell us whether they mean the same thing, and it is insensitive to repeated words if we compare sets rather than counts.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Text A: <code class="docutils literal notranslate"><span class="pre">quiet</span> <span class="pre">library</span> <span class="pre">wifi</span></code>
+Text B: <code class="docutils literal notranslate"><span class="pre">quiet</span> <span class="pre">cafe</span> <span class="pre">wifi</span></code></p>
+<p>Shared words: <code class="docutils literal notranslate"><span class="pre">quiet,</span> <span class="pre">wifi</span> <span class="pre">→</span> <span class="pre">2</span></code>
+All unique words: <code class="docutils literal notranslate"><span class="pre">quiet,</span> <span class="pre">library,</span> <span class="pre">cafe,</span> <span class="pre">wifi</span> <span class="pre">→</span> <span class="pre">4</span></code></p>
+<p>Jaccard similarity = 2 / 4 = <strong>0.50</strong></p>
+</div>
+<p>This is a good lexical baseline, but <strong>it is limited</strong>. Two texts may share few words and still be semantically related, or they may share many words and still be about different topics.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Lexical similarity is a strong baseline for surface overlap, but it does not capture meaning well. The representation matters.</p>
@@ -483,35 +504,36 @@ J(A, B) = \frac{|A \cap B|}{|A \cup B|}
 <section id="distance-and-similarity-in-vector-space">
 <h2>3. Distance and similarity in vector space<a class="headerlink" href="#distance-and-similarity-in-vector-space" title="Permalink to this heading">#</a></h2>
 <p>Once text has been converted into vectors, we can compare them numerically.</p>
-<p>A distance metric tells us how far apart two vectors are. A similarity metric tells us how closely aligned they are.</p>
+<p>A <strong>distance metric</strong> tells us how far apart two vectors are. A similarity metric tells us how closely aligned they are.</p>
+<figure class="align-default" id="distance">
+<img alt="../_images/distance.png" src="../_images/distance.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">Distance Metrics</span><a class="headerlink" href="#distance" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <section id="euclidean-and-manhattan-distance">
 <h3>Euclidean and Manhattan distance<a class="headerlink" href="#euclidean-and-manhattan-distance" title="Permalink to this heading">#</a></h3>
-<p>Euclidean distance is the straight-line distance between two vectors. Manhattan distance is the sum of absolute coordinate differences.</p>
+<p><strong>Euclidean distance</strong> is the straight-line distance between two vectors. Manhattan distance is the sum of absolute coordinate differences.</p>
 <p>These are intuitive geometric measures, but they are not always the best choice for text.</p>
-<p>Why? Because text vectors often have many dimensions and different lengths. A document with more words may naturally be farther away in raw Euclidean space even when the meaning is similar.</p>
+<p><strong>Why?</strong> Because text vectors often have many dimensions and different lengths. A document with more words may naturally be farther away in raw Euclidean space even when the meaning is similar.</p>
 </section>
 <section id="cosine-similarity">
 <h3>Cosine similarity<a class="headerlink" href="#cosine-similarity" title="Permalink to this heading">#</a></h3>
-<p>Cosine similarity is the main metric for comparing text vectors. It measures the angle between two vectors rather than their absolute magnitude.</p>
+<p><strong>Cosine similarity</strong> is the main metric for comparing text vectors. It measures the angle between two vectors rather than their absolute magnitude.</p>
 <p>For vectors <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
 \text{cosine}(x, y) = \frac{x \cdot y}{\|x\|\|y\|}
 \]</div>
 <p>This matters because text vectors may differ in length, but the important question is often whether they point in roughly the same direction.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>          vector A
-         /|
-        / |
-       /  | angle
-      /   |
-vector B ----
-</pre></div>
-</div>
-<p>A smaller angle means higher cosine similarity. A score near 1 means the vectors are highly aligned; a score near 0 means they are not aligned.</p>
-<p>This is why cosine similarity is usually more useful than raw distance for text retrieval and semantic comparison. It emphasizes direction rather than absolute length.</p>
+<ul class="simple">
+<li><p>same direction → similarity ≈ 1</p></li>
+<li><p>partly similar direction → similarity somewhere between 0 and 1</p></li>
+<li><p>very different direction → similarity closer to 0</p></li>
+</ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For text, cosine similarity is usually more informative than Euclidean distance because the vector magnitude is often less important than the pattern of terms or meaning.</p>
+<p>For text retrieval and semantic comparison, cosine similarity is usually more informative than Euclidean distance.</p>
 </div>
 </section>
 </section>
@@ -520,17 +542,16 @@ vector B ----
 <p>Cosine similarity is especially useful when vectors represent text features.</p>
 <p>Consider the difference between:</p>
 <ul class="simple">
-<li><p>a sparse TF-IDF vector,</p></li>
-<li><p>a dense embedding vector,</p></li>
-<li><p>and a raw frequency vector.</p></li>
+<li><p><strong>a sparse TF-IDF vector</strong></p></li>
+<li><p><strong>a dense embedding vector</strong></p></li>
+<li><p>and <strong>a raw frequency vector</strong></p></li>
 </ul>
-<p>A sparse lexical vector may treat each vocabulary item as a separate dimension. A dense embedding vector compresses these patterns into a latent space where semantically similar items can land near one another.</p>
-<p>In practice, cosine similarity is the working default for many retrieval systems because it is simple, efficient, and interpretable.</p>
-<p>The main lesson is not that cosine is magically “the truth.” The main lesson is that the similarity metric should match the representation and the task.</p>
-</section>
-<section id="sparse-vs-dense-similarity">
-<h2>5. Sparse vs. dense similarity<a class="headerlink" href="#sparse-vs-dense-similarity" title="Permalink to this heading">#</a></h2>
-<p>Week 03 introduced sparse lexical vectors and dense embeddings. Week 04 asks how similarity behaves differently across those representations.</p>
+<figure class="align-default" id="vectors">
+<img alt="../_images/vectors.png" src="../_images/vectors.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Text Representation Review</span><a class="headerlink" href="#vectors" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <section id="sparse-tf-idf-similarity">
 <h3>Sparse TF-IDF similarity<a class="headerlink" href="#sparse-tf-idf-similarity" title="Permalink to this heading">#</a></h3>
 <p>TF-IDF vectors are sparse. They encode relative importance of words within a document and across a corpus. That makes them good for lexical matching and term-weighted comparison.</p>
@@ -545,109 +566,95 @@ vector B ----
 <li><p>“We moved the discussion to next Friday.”</p></li>
 </ul>
 <p>A lexical similarity measure may give them a low score; a semantic embedding model may give them a much higher score.</p>
-<p>This difference is the heart of the Week 03 → Week 04 progression:</p>
-<p>word/vector relationships → sentence/document embeddings → similarity → retrieval</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Semantic Textual Similarity</strong> is an NLP task: estimate how similar two texts are in meaning. An embedding model creates the representations, and a similarity function such as cosine similarity compares them.</p>
+</div>
 </section>
 </section>
-<section id="semantic-textual-similarity">
-<h2>6. Semantic textual similarity<a class="headerlink" href="#semantic-textual-similarity" title="Permalink to this heading">#</a></h2>
-<p>Semantic textual similarity (STS) asks whether two texts mean similar things, even when the wording differs. This is different from lexical overlap, and it is one reason embeddings matter so much in modern NLP.</p>
-<p>A semantic similarity system generally works like this:</p>
-<ol class="arabic simple">
-<li><p>represent each text as a vector,</p></li>
-<li><p>compare the vectors,</p></li>
-<li><p>interpret the score as a measure of semantic relatedness.</p></li>
-</ol>
-<p>STS is useful in a range of applications:</p>
-<ul class="simple">
-<li><p>paraphrase detection,</p></li>
-<li><p>duplicate detection,</p></li>
-<li><p>near-duplicate filtering,</p></li>
-<li><p>semantic search,</p></li>
-<li><p>recommendation.</p></li>
-</ul>
-<p>A high score does not guarantee the texts are equivalent in a strict logical sense. It only shows that the model’s representation finds them similar under a chosen similarity function.</p>
-</section>
-<section id="semantic-search-and-retrieval">
-<h2>7. Semantic search and retrieval<a class="headerlink" href="#semantic-search-and-retrieval" title="Permalink to this heading">#</a></h2>
-<p>Semantic search is the modern, AI-era version of document retrieval.</p>
-<p>In a standard retrieval workflow:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>query → representation → similarity scores → ranked documents
+<section id="from-similarity-to-retrieval">
+<h2>6. From Similarity to Retrieval<a class="headerlink" href="#from-similarity-to-retrieval" title="Permalink to this heading">#</a></h2>
+<p>So far, we have mostly compared <strong>two texts at a time</strong>.</p>
+<p>Retrieval asks a different question:</p>
+<blockquote>
+<div><p>Given one query and many candidate documents, which documents should be returned first?</p>
+</div></blockquote>
+<p>This changes the task from <strong>comparison</strong> to <strong>ranking</strong>.</p>
+<p>A retrieval system typically follows this workflow:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>query
+  ↓
+represent the query
+  ↓
+compare it with many candidate documents
+  ↓
+assign similarity or relevance scores
+  ↓
+rank the candidates
+  ↓
+return the top results
 </pre></div>
 </div>
-<p>The process is:</p>
-<ol class="arabic simple">
-<li><p>The query is converted into a vector using the same representation used for the documents.</p></li>
-<li><p>The document collection is also represented as vectors.</p></li>
-<li><p>The system computes a similarity score between the query and each document.</p></li>
-<li><p>The documents are ranked from most similar to least similar.</p></li>
-<li><p>The top-ranked results are returned to the user or to a downstream system.</p></li>
-</ol>
-<p>This is the conceptual engine behind search, recommendation, and retrieval-based AI systems.</p>
-<p>A good retrieval system does not merely look for identical words. It tries to identify the documents whose vectors are closest to the query in the relevant representation space.</p>
+<p>For example, consider the query:</p>
+<p><code class="docutils literal notranslate"><span class="pre">“I</span> <span class="pre">need</span> <span class="pre">a</span> <span class="pre">quiet</span> <span class="pre">place</span> <span class="pre">to</span> <span class="pre">work</span> <span class="pre">with</span> <span class="pre">Wi-Fi.”</span></code></p>
+<p>and these candidate documents:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">“Coffee</span> <span class="pre">shop</span> <span class="pre">with</span> <span class="pre">free</span> <span class="pre">Wi-Fi</span> <span class="pre">and</span> <span class="pre">plenty</span> <span class="pre">of</span> <span class="pre">tables”</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">“Quiet</span> <span class="pre">public</span> <span class="pre">library</span> <span class="pre">with</span> <span class="pre">study</span> <span class="pre">rooms”</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">“Best</span> <span class="pre">espresso</span> <span class="pre">and</span> <span class="pre">pastries</span> <span class="pre">downtown”</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">“Coworking</span> <span class="pre">space</span> <span class="pre">with</span> <span class="pre">desks</span> <span class="pre">and</span> <span class="pre">internet”</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">“How</span> <span class="pre">to</span> <span class="pre">troubleshoot</span> <span class="pre">a</span> <span class="pre">wireless</span> <span class="pre">router”</span></code>
+Conceptually:</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Candidate</strong></p></th>
+<th class="head text-right"><p><strong>Similarity</strong> / <strong>Relevance Score</strong></p></th>
+<th class="head text-right"><p><strong>Rank</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Quiet public library with study rooms</p></td>
+<td class="text-right"><p>High</p></td>
+<td class="text-right"><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Coworking space with desks and internet</p></td>
+<td class="text-right"><p>High</p></td>
+<td class="text-right"><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>Coffee shop with free Wi-Fi and plenty of tables</p></td>
+<td class="text-right"><p>Moderate</p></td>
+<td class="text-right"><p>3</p></td>
+</tr>
+<tr class="row-odd"><td><p>Best espresso and pastries downtown</p></td>
+<td class="text-right"><p>Lower</p></td>
+<td class="text-right"><p>4</p></td>
+</tr>
+<tr class="row-even"><td><p>How to troubleshoot a wireless router</p></td>
+<td class="text-right"><p>Lower</p></td>
+<td class="text-right"><p>5</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A lexical representation such as TF-IDF may reward exact word overlap such as Wi-Fi.</p>
+<p>A dense embedding may instead rank coworking space with desks and internet highly because it captures similar intent even though the wording differs.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Retrieval is not “understanding.” It is a ranking process based on representations and a similarity function. The top result is only as good as the representation, the similarity choice, and the task.</p>
+<p>similarity tells us how two representations compare; retrieval uses those comparisons to rank many candidates.</p>
+</div>
+<section id="ranking-and-top-k-retrieval">
+<h3>Ranking and top-k retrieval<a class="headerlink" href="#ranking-and-top-k-retrieval" title="Permalink to this heading">#</a></h3>
+<p>Most retrieval systems do not return every candidate. Instead, they return the highest-ranked items, often called the top-k results.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A retrieval system does not prove that the top-ranked document is correct.</p>
+<p>It only says that, according to the chosen representation and scoring method, that document ranked highest among the available candidates.</p>
 </div>
 </section>
-<section id="retrieval-in-modern-ai-systems">
-<h2>8. Retrieval in modern AI systems<a class="headerlink" href="#retrieval-in-modern-ai-systems" title="Permalink to this heading">#</a></h2>
-<p>Similarity and retrieval sit behind many modern AI workflows.</p>
-<p>A simplified example:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>query → retrieval → selected context → generative model
-</pre></div>
-</div>
-<p>This pattern is commonly associated with retrieval-augmented generation, or RAG. In a RAG system, the model does not rely only on its internal memory. It first retrieves relevant context from a document set, then uses that context to answer a question or complete a task.</p>
-<p>The reading goal is not to teach full RAG architecture. It is to show that retrieval depends on the same conceptual ideas we have been discussing:</p>
-<ul class="simple">
-<li><p>represent the text,</p></li>
-<li><p>compare vectors,</p></li>
-<li><p>rank likely matches,</p></li>
-<li><p>then decide whether the result is relevant and trustworthy.</p></li>
-</ul>
-</section>
-<section id="clustering-as-a-downstream-application">
-<h2>9. Clustering as a downstream application<a class="headerlink" href="#clustering-as-a-downstream-application" title="Permalink to this heading">#</a></h2>
-<p>Clustering is one application of similarity, not the central organizing topic of the week.</p>
-<p>Once text is embedded or vectorized, documents can be grouped by proximity in a vector space. A simple example is k-means clustering, which assigns each item to a cluster whose centroid is closest.</p>
-<p>This is useful for:</p>
-<ul class="simple">
-<li><p>topic grouping,</p></li>
-<li><p>document organization,</p></li>
-<li><p>duplicate detection,</p></li>
-<li><p>exploratory analysis.</p></li>
-</ul>
-<p>But clustering should be treated as a downstream use of similarity. The key conceptual lesson is that once documents live in a vector space, similarity and proximity become operational tools.</p>
-<p>Detailed clustering algorithms or long treatments of hierarchical clustering are not required for this week’s conceptual reading.</p>
-</section>
-<section id="when-similarity-goes-wrong">
-<h2>10. When similarity goes wrong<a class="headerlink" href="#when-similarity-goes-wrong" title="Permalink to this heading">#</a></h2>
-<p>This is one of the most important lessons in the modern AI era.</p>
-<p>A high similarity score is not the same as:</p>
-<ul class="simple">
-<li><p>truth,</p></li>
-<li><p>factual equivalence,</p></li>
-<li><p>correctness,</p></li>
-<li><p>task relevance,</p></li>
-<li><p>or usefulness.</p></li>
-</ul>
-<p>Two documents can be highly similar in vector space and still be wrong for the user’s actual question.</p>
-<p>Examples include:</p>
-<ul class="simple">
-<li><p>paraphrases that are semantically close but not equally trustworthy,</p></li>
-<li><p>documents that share keywords but not the same intent,</p></li>
-<li><p>retrieval results that are similar to the query but irrelevant to the user’s task,</p></li>
-<li><p>dense embeddings that prefer semantic relatedness over factual accuracy.</p></li>
-</ul>
-<p>A retrieval system may rank a plausible answer above a better one, especially when the representation is imperfect or the user query is underspecified.</p>
-<p>This is why similarity models require human judgment, validation, and task-aware interpretation.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Similarity is a relationship between representations. It is not proof that the result is true, correct, or useful.</p>
-</div>
 </section>
 <section id="key-takeaways">
-<h2>11. Key takeaways<a class="headerlink" href="#key-takeaways" title="Permalink to this heading">#</a></h2>
+<h2>7. Key takeaways<a class="headerlink" href="#key-takeaways" title="Permalink to this heading">#</a></h2>
+<p>Once language has been represented as vectors, similarity gives us a way to compare, rank, retrieve, and reason about texts in a computationally useful way.</p>
 <ul class="simple">
 <li><p>Similarity in language is not one thing. It can be lexical, geometric, or semantic.</p></li>
 <li><p>Jaccard is a useful lexical baseline, but it does not capture meaning.</p></li>
@@ -656,8 +663,6 @@ vector B ----
 <li><p>Semantic search works by converting queries and documents to vectors, calculating similarity, and ranking matches.</p></li>
 <li><p>Retrieval systems are powerful but imperfect. Similarity is not the same as truth or usefulness.</p></li>
 </ul>
-<p>The central idea of Week 04 is therefore straightforward:</p>
-<p>Once language has been represented as vectors, similarity gives us a way to compare, rank, retrieve, and reason about texts in a computationally useful way.</p>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
@@ -738,18 +743,16 @@ vector B ----
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cosine-similarity">Cosine similarity</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-cosine-similarity-matters">4. Why cosine similarity matters</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sparse-vs-dense-similarity">5. Sparse vs. dense similarity</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-cosine-similarity-matters">4. Why cosine similarity matters</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparse-tf-idf-similarity">Sparse TF-IDF similarity</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dense-embedding-similarity">Dense embedding similarity</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-textual-similarity">6. Semantic textual similarity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-search-and-retrieval">7. Semantic search and retrieval</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-in-modern-ai-systems">8. Retrieval in modern AI systems</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-as-a-downstream-application">9. Clustering as a downstream application</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-similarity-goes-wrong">10. When similarity goes wrong</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">11. Key takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-similarity-to-retrieval">6. From Similarity to Retrieval</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ranking-and-top-k-retrieval">Ranking and top-k retrieval</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">7. Key takeaways</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
