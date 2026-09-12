@@ -1,0 +1,1134 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Week 04 Coding Practice: From Similarity Scores to Retrieval &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module4/week4_coding_practice';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Speech" href="../speech.html" />
+    <link rel="prev" title="Semantic Similarity and Retrieval" href="cluster.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module4.html">Chapter 4 Similarity and Retrieval</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cluster.html">Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Week 04 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phonetics.html">Speech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recognizer.html">Speech Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule4/week4_coding_practice.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module4/week4_coding_practice.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Week 04 Coding Practice: From Similarity Scores to Retrieval</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-time-environment-setup">0. One-time environment setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-retrieval-task">1. Inspect the retrieval task</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-evidence-checkpoint-1-predict-before-running-retrieval">Discussion evidence checkpoint 1: predict before running retrieval</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jaccard-similarity-a-lexical-overlap-baseline">2. Jaccard similarity: a lexical-overlap baseline</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pause-and-interpret">Pause and interpret</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-idf-plus-cosine-similarity">3. TF-IDF plus cosine similarity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-checkpoint-one-feature-space-not-two">Debugging checkpoint: one feature space, not two</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dense-vectors-plus-cosine-similarity">4. Dense vectors plus cosine similarity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-evidence-checkpoint-2-compare-the-rankings">Discussion evidence checkpoint 2: compare the rankings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#query-sensitivity-change-the-wording-and-intent">5. Query sensitivity: change the wording and intent</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-evidence-checkpoint-3-explain-the-query-change">Discussion evidence checkpoint 3: explain the query change</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stress-test-similar-wording-can-still-miss-the-task">6. Stress test: similar wording can still miss the task</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-evidence-checkpoint-4-similarity-is-not-usefulness">Discussion evidence checkpoint 4: similarity is not usefulness</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#independent-retrieval-check">7. Independent retrieval check</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#independent-interpretation">Independent interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-retrieval-quality-matters-to-rag">8. Why retrieval quality matters to RAG</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-discussion">Final discussion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transparent-validation-checks">9. Transparent validation checks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaway">Takeaway</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="week-04-coding-practice-from-similarity-scores-to-retrieval">
+<h1>Week 04 Coding Practice: From Similarity Scores to Retrieval<a class="headerlink" href="#week-04-coding-practice-from-similarity-scores-to-retrieval" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/week4_coding_practice.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>Week 03 focused on how text becomes sparse lexical vectors and dense embeddings. This week asks what happens next:</p>
+<p><strong>query -&gt; representation -&gt; similarity scores -&gt; ranking -&gt; interpretation</strong></p>
+<p>This is a formative student notebook. Run it from top to bottom, make a prediction before inspecting each ranking, and write your own responses at the reflection checkpoints. The five core texts and the guiding questions match the Week 04 discussion, so keep evidence you can use in your post.</p>
+<section id="learning-objectives">
+<h2>Learning objectives<a class="headerlink" href="#learning-objectives" title="Permalink to this heading">#</a></h2>
+<p>By the end, you will be able to:</p>
+<ul class="simple">
+<li><p>compare Jaccard overlap, TF-IDF cosine similarity, and dense-vector cosine similarity;</p></li>
+<li><p>rank candidate texts against a query;</p></li>
+<li><p>explain why representation choice changes retrieval behavior;</p></li>
+<li><p>test how query wording affects rank order;</p></li>
+<li><p>distinguish similarity from task relevance, factual correctness, and usefulness;</p></li>
+<li><p>explain why retrieval quality matters to downstream AI systems such as RAG.</p></li>
+</ul>
+</section>
+<section id="one-time-environment-setup">
+<h2>0. One-time environment setup<a class="headerlink" href="#one-time-environment-setup" title="Permalink to this heading">#</a></h2>
+<p>The lexical methods use packages already common in Colab. The dense-vector comparison uses the pinned spaCy <code class="docutils literal notranslate"><span class="pre">en_core_web_md</span></code> model. The next cell installs the approved versions only when they are absent or incompatible. In a new Colab runtime, this one-time setup requires internet access and may take a minute.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">importlib.metadata</span><span class="w"> </span><span class="kn">import</span> <span class="n">PackageNotFoundError</span><span class="p">,</span> <span class="n">version</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="n">SPACY_VERSION</span> <span class="o">=</span> <span class="s2">&quot;3.8.16&quot;</span>
+<span class="n">MODEL_NAME</span> <span class="o">=</span> <span class="s2">&quot;en_core_web_md&quot;</span>
+<span class="n">MODEL_VERSION</span> <span class="o">=</span> <span class="s2">&quot;3.8.0&quot;</span>
+<span class="n">MODEL_URL</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;https://github.com/explosion/spacy-models/releases/download/&quot;</span>
+    <span class="s2">&quot;en_core_web_md-3.8.0/en_core_web_md-3.8.0-py3-none-any.whl&quot;</span>
+<span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">installed_spacy</span> <span class="o">=</span> <span class="n">version</span><span class="p">(</span><span class="s2">&quot;spacy&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">PackageNotFoundError</span><span class="p">:</span>
+    <span class="n">installed_spacy</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">installed_model</span> <span class="o">=</span> <span class="n">version</span><span class="p">(</span><span class="s2">&quot;en-core-web-md&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">PackageNotFoundError</span><span class="p">:</span>
+    <span class="n">installed_model</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="n">packages</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">if</span> <span class="n">installed_spacy</span> <span class="o">!=</span> <span class="n">SPACY_VERSION</span><span class="p">:</span>
+    <span class="n">packages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;spacy==</span><span class="si">{</span><span class="n">SPACY_VERSION</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">installed_model</span> <span class="o">!=</span> <span class="n">MODEL_VERSION</span><span class="p">:</span>
+    <span class="n">packages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MODEL_URL</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">packages</span><span class="p">:</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="s2">&quot;--quiet&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">packages</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Installed the pinned spaCy environment.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pinned spaCy environment is already available.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">spacy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics.pairwise</span><span class="w"> </span><span class="kn">import</span> <span class="n">cosine_similarity</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_colwidth&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># The pretrained word vectors live in the vocabulary, so the tagging and parsing</span>
+<span class="c1"># components are unnecessary for this activity. Excluding them speeds up execution.</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+    <span class="n">MODEL_NAME</span><span class="p">,</span>
+    <span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;tok2vec&quot;</span><span class="p">,</span> <span class="s2">&quot;tagger&quot;</span><span class="p">,</span> <span class="s2">&quot;parser&quot;</span><span class="p">,</span> <span class="s2">&quot;attribute_ruler&quot;</span><span class="p">,</span> <span class="s2">&quot;lemmatizer&quot;</span><span class="p">,</span> <span class="s2">&quot;ner&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="k">assert</span> <span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="o">.</span><span class="n">vectors_length</span> <span class="o">==</span> <span class="mi">300</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="n">MODEL_NAME</span><span class="si">}</span><span class="s2"> with </span><span class="si">{</span><span class="n">nlp</span><span class="o">.</span><span class="n">vocab</span><span class="o">.</span><span class="n">vectors_length</span><span class="si">}</span><span class="s2">-dimensional vectors.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="inspect-the-retrieval-task">
+<h2>1. Inspect the retrieval task<a class="headerlink" href="#inspect-the-retrieval-task" title="Permalink to this heading">#</a></h2>
+<p>The first five candidates below are exactly the texts used in the Week 04 discussion. Later, two stress-test candidates will make the retrieval problem harder.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">initial_query</span> <span class="o">=</span> <span class="s2">&quot;I need a place to work quietly with Wi-Fi.&quot;</span>
+
+<span class="n">core_documents</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;document_id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;D1&quot;</span><span class="p">,</span> <span class="s2">&quot;D2&quot;</span><span class="p">,</span> <span class="s2">&quot;D3&quot;</span><span class="p">,</span> <span class="s2">&quot;D4&quot;</span><span class="p">,</span> <span class="s2">&quot;D5&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;Coffee shop with free Wi-Fi and plenty of tables&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Quiet public library with study rooms&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Best espresso and pastries downtown&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Coworking space with desks and internet&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;How to troubleshoot a wireless router&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Query:&quot;</span><span class="p">,</span> <span class="n">initial_query</span><span class="p">)</span>
+<span class="n">core_documents</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="discussion-evidence-checkpoint-1-predict-before-running-retrieval">
+<h3>Discussion evidence checkpoint 1: predict before running retrieval<a class="headerlink" href="#discussion-evidence-checkpoint-1-predict-before-running-retrieval" title="Permalink to this heading">#</a></h3>
+<p>Write brief notes before continuing. These map directly to the Week 04 discussion questions.</p>
+<ol class="arabic simple">
+<li><p>Which candidates should a human consider the best matches for the user’s full need? Why?</p></li>
+<li><p>Which candidates look similar based on shared words alone? Name the shared words.</p></li>
+<li><p>Which candidates might a dense-vector system place close to the query even without many shared words?</p></li>
+<li><p>Which result would you expect to trust most for this task, and what makes it useful rather than merely similar?</p></li>
+</ol>
+<p><strong>Your prediction:</strong></p>
+<ul class="simple">
+<li><p>Human top matches:</p></li>
+<li><p>Lexical top matches:</p></li>
+<li><p>Dense-vector top matches:</p></li>
+<li><p>Reason for trusting one result:</p></li>
+</ul>
+</section>
+</section>
+<section id="jaccard-similarity-a-lexical-overlap-baseline">
+<h2>2. Jaccard similarity: a lexical-overlap baseline<a class="headerlink" href="#jaccard-similarity-a-lexical-overlap-baseline" title="Permalink to this heading">#</a></h2>
+<p>Jaccard similarity compares token sets:</p>
+<div class="math notranslate nohighlight">
+\[J(A, B) = \frac{|A \cap B|}{|A \cup B|}\]</div>
+<p>A score of 1 means identical sets and 0 means no overlap. Jaccard <strong>distance</strong> is <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">-</span> <span class="pre">similarity</span></code>, so always check which quantity a tool returns. Here we compute similarity directly. The small stop-word list and <code class="docutils literal notranslate"><span class="pre">Wi-Fi</span></code> normalization are visible choices, not universal preprocessing rules.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">TOKEN_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[a-z0-9]+&quot;</span><span class="p">)</span>
+<span class="n">STOP_WORDS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;an&quot;</span><span class="p">,</span> <span class="s2">&quot;and&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;of&quot;</span><span class="p">,</span> <span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="s2">&quot;with&quot;</span><span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">lexical_tokens</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">normalized</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;wi-fi&quot;</span><span class="p">,</span> <span class="s2">&quot;wifi&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">TOKEN_PATTERN</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">normalized</span><span class="p">))</span> <span class="o">-</span> <span class="n">STOP_WORDS</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">jaccard_details</span><span class="p">(</span><span class="n">left_text</span><span class="p">,</span> <span class="n">right_text</span><span class="p">):</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="n">lexical_tokens</span><span class="p">(</span><span class="n">left_text</span><span class="p">)</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="n">lexical_tokens</span><span class="p">(</span><span class="n">right_text</span><span class="p">)</span>
+    <span class="n">intersection</span> <span class="o">=</span> <span class="n">left</span> <span class="o">&amp;</span> <span class="n">right</span>
+    <span class="n">union</span> <span class="o">=</span> <span class="n">left</span> <span class="o">|</span> <span class="n">right</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">intersection</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">union</span><span class="p">)</span> <span class="k">if</span> <span class="n">union</span> <span class="k">else</span> <span class="mf">1.0</span>
+    <span class="k">return</span> <span class="n">intersection</span><span class="p">,</span> <span class="n">union</span><span class="p">,</span> <span class="n">score</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">rank_scores</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+    <span class="n">ranked</span> <span class="o">=</span> <span class="n">items</span><span class="p">[[</span><span class="s2">&quot;document_id&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">ranked</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">ranked</span> <span class="o">=</span> <span class="n">ranked</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+        <span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="s2">&quot;document_id&quot;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;stable&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ranked</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ranked</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">ranked</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ranked</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">jaccard_ranking</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="n">jaccard_details</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">text</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">items</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">rank_scores</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="s2">&quot;Jaccard&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jaccard_initial</span> <span class="o">=</span> <span class="n">jaccard_ranking</span><span class="p">(</span><span class="n">initial_query</span><span class="p">,</span> <span class="n">core_documents</span><span class="p">)</span>
+
+<span class="n">selected_details</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">document_id</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;D1&quot;</span><span class="p">,</span> <span class="s2">&quot;D2&quot;</span><span class="p">,</span> <span class="s2">&quot;D4&quot;</span><span class="p">,</span> <span class="s2">&quot;D5&quot;</span><span class="p">]:</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">core_documents</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">core_documents</span><span class="p">[</span><span class="s2">&quot;document_id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">document_id</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">intersection</span><span class="p">,</span> <span class="n">union</span><span class="p">,</span> <span class="n">score</span> <span class="o">=</span> <span class="n">jaccard_details</span><span class="p">(</span><span class="n">initial_query</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">selected_details</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;document_id&quot;</span><span class="p">:</span> <span class="n">document_id</span><span class="p">,</span>
+            <span class="s2">&quot;shared_tokens&quot;</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">intersection</span><span class="p">),</span>
+            <span class="s2">&quot;union_size&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">union</span><span class="p">),</span>
+            <span class="s2">&quot;jaccard_similarity&quot;</span><span class="p">:</span> <span class="n">score</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Selected token-set evidence:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">selected_details</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jaccard ranking:&quot;</span><span class="p">)</span>
+<span class="n">jaccard_initial</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="pause-and-interpret">
+<h3>Pause and interpret<a class="headerlink" href="#pause-and-interpret" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Where does Jaccard agree with your lexical prediction?</p></li>
+<li><p>Why can a relevant candidate receive zero lexical overlap?</p></li>
+<li><p>Does <code class="docutils literal notranslate"><span class="pre">quiet</span></code> count as the same token as <code class="docutils literal notranslate"><span class="pre">quietly</span></code> here? What does that reveal about this baseline?</p></li>
+</ul>
+</section>
+</section>
+<section id="tf-idf-plus-cosine-similarity">
+<h2>3. TF-IDF plus cosine similarity<a class="headerlink" href="#tf-idf-plus-cosine-similarity" title="Permalink to this heading">#</a></h2>
+<p>TF-IDF represents each text in a shared sparse feature space. Cosine similarity compares vector direction rather than raw length. We fit the vectorizer once on the candidate collection, then <strong>transform</strong> each query into that same feature space.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tfidf_vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">stop_words</span><span class="o">=</span><span class="s2">&quot;english&quot;</span><span class="p">)</span>
+<span class="n">core_tfidf</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">core_documents</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">tfidf_ranking</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">core_documents</span><span class="p">,</span> <span class="n">document_matrix</span><span class="o">=</span><span class="n">core_tfidf</span><span class="p">):</span>
+    <span class="n">query_vector</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span><span class="n">query</span><span class="p">])</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">query_vector</span><span class="p">,</span> <span class="n">document_matrix</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">rank_scores</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="s2">&quot;TF-IDF cosine&quot;</span><span class="p">)</span>
+
+
+<span class="n">tfidf_initial</span> <span class="o">=</span> <span class="n">tfidf_ranking</span><span class="p">(</span><span class="n">initial_query</span><span class="p">)</span>
+<span class="n">tfidf_initial</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="debugging-checkpoint-one-feature-space-not-two">
+<h3>Debugging checkpoint: one feature space, not two<a class="headerlink" href="#debugging-checkpoint-one-feature-space-not-two" title="Permalink to this heading">#</a></h3>
+<p>Consider this incorrect approach:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query_vector</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="n">initial_query</span><span class="p">])</span>
+<span class="n">cosine_similarity</span><span class="p">(</span><span class="n">query_vector</span><span class="p">,</span> <span class="n">core_tfidf</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The query vector and document matrix were fitted with different vocabularies, so their columns do not represent the same features. Predict their shapes, then run the correct check below.</p>
+<p><strong>Explain in your own words:</strong> Why is <code class="docutils literal notranslate"><span class="pre">transform</span></code>, rather than another <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code>, required for a new query?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query_tfidf</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span><span class="n">initial_query</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Document matrix shape:&quot;</span><span class="p">,</span> <span class="n">core_tfidf</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Query vector shape:  &quot;</span><span class="p">,</span> <span class="n">query_tfidf</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">query_tfidf</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">core_tfidf</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">shared_query_terms</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+    <span class="nb">set</span><span class="p">(</span><span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">())</span> <span class="o">&amp;</span> <span class="n">lexical_tokens</span><span class="p">(</span><span class="n">initial_query</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Query terms present in the fitted document vocabulary:&quot;</span><span class="p">,</span> <span class="n">shared_query_terms</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="dense-vectors-plus-cosine-similarity">
+<h2>4. Dense vectors plus cosine similarity<a class="headerlink" href="#dense-vectors-plus-cosine-similarity" title="Permalink to this heading">#</a></h2>
+<p>Now only the representation changes. We use the same cosine function on 300-dimensional dense vectors from spaCy. <code class="docutils literal notranslate"><span class="pre">en_core_web_md</span></code> forms a document vector from pretrained lexical vectors; it is a useful lightweight baseline, but it is not a dedicated sentence-transformer model and it is not ground truth about meaning.</p>
+<p>A dense-vector result may recognize related words that TF-IDF misses. It may also be misled by broad associations, word averaging, missing context, or details that matter to the user’s task.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">core_dense</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">doc</span><span class="o">.</span><span class="n">vector</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">core_documents</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])])</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">dense_ranking</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">core_documents</span><span class="p">,</span> <span class="n">document_matrix</span><span class="o">=</span><span class="n">core_dense</span><span class="p">):</span>
+    <span class="n">query_vector</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">query</span><span class="p">)</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">query_vector</span><span class="p">,</span> <span class="n">document_matrix</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">rank_scores</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="s2">&quot;spaCy dense cosine&quot;</span><span class="p">)</span>
+
+
+<span class="n">dense_initial</span> <span class="o">=</span> <span class="n">dense_ranking</span><span class="p">(</span><span class="n">initial_query</span><span class="p">)</span>
+<span class="n">dense_initial</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">comparison_table</span><span class="p">(</span><span class="o">*</span><span class="n">rankings</span><span class="p">):</span>
+    <span class="n">pieces</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ranking</span> <span class="ow">in</span> <span class="n">rankings</span><span class="p">:</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="n">ranking</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">piece</span> <span class="o">=</span> <span class="n">ranking</span><span class="p">[[</span><span class="s2">&quot;document_id&quot;</span><span class="p">,</span> <span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+            <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;rank&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2"> rank&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2"> score&quot;</span><span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">pieces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">piece</span><span class="p">)</span>
+
+    <span class="n">comparison</span> <span class="o">=</span> <span class="n">core_documents</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">piece</span> <span class="ow">in</span> <span class="n">pieces</span><span class="p">:</span>
+        <span class="n">comparison</span> <span class="o">=</span> <span class="n">comparison</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">piece</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;document_id&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">comparison</span>
+
+
+<span class="n">core_comparison</span> <span class="o">=</span> <span class="n">comparison_table</span><span class="p">(</span><span class="n">jaccard_initial</span><span class="p">,</span> <span class="n">tfidf_initial</span><span class="p">,</span> <span class="n">dense_initial</span><span class="p">)</span>
+<span class="n">core_comparison</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="discussion-evidence-checkpoint-2-compare-the-rankings">
+<h3>Discussion evidence checkpoint 2: compare the rankings<a class="headerlink" href="#discussion-evidence-checkpoint-2-compare-the-rankings" title="Permalink to this heading">#</a></h3>
+<p>Use document IDs and scores from the table to record evidence for your discussion post. Do not stop at naming the highest score.</p>
+<ol class="arabic simple">
+<li><p><strong>Agreement:</strong> Where do two methods rank a candidate similarly? What evidence might explain the agreement?</p></li>
+<li><p><strong>Meaningful difference:</strong> Identify one candidate whose lexical and dense-vector ranks differ. Which representation choices may explain the change?</p></li>
+<li><p><strong>Surprise:</strong> Which result most conflicts with your human prediction? Is it actually wrong, merely ambiguous, or useful for a different task?</p></li>
+<li><p><strong>Trust:</strong> Which result would you trust for the user’s full request? Justify the choice using task constraints, not the score alone.</p></li>
+</ol>
+<p><strong>Your evidence notes:</strong></p>
+<ul class="simple">
+<li><p>Agreement:</p></li>
+<li><p>Difference and likely cause:</p></li>
+<li><p>Surprising result:</p></li>
+<li><p>Most useful result and justification:</p></li>
+</ul>
+</section>
+</section>
+<section id="query-sensitivity-change-the-wording-and-intent">
+<h2>5. Query sensitivity: change the wording and intent<a class="headerlink" href="#query-sensitivity-change-the-wording-and-intent" title="Permalink to this heading">#</a></h2>
+<p>A retrieval result belongs to a particular query, representation, and collection. Choose one provided variant below, predict which documents will move, and then run all three retrieval methods again.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">study</span></code>: keeps the quiet-work intent but replaces several words.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">coffee</span></code>: shifts the intent toward a cafe while retaining Wi-Fi.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query_options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;study&quot;</span><span class="p">:</span> <span class="s2">&quot;quiet study space with internet access&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;coffee&quot;</span><span class="p">:</span> <span class="s2">&quot;coffee and Wi-Fi near downtown&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">query_choice</span> <span class="o">=</span> <span class="s2">&quot;study&quot;</span>  <span class="c1"># Change to &quot;coffee&quot; and rerun this cell if you wish.</span>
+<span class="n">revised_query</span> <span class="o">=</span> <span class="n">query_options</span><span class="p">[</span><span class="n">query_choice</span><span class="p">]</span>
+
+<span class="n">jaccard_revised</span> <span class="o">=</span> <span class="n">jaccard_ranking</span><span class="p">(</span><span class="n">revised_query</span><span class="p">,</span> <span class="n">core_documents</span><span class="p">)</span>
+<span class="n">tfidf_revised</span> <span class="o">=</span> <span class="n">tfidf_ranking</span><span class="p">(</span><span class="n">revised_query</span><span class="p">)</span>
+<span class="n">dense_revised</span> <span class="o">=</span> <span class="n">dense_ranking</span><span class="p">(</span><span class="n">revised_query</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Initial query:&quot;</span><span class="p">,</span> <span class="n">initial_query</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Revised query:&quot;</span><span class="p">,</span> <span class="n">revised_query</span><span class="p">)</span>
+<span class="n">comparison_table</span><span class="p">(</span><span class="n">jaccard_revised</span><span class="p">,</span> <span class="n">tfidf_revised</span><span class="p">,</span> <span class="n">dense_revised</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">rank_movement</span><span class="p">(</span><span class="n">initial_ranking</span><span class="p">,</span> <span class="n">revised_ranking</span><span class="p">):</span>
+    <span class="n">method</span> <span class="o">=</span> <span class="n">initial_ranking</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">initial</span> <span class="o">=</span> <span class="n">initial_ranking</span><span class="p">[[</span><span class="s2">&quot;document_id&quot;</span><span class="p">,</span> <span class="s2">&quot;rank&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;rank&quot;</span><span class="p">:</span> <span class="s2">&quot;initial_rank&quot;</span><span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">revised</span> <span class="o">=</span> <span class="n">revised_ranking</span><span class="p">[[</span><span class="s2">&quot;document_id&quot;</span><span class="p">,</span> <span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;rank&quot;</span><span class="p">:</span> <span class="s2">&quot;revised_rank&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="s2">&quot;revised_score&quot;</span><span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">moved</span> <span class="o">=</span> <span class="n">initial</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">revised</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;document_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">core_documents</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;document_id&quot;</span>
+    <span class="p">)</span>
+    <span class="n">moved</span><span class="p">[</span><span class="s2">&quot;rank_change&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">moved</span><span class="p">[</span><span class="s2">&quot;initial_rank&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">moved</span><span class="p">[</span><span class="s2">&quot;revised_rank&quot;</span><span class="p">]</span>
+    <span class="n">moved</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">moved</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;revised_rank&quot;</span><span class="p">,</span> <span class="s2">&quot;document_id&quot;</span><span class="p">])</span>
+
+
+<span class="n">movement</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="n">rank_movement</span><span class="p">(</span><span class="n">jaccard_initial</span><span class="p">,</span> <span class="n">jaccard_revised</span><span class="p">),</span>
+        <span class="n">rank_movement</span><span class="p">(</span><span class="n">tfidf_initial</span><span class="p">,</span> <span class="n">tfidf_revised</span><span class="p">),</span>
+        <span class="n">rank_movement</span><span class="p">(</span><span class="n">dense_initial</span><span class="p">,</span> <span class="n">dense_revised</span><span class="p">),</span>
+    <span class="p">],</span>
+    <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">movement</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="discussion-evidence-checkpoint-3-explain-the-query-change">
+<h3>Discussion evidence checkpoint 3: explain the query change<a class="headerlink" href="#discussion-evidence-checkpoint-3-explain-the-query-change" title="Permalink to this heading">#</a></h3>
+<p>Positive <code class="docutils literal notranslate"><span class="pre">rank_change</span></code> values mean a document moved closer to rank 1.</p>
+<ul class="simple">
+<li><p>Which document moved most under each representation? Cite the rank change.</p></li>
+<li><p>Which movement reflects the revised user’s intent?</p></li>
+<li><p>Which movement may be an artifact of exact wording or broad vector association?</p></li>
+<li><p>Did the revised wording improve retrieval, worsen it, or change the task? Explain the criterion you used.</p></li>
+</ul>
+<p>Save one observation for your initial post. For the peer response, you can compare a classmate’s surprising result with yours and propose a different query wording that would test their explanation.</p>
+</section>
+</section>
+<section id="stress-test-similar-wording-can-still-miss-the-task">
+<h2>6. Stress test: similar wording can still miss the task<a class="headerlink" href="#stress-test-similar-wording-can-still-miss-the-task" title="Permalink to this heading">#</a></h2>
+<p>The next two candidates add task constraints. One is quiet but prohibits electronics; the other repeats several query words but is a router guide rather than a place. Predict how each method will respond before running the cell.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stress_documents</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;document_id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;D6&quot;</span><span class="p">,</span> <span class="s2">&quot;D7&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;Silent meditation retreat with a no-electronics policy&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Guide to finding quiet Wi-Fi channels for work-from-home routers&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="n">all_documents</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">core_documents</span><span class="p">,</span> <span class="n">stress_documents</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">all_tfidf_vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">stop_words</span><span class="o">=</span><span class="s2">&quot;english&quot;</span><span class="p">)</span>
+<span class="n">all_tfidf</span> <span class="o">=</span> <span class="n">all_tfidf_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">all_documents</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+<span class="n">all_dense</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">doc</span><span class="o">.</span><span class="n">vector</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">all_documents</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])])</span>
+
+<span class="n">jaccard_stress</span> <span class="o">=</span> <span class="n">jaccard_ranking</span><span class="p">(</span><span class="n">initial_query</span><span class="p">,</span> <span class="n">all_documents</span><span class="p">)</span>
+<span class="n">tfidf_stress</span> <span class="o">=</span> <span class="n">rank_scores</span><span class="p">(</span>
+    <span class="n">all_documents</span><span class="p">,</span>
+    <span class="n">cosine_similarity</span><span class="p">(</span>
+        <span class="n">all_tfidf_vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span><span class="n">initial_query</span><span class="p">]),</span> <span class="n">all_tfidf</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+    <span class="s2">&quot;TF-IDF cosine&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">dense_stress</span> <span class="o">=</span> <span class="n">rank_scores</span><span class="p">(</span>
+    <span class="n">all_documents</span><span class="p">,</span>
+    <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">nlp</span><span class="p">(</span><span class="n">initial_query</span><span class="p">)</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">all_dense</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+    <span class="s2">&quot;spaCy dense cosine&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">jaccard_stress</span><span class="p">,</span> <span class="n">tfidf_stress</span><span class="p">,</span> <span class="n">dense_stress</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="discussion-evidence-checkpoint-4-similarity-is-not-usefulness">
+<h3>Discussion evidence checkpoint 4: similarity is not usefulness<a class="headerlink" href="#discussion-evidence-checkpoint-4-similarity-is-not-usefulness" title="Permalink to this heading">#</a></h3>
+<p>Choose one stress-test result and answer all four questions.</p>
+<ol class="arabic simple">
+<li><p>What representation evidence probably raised or lowered its score?</p></li>
+<li><p>Does the text satisfy the user’s request for a <strong>place</strong>, <strong>quiet work</strong>, and <strong>Wi-Fi</strong>? Check each constraint.</p></li>
+<li><p>Is the result useful for this task, useful for a different task, or misleading?</p></li>
+<li><p>What additional information or retrieval rule could help?</p></li>
+</ol>
+<p>This distinction is central to the discussion: a high similarity score is not automatically relevance, factual equivalence, correctness, or usefulness.</p>
+</section>
+</section>
+<section id="independent-retrieval-check">
+<h2>7. Independent retrieval check<a class="headerlink" href="#independent-retrieval-check" title="Permalink to this heading">#</a></h2>
+<p>Edit <code class="docutils literal notranslate"><span class="pre">student_query</span></code>, state your expected top result, and rerun the next cell. Your query should describe a plausible need that at least one core candidate could satisfy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">student_query</span> <span class="o">=</span> <span class="s2">&quot;Where can I study in silence?&quot;</span>  <span class="c1"># Replace with your own query.</span>
+
+<span class="n">student_results</span> <span class="o">=</span> <span class="n">comparison_table</span><span class="p">(</span>
+    <span class="n">jaccard_ranking</span><span class="p">(</span><span class="n">student_query</span><span class="p">,</span> <span class="n">core_documents</span><span class="p">),</span>
+    <span class="n">tfidf_ranking</span><span class="p">(</span><span class="n">student_query</span><span class="p">),</span>
+    <span class="n">dense_ranking</span><span class="p">(</span><span class="n">student_query</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Student query:&quot;</span><span class="p">,</span> <span class="n">student_query</span><span class="p">)</span>
+<span class="n">student_results</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="independent-interpretation">
+<h3>Independent interpretation<a class="headerlink" href="#independent-interpretation" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Expected top result and reason:</p></li>
+<li><p>Observed top result under each method:</p></li>
+<li><p>Evidence that supports or changes your prediction:</p></li>
+<li><p>One limitation of this comparison:</p></li>
+</ul>
+</section>
+</section>
+<section id="why-retrieval-quality-matters-to-rag">
+<h2>8. Why retrieval quality matters to RAG<a class="headerlink" href="#why-retrieval-quality-matters-to-rag" title="Permalink to this heading">#</a></h2>
+<p>A simplified retrieval-augmented generation workflow is:</p>
+<p><strong>user query -&gt; retrieve similar documents -&gt; provide retrieved context to an AI model -&gt; generate a response</strong></p>
+<p>This notebook stops at retrieval; it does not implement RAG. But the ranking still matters. If the system retrieves a router guide or a no-electronics retreat for the original query, a downstream model may produce a fluent answer grounded in context that does not satisfy the user’s actual need.</p>
+<section id="final-discussion">
+<h3>Final discussion<a class="headerlink" href="#final-discussion" title="Permalink to this heading">#</a></h3>
+<p>Use your results to prepare the Week 04 initial post:</p>
+<ol class="arabic simple">
+<li><p>State your human prediction.</p></li>
+<li><p>Cite one agreement and one meaningful difference between lexical and dense-vector rankings.</p></li>
+<li><p>Identify one surprising result and explain whether it is wrong, ambiguous, or useful for another task.</p></li>
+<li><p>Describe what changed after revising the query and why.</p></li>
+<li><p>Decide which retrieved result you trust most for the task and justify that decision with constraints and evidence.</p></li>
+<li><p>Explain one downstream consequence if an AI assistant receives the wrong ‘most similar’ document.</p></li>
+</ol>
+<p>For your peer response, use a classmate’s result to propose a new query wording, predict whether it will improve or worsen retrieval, and name a context where the same result could be acceptable or problematic.</p>
+</section>
+</section>
+<section id="transparent-validation-checks">
+<h2>9. Transparent validation checks<a class="headerlink" href="#transparent-validation-checks" title="Permalink to this heading">#</a></h2>
+<p>These checks confirm that the notebook compared aligned representations and produced complete, ordered rankings. They validate computation, not whether a result is useful for a human task.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">validate_ranking</span><span class="p">(</span><span class="n">ranking</span><span class="p">,</span> <span class="n">expected_size</span><span class="p">,</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">ranking</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected_size</span>
+    <span class="k">assert</span> <span class="n">ranking</span><span class="p">[</span><span class="s2">&quot;document_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">is_unique</span>
+    <span class="k">assert</span> <span class="n">ranking</span><span class="p">[</span><span class="s2">&quot;rank&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">expected_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">ranking</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">ranking</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="n">lower_bound</span> <span class="o">-</span> <span class="mf">1e-9</span><span class="p">,</span> <span class="n">upper_bound</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">ranking</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">is_monotonic_decreasing</span>
+
+
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">core_documents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_documents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span>
+<span class="k">assert</span> <span class="n">core_tfidf</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">core_documents</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">query_tfidf</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">core_tfidf</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">core_dense</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">core_documents</span><span class="p">),</span> <span class="mi">300</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">all_dense</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_documents</span><span class="p">),</span> <span class="mi">300</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ranking</span> <span class="ow">in</span> <span class="p">[</span><span class="n">jaccard_initial</span><span class="p">,</span> <span class="n">jaccard_revised</span><span class="p">,</span> <span class="n">jaccard_stress</span><span class="p">]:</span>
+    <span class="n">validate_ranking</span><span class="p">(</span><span class="n">ranking</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ranking</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ranking</span> <span class="ow">in</span> <span class="p">[</span><span class="n">tfidf_initial</span><span class="p">,</span> <span class="n">tfidf_revised</span><span class="p">,</span> <span class="n">tfidf_stress</span><span class="p">]:</span>
+    <span class="n">validate_ranking</span><span class="p">(</span><span class="n">ranking</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ranking</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ranking</span> <span class="ow">in</span> <span class="p">[</span><span class="n">dense_initial</span><span class="p">,</span> <span class="n">dense_revised</span><span class="p">,</span> <span class="n">dense_stress</span><span class="p">]:</span>
+    <span class="n">validate_ranking</span><span class="p">(</span><span class="n">ranking</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ranking</span><span class="p">),</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">jaccard_initial</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;document_id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;D1&quot;</span>
+<span class="k">assert</span> <span class="n">tfidf_initial</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;document_id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;D1&quot;</span>
+<span class="k">assert</span> <span class="n">jaccard_stress</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">jaccard_stress</span><span class="p">[</span><span class="s2">&quot;document_id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;D7&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All structural, alignment, score-range, and ranking-order checks passed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="takeaway">
+<h2>Takeaway<a class="headerlink" href="#takeaway" title="Permalink to this heading">#</a></h2>
+<p>Cosine similarity does not determine what a text means by itself. It compares vectors, and the representation determines what those vectors preserve. Retrieval adds another layer of judgment: the highest score is useful only when it serves the user’s task. Validate rankings with evidence, constraints, and human interpretation before trusting them downstream.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module4"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="cluster.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Semantic Similarity and Retrieval</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../speech.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Speech</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-time-environment-setup">0. One-time environment setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-retrieval-task">1. Inspect the retrieval task</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-evidence-checkpoint-1-predict-before-running-retrieval">Discussion evidence checkpoint 1: predict before running retrieval</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jaccard-similarity-a-lexical-overlap-baseline">2. Jaccard similarity: a lexical-overlap baseline</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pause-and-interpret">Pause and interpret</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-idf-plus-cosine-similarity">3. TF-IDF plus cosine similarity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-checkpoint-one-feature-space-not-two">Debugging checkpoint: one feature space, not two</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dense-vectors-plus-cosine-similarity">4. Dense vectors plus cosine similarity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-evidence-checkpoint-2-compare-the-rankings">Discussion evidence checkpoint 2: compare the rankings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#query-sensitivity-change-the-wording-and-intent">5. Query sensitivity: change the wording and intent</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-evidence-checkpoint-3-explain-the-query-change">Discussion evidence checkpoint 3: explain the query change</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stress-test-similar-wording-can-still-miss-the-task">6. Stress test: similar wording can still miss the task</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-evidence-checkpoint-4-similarity-is-not-usefulness">Discussion evidence checkpoint 4: similarity is not usefulness</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#independent-retrieval-check">7. Independent retrieval check</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#independent-interpretation">Independent interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-retrieval-quality-matters-to-rag">8. Why retrieval quality matters to RAG</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-discussion">Final discussion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transparent-validation-checks">9. Transparent validation checks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaway">Takeaway</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,807 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Semantic Similarity and Retrieval &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module4/cluster';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Week 04 Coding Practice: From Similarity Scores to Retrieval" href="week4_coding_practice.html" />
+    <link rel="prev" title="Chapter 4 Similarity and Retrieval" href="module4.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module4.html">Chapter 4 Similarity and Retrieval</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week4_coding_practice.html">Week 04 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phonetics.html">Speech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recognizer.html">Speech Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule4/cluster.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module4/cluster.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Semantic Similarity and Retrieval</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-similar-mean">1. What does “similar” mean?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lexical-similarity">2. Lexical similarity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-and-similarity-in-vector-space">3. Distance and similarity in vector space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#euclidean-and-manhattan-distance">Euclidean and Manhattan distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cosine-similarity">Cosine similarity</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-cosine-similarity-matters">4. Why cosine similarity matters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sparse-vs-dense-similarity">5. Sparse vs. dense similarity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparse-tf-idf-similarity">Sparse TF-IDF similarity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dense-embedding-similarity">Dense embedding similarity</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-textual-similarity">6. Semantic textual similarity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-search-and-retrieval">7. Semantic search and retrieval</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-in-modern-ai-systems">8. Retrieval in modern AI systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-as-a-downstream-application">9. Clustering as a downstream application</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-similarity-goes-wrong">10. When similarity goes wrong</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">11. Key takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="semantic-similarity-and-retrieval">
+<h1>Semantic Similarity and Retrieval<a class="headerlink" href="#semantic-similarity-and-retrieval" title="Permalink to this heading">#</a></h1>
+<p>Week 03 showed how text can be represented as vectors. This week asks the next question:</p>
+<p>Once a document, sentence, or query is represented as a vector, how do we decide which items are similar and which ones should be retrieved?</p>
+<p>The conceptual progression is simple:</p>
+<p>text representation → similarity → ranking → retrieval → downstream NLP / AI applications</p>
+<p>This is the foundation for semantic search, recommendation, duplicate detection, clustering, and the retrieval step in many modern AI systems.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This chapter builds directly on Week 03. It assumes students already understand bag-of-words, TF-IDF, sparse vectors, and dense embeddings at a conceptual level.</p>
+</div>
+<section id="what-does-similar-mean">
+<h2>1. What does “similar” mean?<a class="headerlink" href="#what-does-similar-mean" title="Permalink to this heading">#</a></h2>
+<p>Two pieces of text can be similar in different ways.</p>
+<ul class="simple">
+<li><p>Lexical similarity is about shared surface form: same words, same token overlap, or similar vocabulary.</p></li>
+<li><p>Semantic similarity is about shared meaning or intent, even when the wording differs.</p></li>
+</ul>
+<p>For example, the sentences below are not identical in wording, but they are close in meaning:</p>
+<ul class="simple">
+<li><p>“The patient reported chest pain after exercise.”</p></li>
+<li><p>“After physical activity, the patient experienced discomfort in the chest.”</p></li>
+</ul>
+<p>A bag-of-words or TF-IDF representation may score them low on lexical overlap, but a semantic embedding model may place them nearby in vector space.</p>
+<p>This is why text similarity depends on representation choice, not only on the text itself.</p>
+</section>
+<section id="lexical-similarity">
+<h2>2. Lexical similarity<a class="headerlink" href="#lexical-similarity" title="Permalink to this heading">#</a></h2>
+<p>A simple baseline for text similarity is lexical overlap. Jaccard similarity is a standard choice when we compare sets of tokens.</p>
+<p>For two sets A and B:</p>
+<div class="math notranslate nohighlight">
+\[
+J(A, B) = \frac{|A \cap B|}{|A \cup B|}
+\]</div>
+<p>Interpretation:</p>
+<ul class="simple">
+<li><p>1 means the sets are identical;</p></li>
+<li><p>0 means they share no tokens;</p></li>
+<li><p>intermediate values mean partial overlap.</p></li>
+</ul>
+<p>Jaccard is useful because it focuses on shared vocabulary. It tells us how much two documents overlap at the token-set level. It does not tell us whether they mean the same thing, and it is insensitive to repeated words if we compare sets rather than counts.</p>
+<p>This is a good lexical baseline, but it is limited. Two texts may share few words and still be semantically related, or they may share many words and still be about different topics.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Lexical similarity is a strong baseline for surface overlap, but it does not capture meaning well. The representation matters.</p>
+</div>
+</section>
+<section id="distance-and-similarity-in-vector-space">
+<h2>3. Distance and similarity in vector space<a class="headerlink" href="#distance-and-similarity-in-vector-space" title="Permalink to this heading">#</a></h2>
+<p>Once text has been converted into vectors, we can compare them numerically.</p>
+<p>A distance metric tells us how far apart two vectors are. A similarity metric tells us how closely aligned they are.</p>
+<section id="euclidean-and-manhattan-distance">
+<h3>Euclidean and Manhattan distance<a class="headerlink" href="#euclidean-and-manhattan-distance" title="Permalink to this heading">#</a></h3>
+<p>Euclidean distance is the straight-line distance between two vectors. Manhattan distance is the sum of absolute coordinate differences.</p>
+<p>These are intuitive geometric measures, but they are not always the best choice for text.</p>
+<p>Why? Because text vectors often have many dimensions and different lengths. A document with more words may naturally be farther away in raw Euclidean space even when the meaning is similar.</p>
+</section>
+<section id="cosine-similarity">
+<h3>Cosine similarity<a class="headerlink" href="#cosine-similarity" title="Permalink to this heading">#</a></h3>
+<p>Cosine similarity is the main metric for comparing text vectors. It measures the angle between two vectors rather than their absolute magnitude.</p>
+<p>For vectors <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{cosine}(x, y) = \frac{x \cdot y}{\|x\|\|y\|}
+\]</div>
+<p>This matters because text vectors may differ in length, but the important question is often whether they point in roughly the same direction.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>          vector A
+         /|
+        / |
+       /  | angle
+      /   |
+vector B ----
+</pre></div>
+</div>
+<p>A smaller angle means higher cosine similarity. A score near 1 means the vectors are highly aligned; a score near 0 means they are not aligned.</p>
+<p>This is why cosine similarity is usually more useful than raw distance for text retrieval and semantic comparison. It emphasizes direction rather than absolute length.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For text, cosine similarity is usually more informative than Euclidean distance because the vector magnitude is often less important than the pattern of terms or meaning.</p>
+</div>
+</section>
+</section>
+<section id="why-cosine-similarity-matters">
+<h2>4. Why cosine similarity matters<a class="headerlink" href="#why-cosine-similarity-matters" title="Permalink to this heading">#</a></h2>
+<p>Cosine similarity is especially useful when vectors represent text features.</p>
+<p>Consider the difference between:</p>
+<ul class="simple">
+<li><p>a sparse TF-IDF vector,</p></li>
+<li><p>a dense embedding vector,</p></li>
+<li><p>and a raw frequency vector.</p></li>
+</ul>
+<p>A sparse lexical vector may treat each vocabulary item as a separate dimension. A dense embedding vector compresses these patterns into a latent space where semantically similar items can land near one another.</p>
+<p>In practice, cosine similarity is the working default for many retrieval systems because it is simple, efficient, and interpretable.</p>
+<p>The main lesson is not that cosine is magically “the truth.” The main lesson is that the similarity metric should match the representation and the task.</p>
+</section>
+<section id="sparse-vs-dense-similarity">
+<h2>5. Sparse vs. dense similarity<a class="headerlink" href="#sparse-vs-dense-similarity" title="Permalink to this heading">#</a></h2>
+<p>Week 03 introduced sparse lexical vectors and dense embeddings. Week 04 asks how similarity behaves differently across those representations.</p>
+<section id="sparse-tf-idf-similarity">
+<h3>Sparse TF-IDF similarity<a class="headerlink" href="#sparse-tf-idf-similarity" title="Permalink to this heading">#</a></h3>
+<p>TF-IDF vectors are sparse. They encode relative importance of words within a document and across a corpus. That makes them good for lexical matching and term-weighted comparison.</p>
+<p>If two documents share the same jargon or important terms, TF-IDF cosine similarity can be high. If they talk about similar ideas without sharing many words, the score may be low.</p>
+</section>
+<section id="dense-embedding-similarity">
+<h3>Dense embedding similarity<a class="headerlink" href="#dense-embedding-similarity" title="Permalink to this heading">#</a></h3>
+<p>Dense embeddings represent words, sentences, or documents in a lower-dimensional space where nearby vectors often reflect semantic relatedness. This can capture paraphrases, synonyms, and related concepts that do not share the same words.</p>
+<p>For example, two sentences may mean nearly the same thing while using very different vocabulary:</p>
+<ul class="simple">
+<li><p>“The meeting was postponed until Friday.”</p></li>
+<li><p>“We moved the discussion to next Friday.”</p></li>
+</ul>
+<p>A lexical similarity measure may give them a low score; a semantic embedding model may give them a much higher score.</p>
+<p>This difference is the heart of the Week 03 → Week 04 progression:</p>
+<p>word/vector relationships → sentence/document embeddings → similarity → retrieval</p>
+</section>
+</section>
+<section id="semantic-textual-similarity">
+<h2>6. Semantic textual similarity<a class="headerlink" href="#semantic-textual-similarity" title="Permalink to this heading">#</a></h2>
+<p>Semantic textual similarity (STS) asks whether two texts mean similar things, even when the wording differs. This is different from lexical overlap, and it is one reason embeddings matter so much in modern NLP.</p>
+<p>A semantic similarity system generally works like this:</p>
+<ol class="arabic simple">
+<li><p>represent each text as a vector,</p></li>
+<li><p>compare the vectors,</p></li>
+<li><p>interpret the score as a measure of semantic relatedness.</p></li>
+</ol>
+<p>STS is useful in a range of applications:</p>
+<ul class="simple">
+<li><p>paraphrase detection,</p></li>
+<li><p>duplicate detection,</p></li>
+<li><p>near-duplicate filtering,</p></li>
+<li><p>semantic search,</p></li>
+<li><p>recommendation.</p></li>
+</ul>
+<p>A high score does not guarantee the texts are equivalent in a strict logical sense. It only shows that the model’s representation finds them similar under a chosen similarity function.</p>
+</section>
+<section id="semantic-search-and-retrieval">
+<h2>7. Semantic search and retrieval<a class="headerlink" href="#semantic-search-and-retrieval" title="Permalink to this heading">#</a></h2>
+<p>Semantic search is the modern, AI-era version of document retrieval.</p>
+<p>In a standard retrieval workflow:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>query → representation → similarity scores → ranked documents
+</pre></div>
+</div>
+<p>The process is:</p>
+<ol class="arabic simple">
+<li><p>The query is converted into a vector using the same representation used for the documents.</p></li>
+<li><p>The document collection is also represented as vectors.</p></li>
+<li><p>The system computes a similarity score between the query and each document.</p></li>
+<li><p>The documents are ranked from most similar to least similar.</p></li>
+<li><p>The top-ranked results are returned to the user or to a downstream system.</p></li>
+</ol>
+<p>This is the conceptual engine behind search, recommendation, and retrieval-based AI systems.</p>
+<p>A good retrieval system does not merely look for identical words. It tries to identify the documents whose vectors are closest to the query in the relevant representation space.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Retrieval is not “understanding.” It is a ranking process based on representations and a similarity function. The top result is only as good as the representation, the similarity choice, and the task.</p>
+</div>
+</section>
+<section id="retrieval-in-modern-ai-systems">
+<h2>8. Retrieval in modern AI systems<a class="headerlink" href="#retrieval-in-modern-ai-systems" title="Permalink to this heading">#</a></h2>
+<p>Similarity and retrieval sit behind many modern AI workflows.</p>
+<p>A simplified example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>query → retrieval → selected context → generative model
+</pre></div>
+</div>
+<p>This pattern is commonly associated with retrieval-augmented generation, or RAG. In a RAG system, the model does not rely only on its internal memory. It first retrieves relevant context from a document set, then uses that context to answer a question or complete a task.</p>
+<p>The reading goal is not to teach full RAG architecture. It is to show that retrieval depends on the same conceptual ideas we have been discussing:</p>
+<ul class="simple">
+<li><p>represent the text,</p></li>
+<li><p>compare vectors,</p></li>
+<li><p>rank likely matches,</p></li>
+<li><p>then decide whether the result is relevant and trustworthy.</p></li>
+</ul>
+</section>
+<section id="clustering-as-a-downstream-application">
+<h2>9. Clustering as a downstream application<a class="headerlink" href="#clustering-as-a-downstream-application" title="Permalink to this heading">#</a></h2>
+<p>Clustering is one application of similarity, not the central organizing topic of the week.</p>
+<p>Once text is embedded or vectorized, documents can be grouped by proximity in a vector space. A simple example is k-means clustering, which assigns each item to a cluster whose centroid is closest.</p>
+<p>This is useful for:</p>
+<ul class="simple">
+<li><p>topic grouping,</p></li>
+<li><p>document organization,</p></li>
+<li><p>duplicate detection,</p></li>
+<li><p>exploratory analysis.</p></li>
+</ul>
+<p>But clustering should be treated as a downstream use of similarity. The key conceptual lesson is that once documents live in a vector space, similarity and proximity become operational tools.</p>
+<p>Detailed clustering algorithms or long treatments of hierarchical clustering are not required for this week’s conceptual reading.</p>
+</section>
+<section id="when-similarity-goes-wrong">
+<h2>10. When similarity goes wrong<a class="headerlink" href="#when-similarity-goes-wrong" title="Permalink to this heading">#</a></h2>
+<p>This is one of the most important lessons in the modern AI era.</p>
+<p>A high similarity score is not the same as:</p>
+<ul class="simple">
+<li><p>truth,</p></li>
+<li><p>factual equivalence,</p></li>
+<li><p>correctness,</p></li>
+<li><p>task relevance,</p></li>
+<li><p>or usefulness.</p></li>
+</ul>
+<p>Two documents can be highly similar in vector space and still be wrong for the user’s actual question.</p>
+<p>Examples include:</p>
+<ul class="simple">
+<li><p>paraphrases that are semantically close but not equally trustworthy,</p></li>
+<li><p>documents that share keywords but not the same intent,</p></li>
+<li><p>retrieval results that are similar to the query but irrelevant to the user’s task,</p></li>
+<li><p>dense embeddings that prefer semantic relatedness over factual accuracy.</p></li>
+</ul>
+<p>A retrieval system may rank a plausible answer above a better one, especially when the representation is imperfect or the user query is underspecified.</p>
+<p>This is why similarity models require human judgment, validation, and task-aware interpretation.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Similarity is a relationship between representations. It is not proof that the result is true, correct, or useful.</p>
+</div>
+</section>
+<section id="key-takeaways">
+<h2>11. Key takeaways<a class="headerlink" href="#key-takeaways" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Similarity in language is not one thing. It can be lexical, geometric, or semantic.</p></li>
+<li><p>Jaccard is a useful lexical baseline, but it does not capture meaning.</p></li>
+<li><p>Euclidean and Manhattan distance provide geometric intuition, but cosine similarity is usually the more important metric for text vectors.</p></li>
+<li><p>Sparse TF-IDF vectors and dense embedding vectors behave differently because they represent different kinds of information.</p></li>
+<li><p>Semantic search works by converting queries and documents to vectors, calculating similarity, and ranking matches.</p></li>
+<li><p>Retrieval systems are powerful but imperfect. Similarity is not the same as truth or usefulness.</p></li>
+</ul>
+<p>The central idea of Week 04 is therefore straightforward:</p>
+<p>Once language has been represented as vectors, similarity gives us a way to compare, rank, retrieve, and reason about texts in a computationally useful way.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<p><span id="id1">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span></p>
+<p><span id="id2">[<a class="reference internal" href="../references.html#id6" title="Tomas Mikolov, Kai Chen, Greg Corrado, and Jeffrey Dean. Efficient estimation of word representations in vector space. arXiv preprint arXiv:1301.3781, 2013. URL: https://arxiv.org/abs/1301.3781.">MCCD13</a>]</span></p>
+<p><span id="id3">[<a class="reference internal" href="../references.html#id5" title="Christopher D. Manning, Prabhakar Raghavan, and Hinrich Schütze. An Introduction to Information Retrieval, chapter 11. Cambridge University Press, 2009. URL: https://nlp.stanford.edu/IR-book/.">MRS09</a>]</span></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module4"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="module4.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 4 Similarity and Retrieval</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="week4_coding_practice.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Week 04 Coding Practice: From Similarity Scores to Retrieval</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-similar-mean">1. What does “similar” mean?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lexical-similarity">2. Lexical similarity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-and-similarity-in-vector-space">3. Distance and similarity in vector space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#euclidean-and-manhattan-distance">Euclidean and Manhattan distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cosine-similarity">Cosine similarity</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-cosine-similarity-matters">4. Why cosine similarity matters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sparse-vs-dense-similarity">5. Sparse vs. dense similarity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sparse-tf-idf-similarity">Sparse TF-IDF similarity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dense-embedding-similarity">Dense embedding similarity</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-textual-similarity">6. Semantic textual similarity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-search-and-retrieval">7. Semantic search and retrieval</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-in-modern-ai-systems">8. Retrieval in modern AI systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-as-a-downstream-application">9. Clustering as a downstream application</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-similarity-goes-wrong">10. When similarity goes wrong</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">11. Key takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
