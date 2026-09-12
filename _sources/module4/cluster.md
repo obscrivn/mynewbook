@@ -155,7 +155,7 @@ A lexical similarity measure may give them a low score; a semantic embedding mod
 **Semantic Textual Similarity** is an NLP task: estimate how similar two texts are in meaning. An embedding model creates the representations, and a similarity function such as cosine similarity compares them.
 ```
 
-## 6. From Similarity to Retrieval
+## 5. From Similarity to Retrieval
 
 So far, we have mostly compared **two texts at a time**.
 
@@ -221,7 +221,7 @@ It only says that, according to the chosen representation and scoring method, th
 :::
 
 
-## 7. Key takeaways
+## 6. Key takeaways
 Once language has been represented as vectors, similarity gives us a way to compare, rank, retrieve, and reason about texts in a computationally useful way.
 
 - Similarity in language is not one thing. It can be lexical, geometric, or semantic.
