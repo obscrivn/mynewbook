@@ -1,0 +1,1011 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module5/week5_coding_practice';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Speech" href="../speech.html" />
+    <link rel="prev" title="5.1 Text Classification and Model Evaluation" href="classification.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module4/module4.html">Chapter 4 Similarity and Retrieval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module4/cluster.html">4.1 Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/practice.html">4.2 Experiment: From Similarity Scores to Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/week4_coding_practice.html">4.3 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module5.html">Chapter 5 Text Classification and Model Evaluation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="classification.html">5.1 Text Classification and Model Evaluation</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phonetics.html">Speech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recognizer.html">Speech Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule5/week5_coding_practice.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module5/week5_coding_practice.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-goals">Learning goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-metrics-describe-mistakes-not-just-success">Part 1 — Metrics describe mistakes, not just success</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pause-and-interpret">Pause and interpret</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-build-a-transparent-text-classification-baseline">Part 2 — Build a transparent text-classification baseline</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-before-training">Predict before training</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-analysis-checkpoint">Error-analysis checkpoint</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-threshold-observation">Optional threshold observation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-change-the-representation-keep-the-classifier">Part 3 — Change the representation, keep the classifier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-representations">Compare representations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-optional-gemini-classification-comparison">Part 4 — Optional Gemini classification comparison</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-before-any-gemini-code">Setup before any Gemini code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gemini-comparison-checkpoint">Gemini comparison checkpoint</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-model-comparison-and-takeaway">Final model comparison and takeaway</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="coding-practice-text-classification-evaluation-and-error-analysis">
+<h1>5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis<a class="headerlink" href="#coding-practice-text-classification-evaluation-and-error-analysis" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module5/week5_coding_practice.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>This formative notebook follows one workflow: <strong>text → representation → classifier → probability → prediction → evaluation → error analysis</strong>. Work through it in order. Before each interpretation checkpoint, make a short prediction or note in your own words; later cells do not depend on your written response.</p>
+<p>By the end, you should be able to explain why two classifiers can make different decisions on the same text and why a high metric alone is not enough to trust a system.</p>
+<section id="learning-goals">
+<h2>Learning goals<a class="headerlink" href="#learning-goals" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Read a confusion matrix, accuracy, precision, recall, and F1 as evidence about model behavior.</p></li>
+<li><p>Train a TF-IDF + logistic-regression baseline and inspect its probabilities and errors.</p></li>
+<li><p>Compare sparse lexical features with dense sentence embeddings.</p></li>
+<li><p>Treat an LLM classifier as another decision system to evaluate—not an automatic winner.</p></li>
+</ul>
+<p><strong>Course bridge:</strong> similarity asks which texts are close. Classification uses labeled examples to decide which predefined category a new text should receive.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">importlib.util</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="c1"># One-time setup for the optional dense-embedding comparison.</span>
+<span class="c1"># This is the only package installation in the core activity; Colab does not</span>
+<span class="c1"># include sentence-transformers by default. It is safe to rerun.</span>
+<span class="k">if</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="s2">&quot;sentence_transformers&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="s2">&quot;-q&quot;</span><span class="p">,</span> <span class="s2">&quot;sentence-transformers&quot;</span><span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ConfusionMatrixDisplay</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span>
+    <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_colwidth&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">RANDOM_STATE</span> <span class="o">=</span> <span class="mi">42</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="part-1-metrics-describe-mistakes-not-just-success">
+<h2>Part 1 — Metrics describe mistakes, not just success<a class="headerlink" href="#part-1-metrics-describe-mistakes-not-just-success" title="Permalink to this heading">#</a></h2>
+<p>Imagine a system that flags potentially dangerous support requests for urgent review. <code class="docutils literal notranslate"><span class="pre">security</span></code> is the positive class below. The rows are deliberately imbalanced: most ordinary requests are not security issues.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">metric_examples</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;ticket&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;A suspicious email asked me to verify my password.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;My laptop shows a ransom message after opening an attachment.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;How do I connect my visitor to Wi-Fi?&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;My print job is waiting at the release station.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;I forgot my account password.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;The classroom projector is blank.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;My wireless connection drops in the library.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Can I add money to my print account?&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;I need help sharing a folder with my project team.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;My account is locked after too many sign-in attempts.&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;true_label&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;security&quot;</span><span class="p">,</span> <span class="s2">&quot;security&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;not_security&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="s2">&quot;predicted_label&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;security&quot;</span><span class="p">,</span> <span class="s2">&quot;not_security&quot;</span><span class="p">,</span> <span class="s2">&quot;security&quot;</span><span class="p">,</span> <span class="s2">&quot;not_security&quot;</span><span class="p">,</span> <span class="s2">&quot;not_security&quot;</span><span class="p">,</span> <span class="s2">&quot;not_security&quot;</span><span class="p">,</span> <span class="s2">&quot;not_security&quot;</span><span class="p">,</span> <span class="s2">&quot;not_security&quot;</span><span class="p">,</span> <span class="s2">&quot;not_security&quot;</span><span class="p">,</span> <span class="s2">&quot;not_security&quot;</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="n">metric_examples</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_true</span> <span class="o">=</span> <span class="n">metric_examples</span><span class="p">[</span><span class="s2">&quot;true_label&quot;</span><span class="p">]</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">metric_examples</span><span class="p">[</span><span class="s2">&quot;predicted_label&quot;</span><span class="p">]</span>
+<span class="n">metric_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
+    <span class="s2">&quot;accuracy&quot;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span>
+    <span class="s2">&quot;precision (security)&quot;</span><span class="p">:</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s2">&quot;security&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;recall (security)&quot;</span><span class="p">:</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s2">&quot;security&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;F1 (security)&quot;</span><span class="p">:</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s2">&quot;security&quot;</span><span class="p">),</span>
+<span class="p">})</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">metric_summary</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">))</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;security&quot;</span><span class="p">,</span> <span class="s2">&quot;not_security&quot;</span><span class="p">])</span>
+<span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">display_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;security&quot;</span><span class="p">,</span> <span class="s2">&quot;not_security&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rows with a mistake:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">metric_examples</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">y_true</span> <span class="o">!=</span> <span class="n">y_pred</span><span class="p">])</span>
+<span class="k">assert</span> <span class="n">cm</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">==</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="pause-and-interpret">
+<h3>Pause and interpret<a class="headerlink" href="#pause-and-interpret" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Which error occurs here more often: a false positive or a false negative? Point to the rows.</p></li>
+<li><p>Why can the accuracy look reassuring even though the system misses a true security request?</p></li>
+<li><p>For an urgent-security review queue, would you prioritize precision or recall? What cost are you accepting?</p></li>
+<li><p>What would change if there were 1,000 ordinary tickets and still only two security tickets?</p></li>
+</ol>
+</section>
+</section>
+<section id="part-2-build-a-transparent-text-classification-baseline">
+<h2>Part 2 — Build a transparent text-classification baseline<a class="headerlink" href="#part-2-build-a-transparent-text-classification-baseline" title="Permalink to this heading">#</a></h2>
+<p>Our small fictional help desk has four labels. Each text is intentionally short enough to read. Some test examples are ambiguous, use negation, or use wording that does not closely match the training text. In a real project, the corpus would be much larger; here, interpretability is the point.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tickets</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span>
+    <span class="p">(</span><span class="s2">&quot;account_access&quot;</span><span class="p">,</span> <span class="s2">&quot;I forgot my password and cannot enter my account.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;account_access&quot;</span><span class="p">,</span> <span class="s2">&quot;My sign-in is locked after several failed attempts.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;account_access&quot;</span><span class="p">,</span> <span class="s2">&quot;I bought a new phone and cannot approve my login.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;account_access&quot;</span><span class="p">,</span> <span class="s2">&quot;Where can I find my university username?&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;account_access&quot;</span><span class="p">,</span> <span class="s2">&quot;Please reset the password for my email account.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;account_access&quot;</span><span class="p">,</span> <span class="s2">&quot;The authentication app is on my old phone.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;network_access&quot;</span><span class="p">,</span> <span class="s2">&quot;My laptop cannot join the secure campus Wi-Fi.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;network_access&quot;</span><span class="p">,</span> <span class="s2">&quot;A visitor needs the guest wireless network.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;network_access&quot;</span><span class="p">,</span> <span class="s2">&quot;The internet disconnects every few minutes in the library.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;network_access&quot;</span><span class="p">,</span> <span class="s2">&quot;How do I register a game console for wireless access?&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;network_access&quot;</span><span class="p">,</span> <span class="s2">&quot;The residence hall Ethernet jack does not work.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;network_access&quot;</span><span class="p">,</span> <span class="s2">&quot;My computer keeps choosing the wrong campus network.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;printing&quot;</span><span class="p">,</span> <span class="s2">&quot;How do I add the campus printer to my laptop?&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;printing&quot;</span><span class="p">,</span> <span class="s2">&quot;My document is in the queue but has not printed.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;printing&quot;</span><span class="p">,</span> <span class="s2">&quot;Where do I release a print job?&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;printing&quot;</span><span class="p">,</span> <span class="s2">&quot;The printer says it is offline and shows a paper jam.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;printing&quot;</span><span class="p">,</span> <span class="s2">&quot;I need to check my remaining printing credit.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;printing&quot;</span><span class="p">,</span> <span class="s2">&quot;The print queue sent my pages to the wrong device.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;security&quot;</span><span class="p">,</span> <span class="s2">&quot;I received a phishing email asking for my password.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;security&quot;</span><span class="p">,</span> <span class="s2">&quot;My laptop may have malware after opening a strange file.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;security&quot;</span><span class="p">,</span> <span class="s2">&quot;My phone was stolen and it has my sign-in approvals.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;security&quot;</span><span class="p">,</span> <span class="s2">&quot;Where do I locate an encryption recovery key?&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;security&quot;</span><span class="p">,</span> <span class="s2">&quot;A message asked for urgent payment and account verification.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;security&quot;</span><span class="p">,</span> <span class="s2">&quot;I clicked a suspicious attachment; what should I do?&quot;</span><span class="p">),</span>
+<span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">])</span>
+<span class="n">tickets</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s2">&quot;examples&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="predict-before-training">
+<h3>Predict before training<a class="headerlink" href="#predict-before-training" title="Permalink to this heading">#</a></h3>
+<p>Read a few rows. Which words seem like useful evidence? Which texts could plausibly receive two labels? Do not expect a classifier to know intent that is not represented in its labeled examples.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">tickets</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span> <span class="n">tickets</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">],</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.50</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">tickets</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training examples: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="si">}</span><span class="s2">; evaluation examples: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Evaluation labels:&quot;</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+
+<span class="n">tfidf</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">stop_words</span><span class="o">=</span><span class="s2">&quot;english&quot;</span><span class="p">)</span>
+<span class="n">X_train_tfidf</span> <span class="o">=</span> <span class="n">tfidf</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_test_tfidf</span> <span class="o">=</span> <span class="n">tfidf</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">tfidf_classifier</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">)</span>
+<span class="n">tfidf_classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_tfidf</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;TF-IDF matrix shape:&quot;</span><span class="p">,</span> <span class="n">X_train_tfidf</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A few learned features:&quot;</span><span class="p">,</span> <span class="n">tfidf</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()[:</span><span class="mi">12</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="k">assert</span> <span class="n">X_train_tfidf</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">X_test_tfidf</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">prediction_table</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">texts</span><span class="p">,</span> <span class="n">true_labels</span><span class="p">,</span> <span class="n">approach</span><span class="p">):</span>
+    <span class="n">probabilities</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+    <span class="n">predicted</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">classes_</span><span class="p">[</span><span class="n">probabilities</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">texts</span><span class="p">),</span>
+        <span class="s2">&quot;true_label&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">true_labels</span><span class="p">),</span>
+        <span class="s2">&quot;predicted_label&quot;</span><span class="p">:</span> <span class="n">predicted</span><span class="p">,</span>
+        <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="n">probabilities</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="s2">&quot;approach&quot;</span><span class="p">:</span> <span class="n">approach</span><span class="p">,</span>
+    <span class="p">})</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">classes_</span><span class="p">):</span>
+        <span class="n">table</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;P(</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">probabilities</span><span class="p">[:,</span> <span class="n">index</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;confidence&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">tfidf_results</span> <span class="o">=</span> <span class="n">prediction_table</span><span class="p">(</span>
+    <span class="n">tfidf_classifier</span><span class="p">,</span> <span class="n">X_test_tfidf</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="s2">&quot;TF-IDF + logistic regression&quot;</span>
+<span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">tfidf_results</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">tfidf_results</span><span class="p">[</span><span class="s2">&quot;predicted_label&quot;</span><span class="p">],</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">ConfusionMatrixDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">tfidf_results</span><span class="p">[</span><span class="s2">&quot;predicted_label&quot;</span><span class="p">],</span> <span class="n">xticks_rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Logistic-regression feature weights are one kind of evidence, not a complete explanation.</span>
+<span class="n">feature_names</span> <span class="o">=</span> <span class="n">tfidf</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+<span class="n">top_features</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">weights</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">tfidf_classifier</span><span class="o">.</span><span class="n">classes_</span><span class="p">,</span> <span class="n">tfidf_classifier</span><span class="o">.</span><span class="n">coef_</span><span class="p">):</span>
+    <span class="n">strongest</span> <span class="o">=</span> <span class="n">feature_names</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">weights</span><span class="p">)[</span><span class="o">-</span><span class="mi">5</span><span class="p">:]][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">top_features</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span> <span class="s2">&quot;strongest positive features&quot;</span><span class="p">:</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">strongest</span><span class="p">)})</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">top_features</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="error-analysis-checkpoint">
+<h3>Error-analysis checkpoint<a class="headerlink" href="#error-analysis-checkpoint" title="Permalink to this heading">#</a></h3>
+<p>Run the next cell and inspect at least two rows. For each, state: (a) what lexical evidence may have helped or hurt, (b) whether the label definition or the text is ambiguous, and (c) what additional training examples might help. A confidence score is a model score, not proof that the label is correct.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tfidf_errors</span> <span class="o">=</span> <span class="n">tfidf_results</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;true_label != predicted_label&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">tfidf_errors</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">tfidf_errors</span><span class="o">.</span><span class="n">empty</span> <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;note&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;No errors in this split—inspect low-confidence rows instead.&quot;</span><span class="p">]}))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">tfidf_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;confidence&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="optional-threshold-observation">
+<h3>Optional threshold observation<a class="headerlink" href="#optional-threshold-observation" title="Permalink to this heading">#</a></h3>
+<p>A multiclass model usually chooses the largest class probability. To connect with the binary threshold discussion, temporarily ask whether a ticket should be escalated as <code class="docutils literal notranslate"><span class="pre">security</span></code> when its security probability exceeds a chosen cutoff. This is an observation, not threshold optimization.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SECURITY_THRESHOLD</span> <span class="o">=</span> <span class="mf">0.25</span>  <span class="c1"># Try 0.10, 0.25, and 0.50.</span>
+<span class="n">security_probabilities</span> <span class="o">=</span> <span class="n">tfidf_results</span><span class="p">[</span><span class="s2">&quot;P(security)&quot;</span><span class="p">]</span>
+<span class="n">security_true</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="s2">&quot;security&quot;</span><span class="p">)</span>
+<span class="n">security_predicted</span> <span class="o">=</span> <span class="n">security_probabilities</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="n">SECURITY_THRESHOLD</span><span class="p">)</span>
+<span class="n">threshold_metrics</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
+    <span class="s2">&quot;precision&quot;</span><span class="p">:</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">security_true</span><span class="p">,</span> <span class="n">security_predicted</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="s2">&quot;recall&quot;</span><span class="p">:</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">security_true</span><span class="p">,</span> <span class="n">security_predicted</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="s2">&quot;false positives&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">((</span><span class="o">~</span><span class="n">security_true</span> <span class="o">&amp;</span> <span class="n">security_predicted</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+    <span class="s2">&quot;false negatives&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">((</span><span class="n">security_true</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">security_predicted</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+<span class="p">})</span>
+<span class="n">display</span><span class="p">(</span><span class="n">threshold_metrics</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;threshold = </span><span class="si">{</span><span class="n">SECURITY_THRESHOLD</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+<span class="k">assert</span> <span class="n">security_probabilities</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="part-3-change-the-representation-keep-the-classifier">
+<h2>Part 3 — Change the representation, keep the classifier<a class="headerlink" href="#part-3-change-the-representation-keep-the-classifier" title="Permalink to this heading">#</a></h2>
+<p>Now the pipeline is <strong>text → sentence embedding → logistic regression</strong>. A sentence embedding can capture some semantic similarity beyond exact word overlap. It does not make labels, training data, or error analysis unnecessary. The first run downloads the small public <code class="docutils literal notranslate"><span class="pre">all-MiniLM-L6-v2</span></code> model; this requires an internet connection.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sentence_transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SentenceTransformer</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">embedding_model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;all-MiniLM-L6-v2&quot;</span><span class="p">)</span>
+    <span class="n">X_train_embeddings</span> <span class="o">=</span> <span class="n">embedding_model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">show_progress_bar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">X_test_embeddings</span> <span class="o">=</span> <span class="n">embedding_model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">show_progress_bar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">embedding_classifier</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">)</span>
+    <span class="n">embedding_classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_embeddings</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">embedding_results</span> <span class="o">=</span> <span class="n">prediction_table</span><span class="p">(</span>
+        <span class="n">embedding_classifier</span><span class="p">,</span> <span class="n">X_test_embeddings</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span>
+        <span class="s2">&quot;sentence embeddings + logistic regression&quot;</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Embedding matrix shape:&quot;</span><span class="p">,</span> <span class="n">X_train_embeddings</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">embedding_results</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">X_train_embeddings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">X_test_embeddings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">X_train_embeddings</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">embedding_error</span><span class="p">:</span>
+    <span class="n">embedding_results</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dense comparison skipped because the model could not be loaded.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reason: </span><span class="si">{</span><span class="n">embedding_error</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;In Colab, confirm internet access and rerun this cell; Parts 1–2 remain valid offline.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">embedding_results</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">comparison</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">tfidf_results</span><span class="p">[[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;true_label&quot;</span><span class="p">,</span> <span class="s2">&quot;predicted_label&quot;</span><span class="p">,</span> <span class="s2">&quot;confidence&quot;</span><span class="p">]]</span>
+        <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;predicted_label&quot;</span><span class="p">:</span> <span class="s2">&quot;tfidf_prediction&quot;</span><span class="p">,</span> <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="s2">&quot;tfidf_confidence&quot;</span><span class="p">})</span>
+        <span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+            <span class="n">embedding_results</span><span class="p">[[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;predicted_label&quot;</span><span class="p">,</span> <span class="s2">&quot;confidence&quot;</span><span class="p">]]</span>
+            <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;predicted_label&quot;</span><span class="p">:</span> <span class="s2">&quot;embedding_prediction&quot;</span><span class="p">,</span> <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="s2">&quot;embedding_confidence&quot;</span><span class="p">}),</span>
+            <span class="n">on</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">comparison</span><span class="p">[</span><span class="s2">&quot;agree&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">comparison</span><span class="p">[</span><span class="s2">&quot;tfidf_prediction&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">comparison</span><span class="p">[</span><span class="s2">&quot;embedding_prediction&quot;</span><span class="p">]</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">comparison</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;agree&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;TF-IDF accuracy:&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">tfidf_results</span><span class="p">[</span><span class="s2">&quot;predicted_label&quot;</span><span class="p">]),</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Embedding accuracy:&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">embedding_results</span><span class="p">[</span><span class="s2">&quot;predicted_label&quot;</span><span class="p">]),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">comparison</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Representation comparison is waiting for the sentence-embedding model.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="compare-representations">
+<h3>Compare representations<a class="headerlink" href="#compare-representations" title="Permalink to this heading">#</a></h3>
+<p>Find one row where the two representations disagree (or one low-confidence row if they all agree). Why might TF-IDF favor lexical overlap while embeddings favor broader semantic similarity? Which prediction is better supported by the text and the label definitions? Do not answer only with an accuracy number.</p>
+</section>
+</section>
+<section id="part-4-optional-gemini-classification-comparison">
+<h2>Part 4 — Optional Gemini classification comparison<a class="headerlink" href="#part-4-optional-gemini-classification-comparison" title="Permalink to this heading">#</a></h2>
+<p>This section is independent of Parts 1–3. Skip it if you do not have an API key, encounter quota limits, or prefer not to make an API call. It sends only the 12 fictional evaluation tickets—not personal, sensitive, or course-submission data—to Gemini.</p>
+<section id="setup-before-any-gemini-code">
+<h3>Setup before any Gemini code<a class="headerlink" href="#setup-before-any-gemini-code" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Go to <a class="reference external" href="https://aistudio.google.com/">Google AI Studio</a> and create or retrieve an API key.</p></li>
+<li><p>In Colab, open the key icon (<strong>Secrets</strong>), add a secret named <code class="docutils literal notranslate"><span class="pre">GEMINI_API_KEY</span></code>, paste the value there, and enable notebook access.</p></li>
+<li><p><strong>Never paste, print, submit, or commit an API key.</strong></p></li>
+<li><p>In the configuration cell, choose a currently available lightweight <strong>Flash</strong> text model shown in AI Studio. Model availability changes, so this notebook intentionally does not hard-code a model name.</p></li>
+</ol>
+<p>Troubleshooting: a missing-key message means the Secret is absent or notebook access is disabled; a quota/rate-limit message means wait or reduce requests; an import error means rerun the SDK installation cell and restart the runtime if Colab asks. The official SDK is <code class="docutils literal notranslate"><span class="pre">google-genai</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Optional Gemini setup. This runs only if you choose to configure the section.</span>
+<span class="n">RUN_GEMINI</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Change to True only after adding GEMINI_API_KEY in Colab Secrets.</span>
+<span class="n">GEMINI_MODEL</span> <span class="o">=</span> <span class="s2">&quot;YOUR_CURRENT_FLASH_MODEL&quot;</span>  <span class="c1"># Copy a current Flash text-model ID from AI Studio.</span>
+
+<span class="k">if</span> <span class="n">RUN_GEMINI</span><span class="p">:</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="s2">&quot;-q&quot;</span><span class="p">,</span> <span class="s2">&quot;-U&quot;</span><span class="p">,</span> <span class="s2">&quot;google-genai&quot;</span><span class="p">])</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">userdata</span>
+    <span class="n">GEMINI_API_KEY</span> <span class="o">=</span> <span class="n">userdata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;GEMINI_API_KEY&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">GEMINI_API_KEY</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Add GEMINI_API_KEY to Colab Secrets and enable notebook access; do not paste it into this notebook.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">GEMINI_MODEL</span> <span class="o">==</span> <span class="s2">&quot;YOUR_CURRENT_FLASH_MODEL&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Choose a current Flash text-model ID in GEMINI_MODEL before running.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Gemini section skipped. Core classification work is complete without an API key.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Minimal connection test. It makes no classification calls.</span>
+<span class="k">if</span> <span class="n">RUN_GEMINI</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">google</span><span class="w"> </span><span class="kn">import</span> <span class="n">genai</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">genai</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">GEMINI_API_KEY</span><span class="p">)</span>
+    <span class="n">test_response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">generate_content</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">GEMINI_MODEL</span><span class="p">,</span> <span class="n">contents</span><span class="o">=</span><span class="s2">&quot;Reply with exactly: connected&quot;</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">test_response</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Connection test skipped.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">LABEL_DEFINITIONS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;account_access&quot;</span><span class="p">:</span> <span class="s2">&quot;passwords, usernames, sign-in locks, or authentication devices&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;network_access&quot;</span><span class="p">:</span> <span class="s2">&quot;Wi-Fi, Ethernet, guest network, or device registration&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;printing&quot;</span><span class="p">:</span> <span class="s2">&quot;printers, print queues, release stations, or print credit&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;security&quot;</span><span class="p">:</span> <span class="s2">&quot;phishing, malware, stolen devices, suspicious links, or recovery keys&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">gemini_label</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">label_lines</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">definition</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">definition</span> <span class="ow">in</span> <span class="n">LABEL_DEFINITIONS</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Classify this fictional support ticket using exactly one label.</span>
+<span class="s2">Labels:</span>
+<span class="si">{</span><span class="n">label_lines</span><span class="si">}</span>
+<span class="s2">Ticket: </span><span class="si">{</span><span class="n">text</span><span class="si">}</span>
+<span class="s2">Return only one label from: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">LABEL_DEFINITIONS</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;&quot;&quot;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">generate_content</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">GEMINI_MODEL</span><span class="p">,</span> <span class="n">contents</span><span class="o">=</span><span class="n">prompt</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;`&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">label</span> <span class="k">if</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">LABEL_DEFINITIONS</span> <span class="k">else</span> <span class="s2">&quot;invalid_response&quot;</span>
+
+<span class="k">if</span> <span class="n">RUN_GEMINI</span><span class="p">:</span>
+    <span class="c1"># The held-out evaluation split has 12 selected examples, keeping usage small.</span>
+    <span class="n">gemini_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">X_test</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="s2">&quot;true_label&quot;</span><span class="p">:</span> <span class="n">y_test</span><span class="o">.</span><span class="n">tolist</span><span class="p">()})</span>
+    <span class="n">gemini_results</span><span class="p">[</span><span class="s2">&quot;gemini_prediction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gemini_results</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">gemini_label</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">gemini_results</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">gemini_results</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Classification calls skipped.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="gemini-comparison-checkpoint">
+<h3>Gemini comparison checkpoint<a class="headerlink" href="#gemini-comparison-checkpoint" title="Permalink to this heading">#</a></h3>
+<p>If you ran the optional section, compare the same rows. Find one agreement, one disagreement, and one ambiguous example. Which decision is better supported by the label definitions? Optionally revise <strong>one</strong> prompt phrase (not the labels) and observe whether the prediction changes. A changing response is evidence that the prompt is part of the decision process.</p>
+</section>
+</section>
+<section id="final-model-comparison-and-takeaway">
+<h2>Final model comparison and takeaway<a class="headerlink" href="#final-model-comparison-and-takeaway" title="Permalink to this heading">#</a></h2>
+<p>Complete the last column with observations from your own run. Do not choose a winner from a single numerical score. Consider data needs, errors, latency/cost, privacy, interpretability, and what the application treats as harmful.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Approach</p></th>
+<th class="head"><p>Representation</p></th>
+<th class="head"><p>Learns from this dataset?</p></th>
+<th class="head"><p>Key observation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TF-IDF + Logistic Regression</p></td>
+<td><p>Sparse lexical vectors</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Sentence Embeddings + Logistic Regression</p></td>
+<td><p>Dense semantic vectors</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Gemini</p></td>
+<td><p>LLM internal representation; prompted label definitions</p></td>
+<td><p>No (zero-shot)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Final check:</strong> identify one prediction that surprised you, explain likely evidence or ambiguity behind it, and name the false positive or false negative that would matter most for this help desk. Text classification is not just calling a model: we choose a representation, define labels, evaluate decisions, and inspect errors before deciding whether a system is useful.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Transparent checks for the core workflow. These validate computation, not usefulness.</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tickets</span><span class="p">)</span> <span class="o">==</span> <span class="mi">24</span>
+<span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">tickets</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">tfidf_classifier</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tfidf_results</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span> <span class="o">==</span> <span class="mi">12</span>
+<span class="k">assert</span> <span class="n">tfidf_results</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^P\(&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">embedding_results</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">embedding_results</span><span class="p">[</span><span class="s2">&quot;predicted_label&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">tickets</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Core workflow checks passed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module5"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="classification.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">5.1 Text Classification and Model Evaluation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../speech.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Speech</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-goals">Learning goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-metrics-describe-mistakes-not-just-success">Part 1 — Metrics describe mistakes, not just success</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pause-and-interpret">Pause and interpret</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-build-a-transparent-text-classification-baseline">Part 2 — Build a transparent text-classification baseline</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-before-training">Predict before training</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-analysis-checkpoint">Error-analysis checkpoint</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-threshold-observation">Optional threshold observation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-change-the-representation-keep-the-classifier">Part 3 — Change the representation, keep the classifier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-representations">Compare representations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-optional-gemini-classification-comparison">Part 4 — Optional Gemini classification comparison</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-before-any-gemini-code">Setup before any Gemini code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gemini-comparison-checkpoint">Gemini comparison checkpoint</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-model-comparison-and-takeaway">Final model comparison and takeaway</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
