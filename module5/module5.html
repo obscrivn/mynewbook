@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Chapter 3. Feature Engineering &#8212; Introduction to NLP</title>
+    <title>Chapter 5 Text Classification and Model Evaluation &#8212; Introduction to NLP</title>
   
   
   
@@ -64,11 +64,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'module3/module3';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module5/module5';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3.1 Feature Engineering and Vector Representations" href="features.html" />
-    <link rel="prev" title="2.4 Tokenization with spaCy" href="../module2/spacy_tokenization.html" />
+    <link rel="next" title="5.1 Text Classification and Model Evaluation" href="classification.html" />
+    <link rel="prev" title="4.3 Coding Practice: From Similarity Scores to Retrieval" href="../module4/week4_coding_practice.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -187,9 +187,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Chapter 3. Feature Engineering</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="features.html">3.1 Feature Engineering and Vector Representations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../module4/module4.html">Chapter 4 Similarity and Retrieval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -198,8 +198,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../module4/week4_coding_practice.html">4.3 Coding Practice: From Similarity Scores to Retrieval</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../module5/module5.html">Chapter 5 Text Classification and Model Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../module5/classification.html">5.1 Text Classification and Model Evaluation</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Chapter 5 Text Classification and Model Evaluation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="classification.html">5.1 Text Classification and Model Evaluation</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -280,7 +280,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule3/module3.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule5/module5.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -310,7 +310,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/module3/module3.md" target="_blank"
+      <li><a href="../_sources/module5/module5.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -392,7 +392,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Chapter 3. Feature Engineering</h1>
+    <h1>Chapter 5 Text Classification and Model Evaluation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -406,11 +406,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="chapter-3-feature-engineering">
-<h1>Chapter 3. Feature Engineering<a class="headerlink" href="#chapter-3-feature-engineering" title="Permalink to this heading">#</a></h1>
-<p>This week introduces the core idea that language must be converted into numerical representations before it can be used in machine learning and retrieval systems.</p>
-<p>The path is simple but important: text is tokenized, vocabulary is built, document features are counted, and those feature vectors can be used for classification, clustering, ranking, and later semantic retrieval.</p>
-<p>The chapter below focuses on the conceptual foundations: document-term matrices, n-grams, TF-IDF, and the transition from sparse lexical vectors to dense embeddings.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-5-text-classification-and-model-evaluation">
+<h1>Chapter 5 Text Classification and Model Evaluation<a class="headerlink" href="#chapter-5-text-classification-and-model-evaluation" title="Permalink to this heading">#</a></h1>
+<p>This week focuses on the next step after representation and similarity: learning from labeled examples to assign categories to new text, and judging whether those predictions can be trusted.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="classification.html"><span class="doc std std-doc">Reading: Text Classification and Model Evaluation</span></a></p></li>
+</ul>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -428,7 +429,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./module3"
+            path: "./module5"
         },
         predefinedOutput: true
     }
@@ -446,20 +447,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../module2/spacy_tokenization.html"
+       href="../module4/week4_coding_practice.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">2.4 Tokenization with spaCy</p>
+        <p class="prev-next-title">4.3 Coding Practice: From Similarity Scores to Retrieval</p>
       </div>
     </a>
     <a class="right-next"
-       href="features.html"
+       href="classification.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">3.1 Feature Engineering and Vector Representations</p>
+        <p class="prev-next-title">5.1 Text Classification and Model Evaluation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

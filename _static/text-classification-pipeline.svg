@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="330" viewBox="0 0 1400 330" role="img" aria-labelledby="title desc">
+  <title id="title">From text to an evaluated classification decision</title>
+  <desc id="desc">A conceptual pipeline: text is turned into features, a classifier produces a score, the score becomes a probability, a decision threshold turns the probability into a label, and the results are evaluated with error analysis. A dashed arrow shows that error analysis feeds back into better features, data, and models.</desc>
+  <defs>
+    <style>
+      .label { font: 700 24px 'Segoe UI', Arial, sans-serif; fill: #1f2937; }
+      .small { font: 500 18px 'Segoe UI', Arial, sans-serif; fill: #374151; }
+      .group { font: 700 20px 'Segoe UI', Arial, sans-serif; fill: #475569; letter-spacing: 1px; }
+      .b1 { fill: #e0f2fe; stroke: #0f172a; stroke-width: 2; }
+      .b2 { fill: #dcfce7; stroke: #0f172a; stroke-width: 2; }
+      .b3 { fill: #fef3c7; stroke: #0f172a; stroke-width: 2; }
+      .b4 { fill: #f3e8ff; stroke: #0f172a; stroke-width: 2; }
+      .arrow { stroke: #1d4ed8; stroke-width: 4; fill: none; marker-end: url(#arrowhead); }
+      .loop { stroke: #64748b; stroke-width: 3; stroke-dasharray: 9 7; fill: none; marker-end: url(#loophead); }
+      .bracket { stroke: #94a3b8; stroke-width: 3; fill: none; }
+    </style>
+    <marker id="arrowhead" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="15" refY="8" orient="auto">
+      <path d="M0,0 L16,8 L0,16 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="loophead" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="15" refY="8" orient="auto">
+      <path d="M0,0 L16,8 L0,16 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1400" height="330" fill="#f8fafc"/>
+
+  <!-- feedback loop -->
+  <path class="loop" d="M1282 105 L1282 58 L312 58 L312 102"/>
+  <text class="small" x="797" y="44" text-anchor="middle">error analysis suggests better features, data, or models</text>
+
+  <!-- boxes -->
+  <rect class="b1" x="38" y="110" width="160" height="110" rx="18"/>
+  <text class="label" x="118" y="153" text-anchor="middle">Text</text>
+  <text class="small" x="118" y="182" text-anchor="middle">a document,</text>
+  <text class="small" x="118" y="204" text-anchor="middle">email, or review</text>
+
+  <line class="arrow" x1="198" y1="165" x2="230" y2="165"/>
+
+  <rect class="b1" x="232" y="110" width="160" height="110" rx="18"/>
+  <text class="label" x="312" y="153" text-anchor="middle">Features</text>
+  <text class="small" x="312" y="182" text-anchor="middle">vector</text>
+  <text class="small" x="312" y="204" text-anchor="middle">representation</text>
+
+  <line class="arrow" x1="392" y1="165" x2="424" y2="165"/>
+
+  <rect class="b2" x="426" y="110" width="160" height="110" rx="18"/>
+  <text class="label" x="506" y="153" text-anchor="middle">Classifier</text>
+  <text class="small" x="506" y="182" text-anchor="middle">learned weights</text>
+  <text class="small" x="506" y="204" text-anchor="middle">as evidence</text>
+
+  <line class="arrow" x1="586" y1="165" x2="618" y2="165"/>
+
+  <rect class="b2" x="620" y="110" width="160" height="110" rx="18"/>
+  <text class="label" x="700" y="153" text-anchor="middle">Score</text>
+  <text class="small" x="700" y="182" text-anchor="middle">weighted evidence</text>
+  <text class="small" x="700" y="204" text-anchor="middle">added up</text>
+
+  <line class="arrow" x1="780" y1="165" x2="812" y2="165"/>
+
+  <rect class="b2" x="814" y="110" width="160" height="110" rx="18"/>
+  <text class="label" x="894" y="153" text-anchor="middle">Probability</text>
+  <text class="small" x="894" y="182" text-anchor="middle">a value between</text>
+  <text class="small" x="894" y="204" text-anchor="middle">0 and 1</text>
+
+  <line class="arrow" x1="974" y1="165" x2="1006" y2="165"/>
+
+  <rect class="b3" x="1008" y="110" width="160" height="110" rx="18"/>
+  <text class="label" x="1088" y="153" text-anchor="middle">Decision</text>
+  <text class="small" x="1088" y="182" text-anchor="middle">threshold turns</text>
+  <text class="small" x="1088" y="204" text-anchor="middle">it into a label</text>
+
+  <line class="arrow" x1="1168" y1="165" x2="1200" y2="165"/>
+
+  <rect class="b4" x="1202" y="110" width="160" height="110" rx="18"/>
+  <text class="label" x="1282" y="153" text-anchor="middle">Evaluation</text>
+  <text class="small" x="1282" y="182" text-anchor="middle">metrics and</text>
+  <text class="small" x="1282" y="204" text-anchor="middle">error analysis</text>
+
+  <!-- group brackets -->
+  <path class="bracket" d="M38 250 L38 260 L392 260 L392 250"/>
+  <text class="group" x="215" y="292" text-anchor="middle">REPRESENT</text>
+
+  <path class="bracket" d="M426 250 L426 260 L974 260 L974 250"/>
+  <text class="group" x="700" y="292" text-anchor="middle">MODEL</text>
+
+  <path class="bracket" d="M1008 250 L1008 260 L1168 260 L1168 250"/>
+  <text class="group" x="1088" y="292" text-anchor="middle">DECIDE</text>
+
+  <path class="bracket" d="M1202 250 L1202 260 L1362 260 L1362 250"/>
+  <text class="group" x="1282" y="292" text-anchor="middle">EVALUATE</text>
+</svg>

@@ -1,0 +1,991 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Homework 1: Can This Support Retriever Be Trusted? &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module4/week4_homework_retrieval';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="module4.html">Chapter 4 Similarity and Retrieval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="cluster.html">4.1 Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="practice.html">4.2 Experiment: From Similarity Scores to Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week4_coding_practice.html">4.3 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module5/module5.html">Chapter 5 Text Classification and Model Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module5/classification.html">5.1 Text Classification and Model Evaluation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phonetics.html">Speech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recognizer.html">Speech Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule4/week4_homework_retrieval.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module4/week4_homework_retrieval.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Homework 1: Can This Support Retriever Be Trusted?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario">Scenario</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-are-given">What you are given</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-time">Expected time</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#skills-assessed">Skills assessed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission">Submission</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#responsible-ai-use">Responsible AI use</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-setup">0. Environment setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#live-mode-and-fallback-mode">Live mode and fallback mode</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-provided-mock-dataset">1. Inspect the provided mock dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-and-task-fit">Model and task fit</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graded-checkpoint-1-retrieval-brief-15-points">Graded Checkpoint 1: Retrieval brief — 15 points</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-idf-baseline">2. TF-IDF baseline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentence-transformer-retrieval">3. Sentence Transformer retrieval</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graded-checkpoint-2-build-and-compare-retrieval-30-points">Graded Checkpoint 2: Build and compare retrieval — 30 points</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluate-retrieval-quality">4. Evaluate retrieval quality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graded-checkpoint-3-evaluate-retrieval-quality-25-points">Graded Checkpoint 3: Evaluate retrieval quality — 25 points</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-the-result">5. Challenge the result</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-before-execution">Prediction before execution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graded-checkpoint-4-challenge-and-recommendation-25-points">Graded Checkpoint 4: Challenge and recommendation — 25 points</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graded-checkpoint-5-ai-use-and-validation-5-points">Graded Checkpoint 5: AI Use and Validation — 5 points</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transparent-validation-checks">6. Transparent validation checks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-submission-check">Final submission check</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="homework-1-can-this-support-retriever-be-trusted">
+<h1>Homework 1: Can This Support Retriever Be Trusted?<a class="headerlink" href="#homework-1-can-this-support-retriever-be-trusted" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module4/week4_homework_retrieval.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<section id="scenario">
+<h2>Scenario<a class="headerlink" href="#scenario" title="Permalink to this heading">#</a></h2>
+<p>You are an <strong>NLP engineer</strong> helping a small product team build a retrieval app for the fictional <strong>Northstar University Technology Help Center</strong>. The app matches a user’s short question to useful support articles. Your job is to test the retriever and recommend one operating mode: <strong>automatic top-1 routing</strong>, <strong>assisted top-3 suggestions</strong>, or <strong>not ready</strong>.</p>
+<p>All support content is synthetic and is not Indiana University guidance.</p>
+</section>
+<section id="what-you-are-given">
+<h2>What you are given<a class="headerlink" href="#what-you-are-given" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>this starter <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> notebook;</p></li>
+<li><p>a mock dataset containing 30 support articles, 10 evaluation questions, and 5 challenge questions;</p></li>
+<li><p>relevance labels for evaluating retrieval;</p></li>
+<li><p>a complete TF-IDF baseline and evaluation helpers; and</p></li>
+<li><p>validated fallback rankings for a temporary model-download outage.</p></li>
+</ul>
+<p>The dataset is embedded in the notebook, so you do not need to find, scrape, upload, or connect to any external knowledge base.</p>
+</section>
+<section id="expected-time">
+<h2>Expected time<a class="headerlink" href="#expected-time" title="Permalink to this heading">#</a></h2>
+<p>This homework is designed for <strong>2-3 hours maximum</strong>. Most setup, data loading, TF-IDF, ranking, and metric code is provided. You complete two embedding calls and focus on interpreting evidence. If a genuine model-download problem would push you beyond three hours, use the automatic fallback and document the error in Checkpoint 2.</p>
+</section>
+<section id="skills-assessed">
+<h2>Skills assessed<a class="headerlink" href="#skills-assessed" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>distinguish lexical and dense representations;</p></li>
+<li><p>judge model-task fit from documentation;</p></li>
+<li><p>encode and rank queries and documents;</p></li>
+<li><p>evaluate top-k retrieval;</p></li>
+<li><p>investigate failures; and</p></li>
+<li><p>communicate a responsible recommendation.</p></li>
+</ul>
+</section>
+<section id="submission">
+<h2>Submission<a class="headerlink" href="#submission" title="Permalink to this heading">#</a></h2>
+<p>Submit one Google Colab notebook URL in Canvas. Share it as <strong>Anyone with the link can view</strong>, run all cells, leave outputs visible, and complete Graded Checkpoints 1-5. Do not submit a separate report or AI transcript.</p>
+</section>
+<section id="responsible-ai-use">
+<h2>Responsible AI use<a class="headerlink" href="#responsible-ai-use" title="Permalink to this heading">#</a></h2>
+<p>AI assistants may help with coding, debugging, documentation, or alternatives. You remain responsible for understanding and validating all code, outputs, and conclusions.</p>
+</section>
+<section id="environment-setup">
+<h2>0. Environment setup<a class="headerlink" href="#environment-setup" title="Permalink to this heading">#</a></h2>
+<p>The setup installs the pinned Sentence Transformers version only when needed. A fresh Colab session normally needs internet access.</p>
+<section id="live-mode-and-fallback-mode">
+<h3>Live mode and fallback mode<a class="headerlink" href="#live-mode-and-fallback-mode" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Live mode</strong> means the notebook successfully loads the pinned Sentence Transformer and uses the two embedding calls you complete. The notebook creates new document and query embeddings, calculates similarity scores, and builds the rankings during your run. This is the expected mode.</p></li>
+<li><p><strong>Fallback mode</strong> means the notebook uses instructor-provided top-three rankings that were previously generated and checked with the same pinned model. The fixed evaluation and challenge questions still work, but no new embeddings are created during your run.</p></li>
+</ul>
+<p>You do not switch modes manually. Run the notebook and read the printed <code class="docutils literal notranslate"><span class="pre">Embedding</span> <span class="pre">retrieval</span> <span class="pre">mode</span></code>. Before you complete the two TODOs, the starter uses fallback mode. After correct implementation, it changes to live mode. If model loading genuinely fails, the fallback activates automatically; copy the reported error into Checkpoint 2 and continue with the interpretation tasks.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">importlib.metadata</span><span class="w"> </span><span class="kn">import</span> <span class="n">PackageNotFoundError</span><span class="p">,</span> <span class="n">version</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="n">REQUIRED_ST_VERSION</span> <span class="o">=</span> <span class="s2">&quot;5.1.0&quot;</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">installed_st_version</span> <span class="o">=</span> <span class="n">version</span><span class="p">(</span><span class="s2">&quot;sentence-transformers&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">PackageNotFoundError</span><span class="p">:</span>
+    <span class="n">installed_st_version</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">if</span> <span class="n">installed_st_version</span> <span class="o">!=</span> <span class="n">REQUIRED_ST_VERSION</span><span class="p">:</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="s2">&quot;-q&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;sentence-transformers==</span><span class="si">{</span><span class="n">REQUIRED_ST_VERSION</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="p">])</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sentence-transformers&quot;</span><span class="p">,</span> <span class="n">installed_st_version</span><span class="p">,</span> <span class="s2">&quot;is ready&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics.pairwise</span><span class="w"> </span><span class="kn">import</span> <span class="n">cosine_similarity</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sentence_transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SentenceTransformer</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_colwidth&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_rows&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="inspect-the-provided-mock-dataset">
+<h2>1. Inspect the provided mock dataset<a class="headerlink" href="#inspect-the-provided-mock-dataset" title="Permalink to this heading">#</a></h2>
+<p>The dataset below is already loaded from the starter notebook: 30 short support articles, 10 evaluation questions, and 5 challenge questions. Relevance labels are visible because the assignment assesses evaluation. Some questions reasonably have more than one acceptable article.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ARTICLES_DATA</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;ACC-01&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Reset a forgotten account password&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;account_access&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Use the Northstar account recovery page when you cannot remember your password. Enter your username, confirm a recovery email or phone number, and create a new password. This process changes the password used for email, course tools, wireless access, and other connected services. If you still know your password and only want to replace a sign-in approval device, use the device replacement article instead.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;ACC-02&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Replace the phone used for sign-in approval&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;account_access&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Use the authentication device portal when you have a new phone or no longer have the device that received sign-in approvals. Choose Replace Device, verify your identity with a backup method, and enroll the new phone. Replacing an approval device does not require changing a password that still works. Contact the fictional help center if no backup method is available.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;ACC-03&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Unlock an account after repeated sign-in failures&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;account_access&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;An account may be temporarily locked after several unsuccessful sign-in attempts. Wait fifteen minutes, close saved login prompts, and try the correct password once. If the account remains locked, use the account recovery page or contact the fictional help center. A lockout is different from forgetting a username or replacing the phone used for sign-in approval.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;ACC-04&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Change a password you still know&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;account_access&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Use account settings to change a password before it expires or whenever you want a new one. Sign in with the current password, enter the replacement twice, and update saved credentials on email, wireless, and mobile devices. If you cannot remember the current password, follow the forgotten password article. A password change does not replace an authentication phone.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;ACC-05&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Find a forgotten university username&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;account_access&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Use the username lookup page if you remember your personal details but not the account name used to sign in. The lookup sends the username to a verified recovery address. This article does not reset a password, unlock an account, or change an authentication device. Contact the fictional help center if the recovery address is no longer available.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;NET-01&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Connect a personal computer to secure campus Wi-Fi&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;network_access&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Choose Northstar Secure from the wireless menu on a personal laptop, enter the university username and password, and accept the fictional network certificate only when its name matches the setup page. Forget old campus networks if the computer repeatedly selects the wrong connection. Visitors without university accounts should use the guest network instructions instead.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;NET-02&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Connect a visitor to the guest wireless network&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;network_access&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Visitors should select Northstar Guest and complete the browser registration page. A sponsor code may be required for extended access. University students and employees should use the secure campus wireless network instead because it provides access to more services. This article covers guest enrollment, not slow connections after a device is already online.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;NET-03&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Troubleshoot slow or unstable wireless service&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;network_access&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;When wireless service disconnects or becomes unusually slow, compare more than one website, move closer to an access point, disable and re-enable Wi-Fi, and test another device in the same location. Record the building, room, time, network name, and affected devices before reporting the problem. First-time connection failures should use the secure or guest setup articles.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;NET-04&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Use a wired network connection in campus housing&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;network_access&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Connect an Ethernet cable from the room jack to the computer or approved adapter, then open a browser to complete device registration. Test another cable before reporting a dead wall jack. This procedure applies to wired residential connections. It does not configure secure Wi-Fi or register a screenless game console for wireless use.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;NET-05&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Register a game console or screenless network device&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;network_access&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s2">&quot;Devices that cannot open a browser, such as some game consoles, streaming boxes, and smart devices, require manual network registration. Find the device&#39;s wireless hardware address, enter it in the Northstar device portal, and connect to the designated device network. Laptops and phones should use the normal secure wireless setup instead.&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;SFT-01&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Install university-licensed software&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;software_access&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Open the Northstar software catalog to check whether a required application is available for your role and operating system. Review the license conditions, download the approved installer, and sign in when prompted. Some applications are available only through the virtual desktop. This article covers obtaining licensed software, not updating an application that is already installed.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;SFT-02&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Connect to restricted services with the campus VPN&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;software_access&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Install the approved Northstar VPN client when an off-campus service requires a campus network connection. Open the client, choose the standard remote-access profile, sign in, and approve authentication. Disconnect when the restricted task is complete. The VPN is not normally needed for public websites, ordinary email, or the learning management system.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;SFT-03&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Use the virtual desktop for remote applications&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;software_access&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;The Northstar virtual desktop provides selected applications through a browser or remote desktop client. Sign in, choose an available desktop, and save important work to approved cloud storage before ending the session. Use this option when the software catalog says an application is virtual-only or when a personal computer cannot run the required program.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;SFT-04&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Update an installed application&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;software_access&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s2">&quot;Check the application&#39;s About or Settings menu for its current version, save open work, and use the built-in update command or the approved installer from the software catalog. Restart the application after updating. If the program is not installed yet or the license is unavailable, use the licensed software article rather than this update procedure.&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;FIL-01&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Resolve a cloud storage quota warning&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;files_storage&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;A quota warning means the account is close to or above its allowed cloud storage. Sort files by size, remove unneeded duplicates, empty the deleted-items folder, and move archival material to an approved location. Deleting a file does not immediately reduce usage if it remains in the recycle area. This article does not address a missing file that needs recovery.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;FIL-02&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Recover a recently deleted file&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;files_storage&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Open the cloud storage recycle area, locate the deleted item, and choose Restore. Also check version history if the file exists but recent content is missing. Recovery availability is limited, so act promptly and record the file name and approximate deletion time. Emptying the recycle area may make self-service recovery unavailable.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;FIL-03&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Change access to a shared folder&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;files_storage&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s2">&quot;Open the folder&#39;s sharing settings to review who can view, comment, or edit. Change the permission for the intended person or group and remove broad public access that is no longer needed. Test the link in a private browser when possible. This article addresses permissions; it does not restore deleted files or resolve storage quota warnings.&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;FIL-04&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Share or submit a file that is too large&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;files_storage&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;When a file exceeds an upload or email limit, place it in approved cloud storage and share a view-only link with the intended audience. For course submissions, confirm that the instructor accepts links and that permission remains available through grading. Compress media only when quality requirements allow it. Do not split sensitive files across unapproved public services.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;PRN-01&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Add a campus printer to a computer&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;printing&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Install the Northstar print client, choose the campus print queue, and follow the operating-system prompts to add it. Send a one-page test document before printing a large job. If a submitted job appears in the queue but no paper comes out, use the print release instructions. If the printer cannot be contacted, check the printer offline article.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;PRN-02&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Check or add printing credit&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;printing&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Open the fictional print account page to review the remaining balance and recent charges. Add credit through the approved payment method if the balance is too low for the requested pages. A sufficient balance does not release a job waiting at a printer or repair an offline device. Report a disputed charge with the job time and printer location.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;PRN-03&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Release a print job at the printer&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;printing&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;After sending a document to the campus print queue, visit a release station, sign in, select the job, review the page count, and choose Print. Jobs expire after the fictional retention period. If the job is absent, confirm that the correct queue was selected. If it remains listed but the printer reports an error, also consult the printer offline article.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;PRN-04&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Troubleshoot a printer that is offline or in error&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;printing&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Check the printer display for paper, toner, jam, or maintenance messages. Do not open secured panels. Try another nearby printer and report the device name, location, and displayed error. A job can also wait because it has not been released, so confirm its status in the print queue before assuming the printer itself is offline.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;SEC-01&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Report a suspected phishing message&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;security&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s2">&quot;Do not open unexpected attachments or use a message link that asks for a password, payment, or urgent verification. Use the mail client&#39;s Report Phishing command or forward the message to the fictional security team as an attachment. If credentials were already entered, change the password from a trusted device and review the suspicious sign-in article.&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;SEC-02&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Respond to suspected malware on a computer&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;security&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Disconnect the computer from networks if it displays unexpected encryption messages, repeated pop-ups, unknown software, or other signs of compromise. Do not continue entering passwords. Record what happened and contact the fictional security team from another device. A suspicious email alone should be reported with the phishing procedure instead of treated as confirmed malware.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;SEC-03&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Report a lost or stolen laptop or phone&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;security&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Report a missing university-owned or personally enrolled device promptly. Provide the device type, asset tag when applicable, last known location, and approximate time it disappeared. Use an approved device-finding service only when it is safe to do so. Change exposed credentials and remove the device from sign-in approval if necessary. For a phone replacement without loss, use the authentication device article.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;SEC-04&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Find an encryption recovery key&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;security&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;An encrypted computer may request a recovery key after a hardware, firmware, or security change. Record the recovery-key identifier shown on screen and use the approved device-management portal to locate the matching key. Do not post the key in public messages. A recovery key unlocks encrypted storage; it is not the same as an account password reset.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;LRN-01&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Troubleshoot a course assignment upload&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;learning_tools&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Confirm the assignment is open, the file type is allowed, and the upload finished before selecting Submit. Reopen the assignment to verify that a receipt or submitted file appears. If a video or dataset exceeds the stated limit, check whether the instructor permits an approved cloud-storage link. Preserve screenshots and the submission receipt when reporting a problem.&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;LRN-02&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Fix missing sound in a video meeting&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;learning_tools&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s2">&quot;In the meeting application, select the intended microphone and speaker, run the audio test, and check the operating system&#39;s privacy permissions. Disconnect unused headsets and close other programs that may control the microphone. If other websites also have no sound, test the device outside the meeting application before reporting the issue.&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;LRN-03&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Connect a laptop to a classroom display&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;learning_tools&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s2">&quot;Select the room&#39;s presentation source, connect the labeled cable or approved wireless display, and choose Duplicate or Extend in the computer&#39;s display settings. Confirm that the correct adapter is attached and wake the room display before reconnecting. For sound, select the room audio device separately. Record the room number if the display remains blank.&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;doc_id&#39;</span><span class="p">:</span> <span class="s1">&#39;LRN-04&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Set up university email on a phone&#39;</span><span class="p">,</span> <span class="s1">&#39;intent_family&#39;</span><span class="p">:</span> <span class="s1">&#39;learning_tools&#39;</span><span class="p">,</span> <span class="s1">&#39;article_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Add a new work or school account in the approved mail application, enter the university email address, complete the web sign-in, and approve authentication. Do not manually enter server settings unless the setup page specifically requires them. If mail was working but expected messages are missing, check filtering and quarantine rather than adding the account again.&#39;</span><span class="p">}]</span>
+
+<span class="n">QUERIES_DATA</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;query_id&#39;</span><span class="p">:</span> <span class="s1">&#39;Q01&#39;</span><span class="p">,</span> <span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="s1">&#39;evaluation&#39;</span><span class="p">,</span> <span class="s1">&#39;query_text&#39;</span><span class="p">:</span> <span class="s1">&#39;I got a new phone and cannot approve my university login anymore.&#39;</span><span class="p">,</span> <span class="s1">&#39;relevant_doc_ids&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;ACC-02&#39;</span><span class="p">],</span> <span class="s1">&#39;challenge_type&#39;</span><span class="p">:</span> <span class="s1">&#39;semantic_paraphrase&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;query_id&#39;</span><span class="p">:</span> <span class="s1">&#39;Q02&#39;</span><span class="p">,</span> <span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="s1">&#39;evaluation&#39;</span><span class="p">,</span> <span class="s1">&#39;query_text&#39;</span><span class="p">:</span> <span class="s1">&#39;My laptop keeps dropping the wireless connection in the library.&#39;</span><span class="p">,</span> <span class="s1">&#39;relevant_doc_ids&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;NET-03&#39;</span><span class="p">],</span> <span class="s1">&#39;challenge_type&#39;</span><span class="p">:</span> <span class="s1">&#39;symptom_description&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;query_id&#39;</span><span class="p">:</span> <span class="s1">&#39;Q03&#39;</span><span class="p">,</span> <span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="s1">&#39;evaluation&#39;</span><span class="p">,</span> <span class="s1">&#39;query_text&#39;</span><span class="p">:</span> <span class="s1">&#39;A campus visitor needs internet access for the afternoon.&#39;</span><span class="p">,</span> <span class="s1">&#39;relevant_doc_ids&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;NET-02&#39;</span><span class="p">],</span> <span class="s1">&#39;challenge_type&#39;</span><span class="p">:</span> <span class="s1">&#39;low_lexical_overlap&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;query_id&#39;</span><span class="p">:</span> <span class="s1">&#39;Q04&#39;</span><span class="p">,</span> <span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="s1">&#39;evaluation&#39;</span><span class="p">,</span> <span class="s1">&#39;query_text&#39;</span><span class="p">:</span> <span class="s1">&#39;The statistics program required for my class is not installed on my computer.&#39;</span><span class="p">,</span> <span class="s1">&#39;relevant_doc_ids&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;SFT-01&#39;</span><span class="p">,</span> <span class="s1">&#39;SFT-03&#39;</span><span class="p">],</span> <span class="s1">&#39;challenge_type&#39;</span><span class="p">:</span> <span class="s1">&#39;multiple_valid_documents&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;query_id&#39;</span><span class="p">:</span> <span class="s1">&#39;Q05&#39;</span><span class="p">,</span> <span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="s1">&#39;evaluation&#39;</span><span class="p">,</span> <span class="s1">&#39;query_text&#39;</span><span class="p">:</span> <span class="s1">&#39;I deleted a spreadsheet yesterday and need to get it back.&#39;</span><span class="p">,</span> <span class="s1">&#39;relevant_doc_ids&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;FIL-02&#39;</span><span class="p">],</span> <span class="s1">&#39;challenge_type&#39;</span><span class="p">:</span> <span class="s1">&#39;semantic_paraphrase&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;query_id&#39;</span><span class="p">:</span> <span class="s1">&#39;Q06&#39;</span><span class="p">,</span> <span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="s1">&#39;evaluation&#39;</span><span class="p">,</span> <span class="s1">&#39;query_text&#39;</span><span class="p">:</span> <span class="s1">&#39;My project partner can open our folder but cannot make changes.&#39;</span><span class="p">,</span> <span class="s1">&#39;relevant_doc_ids&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;FIL-03&#39;</span><span class="p">],</span> <span class="s1">&#39;challenge_type&#39;</span><span class="p">:</span> <span class="s1">&#39;implicit_permission_problem&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;query_id&#39;</span><span class="p">:</span> <span class="s1">&#39;Q07&#39;</span><span class="p">,</span> <span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="s1">&#39;evaluation&#39;</span><span class="p">,</span> <span class="s1">&#39;query_text&#39;</span><span class="p">:</span> <span class="s1">&#39;The document is in the campus print queue, but nothing has printed yet.&#39;</span><span class="p">,</span> <span class="s1">&#39;relevant_doc_ids&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PRN-03&#39;</span><span class="p">,</span> <span class="s1">&#39;PRN-04&#39;</span><span class="p">],</span> <span class="s1">&#39;challenge_type&#39;</span><span class="p">:</span> <span class="s1">&#39;ambiguous_state&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;query_id&#39;</span><span class="p">:</span> <span class="s1">&#39;Q08&#39;</span><span class="p">,</span> <span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="s1">&#39;evaluation&#39;</span><span class="p">,</span> <span class="s1">&#39;query_text&#39;</span><span class="p">:</span> <span class="s1">&#39;An email says my account will close unless I verify my password immediately.&#39;</span><span class="p">,</span> <span class="s1">&#39;relevant_doc_ids&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;SEC-01&#39;</span><span class="p">],</span> <span class="s1">&#39;challenge_type&#39;</span><span class="p">:</span> <span class="s1">&#39;security_risk&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;query_id&#39;</span><span class="p">:</span> <span class="s1">&#39;Q09&#39;</span><span class="p">,</span> <span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="s1">&#39;evaluation&#39;</span><span class="p">,</span> <span class="s1">&#39;query_text&#39;</span><span class="p">:</span> <span class="s1">&#39;My presentation is ready, but the classroom screen stays blank.&#39;</span><span class="p">,</span> <span class="s1">&#39;relevant_doc_ids&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;LRN-03&#39;</span><span class="p">],</span> <span class="s1">&#39;challenge_type&#39;</span><span class="p">:</span> <span class="s1">&#39;contextual_intent&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;query_id&#39;</span><span class="p">:</span> <span class="s1">&#39;Q10&#39;</span><span class="p">,</span> <span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="s1">&#39;evaluation&#39;</span><span class="p">,</span> <span class="s1">&#39;query_text&#39;</span><span class="p">:</span> <span class="s1">&#39;The course site rejects my video because the file is too big.&#39;</span><span class="p">,</span> <span class="s1">&#39;relevant_doc_ids&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;LRN-01&#39;</span><span class="p">,</span> <span class="s1">&#39;FIL-04&#39;</span><span class="p">],</span> <span class="s1">&#39;challenge_type&#39;</span><span class="p">:</span> <span class="s1">&#39;cross_intent&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;query_id&#39;</span><span class="p">:</span> <span class="s1">&#39;C01&#39;</span><span class="p">,</span> <span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="s1">&#39;challenge&#39;</span><span class="p">,</span> <span class="s1">&#39;query_text&#39;</span><span class="p">:</span> <span class="s1">&#39;Do not reset my password. I can sign in, but I need approvals sent to my replacement phone.&#39;</span><span class="p">,</span> <span class="s1">&#39;relevant_doc_ids&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;ACC-02&#39;</span><span class="p">],</span> <span class="s1">&#39;challenge_type&#39;</span><span class="p">:</span> <span class="s1">&#39;negation_and_lexical_trap&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;query_id&#39;</span><span class="p">:</span> <span class="s1">&#39;C02&#39;</span><span class="p">,</span> <span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="s1">&#39;challenge&#39;</span><span class="p">,</span> <span class="s1">&#39;query_text&#39;</span><span class="p">:</span> <span class="s1">&#39;The printer is online, and my job is waiting. Where do I make the pages come out?&#39;</span><span class="p">,</span> <span class="s1">&#39;relevant_doc_ids&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;PRN-03&#39;</span><span class="p">],</span> <span class="s1">&#39;challenge_type&#39;</span><span class="p">:</span> <span class="s1">&#39;constraint_resolution&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;query_id&#39;</span><span class="p">:</span> <span class="s1">&#39;C03&#39;</span><span class="p">,</span> <span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="s1">&#39;challenge&#39;</span><span class="p">,</span> <span class="s1">&#39;query_text&#39;</span><span class="p">:</span> <span class="s1">&#39;How do I report a phising emial that asked for my pasword?&#39;</span><span class="p">,</span> <span class="s1">&#39;relevant_doc_ids&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;SEC-01&#39;</span><span class="p">],</span> <span class="s1">&#39;challenge_type&#39;</span><span class="p">:</span> <span class="s1">&#39;misspelling&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;query_id&#39;</span><span class="p">:</span> <span class="s1">&#39;C04&#39;</span><span class="p">,</span> <span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="s1">&#39;challenge&#39;</span><span class="p">,</span> <span class="s1">&#39;query_text&#39;</span><span class="p">:</span> <span class="s1">&#39;A guest connected to Wi-Fi, but it becomes slow every few minutes.&#39;</span><span class="p">,</span> <span class="s1">&#39;relevant_doc_ids&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;NET-03&#39;</span><span class="p">],</span> <span class="s1">&#39;challenge_type&#39;</span><span class="p">:</span> <span class="s1">&#39;distracting_role_term&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;query_id&#39;</span><span class="p">:</span> <span class="s1">&#39;C05&#39;</span><span class="p">,</span> <span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="s1">&#39;challenge&#39;</span><span class="p">,</span> <span class="s1">&#39;query_text&#39;</span><span class="p">:</span> <span class="s1">&#39;My phone was stolen, and it was also the device I used to approve logins.&#39;</span><span class="p">,</span> <span class="s1">&#39;relevant_doc_ids&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;SEC-03&#39;</span><span class="p">,</span> <span class="s1">&#39;ACC-02&#39;</span><span class="p">],</span> <span class="s1">&#39;challenge_type&#39;</span><span class="p">:</span> <span class="s1">&#39;multi_intent&#39;</span><span class="p">}]</span>
+
+<span class="n">FALLBACK_EMBEDDING_RANKINGS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Q01&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;ACC-02&#39;</span><span class="p">,</span> <span class="mf">0.6845</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;LRN-04&#39;</span><span class="p">,</span> <span class="mf">0.5557</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;ACC-03&#39;</span><span class="p">,</span> <span class="mf">0.4603</span><span class="p">]],</span> <span class="s1">&#39;Q02&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;NET-03&#39;</span><span class="p">,</span> <span class="mf">0.4631</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;LRN-03&#39;</span><span class="p">,</span> <span class="mf">0.3535</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;NET-04&#39;</span><span class="p">,</span> <span class="mf">0.3413</span><span class="p">]],</span> <span class="s1">&#39;Q03&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;SFT-02&#39;</span><span class="p">,</span> <span class="mf">0.4976</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;NET-02&#39;</span><span class="p">,</span> <span class="mf">0.4947</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;NET-01&#39;</span><span class="p">,</span> <span class="mf">0.473</span><span class="p">]],</span> <span class="s1">&#39;Q04&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;SFT-04&#39;</span><span class="p">,</span> <span class="mf">0.3279</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;SFT-01&#39;</span><span class="p">,</span> <span class="mf">0.315</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;LRN-01&#39;</span><span class="p">,</span> <span class="mf">0.215</span><span class="p">]],</span> <span class="s1">&#39;Q05&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;FIL-02&#39;</span><span class="p">,</span> <span class="mf">0.4582</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;ACC-05&#39;</span><span class="p">,</span> <span class="mf">0.3268</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;SEC-03&#39;</span><span class="p">,</span> <span class="mf">0.3147</span><span class="p">]],</span> <span class="s1">&#39;Q06&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;FIL-03&#39;</span><span class="p">,</span> <span class="mf">0.5011</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;SFT-04&#39;</span><span class="p">,</span> <span class="mf">0.3859</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;LRN-01&#39;</span><span class="p">,</span> <span class="mf">0.3043</span><span class="p">]],</span> <span class="s1">&#39;Q07&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;PRN-01&#39;</span><span class="p">,</span> <span class="mf">0.5433</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;PRN-03&#39;</span><span class="p">,</span> <span class="mf">0.4733</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;PRN-02&#39;</span><span class="p">,</span> <span class="mf">0.3947</span><span class="p">]],</span> <span class="s1">&#39;Q08&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;ACC-03&#39;</span><span class="p">,</span> <span class="mf">0.481</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;SEC-02&#39;</span><span class="p">,</span> <span class="mf">0.4541</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;SEC-01&#39;</span><span class="p">,</span> <span class="mf">0.42</span><span class="p">]],</span> <span class="s1">&#39;Q09&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;LRN-03&#39;</span><span class="p">,</span> <span class="mf">0.3966</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;LRN-02&#39;</span><span class="p">,</span> <span class="mf">0.3104</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;LRN-01&#39;</span><span class="p">,</span> <span class="mf">0.2925</span><span class="p">]],</span> <span class="s1">&#39;Q10&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;LRN-01&#39;</span><span class="p">,</span> <span class="mf">0.5279</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;FIL-04&#39;</span><span class="p">,</span> <span class="mf">0.4506</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;FIL-03&#39;</span><span class="p">,</span> <span class="mf">0.2745</span><span class="p">]],</span> <span class="s1">&#39;C01&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;ACC-02&#39;</span><span class="p">,</span> <span class="mf">0.8176</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;ACC-04&#39;</span><span class="p">,</span> <span class="mf">0.7199</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;ACC-03&#39;</span><span class="p">,</span> <span class="mf">0.6096</span><span class="p">]],</span> <span class="s1">&#39;C02&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;PRN-01&#39;</span><span class="p">,</span> <span class="mf">0.6323</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;PRN-03&#39;</span><span class="p">,</span> <span class="mf">0.6128</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;PRN-04&#39;</span><span class="p">,</span> <span class="mf">0.5612</span><span class="p">]],</span> <span class="s1">&#39;C03&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;SEC-01&#39;</span><span class="p">,</span> <span class="mf">0.3888</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;SEC-02&#39;</span><span class="p">,</span> <span class="mf">0.384</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;SEC-03&#39;</span><span class="p">,</span> <span class="mf">0.223</span><span class="p">]],</span> <span class="s1">&#39;C04&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;NET-03&#39;</span><span class="p">,</span> <span class="mf">0.5737</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;NET-02&#39;</span><span class="p">,</span> <span class="mf">0.3981</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;NET-04&#39;</span><span class="p">,</span> <span class="mf">0.3239</span><span class="p">]],</span> <span class="s1">&#39;C05&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;ACC-02&#39;</span><span class="p">,</span> <span class="mf">0.5548</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;SEC-03&#39;</span><span class="p">,</span> <span class="mf">0.5289</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;ACC-03&#39;</span><span class="p">,</span> <span class="mf">0.4077</span><span class="p">]]}</span>
+
+
+<span class="n">articles</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ARTICLES_DATA</span><span class="p">)</span>
+<span class="n">queries</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">QUERIES_DATA</span><span class="p">)</span>
+<span class="n">articles</span><span class="p">[</span><span class="s2">&quot;document_text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">articles</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;. &quot;</span> <span class="o">+</span> <span class="n">articles</span><span class="p">[</span><span class="s2">&quot;article_text&quot;</span><span class="p">]</span>
+<span class="n">evaluation_queries</span> <span class="o">=</span> <span class="n">queries</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;split == &#39;evaluation&#39;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">challenge_queries</span> <span class="o">=</span> <span class="n">queries</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;split == &#39;challenge&#39;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Articles:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">articles</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Evaluation queries:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">evaluation_queries</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Challenge queries:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">challenge_queries</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">articles</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;intent_family&quot;</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;article_count&quot;</span><span class="p">}))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">articles</span><span class="p">[[</span><span class="s2">&quot;doc_id&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;intent_family&quot;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="model-and-task-fit">
+<h3>Model and task fit<a class="headerlink" href="#model-and-task-fit" title="Permalink to this heading">#</a></h3>
+<p>Read the <a class="reference external" href="https://huggingface.co/sentence-transformers/multi-qa-MiniLM-L6-cos-v1"><code class="docutils literal notranslate"><span class="pre">multi-qa-MiniLM-L6-cos-v1</span></code> model card</a> and <a class="reference external" href="https://www.sbert.net/examples/sentence_transformer/applications/semantic-search/README.html">semantic-search documentation</a>. The model card describes a 384-dimensional model designed for semantic search over questions and passages. This homework uses asymmetric retrieval: short questions are matched to longer answer passages.</p>
+</section>
+</section>
+<section id="graded-checkpoint-1-retrieval-brief-15-points">
+<h2>Graded Checkpoint 1: Retrieval brief — 15 points<a class="headerlink" href="#graded-checkpoint-1-retrieval-brief-15-points" title="Permalink to this heading">#</a></h2>
+<p>Before viewing aggregate results, answer:</p>
+<ol class="arabic simple">
+<li><p>What user problem does the system solve?</p></li>
+<li><p>Why is this asymmetric retrieval?</p></li>
+<li><p>Why is the model plausible, and what is one documented limitation?</p></li>
+<li><p>What top-1 and hit-at-3 results would justify automatic routing or assisted suggestions?</p></li>
+</ol>
+<blockquote>
+<div><p>Replace this line with your response.</p>
+</div></blockquote>
+</section>
+<section id="tf-idf-baseline">
+<h2>2. TF-IDF baseline<a class="headerlink" href="#tf-idf-baseline" title="Permalink to this heading">#</a></h2>
+<p>Fit once on the article collection and transform every query in the same feature space. Do not refit on individual queries.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">rankings_from_scores</span><span class="p">(</span><span class="n">score_matrix</span><span class="p">,</span> <span class="n">query_frame</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">qpos</span><span class="p">,</span> <span class="n">qrow</span> <span class="ow">in</span> <span class="n">query_frame</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">relevant</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">qrow</span><span class="p">[</span><span class="s2">&quot;relevant_doc_ids&quot;</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">apos</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">score_matrix</span><span class="p">[</span><span class="n">qpos</span><span class="p">])[:</span><span class="n">top_k</span><span class="p">],</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">article</span> <span class="o">=</span> <span class="n">articles</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">apos</span><span class="p">]</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s2">&quot;query_id&quot;</span><span class="p">:</span> <span class="n">qrow</span><span class="p">[</span><span class="s2">&quot;query_id&quot;</span><span class="p">],</span> <span class="s2">&quot;split&quot;</span><span class="p">:</span> <span class="n">qrow</span><span class="p">[</span><span class="s2">&quot;split&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span> <span class="s2">&quot;rank&quot;</span><span class="p">:</span> <span class="n">rank</span><span class="p">,</span> <span class="s2">&quot;doc_id&quot;</span><span class="p">:</span> <span class="n">article</span><span class="p">[</span><span class="s2">&quot;doc_id&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">article</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">],</span> <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">score_matrix</span><span class="p">[</span><span class="n">qpos</span><span class="p">,</span> <span class="n">apos</span><span class="p">]),</span>
+                <span class="s2">&quot;relevant&quot;</span><span class="p">:</span> <span class="n">article</span><span class="p">[</span><span class="s2">&quot;doc_id&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">relevant</span><span class="p">,</span>
+            <span class="p">})</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fallback_to_frame</span><span class="p">(</span><span class="n">query_frame</span><span class="p">):</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">titles</span> <span class="o">=</span> <span class="n">articles</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;doc_id&quot;</span><span class="p">)[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">qrow</span> <span class="ow">in</span> <span class="n">query_frame</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">relevant</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">qrow</span><span class="p">[</span><span class="s2">&quot;relevant_doc_ids&quot;</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="p">(</span><span class="n">doc_id</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">FALLBACK_EMBEDDING_RANKINGS</span><span class="p">[</span><span class="n">qrow</span><span class="p">[</span><span class="s2">&quot;query_id&quot;</span><span class="p">]],</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s2">&quot;query_id&quot;</span><span class="p">:</span> <span class="n">qrow</span><span class="p">[</span><span class="s2">&quot;query_id&quot;</span><span class="p">],</span> <span class="s2">&quot;split&quot;</span><span class="p">:</span> <span class="n">qrow</span><span class="p">[</span><span class="s2">&quot;split&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;Sentence Transformer&quot;</span><span class="p">,</span> <span class="s2">&quot;rank&quot;</span><span class="p">:</span> <span class="n">rank</span><span class="p">,</span> <span class="s2">&quot;doc_id&quot;</span><span class="p">:</span> <span class="n">doc_id</span><span class="p">,</span>
+                <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">titles</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">doc_id</span><span class="p">],</span> <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">score</span><span class="p">),</span>
+                <span class="s2">&quot;relevant&quot;</span><span class="p">:</span> <span class="n">doc_id</span> <span class="ow">in</span> <span class="n">relevant</span><span class="p">,</span>
+            <span class="p">})</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+
+<span class="n">tfidf_vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">stop_words</span><span class="o">=</span><span class="s2">&quot;english&quot;</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">tfidf_documents</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">articles</span><span class="p">[</span><span class="s2">&quot;document_text&quot;</span><span class="p">])</span>
+<span class="n">tfidf_queries</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">queries</span><span class="p">[</span><span class="s2">&quot;query_text&quot;</span><span class="p">])</span>
+<span class="n">tfidf_rankings</span> <span class="o">=</span> <span class="n">rankings_from_scores</span><span class="p">(</span>
+    <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">tfidf_queries</span><span class="p">,</span> <span class="n">tfidf_documents</span><span class="p">),</span> <span class="n">queries</span><span class="p">,</span> <span class="s2">&quot;TF-IDF&quot;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;TF-IDF document matrix:&quot;</span><span class="p">,</span> <span class="n">tfidf_documents</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">tfidf_rankings</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;query_id == &#39;Q01&#39;&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sentence-transformer-retrieval">
+<h2>3. Sentence Transformer retrieval<a class="headerlink" href="#sentence-transformer-retrieval" title="Permalink to this heading">#</a></h2>
+<p>The model is pinned to a tested Hugging Face revision. The loading cell reports an error and enables fallback mode if the model cannot be obtained.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">MODEL_ID</span> <span class="o">=</span> <span class="s2">&quot;sentence-transformers/multi-qa-MiniLM-L6-cos-v1&quot;</span>
+<span class="n">MODEL_REVISION</span> <span class="o">=</span> <span class="s2">&quot;b207367332321f8e44f96e224ef15bc607f4dbf0&quot;</span>
+<span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">model_load_error</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="n">MODEL_ID</span><span class="p">,</span> <span class="n">revision</span><span class="o">=</span><span class="n">MODEL_REVISION</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loaded&quot;</span><span class="p">,</span> <span class="n">MODEL_ID</span><span class="p">,</span> <span class="s2">&quot;at&quot;</span><span class="p">,</span> <span class="n">MODEL_REVISION</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+    <span class="n">model_load_error</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model unavailable; fixed-query fallback is enabled.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">model_load_error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># TODO: Replace both placeholders with model.encode_document(...) and model.encode_query(...).</span>
+    <span class="c1"># Request normalized NumPy embeddings. See the preceding model-card links.</span>
+    <span class="n">document_embeddings</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">query_embeddings</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Keep these values as None so a genuine model-loading outage activates fallback mode.</span>
+    <span class="n">document_embeddings</span> <span class="o">=</span> <span class="n">query_embeddings</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="n">embedding_implementation_complete</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">document_embeddings</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">query_embeddings</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="ow">and</span> <span class="n">document_embeddings</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">384</span><span class="p">)</span> <span class="ow">and</span> <span class="n">query_embeddings</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">384</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Live embedding implementation complete:&quot;</span><span class="p">,</span> <span class="n">embedding_implementation_complete</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">embedding_implementation_complete</span><span class="p">:</span>
+    <span class="n">embedding_rankings</span> <span class="o">=</span> <span class="n">rankings_from_scores</span><span class="p">(</span>
+        <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">query_embeddings</span><span class="p">,</span> <span class="n">document_embeddings</span><span class="p">),</span> <span class="n">queries</span><span class="p">,</span> <span class="s2">&quot;Sentence Transformer&quot;</span>
+    <span class="p">)</span>
+    <span class="n">retrieval_mode</span> <span class="o">=</span> <span class="s2">&quot;live Sentence Transformer&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">embedding_rankings</span> <span class="o">=</span> <span class="n">fallback_to_frame</span><span class="p">(</span><span class="n">queries</span><span class="p">)</span>
+    <span class="n">retrieval_mode</span> <span class="o">=</span> <span class="s2">&quot;validated fixed-query fallback&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Embedding retrieval mode:&quot;</span><span class="p">,</span> <span class="n">retrieval_mode</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">embedding_rankings</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;query_id == &#39;Q01&#39;&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="graded-checkpoint-2-build-and-compare-retrieval-30-points">
+<h2>Graded Checkpoint 2: Build and compare retrieval — 30 points<a class="headerlink" href="#graded-checkpoint-2-build-and-compare-retrieval-30-points" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">required_query_ids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Q02&quot;</span><span class="p">,</span> <span class="s2">&quot;Q08&quot;</span><span class="p">,</span> <span class="s2">&quot;Q10&quot;</span><span class="p">]</span>
+<span class="n">comparison_evidence</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">tfidf_rankings</span><span class="p">,</span> <span class="n">embedding_rankings</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">comparison_evidence</span> <span class="o">=</span> <span class="n">comparison_evidence</span><span class="p">[</span><span class="n">comparison_evidence</span><span class="p">[</span><span class="s2">&quot;query_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">required_query_ids</span><span class="p">)]</span>
+<span class="n">comparison_evidence</span><span class="p">[</span><span class="s2">&quot;relevant_doc_ids&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">comparison_evidence</span><span class="p">[</span><span class="s2">&quot;query_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+    <span class="n">queries</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;query_id&quot;</span><span class="p">)[</span><span class="s2">&quot;relevant_doc_ids&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">comparison_evidence</span><span class="p">[[</span>
+    <span class="s2">&quot;query_id&quot;</span><span class="p">,</span> <span class="s2">&quot;relevant_doc_ids&quot;</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="s2">&quot;doc_id&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="s2">&quot;relevant&quot;</span>
+<span class="p">]]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;query_id&quot;</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="s2">&quot;rank&quot;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using Q02, Q08, and Q10:</p>
+<ol class="arabic simple">
+<li><p>State whether the printed retrieval mode was live or fallback. If fallback was caused by a genuine model-loading outage, include the reported error.</p></li>
+<li><p>Cite IDs, ranks, and a score for one material representation difference.</p></li>
+<li><p>Identify one query where both methods were useful.</p></li>
+<li><p>Judge whether the selected articles actually address each user’s need.</p></li>
+</ol>
+<blockquote>
+<div><p>Replace this line with your response.</p>
+</div></blockquote>
+</section>
+<section id="evaluate-retrieval-quality">
+<h2>4. Evaluate retrieval quality<a class="headerlink" href="#evaluate-retrieval-quality" title="Permalink to this heading">#</a></h2>
+<p>Top-1 accuracy asks whether the first result is acceptable. Hit-at-3 asks whether at least one acceptable result appears among the first three.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="n">rankings</span><span class="p">,</span> <span class="n">query_frame</span><span class="p">):</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">query_frame</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;query_id&quot;</span><span class="p">)[</span><span class="s2">&quot;relevant_doc_ids&quot;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">method</span><span class="p">,</span> <span class="n">method_rows</span> <span class="ow">in</span> <span class="n">rankings</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;method&quot;</span><span class="p">):</span>
+        <span class="n">top1</span><span class="p">,</span> <span class="n">hit3</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">query_id</span><span class="p">,</span> <span class="n">query_rows</span> <span class="ow">in</span> <span class="n">method_rows</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;query_id&quot;</span><span class="p">):</span>
+            <span class="n">retrieved</span> <span class="o">=</span> <span class="n">query_rows</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;rank&quot;</span><span class="p">)[</span><span class="s2">&quot;doc_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="n">relevant</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">labels</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">query_id</span><span class="p">])</span>
+            <span class="n">top1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">retrieved</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">relevant</span><span class="p">)</span>
+            <span class="n">hit3</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">relevant</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">retrieved</span><span class="p">[:</span><span class="mi">3</span><span class="p">])))</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span> <span class="s2">&quot;query_count&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">top1</span><span class="p">),</span>
+                     <span class="s2">&quot;top1_accuracy&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">top1</span><span class="p">),</span> <span class="s2">&quot;hit_at_3&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">hit3</span><span class="p">)})</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;method&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">evaluation_rankings</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+    <span class="n">tfidf_rankings</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;split == &#39;evaluation&#39;&quot;</span><span class="p">),</span>
+    <span class="n">embedding_rankings</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;split == &#39;evaluation&#39;&quot;</span><span class="p">),</span>
+<span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">metrics_summary</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">evaluation_rankings</span><span class="p">,</span> <span class="n">evaluation_queries</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">metrics_summary</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">({</span><span class="s2">&quot;top1_accuracy&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:.1%}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;hit_at_3&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:.1%}</span><span class="s2">&quot;</span><span class="p">}))</span>
+
+<span class="n">outcomes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">query_id</span> <span class="ow">in</span> <span class="n">evaluation_queries</span><span class="p">[</span><span class="s2">&quot;query_id&quot;</span><span class="p">]:</span>
+    <span class="n">relevant</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">evaluation_queries</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;query_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">query_id</span><span class="p">,</span> <span class="s2">&quot;relevant_doc_ids&quot;</span><span class="p">])</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;query_id&quot;</span><span class="p">:</span> <span class="n">query_id</span><span class="p">,</span> <span class="s2">&quot;relevant_doc_ids&quot;</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">relevant</span><span class="p">)}</span>
+    <span class="k">for</span> <span class="n">method</span><span class="p">,</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">&quot;TF-IDF&quot;</span><span class="p">,</span> <span class="s2">&quot;tfidf&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Sentence Transformer&quot;</span><span class="p">,</span> <span class="s2">&quot;embedding&quot;</span><span class="p">)]:</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="n">evaluation_rankings</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;query_id == @query_id and method == @method&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;rank&quot;</span><span class="p">)[</span><span class="s2">&quot;doc_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">row</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">_top1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">row</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">_top1_correct&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">relevant</span>
+        <span class="n">row</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">_hit_at_3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">relevant</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">ids</span><span class="p">[:</span><span class="mi">3</span><span class="p">]))</span>
+    <span class="n">outcomes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="n">query_outcomes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">outcomes</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">query_outcomes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="graded-checkpoint-3-evaluate-retrieval-quality-25-points">
+<h2>Graded Checkpoint 3: Evaluate retrieval quality — 25 points<a class="headerlink" href="#graded-checkpoint-3-evaluate-retrieval-quality-25-points" title="Permalink to this heading">#</a></h2>
+<p>Report both metrics for both methods. Then analyze one shared success, one embedding improvement, and one embedding failure or non-improvement. Cite query and document IDs. Explain why aggregate metrics alone do not establish safety or usefulness.</p>
+<blockquote>
+<div><p>Replace this line with your response.</p>
+</div></blockquote>
+</section>
+<section id="challenge-the-result">
+<h2>5. Challenge the result<a class="headerlink" href="#challenge-the-result" title="Permalink to this heading">#</a></h2>
+<p>Choose one challenge. Inspect its query and type, then record a prediction before running retrieval.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">challenge_queries</span><span class="p">[[</span><span class="s2">&quot;query_id&quot;</span><span class="p">,</span> <span class="s2">&quot;query_text&quot;</span><span class="p">,</span> <span class="s2">&quot;challenge_type&quot;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="prediction-before-execution">
+<h3>Prediction before execution<a class="headerlink" href="#prediction-before-execution" title="Permalink to this heading">#</a></h3>
+<p>State your challenge ID. Predict one likely top result per method and explain the wording or constraint that may cause it.</p>
+<blockquote>
+<div><p>Replace this line with your response.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">CHALLENGE_QUERY_ID</span> <span class="o">=</span> <span class="s2">&quot;C01&quot;</span>  <span class="c1"># Choose C01, C02, C03, C04, or C05.</span>
+<span class="k">if</span> <span class="n">CHALLENGE_QUERY_ID</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">challenge_queries</span><span class="p">[</span><span class="s2">&quot;query_id&quot;</span><span class="p">]):</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Choose a challenge ID from C01 through C05.&quot;</span><span class="p">)</span>
+<span class="n">selected_challenge</span> <span class="o">=</span> <span class="n">challenge_queries</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;query_id == @CHALLENGE_QUERY_ID&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">challenge_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">tfidf_rankings</span><span class="p">,</span> <span class="n">embedding_rankings</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">challenge_results</span> <span class="o">=</span> <span class="n">challenge_results</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;query_id == @CHALLENGE_QUERY_ID&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Query:&quot;</span><span class="p">,</span> <span class="n">selected_challenge</span><span class="p">[</span><span class="s2">&quot;query_text&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Acceptable IDs:&quot;</span><span class="p">,</span> <span class="n">selected_challenge</span><span class="p">[</span><span class="s2">&quot;relevant_doc_ids&quot;</span><span class="p">])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">challenge_results</span><span class="p">[[</span><span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="s2">&quot;rank&quot;</span><span class="p">,</span> <span class="s2">&quot;doc_id&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="s2">&quot;relevant&quot;</span><span class="p">]]</span>
+        <span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="s2">&quot;rank&quot;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="graded-checkpoint-4-challenge-and-recommendation-25-points">
+<h2>Graded Checkpoint 4: Challenge and recommendation — 25 points<a class="headerlink" href="#graded-checkpoint-4-challenge-and-recommendation-25-points" title="Permalink to this heading">#</a></h2>
+<p>Compare the result with your prediction, explain the influential wording or constraint, judge each top result against the complete need, and state whether the test changes your interpretation. Propose one bounded improvement. Then write a recommendation of at most 200 words choosing automatic top-1, assisted top-3, or not ready. Cite two metrics, one failure, and one limitation.</p>
+<blockquote>
+<div><p>Replace this line with your response.</p>
+</div></blockquote>
+</section>
+<section id="graded-checkpoint-5-ai-use-and-validation-5-points">
+<h2>Graded Checkpoint 5: AI Use and Validation — 5 points<a class="headerlink" href="#graded-checkpoint-5-ai-use-and-validation-5-points" title="Permalink to this heading">#</a></h2>
+<p>In 3-5 sentences, report what you used an AI assistant for, one suggestion or output you accepted, and one thing you independently verified, changed, or rejected. If you did not use AI, state that and describe your validation.</p>
+<blockquote>
+<div><p>Replace this line with your response.</p>
+</div></blockquote>
+</section>
+<section id="transparent-validation-checks">
+<h2>6. Transparent validation checks<a class="headerlink" href="#transparent-validation-checks" title="Permalink to this heading">#</a></h2>
+<p>These checks verify data integrity, feature alignment, ranking order, and metric ranges. They do not decide whether a result is useful.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">article_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">articles</span><span class="p">[</span><span class="s2">&quot;doc_id&quot;</span><span class="p">])</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">articles</span><span class="p">)</span> <span class="o">==</span> <span class="mi">30</span> <span class="ow">and</span> <span class="n">articles</span><span class="p">[</span><span class="s2">&quot;doc_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">is_unique</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">evaluation_queries</span><span class="p">)</span> <span class="o">==</span> <span class="mi">10</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">challenge_queries</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span>
+<span class="k">assert</span> <span class="n">queries</span><span class="p">[</span><span class="s2">&quot;query_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">is_unique</span>
+<span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">article_ids</span><span class="p">)</span> <span class="k">for</span> <span class="n">ids</span> <span class="ow">in</span> <span class="n">queries</span><span class="p">[</span><span class="s2">&quot;relevant_doc_ids&quot;</span><span class="p">])</span>
+<span class="k">assert</span> <span class="n">tfidf_documents</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">30</span>
+<span class="k">assert</span> <span class="n">tfidf_documents</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">tfidf_queries</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">ranking_frame</span> <span class="ow">in</span> <span class="p">(</span><span class="n">tfidf_rankings</span><span class="p">,</span> <span class="n">embedding_rankings</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">ranking_frame</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">queries</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="k">assert</span> <span class="n">ranking_frame</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;query_id&quot;</span><span class="p">)[</span><span class="s2">&quot;rank&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">ranking_frame</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">ranking_frame</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;query_id&quot;</span><span class="p">)[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">is_monotonic_decreasing</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">embedding_implementation_complete</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">document_embeddings</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">384</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">query_embeddings</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">384</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">document_embeddings</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">query_embeddings</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">metrics_summary</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;TF-IDF&quot;</span><span class="p">,</span> <span class="s2">&quot;Sentence Transformer&quot;</span><span class="p">}</span>
+<span class="k">assert</span> <span class="n">metrics_summary</span><span class="p">[[</span><span class="s2">&quot;top1_accuracy&quot;</span><span class="p">,</span> <span class="s2">&quot;hit_at_3&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">())</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All computational validation checks passed.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Embedding retrieval mode:&quot;</span><span class="p">,</span> <span class="n">retrieval_mode</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">embedding_implementation_complete</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Complete the live embedding cells or document a genuine model-service outage.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="final-submission-check">
+<h2>Final submission check<a class="headerlink" href="#final-submission-check" title="Permalink to this heading">#</a></h2>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> All cells run in order.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Graded Checkpoints 1-5 contain your own responses.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Checkpoint 2 identifies live or fallback mode.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> If fallback was needed because of an outage, Checkpoint 2 includes the reported error.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> The Checkpoint 4 recommendation is no more than 200 words.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Required outputs are visible without full matrices.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> The Colab link allows anyone with the link to view.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module4"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario">Scenario</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-are-given">What you are given</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-time">Expected time</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#skills-assessed">Skills assessed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submission">Submission</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#responsible-ai-use">Responsible AI use</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-setup">0. Environment setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#live-mode-and-fallback-mode">Live mode and fallback mode</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-provided-mock-dataset">1. Inspect the provided mock dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-and-task-fit">Model and task fit</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graded-checkpoint-1-retrieval-brief-15-points">Graded Checkpoint 1: Retrieval brief — 15 points</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-idf-baseline">2. TF-IDF baseline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentence-transformer-retrieval">3. Sentence Transformer retrieval</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graded-checkpoint-2-build-and-compare-retrieval-30-points">Graded Checkpoint 2: Build and compare retrieval — 30 points</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluate-retrieval-quality">4. Evaluate retrieval quality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graded-checkpoint-3-evaluate-retrieval-quality-25-points">Graded Checkpoint 3: Evaluate retrieval quality — 25 points</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-the-result">5. Challenge the result</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-before-execution">Prediction before execution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graded-checkpoint-4-challenge-and-recommendation-25-points">Graded Checkpoint 4: Challenge and recommendation — 25 points</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graded-checkpoint-5-ai-use-and-validation-5-points">Graded Checkpoint 5: AI Use and Validation — 5 points</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transparent-validation-checks">6. Transparent validation checks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-submission-check">Final submission check</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

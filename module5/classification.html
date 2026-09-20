@@ -1,0 +1,1260 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>5.1 Text Classification and Model Evaluation &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module5/classification';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Speech" href="../speech.html" />
+    <link rel="prev" title="Chapter 5 Text Classification and Model Evaluation" href="module5.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module4/module4.html">Chapter 4 Similarity and Retrieval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module4/cluster.html">4.1 Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/practice.html">4.2 Experiment: From Similarity Scores to Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/week4_coding_practice.html">4.3 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module5.html">Chapter 5 Text Classification and Model Evaluation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">5.1 Text Classification and Model Evaluation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phonetics.html">Speech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recognizer.html">Speech Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule5/classification.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module5/classification.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>5.1 Text Classification and Model Evaluation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-text-classification">1. What is text classification?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-from-labeled-examples">Learning from labeled examples</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-an-interpretable-baseline">2. Logistic regression: an interpretable baseline</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#features-as-evidence">Features as evidence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bias-term">The bias term</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-evidence-to-a-score">From evidence to a score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-a-score-to-a-probability">From a score to a probability</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-a-probability-to-a-decision">From a probability to a decision</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-a-classifier-without-fooling-yourself">3. Training a classifier without fooling yourself</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-development-and-test-sets">Training, development, and test sets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-not-evaluate-on-the-training-data">Why not evaluate on the training data?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation-briefly">Cross-validation, briefly</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-leakage">Data leakage</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-confusion-matrix-understanding-model-mistakes">4. The confusion matrix: understanding model mistakes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#not-all-mistakes-cost-the-same">Not all mistakes cost the same</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-precision-recall-and-f1">5. Accuracy, precision, recall, and F1</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy">Accuracy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-and-recall">Precision and recall</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f1">F1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#which-metric-should-i-use">Which metric should I use?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#macro-vs-micro-averaging">Macro vs. micro averaging</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-thresholds-and-model-behavior">6. Decision thresholds and model behavior</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-happens-when-we-move-the-threshold">What happens when we move the threshold?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#is-a-default-not-a-rule">0.5 is a default, not a rule</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-binary-to-multiclass-classification">7. From binary to multiclass classification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-score-per-class">One score per class</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#softmax-scores-to-probabilities">Softmax: scores to probabilities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-with-several-classes">Evaluation with several classes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#responsible-evaluation-error-analysis-and-limitations">8. Responsible evaluation: error analysis and limitations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#look-at-the-mistakes">Look at the mistakes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate-metrics-can-hide-problems">Aggregate metrics can hide problems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-cards-a-brief-connection">Model Cards: a brief connection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">9. Key takeaways</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#looking-ahead">Looking ahead</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="text-classification-and-model-evaluation">
+<h1>5.1 Text Classification and Model Evaluation<a class="headerlink" href="#text-classification-and-model-evaluation" title="Permalink to this heading">#</a></h1>
+<p>Week 03 showed how text can be represented as vectors. Week 04 used those vectors to ask: <strong>which texts are most similar?</strong></p>
+<p>This week asks a different question:</p>
+<p><strong>Can we learn from labeled examples to assign a category to new text?</strong></p>
+<p>That is text classification. It powers spam filters, sentiment analysis, toxicity detection, language identification, and many other systems you already use.</p>
+<p>The conceptual progression below is the roadmap for this chapter. We will follow one running example, a <strong>spam filter</strong>, from left to right.</p>
+<figure class="align-default" id="classification-pipeline">
+<img alt="../_images/text-classification-pipeline.svg" src="../_images/text-classification-pipeline.svg" /><figcaption>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">From Text to an Evaluated Decision</span><a class="headerlink" href="#classification-pipeline" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Notice that the pipeline builds directly on earlier weeks. The first two steps are the representation work from <a class="reference internal" href="../module3/features.html"><span class="doc std std-doc">Week 03</span></a>. The rest of the pipeline is new: learning a classifier, turning its output into a decision, and checking whether that decision can be trusted.</p>
+<section id="what-is-text-classification">
+<h2>1. What is text classification?<a class="headerlink" href="#what-is-text-classification" title="Permalink to this heading">#</a></h2>
+<p>Text classification takes a piece of text and assigns it <strong>one label from a fixed set of categories</strong> <span id="id1">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>.</p>
+<ul class="simple">
+<li><p><strong>Spam detection:</strong> is this email <code class="docutils literal notranslate"><span class="pre">spam</span></code> or <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">spam</span></code>?</p></li>
+<li><p><strong>Sentiment analysis:</strong> is this review <code class="docutils literal notranslate"><span class="pre">positive</span></code> or <code class="docutils literal notranslate"><span class="pre">negative</span></code>?</p></li>
+<li><p><strong>Toxicity detection:</strong> should this comment be flagged?</p></li>
+<li><p><strong>Language identification:</strong> which language is this text written in?</p></li>
+<li><p><strong>Topic routing:</strong> which team should receive this support message?</p></li>
+</ul>
+<p>Every text classification system has the same four ingredients:</p>
+<ul class="simple">
+<li><p><strong>Input:</strong> the text (an email, a review, a tweet).</p></li>
+<li><p><strong>Features:</strong> numbers that describe the text, such as the word counts or TF-IDF values you built in Week 03.</p></li>
+<li><p><strong>Label:</strong> the category we want to predict.</p></li>
+<li><p><strong>Prediction:</strong> the label the model assigns to a new text.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Input: <code class="docutils literal notranslate"><span class="pre">&quot;Congratulations!</span> <span class="pre">You</span> <span class="pre">are</span> <span class="pre">a</span> <span class="pre">winner.</span> <span class="pre">Claim</span> <span class="pre">your</span> <span class="pre">free</span> <span class="pre">prize</span> <span class="pre">now.&quot;</span></code></p>
+<p>Features: how often each word in our vocabulary appears in the email.</p>
+<p>Label we want: <code class="docutils literal notranslate"><span class="pre">spam</span></code></p>
+</div>
+<p>When there are only two categories, we call the task <strong>binary classification</strong>. When there are more than two, it is <strong>multiclass classification</strong>. We start with binary and return to multiclass in Section 7.</p>
+<section id="learning-from-labeled-examples">
+<h3>Learning from labeled examples<a class="headerlink" href="#learning-from-labeled-examples" title="Permalink to this heading">#</a></h3>
+<p>A classifier learns from examples that humans have already labeled. These human-provided labels are often called <strong>gold labels</strong>. This is called <strong>supervised learning</strong>: we show the model many emails together with the correct answer, and it learns which patterns go with which label.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>A brief note on Naive Bayes.</strong> Naive Bayes is a classic text-classification baseline. It compares how likely each word is to appear in spam emails versus non-spam emails, and it combines that evidence while “naively” treating words as independent of one another. It is fast, simple, and still useful as a point of comparison for more complex models.</p>
+<p>We will not work through its mechanics here. Its implementation and details are left to Coding Practice.</p>
+</div>
+<p>In this chapter we focus on <strong>logistic regression</strong>, because its decisions are easy to read and explain.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A classifier is only as good as the labeled examples and the features it learns from. Before trusting any model, ask: <em>where did the labels come from, and what does the model actually get to see?</em></p>
+</div>
+</section>
+</section>
+<section id="logistic-regression-an-interpretable-baseline">
+<h2>2. Logistic regression: an interpretable baseline<a class="headerlink" href="#logistic-regression-an-interpretable-baseline" title="Permalink to this heading">#</a></h2>
+<p>Logistic regression is a simple and widely used starting point for text classification. Even when a more complex model is available, it is common to build a logistic regression <strong>baseline</strong> first, because it is fast, and because we can <strong>see why it made a decision</strong>.</p>
+<p>The core idea is <strong>weighted evidence</strong>.</p>
+<section id="features-as-evidence">
+<h3>Features as evidence<a class="headerlink" href="#features-as-evidence" title="Permalink to this heading">#</a></h3>
+<p>Each feature (for example, the count of the word <code class="docutils literal notranslate"><span class="pre">free</span></code>) is multiplied by a <strong>weight</strong> the model has learned <span id="id2">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>.</p>
+<ul class="simple">
+<li><p>A <strong>positive weight</strong> means the feature is evidence <em>for</em> the target class (spam).</p></li>
+<li><p>A <strong>negative weight</strong> means the feature is evidence <em>against</em> it.</p></li>
+<li><p>A weight near zero means the feature barely matters.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These weights are made up to keep the example small. A real model learns thousands of them from labeled data.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Word</p></th>
+<th class="head text-right"><p>Weight</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prize</span></code></p></td>
+<td class="text-right"><p>+1.5</p></td>
+<td><p>strong evidence for spam</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">free</span></code></p></td>
+<td class="text-right"><p>+1.2</p></td>
+<td><p>evidence for spam</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">meeting</span></code></p></td>
+<td class="text-right"><p>−1.0</p></td>
+<td><p>evidence against spam</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="the-bias-term">
+<h3>The bias term<a class="headerlink" href="#the-bias-term" title="Permalink to this heading">#</a></h3>
+<p>The model also has a <strong>bias term</strong> (also called the intercept). It is a baseline adjustment that is added no matter which words appear. In our spam filter the bias is <strong>−2.0</strong>. This means the model starts out <em>skeptical</em>: most emails are not spam, so it needs enough positive evidence to overcome that starting point.</p>
+</section>
+<section id="from-evidence-to-a-score">
+<h3>From evidence to a score<a class="headerlink" href="#from-evidence-to-a-score" title="Permalink to this heading">#</a></h3>
+<p>To classify an email, the model adds up the weighted evidence and the bias. The total is called the <strong>score</strong>.</p>
+<p>Consider the email <code class="docutils literal notranslate"><span class="pre">&quot;Free</span> <span class="pre">prize!</span> <span class="pre">Claim</span> <span class="pre">your</span> <span class="pre">free</span> <span class="pre">prize</span> <span class="pre">now.&quot;</span></code> Here <code class="docutils literal notranslate"><span class="pre">free</span></code> appears twice, <code class="docutils literal notranslate"><span class="pre">prize</span></code> appears twice, and <code class="docutils literal notranslate"><span class="pre">meeting</span></code> does not appear.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head text-right"><p>Count</p></th>
+<th class="head text-right"><p>Weight</p></th>
+<th class="head text-right"><p>Contribution</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">free</span></code></p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>+1.2</p></td>
+<td class="text-right"><p>+2.4</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prize</span></code></p></td>
+<td class="text-right"><p>2</p></td>
+<td class="text-right"><p>+1.5</p></td>
+<td class="text-right"><p>+3.0</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">meeting</span></code></p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>−1.0</p></td>
+<td class="text-right"><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>bias</p></td>
+<td class="text-right"><p></p></td>
+<td class="text-right"><p></p></td>
+<td class="text-right"><p>−2.0</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Score</strong></p></td>
+<td class="text-right"><p></p></td>
+<td class="text-right"><p></p></td>
+<td class="text-right"><p><strong>+3.4</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For the email <code class="docutils literal notranslate"><span class="pre">&quot;Meeting</span> <span class="pre">notes</span> <span class="pre">attached.&quot;</span></code>, only <code class="docutils literal notranslate"><span class="pre">meeting</span></code> appears once, so the score is −1.0 + (−2.0) = <strong>−3.0</strong>.</p>
+</section>
+<section id="from-a-score-to-a-probability">
+<h3>From a score to a probability<a class="headerlink" href="#from-a-score-to-a-probability" title="Permalink to this heading">#</a></h3>
+<p>A score can be any number, large or small, positive or negative. That is not very convenient for a decision. So the model passes the score through the <strong>sigmoid function</strong>, which squashes any score into a <strong>probability</strong> between 0 and 1.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>Score</p></th>
+<th class="head text-right"><p>Probability of spam</p></th>
+<th class="head"><p>Interpretation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>−3.0</p></td>
+<td class="text-right"><p>0.05</p></td>
+<td><p>very unlikely to be spam</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>0.0</p></td>
+<td class="text-right"><p>0.50</p></td>
+<td><p>completely undecided</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>+3.4</p></td>
+<td class="text-right"><p>0.97</p></td>
+<td><p>very likely spam</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You do not need to memorize the sigmoid formula. It is shown here only so you recognize it:</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma(z) = \frac{1}{1 + e^{-z}}
+\]</div>
+<p>What matters is the behavior: large negative scores give probabilities near 0, large positive scores give probabilities near 1, and a score of 0 gives exactly 0.5.</p>
+</div>
+</section>
+<section id="from-a-probability-to-a-decision">
+<h3>From a probability to a decision<a class="headerlink" href="#from-a-probability-to-a-decision" title="Permalink to this heading">#</a></h3>
+<p>Finally, we apply a <strong>decision threshold</strong>. A common default is 0.5: if the probability of spam is above 0.5, predict <code class="docutils literal notranslate"><span class="pre">spam</span></code>; otherwise predict <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">spam</span></code> <span id="id3">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>.</p>
+<p>So the first email (0.97) is labeled spam, and the second (0.05) is labeled not spam.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Logistic regression gives us a <strong>score</strong>, then a <strong>probability</strong>, and only then a <strong>decision</strong>. These are three different things. We will see in Section 6 why keeping them separate matters.</p>
+</div>
+<p>We are not deriving how the weights are learned. In this course, the goal is to <strong>read and interpret</strong> a classifier: what evidence it uses, how confident it is, and where it might go wrong.</p>
+</section>
+</section>
+<section id="training-a-classifier-without-fooling-yourself">
+<h2>3. Training a classifier without fooling yourself<a class="headerlink" href="#training-a-classifier-without-fooling-yourself" title="Permalink to this heading">#</a></h2>
+<p>A model can look excellent and still fail in real use. The most common reason is that we tested it in a way that flattered it. The fix is to be careful about <strong>which data we use for what</strong>.</p>
+<section id="training-development-and-test-sets">
+<h3>Training, development, and test sets<a class="headerlink" href="#training-development-and-test-sets" title="Permalink to this heading">#</a></h3>
+<p>We split our labeled emails into three parts <span id="id4">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Split</p></th>
+<th class="head text-right"><p>Example size</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>Analogy</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Training set</strong></p></td>
+<td class="text-right"><p>8,000 emails</p></td>
+<td><p>learn the weights</p></td>
+<td><p>practice problems</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Development (dev) set</strong></p></td>
+<td class="text-right"><p>1,000 emails</p></td>
+<td><p>compare models, tune choices, inspect errors</p></td>
+<td><p>practice exam</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Test set</strong></p></td>
+<td class="text-right"><p>1,000 emails</p></td>
+<td><p>report final performance, used once</p></td>
+<td><p>final exam</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The model only learns from the training set. We use the dev set while we are still making decisions. The <strong>test set stays untouched</strong> until we are ready to report how well the final model works.</p>
+</section>
+<section id="why-not-evaluate-on-the-training-data">
+<h3>Why not evaluate on the training data?<a class="headerlink" href="#why-not-evaluate-on-the-training-data" title="Permalink to this heading">#</a></h3>
+<p>A model can <strong>memorize</strong> its training examples, including accidental quirks. Imagine every spam email in our training set that contained the number <code class="docutils literal notranslate"><span class="pre">48213</span></code> happened to come from one mass mailing. A model could learn <code class="docutils literal notranslate"><span class="pre">48213</span></code> as strong evidence for spam. It would score well on the training data, but that pattern would not help on new emails. This is called <strong>overfitting</strong>.</p>
+<p>Training-set performance tells us how well the model remembers. Test-set performance tells us how well it <strong>generalizes</strong>.</p>
+</section>
+<section id="cross-validation-briefly">
+<h3>Cross-validation, briefly<a class="headerlink" href="#cross-validation-briefly" title="Permalink to this heading">#</a></h3>
+<p>A single dev set can be small or unrepresentative. <strong>Cross-validation</strong> addresses this by repeating the process: the data is split into several parts, and each part takes a turn as the held-out set while the model trains on the rest. The results are then averaged to give a more stable estimate <span id="id5">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>.</p>
+<p>The key idea is simple: <strong>use more of your data for evaluation without ever grading the model on examples it trained on.</strong> A common practice is to keep a final test set completely separate and use cross-validation only within the training data.</p>
+</section>
+<section id="data-leakage">
+<h3>Data leakage<a class="headerlink" href="#data-leakage" title="Permalink to this heading">#</a></h3>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Data leakage</strong> happens when information from the dev or test data sneaks into training or model design. The result is an evaluation that looks better than real-world performance will be.</p>
+</div>
+<p>Some ways this happens with our spam filter:</p>
+<ul class="simple">
+<li><p>The <strong>same mass-mailed email</strong> (or near-duplicates) appears in both training and test sets.</p></li>
+<li><p>We repeatedly <strong>tune the model to improve the test score</strong>, so the test set quietly becomes part of training.</p></li>
+<li><p>We compute TF-IDF values using <strong>all</strong> the emails, including the test emails, before splitting.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A helpful check: <em>if a result seems too good to be true, look for leakage first.</em></p>
+</div>
+</section>
+</section>
+<section id="the-confusion-matrix-understanding-model-mistakes">
+<h2>4. The confusion matrix: understanding model mistakes<a class="headerlink" href="#the-confusion-matrix-understanding-model-mistakes" title="Permalink to this heading">#</a></h2>
+<p>Suppose our final spam filter is run on the 1,000 emails in the test set. In this test set, 50 emails are actually spam and 950 are not. We treat <strong>spam as the positive class</strong>.</p>
+<p>A <strong>confusion matrix</strong> counts how the model’s predictions compare with the gold labels:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head text-right"><p><strong>Predicted spam</strong></p></th>
+<th class="head text-right"><p><strong>Predicted not spam</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Actually spam</strong></p></td>
+<td class="text-right"><p>40 (TP)</p></td>
+<td class="text-right"><p>10 (FN)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Actually not spam</strong></p></td>
+<td class="text-right"><p>20 (FP)</p></td>
+<td class="text-right"><p>930 (TN)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Each cell has a name:</p>
+<ul class="simple">
+<li><p><strong>True positive (TP):</strong> spam correctly caught. <em>(40)</em></p></li>
+<li><p><strong>False negative (FN):</strong> spam that slipped through to the inbox. <em>(10)</em></p></li>
+<li><p><strong>False positive (FP):</strong> a real email wrongly sent to the spam folder. <em>(20)</em></p></li>
+<li><p><strong>True negative (TN):</strong> a real email correctly left in the inbox. <em>(930)</em></p></li>
+</ul>
+<section id="not-all-mistakes-cost-the-same">
+<h3>Not all mistakes cost the same<a class="headerlink" href="#not-all-mistakes-cost-the-same" title="Permalink to this heading">#</a></h3>
+<p>The two kinds of errors do not have the same consequences.</p>
+<ul class="simple">
+<li><p>A <strong>false negative</strong> in a spam filter means one extra junk email in your inbox. This is annoying.</p></li>
+<li><p>A <strong>false positive</strong> means a real message, perhaps a job offer or a message from your professor, is hidden in the spam folder. This can be costly.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Now consider a different task: <strong>toxicity detection</strong>. A false positive means a harmless comment is flagged or removed, which can silence someone. A false negative means abusive content stays visible. Jurafsky and Martin point out that some widely used toxicity classifiers have been shown to flag non-toxic sentences simply because they mention certain identities <span id="id6">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. Which error is worse depends on the application.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A confusion matrix does more than count mistakes. It shows <strong>which kind</strong> of mistakes the model makes, and that is what we need in order to judge whether the model is fit for its purpose.</p>
+</div>
+</section>
+</section>
+<section id="accuracy-precision-recall-and-f1">
+<h2>5. Accuracy, precision, recall, and F1<a class="headerlink" href="#accuracy-precision-recall-and-f1" title="Permalink to this heading">#</a></h2>
+<p>From the four cells of the confusion matrix we can compute several metrics. Each answers a different question.</p>
+<section id="accuracy">
+<h3>Accuracy<a class="headerlink" href="#accuracy" title="Permalink to this heading">#</a></h3>
+<p><strong>Accuracy</strong> asks: <em>what fraction of all predictions were correct?</em></p>
+<div class="math notranslate nohighlight">
+\[
+\text{accuracy} = \frac{TP + TN}{TP + FN + FP + TN} = \frac{40 + 930}{1000} = 0.97
+\]</div>
+<p>97% sounds impressive. But look at what a useless filter would do.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Imagine a “filter” that labels <strong>every</strong> email as <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">spam</span></code>. On our test set, it would be correct for all 950 real emails and wrong for all 50 spam emails. Its accuracy would be <strong>95%</strong>, yet it would catch <strong>zero</strong> spam.</p>
+</div>
+<p>This is why accuracy can be misleading when one class is much rarer than the other. Jurafsky and Martin illustrate the same problem with a classifier that labels every tweet “not about pie” and still reaches 99.99% accuracy <span id="id7">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. Accuracy is not wrong. It just does not tell us whether we are finding the thing we care about.</p>
+</section>
+<section id="precision-and-recall">
+<h3>Precision and recall<a class="headerlink" href="#precision-and-recall" title="Permalink to this heading">#</a></h3>
+<p>Two metrics focus on the class we care about:</p>
+<ul class="simple">
+<li><p><strong>Precision</strong> asks: <em>when the filter says spam, how often is it right?</em></p></li>
+<li><p><strong>Recall</strong> asks: <em>of all the spam that exists, how much did the filter catch?</em></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\text{precision} = \frac{TP}{TP + FP} = \frac{40}{60} \approx 0.67
+\qquad
+\text{recall} = \frac{TP}{TP + FN} = \frac{40}{50} = 0.80
+\]</div>
+<p>Read these in plain language: two out of three emails the filter flags really are spam, and the filter catches four out of five spam emails.</p>
+</section>
+<section id="f1">
+<h3>F1<a class="headerlink" href="#f1" title="Permalink to this heading">#</a></h3>
+<p>Precision and recall often pull in opposite directions. <strong>F1</strong> combines them into one number:</p>
+<div class="math notranslate nohighlight">
+\[
+F_1 = \frac{2 \cdot \text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}} \approx 0.73
+\]</div>
+<p>F1 is a kind of average that is pulled toward the <strong>lower</strong> of the two values, so a model cannot hide a weak precision behind a strong recall, or the other way around <span id="id8">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>.</p>
+</section>
+<section id="which-metric-should-i-use">
+<h3>Which metric should I use?<a class="headerlink" href="#which-metric-should-i-use" title="Permalink to this heading">#</a></h3>
+<p>There is no universally best metric. The right one depends on which mistakes matter.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Situation</p></th>
+<th class="head"><p>What you care about most</p></th>
+<th class="head"><p>Look at</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Spam filter that must not hide real email</p></td>
+<td><p>avoiding false positives</p></td>
+<td><p><strong>precision</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Screening for a rare but serious problem</p></td>
+<td><p>avoiding false negatives</p></td>
+<td><p><strong>recall</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>You need a balance of both</p></td>
+<td><p>catching spam without too many false alarms</p></td>
+<td><p><strong>F1</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Classes are balanced and errors cost about the same</p></td>
+<td><p>overall correctness</p></td>
+<td><p><strong>accuracy</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="macro-vs-micro-averaging">
+<h3>Macro vs. micro averaging<a class="headerlink" href="#macro-vs-micro-averaging" title="Permalink to this heading">#</a></h3>
+<p>So far we had two classes. With <strong>more than two classes</strong>, we need a way to combine per-class results into a single number. Suppose the filter sorts email into three folders: <code class="docutils literal notranslate"><span class="pre">spam</span></code>, <code class="docutils literal notranslate"><span class="pre">promotions</span></code>, and <code class="docutils literal notranslate"><span class="pre">important</span></code>. On 320 test emails, the confusion matrix is:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head text-right"><p><strong>Pred. spam</strong></p></th>
+<th class="head text-right"><p><strong>Pred. promotions</strong></p></th>
+<th class="head text-right"><p><strong>Pred. important</strong></p></th>
+<th class="head text-right"><p><strong>Total</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Actually spam</strong></p></td>
+<td class="text-right"><p>92</p></td>
+<td class="text-right"><p>5</p></td>
+<td class="text-right"><p>3</p></td>
+<td class="text-right"><p>100</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Actually promotions</strong></p></td>
+<td class="text-right"><p>6</p></td>
+<td class="text-right"><p>185</p></td>
+<td class="text-right"><p>9</p></td>
+<td class="text-right"><p>200</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Actually important</strong></p></td>
+<td class="text-right"><p>3</p></td>
+<td class="text-right"><p>12</p></td>
+<td class="text-right"><p>5</p></td>
+<td class="text-right"><p>20</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Computing precision and recall for each class separately gives:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Class</p></th>
+<th class="head text-right"><p>Precision</p></th>
+<th class="head text-right"><p>Recall</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>spam</p></td>
+<td class="text-right"><p>0.91</p></td>
+<td class="text-right"><p>0.92</p></td>
+</tr>
+<tr class="row-odd"><td><p>promotions</p></td>
+<td class="text-right"><p>0.92</p></td>
+<td class="text-right"><p>0.93</p></td>
+</tr>
+<tr class="row-even"><td><p>important</p></td>
+<td class="text-right"><p>0.29</p></td>
+<td class="text-right"><p>0.25</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>There are two common ways to summarize this <span id="id9">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>:</p>
+<ul class="simple">
+<li><p><strong>Micro-averaging</strong> pools all the decisions into one big table and computes the metric once. Every <em>email</em> counts equally, so large classes dominate. Here, micro precision and recall are both about <strong>0.88</strong>.</p></li>
+<li><p><strong>Macro-averaging</strong> computes the metric for each class and then averages the classes. Every <em>class</em> counts equally. Here, macro precision is about <strong>0.71</strong> and macro recall is about <strong>0.70</strong>.</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The micro average (0.88) looks healthy because the two large classes are doing well. The macro average (about 0.70) exposes that the small <code class="docutils literal notranslate"><span class="pre">important</span></code> class is handled poorly, and that class may be the one users care about most.</p>
+<p>Use <strong>micro</strong> when overall performance across all texts is the goal. Use <strong>macro</strong> when performance on rare classes matters. When in doubt, look at the per-class numbers too.</p>
+</div>
+</section>
+</section>
+<section id="decision-thresholds-and-model-behavior">
+<h2>6. Decision thresholds and model behavior<a class="headerlink" href="#decision-thresholds-and-model-behavior" title="Permalink to this heading">#</a></h2>
+<p>Recall the pipeline from Section 2: score, then probability, then decision.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>A probability is not a decision.</strong> The model estimates how likely an email is to be spam. A threshold, chosen by people, turns that estimate into an action.</p>
+</div>
+<p>Suppose the model gives some email a spam probability of <strong>0.62</strong>. With a 0.5 threshold it goes to the spam folder. With a 0.9 threshold it stays in the inbox. Same model, same probability, different decision.</p>
+<section id="what-happens-when-we-move-the-threshold">
+<h3>What happens when we move the threshold?<a class="headerlink" href="#what-happens-when-we-move-the-threshold" title="Permalink to this heading">#</a></h3>
+<p>Here is the same spam filter on the same 1,000 test emails at three different thresholds (illustrative numbers):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>Threshold</p></th>
+<th class="head text-right"><p>Spam caught (TP)</p></th>
+<th class="head text-right"><p>Spam missed (FN)</p></th>
+<th class="head text-right"><p>Real emails flagged (FP)</p></th>
+<th class="head text-right"><p>Precision</p></th>
+<th class="head text-right"><p>Recall</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>0.2</p></td>
+<td class="text-right"><p>47</p></td>
+<td class="text-right"><p>3</p></td>
+<td class="text-right"><p>80</p></td>
+<td class="text-right"><p>0.37</p></td>
+<td class="text-right"><p>0.94</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p><strong>0.5</strong></p></td>
+<td class="text-right"><p>40</p></td>
+<td class="text-right"><p>10</p></td>
+<td class="text-right"><p>20</p></td>
+<td class="text-right"><p>0.67</p></td>
+<td class="text-right"><p>0.80</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>0.9</p></td>
+<td class="text-right"><p>30</p></td>
+<td class="text-right"><p>20</p></td>
+<td class="text-right"><p>3</p></td>
+<td class="text-right"><p>0.91</p></td>
+<td class="text-right"><p>0.60</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p><strong>Raising the threshold</strong> makes the filter more cautious. It flags fewer emails, so precision goes up, but it misses more spam, so recall goes down.</p></li>
+<li><p><strong>Lowering the threshold</strong> makes the filter more aggressive. It catches more spam, so recall goes up, but it flags more real emails, so precision goes down.</p></li>
+</ul>
+<p>This is the <strong>precision-recall trade-off</strong>. You cannot improve both by moving the threshold; you choose which mistake you would rather make.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Look at accuracy across the three rows: about 92%, 97%, and 98%. Accuracy barely changes between the last two settings, but the <em>behavior</em> is very different: 20 real emails flagged versus 3. And at threshold 0.2, accuracy (92%) falls below the “always say not spam” filter (95%). Accuracy alone would hide most of this story.</p>
+</div>
+</section>
+<section id="is-a-default-not-a-rule">
+<h3>0.5 is a default, not a rule<a class="headerlink" href="#is-a-default-not-a-rule" title="Permalink to this heading">#</a></h3>
+<p>A threshold of 0.5 treats a false positive and a false negative as equally bad. In real applications that is rarely true.</p>
+<ul class="simple">
+<li><p><strong>Spam filter:</strong> hiding a real email is worse than seeing one extra spam message, so a <strong>higher</strong> threshold makes sense.</p></li>
+<li><p><strong>Toxicity moderation:</strong> a system might use a <strong>lower</strong> threshold to send borderline comments to a human reviewer, and a <strong>higher</strong> threshold before automatically removing anything, because wrongly removing a comment silences a person.</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Choose the threshold using the <strong>dev set</strong>, and base the choice on the <strong>cost of each type of error</strong>. If you tune it on the test set, you have leaked test information into your model.</p>
+</div>
+</section>
+</section>
+<section id="from-binary-to-multiclass-classification">
+<h2>7. From binary to multiclass classification<a class="headerlink" href="#from-binary-to-multiclass-classification" title="Permalink to this heading">#</a></h2>
+<p>The three-folder filter from Section 5 is a <strong>multiclass</strong> problem: each email gets exactly one of <code class="docutils literal notranslate"><span class="pre">spam</span></code>, <code class="docutils literal notranslate"><span class="pre">promotions</span></code>, or <code class="docutils literal notranslate"><span class="pre">important</span></code>. The same ideas carry over. The difference is that the model now compares evidence for <strong>several</strong> labels instead of two.</p>
+<section id="one-score-per-class">
+<h3>One score per class<a class="headerlink" href="#one-score-per-class" title="Permalink to this heading">#</a></h3>
+<p>Each class has <strong>its own set of weights</strong>, which you can think of as that class’s own “profile” of evidence. The <code class="docutils literal notranslate"><span class="pre">important</span></code> profile might reward words like <code class="docutils literal notranslate"><span class="pre">deadline</span></code> and <code class="docutils literal notranslate"><span class="pre">meeting</span></code>, while the <code class="docutils literal notranslate"><span class="pre">promotions</span></code> profile rewards words like <code class="docutils literal notranslate"><span class="pre">sale</span></code> and <code class="docutils literal notranslate"><span class="pre">discount</span></code>. For each email, the model computes one score per class, exactly as in Section 2.</p>
+</section>
+<section id="softmax-scores-to-probabilities">
+<h3>Softmax: scores to probabilities<a class="headerlink" href="#softmax-scores-to-probabilities" title="Permalink to this heading">#</a></h3>
+<p>We want the scores to become probabilities that compete with each other. The <strong>softmax</strong> function does this: it converts a list of scores into probabilities that are all between 0 and 1 and <strong>add up to 1</strong>. The class with the highest probability becomes the prediction.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Class</p></th>
+<th class="head text-right"><p>Score</p></th>
+<th class="head text-right"><p>Probability</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>spam</p></td>
+<td class="text-right"><p>2.0</p></td>
+<td class="text-right"><p>0.71</p></td>
+</tr>
+<tr class="row-odd"><td><p>promotions</p></td>
+<td class="text-right"><p>1.0</p></td>
+<td class="text-right"><p>0.26</p></td>
+</tr>
+<tr class="row-even"><td><p>important</p></td>
+<td class="text-right"><p>−1.0</p></td>
+<td class="text-right"><p>0.04</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Here the model predicts <code class="docutils literal notranslate"><span class="pre">spam</span></code>, and its confidence is about 71%.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Softmax is best understood as a bridge idea. You will meet it again in neural networks and language models, where a model chooses among many possible outputs. We do not derive it here, and we do not cover how the class weights are learned.</p>
+</div>
+</section>
+<section id="evaluation-with-several-classes">
+<h3>Evaluation with several classes<a class="headerlink" href="#evaluation-with-several-classes" title="Permalink to this heading">#</a></h3>
+<p>Everything from Sections 3 to 6 still applies. The confusion matrix simply grows to one row and column per class, and we summarize performance with per-class precision and recall, plus the <strong>macro</strong> and <strong>micro</strong> averages from Section 5.</p>
+</section>
+</section>
+<section id="responsible-evaluation-error-analysis-and-limitations">
+<h2>8. Responsible evaluation: error analysis and limitations<a class="headerlink" href="#responsible-evaluation-error-analysis-and-limitations" title="Permalink to this heading">#</a></h2>
+<p>A single score, even a good one, does not tell us whether a classifier is ready to use. Responsible evaluation means looking beyond the number.</p>
+<section id="look-at-the-mistakes">
+<h3>Look at the mistakes<a class="headerlink" href="#look-at-the-mistakes" title="Permalink to this heading">#</a></h3>
+<p>The most useful evaluation step is often the simplest: <strong>read the misclassified examples</strong>. Pull out the false positives and false negatives from the dev set and look for <strong>recurring patterns</strong>.</p>
+<p>For our spam filter, you might find:</p>
+<ul class="simple">
+<li><p>legitimate newsletters and receipts are flagged because they contain the word <code class="docutils literal notranslate"><span class="pre">free</span></code>;</p></li>
+<li><p>spam written with deliberate misspellings (<code class="docutils literal notranslate"><span class="pre">fr33</span> <span class="pre">pr1ze</span></code>) slips through;</p></li>
+<li><p>very short emails are hard to judge either way.</p></li>
+</ul>
+<p>Because logistic regression uses weights, you can also <strong>inspect the highest and lowest weights</strong> to see what the model has learned to rely on. This is one reason it is called an interpretable baseline <span id="id10">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. If a feature is doing suspicious work, such as an email footer that only appears in one dataset, that is a sign of a shortcut rather than real understanding.</p>
+<p>Each pattern suggests an action: add features, collect more examples, adjust the threshold, or clarify the labeling guidelines.</p>
+</section>
+<section id="aggregate-metrics-can-hide-problems">
+<h3>Aggregate metrics can hide problems<a class="headerlink" href="#aggregate-metrics-can-hide-problems" title="Permalink to this heading">#</a></h3>
+<p>An overall metric averages over everything, and averages can hide weaknesses.</p>
+<ul class="simple">
+<li><p><strong>Class imbalance:</strong> as in Section 5, a good overall score can conceal poor performance on a rare class.</p></li>
+<li><p><strong>Subgroup performance:</strong> a model can do well overall and still make many more errors for particular groups of users, dialects, or topics. Jurafsky and Martin summarize a study of sentiment analysis systems that assigned lower sentiment to otherwise identical sentences when they contained common African American first names rather than common European American first names <span id="id11">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. A single overall accuracy number would not reveal this kind of problem.</p></li>
+<li><p><strong>Distribution shift:</strong> a model is only trained on one kind of text. A spam filter trained on last year’s email may fail on new phishing styles, and a sentiment model trained on movie reviews may not work on social media posts.</p></li>
+</ul>
+<p>Jurafsky and Martin also note that machine learning systems can replicate and even amplify biases in their training data, and that biases can also come from human labelers, from the resources used, and from pretrained components <span id="id12">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>.</p>
+</section>
+<section id="model-cards-a-brief-connection">
+<h3>Model Cards: a brief connection<a class="headerlink" href="#model-cards-a-brief-connection" title="Permalink to this heading">#</a></h3>
+<p>One way to make a model’s limitations visible is to document them. A <strong>model card</strong> is a short document released with a model that describes, for example, its intended use, the data it was trained and evaluated on, and <strong>how it performs across different groups and conditions</strong> <span id="id13">[<a class="reference internal" href="../references.html#id7" title="Margaret Mitchell, Simone Wu, Andrew Zaldivar, Parker Barnes, Lucy Vasserman, Ben Hutchinson, Elena Spitzer, Inioluwa Deborah Raji, and Timnit Gebru. Model cards for model reporting. In Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT* '19), 220–229. ACM, 2019. doi:10.1145/3287560.3287596.">MWZ+19</a>]</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A model card does not fix a biased or inaccurate model. It makes the model’s strengths and limits visible so that others can decide whether it is appropriate for their use.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Newer models such as transformers may replace the simple features and logistic regression used in this chapter, but the <strong>evaluation questions do not change</strong>: Is the metric right for this task? Which errors matter? What happens at different thresholds? Who is the model wrong about? Any classifier, however advanced, needs to be checked in this way.</p>
+</div>
+</section>
+</section>
+<section id="key-takeaways">
+<h2>9. Key takeaways<a class="headerlink" href="#key-takeaways" title="Permalink to this heading">#</a></h2>
+<p>Text classification turns a vector representation of text into a label. Evaluating it well is just as important as building it.</p>
+<ul class="simple">
+<li><p>Classification learns from <strong>labeled examples</strong> and predicts a label for new text.</p></li>
+<li><p>Logistic regression is an <strong>interpretable baseline</strong>: weighted evidence becomes a score, then a probability, then a decision.</p></li>
+<li><p>Naive Bayes is a classic, simple baseline; its details belong in Coding Practice.</p></li>
+<li><p>Keep <strong>training, dev, and test</strong> data separate, and watch for <strong>data leakage</strong>. Cross-validation helps make better use of limited data.</p></li>
+<li><p>A <strong>confusion matrix</strong> shows <em>which kinds</em> of errors a model makes.</p></li>
+<li><p><strong>Accuracy</strong> can mislead when classes are imbalanced. <strong>Precision</strong>, <strong>recall</strong>, and <strong>F1</strong> answer more specific questions; the right choice depends on the cost of each error.</p></li>
+<li><p><strong>Macro</strong> averaging treats every class equally; <strong>micro</strong> averaging lets large classes dominate.</p></li>
+<li><p>A <strong>probability is not a decision</strong>. The threshold is a choice, and <strong>0.5 is a default, not a rule</strong>.</p></li>
+<li><p>Multiclass classification gives <strong>one score per class</strong>; softmax turns those scores into probabilities.</p></li>
+<li><p>Responsible evaluation means <strong>reading errors</strong>, checking <strong>subgroups and shifts</strong>, and documenting limitations, for example with a <strong>model card</strong>.</p></li>
+</ul>
+<section id="looking-ahead">
+<h3>Looking ahead<a class="headerlink" href="#looking-ahead" title="Permalink to this heading">#</a></h3>
+<p>The same pipeline and the same evaluation questions will return in later modules on sentiment analysis, transformer-based classification, transfer learning, and comparing models. When those models get more powerful, these habits become more important, not less.</p>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<p><span id="id14">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span></p>
+<p><span id="id15">[<a class="reference internal" href="../references.html#id7" title="Margaret Mitchell, Simone Wu, Andrew Zaldivar, Parker Barnes, Lucy Vasserman, Ben Hutchinson, Elena Spitzer, Inioluwa Deborah Raji, and Timnit Gebru. Model cards for model reporting. In Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT* '19), 220–229. ACM, 2019. doi:10.1145/3287560.3287596.">MWZ+19</a>]</span></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module5"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="module5.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 5 Text Classification and Model Evaluation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../speech.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Speech</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-text-classification">1. What is text classification?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-from-labeled-examples">Learning from labeled examples</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-an-interpretable-baseline">2. Logistic regression: an interpretable baseline</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#features-as-evidence">Features as evidence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bias-term">The bias term</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-evidence-to-a-score">From evidence to a score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-a-score-to-a-probability">From a score to a probability</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-a-probability-to-a-decision">From a probability to a decision</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-a-classifier-without-fooling-yourself">3. Training a classifier without fooling yourself</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-development-and-test-sets">Training, development, and test sets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-not-evaluate-on-the-training-data">Why not evaluate on the training data?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation-briefly">Cross-validation, briefly</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-leakage">Data leakage</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-confusion-matrix-understanding-model-mistakes">4. The confusion matrix: understanding model mistakes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#not-all-mistakes-cost-the-same">Not all mistakes cost the same</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-precision-recall-and-f1">5. Accuracy, precision, recall, and F1</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy">Accuracy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-and-recall">Precision and recall</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f1">F1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#which-metric-should-i-use">Which metric should I use?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#macro-vs-micro-averaging">Macro vs. micro averaging</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-thresholds-and-model-behavior">6. Decision thresholds and model behavior</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-happens-when-we-move-the-threshold">What happens when we move the threshold?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#is-a-default-not-a-rule">0.5 is a default, not a rule</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-binary-to-multiclass-classification">7. From binary to multiclass classification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-score-per-class">One score per class</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#softmax-scores-to-probabilities">Softmax: scores to probabilities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-with-several-classes">Evaluation with several classes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#responsible-evaluation-error-analysis-and-limitations">8. Responsible evaluation: error analysis and limitations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#look-at-the-mistakes">Look at the mistakes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate-metrics-can-hide-problems">Aggregate metrics can hide problems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-cards-a-brief-connection">Model Cards: a brief connection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">9. Key takeaways</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#looking-ahead">Looking ahead</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
