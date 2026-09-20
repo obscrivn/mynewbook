@@ -1,4 +1,4 @@
-# 4.2 Discussion Experiment: From Similarity Scores to Retrieval
+# 4.2 Experiment: From Similarity Scores to Retrieval
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module4/week4_coding_practice.ipynb)
 
@@ -24,8 +24,6 @@ The notebook follows this sequence:
 **query -> representation -> similarity scores -> ranking -> interpretation**
 
 You will first predict which texts a human would choose. You will then build lexical and dense-vector rankings, compare them with your prediction, change the query, and evaluate a deliberately challenging retrieval result.
-
-The five core candidates and reflection questions match the Week 04 discussion. Keep notes at each **Discussion evidence checkpoint** in the notebook; those observations will help you support your initial post with results rather than definitions alone.
 
 ## Setup
 
