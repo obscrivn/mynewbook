@@ -24,6 +24,10 @@ chapters:
     - file: cluster
     - file: practice
     
+- file: module5/module5
+  sections:
+    - file: module5/classification
+
 - file: speech
   sections:
     - file: phonetics
