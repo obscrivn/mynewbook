@@ -7,23 +7,27 @@ chapters:
 - file: module1/module1
   sections:
     - file: module1/language
-    - file: module1/week1_coding_practice
+    - file: module1/Working_with_Text_Data
+    - file: module1/Import_Language_Data
  
 - file: module2/module2
   sections:
-    - file: module2/features
-    - file: module2/sklearn
+    - file: module2/tokenization
+    - file: module2/modern_tokenization
     - file: module2/regex
+    - file: module2/spacy_tokenization
     
 - file: module3/module3
   sections:
+    - file: module3/features
     - file: module3/week3_coding_practice
 
-- file: clustering
+- file: module4/module4
   sections:
-    - file: cluster
-    - file: practice
-    
+    - file: module4/cluster
+    - file: module4/practice
+    - file: module4/week4_coding_practice
+
 - file: module5/module5
   sections:
     - file: module5/classification
