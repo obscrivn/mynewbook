@@ -1,0 +1,749 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>6.1 Topic Modeling and Modern Topic Analysis &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module6/topics';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Speech" href="../speech.html" />
+    <link rel="prev" title="Chapter 6 Topic Modeling and Modern Topic Analysis" href="module6.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module4/module4.html">Chapter 4 Similarity and Retrieval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module4/cluster.html">4.1 Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/practice.html">4.2 Experiment: From Similarity Scores to Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/week4_coding_practice.html">4.3 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module5/module5.html">Chapter 5 Text Classification and Model Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module5/classification.html">5.1 Text Classification and Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/week5_coding_practice.html">5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module6.html">Chapter 6 Topic Modeling and Modern Topic Analysis</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">6.1 Topic Modeling and Modern Topic Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phonetics.html">Speech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recognizer.html">Speech Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule6/topics.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module6/topics.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>6.1 Topic Modeling and Modern Topic Analysis</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-topic-discovery">1. What Is Topic Discovery?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-keywords-to-topics">2. From Keywords to Topics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-topic-models-lsi-lsa-nmf-and-lda">3. Classical Topic Models: LSI/LSA, NMF, and LDA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latent-semantic-indexing-analysis-lsi-lsa">Latent Semantic Indexing / Analysis (LSI/LSA)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-negative-matrix-factorization-nmf">Non-Negative Matrix Factorization (NMF)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latent-dirichlet-allocation-lda">Latent Dirichlet Allocation (LDA)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-and-evaluating-topics">4. Interpreting and Evaluating Topics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-of-classical-topic-models">5. Limitations of Classical Topic Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-sparse-counts-to-embeddings-modern-topic-analysis">6. From Sparse Counts to Embeddings: Modern Topic Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-assisted-and-llm-centered-topic-analysis">7. LLM-Assisted and LLM-Centered Topic Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-still-matters-regardless-of-method">8. What Still Matters Regardless of Method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">9. Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going Further</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="topic-modeling-and-modern-topic-analysis">
+<h1>6.1 Topic Modeling and Modern Topic Analysis<a class="headerlink" href="#topic-modeling-and-modern-topic-analysis" title="Permalink to this heading">#</a></h1>
+<p><strong>Module 5:</strong> Given predefined labels, can we predict the label of new text?</p>
+<p><strong>Module 6:</strong> Without predefined labels, can we discover meaningful structure in a collection?</p>
+<p>This week asks the second question. Instead of predicting a category someone already defined, we ask a model to propose structure we didn’t specify in advance, and then we decide whether that structure is meaningful.</p>
+<figure class="align-default" id="topic-pipeline">
+<img alt="../_images/topic-modeling-pipeline.svg" src="../_images/topic-modeling-pipeline.svg" /><figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">From a Document Collection to an Evaluated Topic Interpretation</span><a class="headerlink" href="#topic-pipeline" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>A useful guiding question for this chapter:</p>
+<p><strong>How can we discover, interpret, and evaluate themes in a collection of documents when predefined labels are not available?</strong></p>
+<p>Throughout this reading we will use one small running example: six short blurbs pulled from a larger news feed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ol class="arabic simple">
+<li><p>“The team practiced free throws for two hours before the championship game.”</p></li>
+<li><p>“Simmer the tomato sauce on low heat and stir in fresh basil.”</p></li>
+<li><p>“The new laptop ships with a faster processor and longer battery life.”</p></li>
+<li><p>“She scored the winning goal in the final minute of the match.”</p></li>
+<li><p>“Whisk the eggs and fold in the flour gently to keep the batter light.”</p></li>
+<li><p>“Developers pushed an update to fix the memory leak in the app.”</p></li>
+</ol>
+</div>
+<p>Nobody labeled these blurbs “sports,” “cooking,” or “technology.” A topic model’s job is to notice that (1) and (4) share vocabulary, that (2) and (5) share different vocabulary, and that (3) and (6) share yet another vocabulary, and to describe those groupings as <strong>topics</strong>.</p>
+<section id="what-is-topic-discovery">
+<h2>1. What Is Topic Discovery?<a class="headerlink" href="#what-is-topic-discovery" title="Permalink to this heading">#</a></h2>
+<p><strong>Topic discovery</strong> is an unsupervised text-analysis task: given a collection of documents and no predefined categories, find the themes running through it. It is useful whenever a collection is too large to read by hand and no existing labels describe what it contains, which is most of the time for real-world text collections.</p>
+<p>A computational “topic” is not a word. It is a <strong>pattern</strong>: a group of terms (and, indirectly, a group of documents) that tend to occur together. Whether that pattern deserves the label “sports” or “cooking” is a separate question, one we return to in Section 3.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Classification</strong> (Module 5): predefined labels exist, and the model learns to predict them.</p>
+<p><strong>Topic discovery</strong> (this module): predefined labels do not necessarily exist, and the goal is to discover meaningful structure in a collection.</p>
+</div>
+<p>Topic discovery builds directly on ideas you already have. You already know how to turn text into vectors (Module 3) and how to compare those vectors (Module 4). This week reuses both representation and comparison, but points them at a new question: instead of comparing two documents, or predicting one document’s label, we look for patterns across an entire collection at once.</p>
+</section>
+<section id="from-keywords-to-topics">
+<h2>2. From Keywords to Topics<a class="headerlink" href="#from-keywords-to-topics" title="Permalink to this heading">#</a></h2>
+<p>Before looking for topics across a whole collection, it helps to notice patterns within a single document.</p>
+<p>A <strong>collocation</strong> is a sequence of words that occurs together more often than chance would predict: “free throws” and “championship game” in blurb (1), for example. <strong>Keyphrase extraction</strong> ranks these recurring word groups, often combining raw frequency with the same TF-IDF weighting you saw in Module 3, to surface a document’s most salient phrases <span id="id1">[<a class="reference internal" href="../references.html#id4" title="Dipanjan Sarkar. Text Analytics with Python: A Practitioner's Guide to Natural Language Processing. Apress, 2 edition, 2019. doi:10.1007/978-1-4842-4354-1.">Sar19</a>]</span>.</p>
+<p>Keyphrases are a useful bridge, but they stop short of topic discovery. They highlight salient terms in <em>one</em> document, but they don’t group co-occurring terms into a broader theme shared <em>across</em> many documents <span id="id2">[<a class="reference internal" href="../references.html#id4" title="Dipanjan Sarkar. Text Analytics with Python: A Practitioner's Guide to Natural Language Processing. Apress, 2 edition, 2019. doi:10.1007/978-1-4842-4354-1.">Sar19</a>]</span>. Knowing that “free throws” is salient in blurb (1) doesn’t yet tell you that blurbs (1) and (4) belong to the same theme. That grouping is what topic modeling adds.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Collocations and keyphrases are worth recognizing conceptually, but the mechanics (n-gram counting, part-of-speech chunking, ranking by TF-IDF) belong in Coding Practice, not here.</p>
+</div>
+</section>
+<section id="classical-topic-models-lsi-lsa-nmf-and-lda">
+<h2>3. Classical Topic Models: LSI/LSA, NMF, and LDA<a class="headerlink" href="#classical-topic-models-lsi-lsa-nmf-and-lda" title="Permalink to this heading">#</a></h2>
+<p>Classical topic models start from a representation you already know: a document-term matrix, where rows are documents, columns are vocabulary terms, and cells hold counts or TF-IDF weights (Module 3). Three classical techniques take that matrix and factor it into latent structure <span id="id3">[<a class="reference internal" href="../references.html#id4" title="Dipanjan Sarkar. Text Analytics with Python: A Practitioner's Guide to Natural Language Processing. Apress, 2 edition, 2019. doi:10.1007/978-1-4842-4354-1.">Sar19</a>]</span>.</p>
+<section id="latent-semantic-indexing-analysis-lsi-lsa">
+<h3>Latent Semantic Indexing / Analysis (LSI/LSA)<a class="headerlink" href="#latent-semantic-indexing-analysis-lsi-lsa" title="Permalink to this heading">#</a></h3>
+<p>LSI applies a matrix-factorization technique (singular value decomposition) to project the document-term matrix into a smaller, latent semantic space <span id="id4">[<a class="reference internal" href="../references.html#id4" title="Dipanjan Sarkar. Text Analytics with Python: A Practitioner's Guide to Natural Language Processing. Apress, 2 edition, 2019. doi:10.1007/978-1-4842-4354-1.">Sar19</a>]</span>. Terms that tend to appear in similar contexts end up close together in that space, even if they never co-occur directly in the same document. One quirk worth knowing: LSI’s term weights can be positive or negative, and the sign is meaningful. Terms sharing the same sign on a topic tend to represent a coherent sub-theme, while opposite signs represent a contrast <span id="id5">[<a class="reference internal" href="../references.html#id4" title="Dipanjan Sarkar. Text Analytics with Python: A Practitioner's Guide to Natural Language Processing. Apress, 2 edition, 2019. doi:10.1007/978-1-4842-4354-1.">Sar19</a>]</span>.</p>
+<p>For our running example, an LSI-style pass might surface a latent dimension where “goal,” “game,” “team,” and “match” all load with the same sign (an early, rough sketch of a “sports” theme), while “processor,” “app,” and “battery” load with the opposite sign.</p>
+</section>
+<section id="non-negative-matrix-factorization-nmf">
+<h3>Non-Negative Matrix Factorization (NMF)<a class="headerlink" href="#non-negative-matrix-factorization-nmf" title="Permalink to this heading">#</a></h3>
+<p>NMF factors the same kind of matrix, but requires every weight to be zero or positive <span id="id6">[<a class="reference internal" href="../references.html#id4" title="Dipanjan Sarkar. Text Analytics with Python: A Practitioner's Guide to Natural Language Processing. Apress, 2 edition, 2019. doi:10.1007/978-1-4842-4354-1.">Sar19</a>]</span>. Because there is no cancellation between positive and negative weights, NMF topics tend to be purely additive and are often easier for a human to read at a glance, especially on smaller collections <span id="id7">[<a class="reference internal" href="../references.html#id4" title="Dipanjan Sarkar. Text Analytics with Python: A Practitioner's Guide to Natural Language Processing. Apress, 2 edition, 2019. doi:10.1007/978-1-4842-4354-1.">Sar19</a>]</span>.</p>
+</section>
+<section id="latent-dirichlet-allocation-lda">
+<h3>Latent Dirichlet Allocation (LDA)<a class="headerlink" href="#latent-dirichlet-allocation-lda" title="Permalink to this heading">#</a></h3>
+<p>LDA takes a different approach. Instead of factoring a matrix directly, it treats topic discovery as a probabilistic story about how a collection was generated <span id="id8">[<a class="reference internal" href="../references.html#id4" title="Dipanjan Sarkar. Text Analytics with Python: A Practitioner's Guide to Natural Language Processing. Apress, 2 edition, 2019. doi:10.1007/978-1-4842-4354-1.">Sar19</a>]</span>. The two ideas worth carrying forward are:</p>
+<ul class="simple">
+<li><p><strong>A document is a mixture of topics.</strong> Blurb (1) might be modeled as mostly “sports,” with a trace of “general narrative.”</p></li>
+<li><p><strong>A topic is a distribution over words.</strong> A “sports” topic might assign high probability to “game,” “team,” “score,” and “goal,” and low probability to “sauce” or “processor.”</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>LDA descends from earlier probabilistic approaches to the same problem, including pLSA. This course does not cover pLSA directly: it is not essential once you understand LDA’s document-mixture and topic-distribution ideas, and neither of this chapter’s two main sources covers it in any depth either.</p>
+</div>
+<p>We deliberately stop at the level of “documents are topic mixtures, topics are word distributions.” The full generative process (Dirichlet priors, Gibbs sampling, or variational inference) is not necessary to interpret and use topic model output, and the underlying libraries (Gensim, scikit-learn) handle that machinery for you. Using those libraries well is a Coding Practice skill, not a reading concept.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>LSI, NMF, and LDA all answer the same question, “what latent structure explains this collection?”, with different mechanics and different trade-offs. LSI gives a fast linear-algebra view with mixed-sign weights. NMF gives purely additive, often more readable topics. LDA gives a probabilistic mixture that is usually the most interpretable in terms of “this document is 70% sports, 30% something else.”</p>
+</div>
+</section>
+</section>
+<section id="interpreting-and-evaluating-topics">
+<h2>4. Interpreting and Evaluating Topics<a class="headerlink" href="#interpreting-and-evaluating-topics" title="Permalink to this heading">#</a></h2>
+<p>A topic model does not output a label. It outputs a list of top-weighted words (and, per document, a distribution over topics). Turning “0.03 x game + 0.02 x team + 0.02 x score + 0.01 x goal” into the label <strong>“sports”</strong> is an act of human interpretation, not something the model asserts <span id="id9">[<a class="reference internal" href="../references.html#id4" title="Dipanjan Sarkar. Text Analytics with Python: A Practitioner's Guide to Natural Language Processing. Apress, 2 edition, 2019. doi:10.1007/978-1-4842-4354-1.">Sar19</a>]</span>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A model can discover a statistical pattern without knowing what that pattern means. Topic labels are interpretations, not objective truths produced by the model.</p>
+</div>
+<p>Two habits make that interpretation trustworthy:</p>
+<ul class="simple">
+<li><p><strong>Read representative documents, not just top words.</strong> If a topic’s top words are “game, team, score, goal,” check that it is actually assigning high weight to blurbs like (1) and (4) before labeling it “sports.”</p></li>
+<li><p><strong>Ask what a topic does <em>not</em> explain.</strong> A topic that mixes “team” with “processor” is a sign that the model, the preprocessing, or the chosen number of topics needs another look.</p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>Try it yourself.</strong> Suppose a topic model returns the top words: <code class="docutils literal notranslate"><span class="pre">circuit,</span> <span class="pre">chip,</span> <span class="pre">analog,</span> <span class="pre">voltage,</span> <span class="pre">current,</span> <span class="pre">signal</span></code>. What label would you assign? Now suppose the two most representative documents both discuss integrated-circuit design. Does that change or confirm your label? This is exactly the kind of check every discovered topic deserves before it gets used for anything.</p>
+</div>
+<p>Beyond human inspection, two quantitative metrics are commonly used:</p>
+<ul class="simple">
+<li><p><strong>Perplexity</strong> measures how well the model predicts held-out text. Lower perplexity generally indicates a better statistical fit <span id="id10">[<a class="reference internal" href="../references.html#id4" title="Dipanjan Sarkar. Text Analytics with Python: A Practitioner's Guide to Natural Language Processing. Apress, 2 edition, 2019. doi:10.1007/978-1-4842-4354-1.">Sar19</a>]</span>.</p></li>
+<li><p><strong>Topic coherence</strong> (commonly reported as UMass or C<sub>v</sub> scores) asks a more direct question: do a topic’s top words tend to actually appear together in real documents? Higher coherence (by the C<sub>v</sub> convention) generally means a more human-interpretable topic, and coherence scores are often used to help choose how many topics to ask for <span id="id11">[<a class="reference internal" href="../references.html#id4" title="Dipanjan Sarkar. Text Analytics with Python: A Practitioner's Guide to Natural Language Processing. Apress, 2 edition, 2019. doi:10.1007/978-1-4842-4354-1.">Sar19</a>]</span>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Neither metric replaces judgment. A topic can score well numerically and still be a poor fit for what you actually wanted to learn about a collection. This is the same lesson Module 5 taught about accuracy, precision, and recall: a single number is a signal, not a verdict.</p>
+</div>
+</section>
+<section id="limitations-of-classical-topic-models">
+<h2>5. Limitations of Classical Topic Models<a class="headerlink" href="#limitations-of-classical-topic-models" title="Permalink to this heading">#</a></h2>
+<p>Classical topic models share a structural weakness: they represent documents as bags of words, discarding word order and grammar. That has real consequences <span id="id12">[<a class="reference internal" href="../references.html#id4" title="Dipanjan Sarkar. Text Analytics with Python: A Practitioner's Guide to Natural Language Processing. Apress, 2 edition, 2019. doi:10.1007/978-1-4842-4354-1.">Sar19</a>]</span>:</p>
+<ul class="simple">
+<li><p><strong>Short texts struggle.</strong> A tweet or headline has too few word co-occurrences for count-based methods to find reliable patterns.</p></li>
+<li><p><strong>Preprocessing does a lot of work.</strong> Stopword removal, lemmatization, and vocabulary filtering all shape what the model can possibly discover. A topic model can only find structure in the representation it is given.</p></li>
+<li><p><strong>Topics are ambiguous word lists.</strong> Two people can read the same top-word list and propose different labels, and there is no built-in mechanism to resolve the disagreement.</p></li>
+<li><p><strong>New vocabulary breaks assumptions.</strong> A model trained on one domain can degrade badly when applied to text that uses different words for similar ideas.</p></li>
+</ul>
+<p>These limitations are what motivate the next two sections. They do not mean classical topic models have nothing left to offer: the concepts they teach (documents as mixtures, topics as word distributions, coherence and interpretation) carry forward directly into the modern methods below.</p>
+</section>
+<section id="from-sparse-counts-to-embeddings-modern-topic-analysis">
+<h2>6. From Sparse Counts to Embeddings: Modern Topic Analysis<a class="headerlink" href="#from-sparse-counts-to-embeddings-modern-topic-analysis" title="Permalink to this heading">#</a></h2>
+<p>Module 4 introduced dense embeddings and cosine similarity as a way to compare two pieces of text by meaning rather than by shared words. The same representation can power topic discovery:</p>
+<p><strong>documents → embeddings → clustering → topic representation/label</strong></p>
+<p>Instead of a sparse document-term matrix, an embedding-based approach represents each document as a dense vector, groups nearby vectors into clusters, and then describes each cluster using its most distinctive terms <span id="id13">[<a class="reference internal" href="../references.html#id8" title="Xuan Xu, Zhongliang Yang, Haolun Li, Rui Tian, Beilin Chu, Jia Song, Yu Li, Shaolin Tan, and Linna Zhou. Towards modern topic models: a survey of taxonomies and paradigm shifts from algorithm-centric to llm-centered topic analysis. In Findings of the Association for Computational Linguistics: ACL 2026. 2026.">XYL+26</a>]</span>.</p>
+<p>In our running example, an embedding-based approach does not need blurbs (1) and (4) to share the literal words “game” or “goal.” It only needs their <em>meanings</em> to be close in embedding space, which helps considerably with short text where word overlap is sparse <span id="id14">[<a class="reference internal" href="../references.html#id8" title="Xuan Xu, Zhongliang Yang, Haolun Li, Rui Tian, Beilin Chu, Jia Song, Yu Li, Shaolin Tan, and Linna Zhou. Towards modern topic models: a survey of taxonomies and paradigm shifts from algorithm-centric to llm-centered topic analysis. In Findings of the Association for Computational Linguistics: ACL 2026. 2026.">XYL+26</a>]</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is the same shift Module 4 described for retrieval: sparse, lexical representations are replaced with dense, semantic ones. The clustering and labeling step around the embeddings is what’s new here, not the embeddings themselves.</p>
+</div>
+</section>
+<section id="llm-assisted-and-llm-centered-topic-analysis">
+<h2>7. LLM-Assisted and LLM-Centered Topic Analysis<a class="headerlink" href="#llm-assisted-and-llm-centered-topic-analysis" title="Permalink to this heading">#</a></h2>
+<p>Large language models have entered the topic-analysis pipeline in two structurally different ways, and the distinction matters for reasoning about any result you are handed <span id="id15">[<a class="reference internal" href="../references.html#id8" title="Xuan Xu, Zhongliang Yang, Haolun Li, Rui Tian, Beilin Chu, Jia Song, Yu Li, Shaolin Tan, and Linna Zhou. Towards modern topic models: a survey of taxonomies and paradigm shifts from algorithm-centric to llm-centered topic analysis. In Findings of the Association for Computational Linguistics: ACL 2026. 2026.">XYL+26</a>]</span>:</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>LLM-assisted topic analysis:</strong> an existing method (LDA, NMF, an embedding-based cluster) performs the actual discovery. An LLM assists around that method: turning a word list into a readable label, merging near-duplicate topics, or judging whether a topic’s words are coherent.</p>
+<p><strong>LLM-centered topic analysis:</strong> the LLM itself performs the discovery, typically by reading documents directly and proposing themes through prompting or a short multi-step workflow.</p>
+</div>
+<p>Concrete LLM-assisted roles include writing a natural-language label or short description for a topic that a classical or embedding-based method already found, splitting an overly broad topic or merging duplicates, and acting as an evaluator (“LLM-as-a-judge”) that scores how coherent or relevant a topic’s words are <span id="id16">[<a class="reference internal" href="../references.html#id8" title="Xuan Xu, Zhongliang Yang, Haolun Li, Rui Tian, Beilin Chu, Jia Song, Yu Li, Shaolin Tan, and Linna Zhou. Towards modern topic models: a survey of taxonomies and paradigm shifts from algorithm-centric to llm-centered topic analysis. In Findings of the Association for Computational Linguistics: ACL 2026. 2026.">XYL+26</a>]</span>. Applying this to our running example: an LLM-assisted workflow might take NMF’s raw top-word list for blurbs (1) and (4) and generate the label “sports” with a one-line justification. That is discovering a topic (NMF’s job) versus giving an already-discovered topic a readable label (the LLM’s job).</p>
+<p>LLM-centered approaches go further. Some systems propose candidate topics directly from documents in one pass, while others use a first pass to propose topics and a second pass to assign documents and refine the results. Named systems such as <em>TopicGPT</em> and multi-step, tool-using systems such as <em>LLooM</em> are examples of this direction, mentioned here so you recognize the category rather than as tools you need to master <span id="id17">[<a class="reference internal" href="../references.html#id8" title="Xuan Xu, Zhongliang Yang, Haolun Li, Rui Tian, Beilin Chu, Jia Song, Yu Li, Shaolin Tan, and Linna Zhou. Towards modern topic models: a survey of taxonomies and paradigm shifts from algorithm-centric to llm-centered topic analysis. In Findings of the Association for Computational Linguistics: ACL 2026. 2026.">XYL+26</a>]</span>. In our running example, an LLM-centered workflow might read all six blurbs directly and propose “sports,” “cooking,” and “technology” itself, with no separate topic model involved.</p>
+<p>This distinction is worth more than the vocabulary. LLM-centered methods trade the low cost and predictability of classical models for richer, more natural output, at the cost of higher compute, higher latency, and a real risk of <strong>hallucination</strong>, where a model produces a fluent topic description that is not actually supported by the documents <span id="id18">[<a class="reference internal" href="../references.html#id8" title="Xuan Xu, Zhongliang Yang, Haolun Li, Rui Tian, Beilin Chu, Jia Song, Yu Li, Shaolin Tan, and Linna Zhou. Towards modern topic models: a survey of taxonomies and paradigm shifts from algorithm-centric to llm-centered topic analysis. In Findings of the Association for Computational Linguistics: ACL 2026. 2026.">XYL+26</a>]</span>. Neither approach is automatically better: the right choice depends on the collection, the budget, and how much the result needs to be checked against evidence.</p>
+</section>
+<section id="what-still-matters-regardless-of-method">
+<h2>8. What Still Matters Regardless of Method<a class="headerlink" href="#what-still-matters-regardless-of-method" title="Permalink to this heading">#</a></h2>
+<p>More capable models do not remove the need for interpretation and evaluation. If anything, they make it more important, because fluent output is easy to mistake for correct output <span id="id19">[<a class="reference internal" href="../references.html#id8" title="Xuan Xu, Zhongliang Yang, Haolun Li, Rui Tian, Beilin Chu, Jia Song, Yu Li, Shaolin Tan, and Linna Zhou. Towards modern topic models: a survey of taxonomies and paradigm shifts from algorithm-centric to llm-centered topic analysis. In Findings of the Association for Computational Linguistics: ACL 2026. 2026.">XYL+26</a>]</span>. Whatever method produced a topic, classical or modern, the same questions apply:</p>
+<ul class="simple">
+<li><p>What representation of the documents was actually used?</p></li>
+<li><p>How were the topics discovered?</p></li>
+<li><p>What evidence (which documents) supports the topic?</p></li>
+<li><p>Who or what assigned the label: a human, or an LLM?</p></li>
+<li><p>Are representative documents actually consistent with the label?</p></li>
+<li><p>How was topic quality evaluated, and how sensitive might the results be to modeling choices (preprocessing, number of topics, prompt wording)?</p></li>
+<li><p>Did an LLM discover the topic, or merely help interpret one discovered another way?</p></li>
+<li><p>Does the generated description go beyond what the documents actually support?</p></li>
+</ul>
+<p>Some ideas carry across every generation of method, classical or modern: a topic is still a claim about shared structure across documents, interpretation is still a human judgment, and coherence and diversity (are the topics distinct from each other, and internally consistent) are still the right questions to ask, however they are measured <span id="id20">[<a class="reference internal" href="../references.html#id8" title="Xuan Xu, Zhongliang Yang, Haolun Li, Rui Tian, Beilin Chu, Jia Song, Yu Li, Shaolin Tan, and Linna Zhou. Towards modern topic models: a survey of taxonomies and paradigm shifts from algorithm-centric to llm-centered topic analysis. In Findings of the Association for Computational Linguistics: ACL 2026. 2026.">XYL+26</a>]</span>.</p>
+</section>
+<section id="key-takeaways">
+<h2>9. Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Topic discovery answers a different question than classification. Instead of predicting a predefined label, it proposes structure that was not specified in advance.</p></li>
+<li><p>Collocations and keyphrases are a useful bridge but stop at a single document. Topic modeling groups shared structure across a whole collection.</p></li>
+<li><p>LSI, NMF, and LDA all discover latent structure in a document-term matrix, with different trade-offs in interpretability and mechanics. None of them require you to derive the underlying math to use them well.</p></li>
+<li><p>A topic model’s output (top words, document-topic proportions) becomes meaningful only through human interpretation, checked against representative documents.</p></li>
+<li><p>Coherence and perplexity are useful evaluation signals, but they do not replace judgment: the same lesson Module 5 taught about classification metrics.</p></li>
+<li><p>Bag-of-words representations have real limitations (short-text sparsity, preprocessing sensitivity, ambiguous word-list output), which motivate embedding-based and LLM-based topic analysis.</p></li>
+<li><p>LLM-assisted analysis uses an LLM to support another method. LLM-centered analysis uses the LLM as the discovery mechanism itself: richer output, but with added cost, latency, and hallucination risk.</p></li>
+<li><p>Whatever the method, the underlying skill is the same: ask what representation was used, what evidence supports a topic’s interpretation, and how much confidence the evaluation actually earns.</p></li>
+</ul>
+</section>
+<section id="going-further">
+<h2>Going Further<a class="headerlink" href="#going-further" title="Permalink to this heading">#</a></h2>
+<p>Two related ideas appear alongside topic modeling in the wider literature but sit outside this chapter’s core progression. <strong>Relational topic models</strong> extend topic modeling to networks of linked documents, for example using citation links between papers in addition to their text, to discover topics <span id="id21">[<a class="reference internal" href="../references.html#id9" title="Jonathan Chang and David M. Blei. Relational topic models for document networks. In Proceedings of the 12th International Conference on Artificial Intelligence and Statistics (AISTATS). 2009.">CB09</a>]</span>. This is a genuinely useful idea for network-structured data, but it requires document-network data most course examples don’t have, and the underlying inference is more advanced than this course’s scope. If you work with citation networks, hyperlinked pages, or social graphs in a future project, this is worth a closer look. <strong>Document summarization</strong> is a related unsupervised text-analytics task, reducing a document (or collection) to a shorter gist rather than discovering themes across many documents, and is not covered in depth in this chapter <span id="id22">[<a class="reference internal" href="../references.html#id4" title="Dipanjan Sarkar. Text Analytics with Python: A Practitioner's Guide to Natural Language Processing. Apress, 2 edition, 2019. doi:10.1007/978-1-4842-4354-1.">Sar19</a>]</span>.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<p><span id="id23">[<a class="reference internal" href="../references.html#id4" title="Dipanjan Sarkar. Text Analytics with Python: A Practitioner's Guide to Natural Language Processing. Apress, 2 edition, 2019. doi:10.1007/978-1-4842-4354-1.">Sar19</a>]</span></p>
+<p><span id="id24">[<a class="reference internal" href="../references.html#id8" title="Xuan Xu, Zhongliang Yang, Haolun Li, Rui Tian, Beilin Chu, Jia Song, Yu Li, Shaolin Tan, and Linna Zhou. Towards modern topic models: a survey of taxonomies and paradigm shifts from algorithm-centric to llm-centered topic analysis. In Findings of the Association for Computational Linguistics: ACL 2026. 2026.">XYL+26</a>]</span></p>
+<p><span id="id25">[<a class="reference internal" href="../references.html#id9" title="Jonathan Chang and David M. Blei. Relational topic models for document networks. In Proceedings of the 12th International Conference on Artificial Intelligence and Statistics (AISTATS). 2009.">CB09</a>]</span></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module6"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="module6.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 6 Topic Modeling and Modern Topic Analysis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../speech.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Speech</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-topic-discovery">1. What Is Topic Discovery?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-keywords-to-topics">2. From Keywords to Topics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classical-topic-models-lsi-lsa-nmf-and-lda">3. Classical Topic Models: LSI/LSA, NMF, and LDA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latent-semantic-indexing-analysis-lsi-lsa">Latent Semantic Indexing / Analysis (LSI/LSA)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-negative-matrix-factorization-nmf">Non-Negative Matrix Factorization (NMF)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latent-dirichlet-allocation-lda">Latent Dirichlet Allocation (LDA)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-and-evaluating-topics">4. Interpreting and Evaluating Topics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-of-classical-topic-models">5. Limitations of Classical Topic Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-sparse-counts-to-embeddings-modern-topic-analysis">6. From Sparse Counts to Embeddings: Modern Topic Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-assisted-and-llm-centered-topic-analysis">7. LLM-Assisted and LLM-Centered Topic Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-still-matters-regardless-of-method">8. What Still Matters Regardless of Method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">9. Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going Further</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

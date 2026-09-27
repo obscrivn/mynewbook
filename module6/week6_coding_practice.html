@@ -1,0 +1,1183 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>6.2 Coding Practice: Topic Modeling and Modern Topic Analysis &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module6/week6_coding_practice';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.3 Coding Practice: Topic Modeling and Modern Topic Analysis (Solution)" href="week6_coding_practice_solution.html" />
+    <link rel="prev" title="6.1 Topic Modeling and Modern Topic Analysis" href="topics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module4/module4.html">Chapter 4 Similarity and Retrieval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module4/cluster.html">4.1 Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/practice.html">4.2 Experiment: From Similarity Scores to Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/week4_coding_practice.html">4.3 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module5/module5.html">Chapter 5 Text Classification and Model Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module5/classification.html">5.1 Text Classification and Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/week5_coding_practice.html">5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module6.html">Chapter 6 Topic Modeling and Modern Topic Analysis</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="topics.html">6.1 Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">6.2 Coding Practice: Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week6_coding_practice_solution.html">6.3 Coding Practice: Topic Modeling and Modern Topic Analysis (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phonetics.html">Speech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recognizer.html">Speech Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule6/week6_coding_practice.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module6/week6_coding_practice.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>6.2 Coding Practice: Topic Modeling and Modern Topic Analysis</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-goals">Learning goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-corpus">1. Setup and corpus</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-before-modeling">Predict before modeling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nmf-with-tf-idf">2. NMF with TF-IDF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#display-utilities">Display utilities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pause-and-interpret">Pause and interpret</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lda-with-count-features">3. LDA with count features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-side-by-side-comparison">Write a side-by-side comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Pause and interpret</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-quantitative-check-briefly">4. A quantitative check, briefly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding-based-grouping">5. Embedding-based grouping</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cluster-the-embeddings">Cluster the embeddings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-each-cluster">Inspect each cluster</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-a-specific-document-across-methods">Compare a specific document across methods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Pause and interpret</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-llm-assisted-labeling">6. Optional: LLM-assisted labeling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-before-any-gemini-code">Setup before any Gemini code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ask-gemini-to-label-a-topic">Ask Gemini to label a topic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Pause and interpret</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-comparison-and-reflection">7. Final comparison and reflection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-checks">Validation checks</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="coding-practice-topic-modeling-and-modern-topic-analysis">
+<h1>6.2 Coding Practice: Topic Modeling and Modern Topic Analysis<a class="headerlink" href="#coding-practice-topic-modeling-and-modern-topic-analysis" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module6/week6_coding_practice.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>This formative notebook follows one workflow: <strong>documents -&gt; classical topic model -&gt; interpret topics -&gt; compare methods -&gt; embedding-based grouping -&gt; optional LLM-assisted labeling -&gt; reflect</strong>. Work through it in order using one small corpus throughout, so every method’s output can be compared directly. Before each interpretation checkpoint, make a prediction or judgment call before looking further, and write short answers where asked. This is unsupervised: nothing in the corpus tells you the “right” topics in advance.</p>
+<section id="learning-goals">
+<h2>Learning goals<a class="headerlink" href="#learning-goals" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Fit and inspect NMF and LDA topic models on the same text corpus, and extract each topic’s top words and representative documents.</p></li>
+<li><p>Assign a human-readable topic label and justify it with specific evidence, not intuition alone.</p></li>
+<li><p>Identify a topic that is ambiguous or weak, and explain what makes it hard to interpret.</p></li>
+<li><p>Compare NMF and LDA output and explain differences in terms of representation, not just “which is better.”</p></li>
+<li><p>Use a lightweight quantitative diagnostic without treating it as proof of topic quality.</p></li>
+<li><p>Use sentence embeddings and clustering to discover groups based on meaning, and compare that grouping with the classical topic models.</p></li>
+<li><p>Evaluate an LLM-generated topic label against the evidence it was given, and distinguish topic discovery from topic interpretation.</p></li>
+</ul>
+<p><strong>Course bridge:</strong> the Week 06 reading distinguishes topic <em>discovery</em> (what an algorithm finds) from topic <em>interpretation</em> (what a human, or an LLM, decides that finding means). This notebook makes that distinction concrete: you will run the algorithms, then do the interpreting yourself, then check an LLM’s interpretation against the same evidence you used.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">importlib.util</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="c1"># One-time setup for the embedding-based section. This is the only package</span>
+<span class="c1"># installation in the core activity; Colab does not include</span>
+<span class="c1"># sentence-transformers by default. Safe to rerun.</span>
+<span class="k">if</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="s2">&quot;sentence_transformers&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="s2">&quot;-q&quot;</span><span class="p">,</span> <span class="s2">&quot;sentence-transformers&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">NMF</span><span class="p">,</span> <span class="n">LatentDirichletAllocation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">TfidfVectorizer</span><span class="p">,</span> <span class="n">ENGLISH_STOP_WORDS</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_colwidth&quot;</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+<span class="n">RANDOM_STATE</span> <span class="o">=</span> <span class="mi">42</span>
+
+<span class="c1"># scikit-learn&#39;s built-in English stop words, plus a few fragments and filler</span>
+<span class="c1"># words common in casual Usenet-style writing (contractions get split on the</span>
+<span class="c1"># apostrophe, e.g. &quot;don&#39;t&quot; -&gt; &quot;don&quot; + &quot;t&quot;) that would otherwise dominate every</span>
+<span class="c1"># topic instead of the words that actually distinguish one topic from another.</span>
+<span class="n">EXTRA_STOP_WORDS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;don&quot;</span><span class="p">,</span> <span class="s2">&quot;didn&quot;</span><span class="p">,</span> <span class="s2">&quot;doesn&quot;</span><span class="p">,</span> <span class="s2">&quot;isn&quot;</span><span class="p">,</span> <span class="s2">&quot;wasn&quot;</span><span class="p">,</span> <span class="s2">&quot;weren&quot;</span><span class="p">,</span> <span class="s2">&quot;won&quot;</span><span class="p">,</span> <span class="s2">&quot;wouldn&quot;</span><span class="p">,</span> <span class="s2">&quot;couldn&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;shouldn&quot;</span><span class="p">,</span> <span class="s2">&quot;hasn&quot;</span><span class="p">,</span> <span class="s2">&quot;haven&quot;</span><span class="p">,</span> <span class="s2">&quot;hadn&quot;</span><span class="p">,</span> <span class="s2">&quot;mustn&quot;</span><span class="p">,</span> <span class="s2">&quot;needn&quot;</span><span class="p">,</span> <span class="s2">&quot;shan&quot;</span><span class="p">,</span> <span class="s2">&quot;aren&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ve&quot;</span><span class="p">,</span> <span class="s2">&quot;re&quot;</span><span class="p">,</span> <span class="s2">&quot;ll&quot;</span><span class="p">,</span> <span class="s2">&quot;just&quot;</span><span class="p">,</span> <span class="s2">&quot;like&quot;</span><span class="p">,</span> <span class="s2">&quot;know&quot;</span><span class="p">,</span> <span class="s2">&quot;think&quot;</span><span class="p">,</span> <span class="s2">&quot;really&quot;</span><span class="p">,</span> <span class="s2">&quot;got&quot;</span><span class="p">,</span> <span class="s2">&quot;get&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;would&quot;</span><span class="p">,</span> <span class="s2">&quot;could&quot;</span><span class="p">,</span> <span class="s2">&quot;also&quot;</span><span class="p">,</span> <span class="s2">&quot;much&quot;</span><span class="p">,</span> <span class="s2">&quot;many&quot;</span><span class="p">,</span> <span class="s2">&quot;even&quot;</span><span class="p">,</span> <span class="s2">&quot;still&quot;</span><span class="p">,</span> <span class="s2">&quot;well&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;want&quot;</span><span class="p">,</span> <span class="s2">&quot;wanted&quot;</span><span class="p">,</span> <span class="s2">&quot;looking&quot;</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;hi&quot;</span><span class="p">,</span> <span class="s2">&quot;thanks&quot;</span><span class="p">,</span> <span class="s2">&quot;sure&quot;</span><span class="p">,</span> <span class="s2">&quot;good&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;bad&quot;</span><span class="p">,</span> <span class="s2">&quot;things&quot;</span><span class="p">,</span> <span class="s2">&quot;thing&quot;</span><span class="p">,</span> <span class="s2">&quot;way&quot;</span><span class="p">,</span> <span class="s2">&quot;make&quot;</span><span class="p">,</span> <span class="s2">&quot;made&quot;</span><span class="p">,</span> <span class="s2">&quot;said&quot;</span><span class="p">,</span> <span class="s2">&quot;say&quot;</span><span class="p">,</span> <span class="s2">&quot;going&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;goes&quot;</span><span class="p">,</span> <span class="s2">&quot;went&quot;</span><span class="p">,</span> <span class="s2">&quot;come&quot;</span><span class="p">,</span> <span class="s2">&quot;came&quot;</span><span class="p">,</span> <span class="s2">&quot;actually&quot;</span><span class="p">,</span> <span class="s2">&quot;probably&quot;</span><span class="p">,</span> <span class="s2">&quot;maybe&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;something&quot;</span><span class="p">,</span> <span class="s2">&quot;someone&quot;</span><span class="p">,</span> <span class="s2">&quot;anyone&quot;</span><span class="p">,</span> <span class="s2">&quot;anything&quot;</span><span class="p">,</span> <span class="s2">&quot;people&quot;</span><span class="p">,</span> <span class="s2">&quot;person&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;years&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">CUSTOM_STOP_WORDS</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ENGLISH_STOP_WORDS</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">EXTRA_STOP_WORDS</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="setup-and-corpus">
+<h2>1. Setup and corpus<a class="headerlink" href="#setup-and-corpus" title="Permalink to this heading">#</a></h2>
+<p>The corpus is 52 short real text snippets drawn from four Usenet newsgroups (early-1990s public discussion posts), covering sports, space, computing, and health topics. It is curated for this activity; see <code class="docutils literal notranslate"><span class="pre">data/README.md</span></code> for the full source, license, and curation notes.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">source_newsgroup</span></code> and <code class="docutils literal notranslate"><span class="pre">theme_area</span></code> columns record where each document came from. <strong>Do not use them when fitting the topic models below.</strong> Topic modeling here is unsupervised: the point is to discover structure in the <code class="docutils literal notranslate"><span class="pre">text</span></code> column without being told the categories in advance, then use those two columns afterward to sanity-check your own labels.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LOCAL_DATA_PATH</span> <span class="o">=</span> <span class="s2">&quot;data/week6_topics_dataset.csv&quot;</span>
+<span class="n">RAW_DATA_URL</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;https://raw.githubusercontent.com/obscrivn/mynewbook/master/&quot;</span>
+    <span class="s2">&quot;module6/data/week6_topics_dataset.csv&quot;</span>
+<span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">corpus_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">LOCAL_DATA_PATH</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="n">corpus_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">RAW_DATA_URL</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">corpus_df</span><span class="p">)</span><span class="si">}</span><span class="s2"> documents.&quot;</span><span class="p">)</span>
+<span class="n">corpus_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="predict-before-modeling">
+<h3>Predict before modeling<a class="headerlink" href="#predict-before-modeling" title="Permalink to this heading">#</a></h3>
+<p>Run the next cell to sample a few documents. Before doing any modeling, write down:</p>
+<ul class="simple">
+<li><p>How many distinct themes do you expect to find?</p></li>
+<li><p>What evidence (words, phrasing) led you to that number?</p></li>
+<li><p>Do you expect any documents to be hard to assign to a single theme?</p></li>
+</ul>
+<p>Do not look at the <code class="docutils literal notranslate"><span class="pre">theme_area</span></code> column while making this prediction.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corpus_df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">)[[</span><span class="s2">&quot;doc_id&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Write your prediction here before continuing.</strong></p>
+<p><strong>Your response:</strong></p>
+<p><em>Replace this text with your answer.</em></p>
+</section>
+</section>
+<section id="nmf-with-tf-idf">
+<h2>2. NMF with TF-IDF<a class="headerlink" href="#nmf-with-tf-idf" title="Permalink to this heading">#</a></h2>
+<p>NMF factors a TF-IDF matrix into topics and document-topic weights. Complete the vectorizer and model setup below: choose how many topics to look for, and fill in the two TF-IDF arguments marked <code class="docutils literal notranslate"><span class="pre">TODO</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: choose how many topics to discover. Your prediction above is a</span>
+<span class="c1"># reasonable starting point. You can come back and change this after seeing</span>
+<span class="c1"># the first results.</span>
+<span class="n">NUM_TOPICS</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># TODO: replace with an integer, e.g. 4</span>
+
+<span class="c1"># TODO: build the TF-IDF vectorizer.</span>
+<span class="c1"># - stop_words: use CUSTOM_STOP_WORDS, defined above</span>
+<span class="c1"># - ngram_range: try (1, 1) for single words, or (1, 2) to also include</span>
+<span class="c1">#   two-word phrases</span>
+<span class="n">tfidf_vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span>
+    <span class="n">stop_words</span><span class="o">=...</span><span class="p">,</span>   <span class="c1"># TODO</span>
+    <span class="n">ngram_range</span><span class="o">=...</span><span class="p">,</span>  <span class="c1"># TODO, e.g. (1, 1) or (1, 2)</span>
+    <span class="n">max_df</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span>
+    <span class="n">min_df</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">sublinear_tf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">tfidf_matrix</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus_df</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+<span class="n">tfidf_feature_names</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+
+<span class="n">nmf_model</span> <span class="o">=</span> <span class="n">NMF</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">NUM_TOPICS</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s2">&quot;nndsvda&quot;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+<span class="n">nmf_topic_matrix</span> <span class="o">=</span> <span class="n">nmf_model</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">tfidf_matrix</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;TF-IDF matrix shape: </span><span class="si">{</span><span class="n">tfidf_matrix</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="display-utilities">
+<h3>Display utilities<a class="headerlink" href="#display-utilities" title="Permalink to this heading">#</a></h3>
+<p>These helper functions extract each topic’s top words and most representative documents. They are shared by both the NMF and LDA sections below so results are directly comparable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">top_words_for_topic</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">topic_idx</span><span class="p">,</span> <span class="n">n_words</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">topic</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">components_</span><span class="p">[</span><span class="n">topic_idx</span><span class="p">]</span>
+    <span class="n">top_indices</span> <span class="o">=</span> <span class="n">topic</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="n">n_words</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">top_indices</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">top_documents_for_topic</span><span class="p">(</span><span class="n">doc_topic_matrix</span><span class="p">,</span> <span class="n">corpus_df</span><span class="p">,</span> <span class="n">topic_idx</span><span class="p">,</span> <span class="n">n_docs</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">doc_topic_matrix</span><span class="p">[:,</span> <span class="n">topic_idx</span><span class="p">]</span>
+    <span class="n">top_indices</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="n">n_docs</span><span class="p">]</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">corpus_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">top_indices</span><span class="p">][[</span><span class="s2">&quot;doc_id&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">result</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="n">top_indices</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">show_topics</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">doc_topic_matrix</span><span class="p">,</span> <span class="n">corpus_df</span><span class="p">,</span> <span class="n">num_topics</span><span class="p">,</span> <span class="n">n_words</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_docs</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_topics</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--- Topic </span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2"> ---&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top words:&quot;</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">top_words_for_topic</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n_words</span><span class="p">)))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Representative documents:&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">top_documents_for_topic</span><span class="p">(</span><span class="n">doc_topic_matrix</span><span class="p">,</span> <span class="n">corpus_df</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n_docs</span><span class="p">)</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  [</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;doc_id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">] (score=</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">) </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">show_topics</span><span class="p">(</span><span class="n">nmf_model</span><span class="p">,</span> <span class="n">tfidf_feature_names</span><span class="p">,</span> <span class="n">nmf_topic_matrix</span><span class="p">,</span> <span class="n">corpus_df</span><span class="p">,</span> <span class="n">NUM_TOPICS</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="pause-and-interpret">
+<h3>Pause and interpret<a class="headerlink" href="#pause-and-interpret" title="Permalink to this heading">#</a></h3>
+<p>For each NMF topic above:</p>
+<ol class="arabic simple">
+<li><p>Assign a short, human-readable label.</p></li>
+<li><p>Cite at least one specific top word and one specific representative document that supports your label.</p></li>
+<li><p>Identify the topic you find hardest to interpret, and explain what makes it ambiguous (mixed vocabulary, too few strong documents, an off-topic post pulled in, etc.).</p></li>
+</ol>
+<p><strong>Your response:</strong></p>
+<p><em>Replace this text with your answer.</em></p>
+</section>
+</section>
+<section id="lda-with-count-features">
+<h2>3. LDA with count features<a class="headerlink" href="#lda-with-count-features" title="Permalink to this heading">#</a></h2>
+<p>LDA is a probabilistic model that also discovers topics, but from raw term counts rather than TF-IDF weights. Fit it on the same corpus with the same <code class="docutils literal notranslate"><span class="pre">NUM_TOPICS</span></code>, so the two methods are directly comparable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: build a count-based vectorizer for LDA.</span>
+<span class="c1"># Reuse the same stop words and the same ngram_range you chose for TF-IDF</span>
+<span class="c1"># above, so any differences you see come from the model, not the features.</span>
+<span class="n">count_vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span>
+    <span class="n">stop_words</span><span class="o">=...</span><span class="p">,</span>   <span class="c1"># TODO</span>
+    <span class="n">ngram_range</span><span class="o">=...</span><span class="p">,</span>  <span class="c1"># TODO</span>
+    <span class="n">max_df</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span>
+    <span class="n">min_df</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">count_matrix</span> <span class="o">=</span> <span class="n">count_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus_df</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+<span class="n">count_feature_names</span> <span class="o">=</span> <span class="n">count_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+
+<span class="c1"># TODO: fit LatentDirichletAllocation with n_components=NUM_TOPICS and</span>
+<span class="c1"># random_state=RANDOM_STATE, using learning_method=&quot;batch&quot; for a small corpus.</span>
+<span class="n">lda_model</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># TODO</span>
+<span class="n">lda_topic_matrix</span> <span class="o">=</span> <span class="n">lda_model</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">count_matrix</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Count matrix shape: </span><span class="si">{</span><span class="n">count_matrix</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">show_topics</span><span class="p">(</span><span class="n">lda_model</span><span class="p">,</span> <span class="n">count_feature_names</span><span class="p">,</span> <span class="n">lda_topic_matrix</span><span class="p">,</span> <span class="n">corpus_df</span><span class="p">,</span> <span class="n">NUM_TOPICS</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="write-a-side-by-side-comparison">
+<h3>Write a side-by-side comparison<a class="headerlink" href="#write-a-side-by-side-comparison" title="Permalink to this heading">#</a></h3>
+<p>Complete <code class="docutils literal notranslate"><span class="pre">compare_top_words</span></code> so it prints topic <code class="docutils literal notranslate"><span class="pre">topic_index</span></code>’s top words from NMF next to topic <code class="docutils literal notranslate"><span class="pre">topic_index</span></code>’s top words from LDA. This makes it easy to see where the two methods agree or disagree without scrolling between two separate outputs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compare_top_words</span><span class="p">(</span><span class="n">topic_index</span><span class="p">,</span> <span class="n">n_words</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+    <span class="c1"># TODO: print topic_index&#39;s top n_words words from nmf_model (using</span>
+    <span class="c1"># tfidf_feature_names) next to topic_index&#39;s top n_words words from</span>
+    <span class="c1"># lda_model (using count_feature_names). Use top_words_for_topic(...)</span>
+    <span class="c1"># for both, and label each line clearly (e.g. &quot;NMF:&quot; / &quot;LDA:&quot;).</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Complete this function, then remove this line.&quot;</span><span class="p">)</span>
+
+
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_TOPICS</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;=== Topic index </span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2"> ===&quot;</span><span class="p">)</span>
+    <span class="n">compare_top_words</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Pause and interpret<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>Using the printed comparison (matching topics by content, not by index number, since the same theme can land at a different index in each model):</p>
+<ol class="arabic simple">
+<li><p>Which themes appear clearly in both NMF and LDA?</p></li>
+<li><p>Where do the two methods disagree noticeably on a topic’s top words?</p></li>
+<li><p>Which topics are easier or harder to interpret in each method?</p></li>
+<li><p>Could a difference you found be explained by the representation (TF-IDF weighting vs. raw counts) rather than by one algorithm being “better”? Do not simply pick a winner.</p></li>
+</ol>
+<p><strong>Your response:</strong></p>
+<p><em>Replace this text with your answer.</em></p>
+</section>
+</section>
+<section id="a-quantitative-check-briefly">
+<h2>4. A quantitative check, briefly<a class="headerlink" href="#a-quantitative-check-briefly" title="Permalink to this heading">#</a></h2>
+<p>Perplexity is one built-in diagnostic for an LDA model: lower values indicate the model predicts held-out-style data more confidently, but that alone says nothing about whether the topics are meaningful to a human reader.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lda_perplexity</span> <span class="o">=</span> <span class="n">lda_model</span><span class="o">.</span><span class="n">perplexity</span><span class="p">(</span><span class="n">count_matrix</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;LDA perplexity at NUM_TOPICS=</span><span class="si">{</span><span class="n">NUM_TOPICS</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">lda_perplexity</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Does a lower or higher perplexity value, by itself, tell you whether the topics above are useful or interpretable? What would you need to check before trusting this number as evidence of topic quality?</p>
+<p><strong>Your response:</strong></p>
+<p><em>Replace this text with your answer.</em></p>
+</section>
+<section id="embedding-based-grouping">
+<h2>5. Embedding-based grouping<a class="headerlink" href="#embedding-based-grouping" title="Permalink to this heading">#</a></h2>
+<p>Now switch representations entirely: <strong>documents -&gt; sentence embeddings -&gt; clustering -&gt; cluster interpretation</strong>. A sentence embedding can group documents that share meaning even when they do not share exact vocabulary, which lexical methods like NMF and LDA cannot do. The first run below downloads the small public <code class="docutils literal notranslate"><span class="pre">all-MiniLM-L6-v2</span></code> model; this requires an internet connection.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sentence_transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SentenceTransformer</span>
+
+<span class="n">embedding_model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;all-MiniLM-L6-v2&quot;</span><span class="p">)</span>
+<span class="n">document_embeddings</span> <span class="o">=</span> <span class="n">embedding_model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">corpus_df</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">show_progress_bar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Embedding matrix shape: </span><span class="si">{</span><span class="n">document_embeddings</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="cluster-the-embeddings">
+<h3>Cluster the embeddings<a class="headerlink" href="#cluster-the-embeddings" title="Permalink to this heading">#</a></h3>
+<p>Choose a clustering approach and fit it. K-means with <code class="docutils literal notranslate"><span class="pre">n_clusters=NUM_TOPICS</span></code> and a fixed <code class="docutils literal notranslate"><span class="pre">random_state</span></code> is the simplest reproducible option; agglomerative clustering with <code class="docutils literal notranslate"><span class="pre">n_clusters=NUM_TOPICS</span></code> is also acceptable and needs no random state.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO: fit a clustering model on document_embeddings with NUM_TOPICS clusters.</span>
+<span class="c1"># Recommended: KMeans(n_clusters=NUM_TOPICS, random_state=RANDOM_STATE, n_init=10)</span>
+<span class="n">clustering_model</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># TODO</span>
+<span class="n">cluster_labels</span> <span class="o">=</span> <span class="n">clustering_model</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">document_embeddings</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">cluster_labels</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="inspect-each-cluster">
+<h3>Inspect each cluster<a class="headerlink" href="#inspect-each-cluster" title="Permalink to this heading">#</a></h3>
+<p>Reuse the TF-IDF matrix from Section 2 to describe each embedding cluster with its most distinctive terms, plus the documents closest to the cluster’s centroid.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">top_terms_for_cluster</span><span class="p">(</span><span class="n">tfidf_matrix</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">cluster_labels</span><span class="p">,</span> <span class="n">cluster_idx</span><span class="p">,</span> <span class="n">n_terms</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">cluster_labels</span> <span class="o">==</span> <span class="n">cluster_idx</span>
+    <span class="k">if</span> <span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="n">mean_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">tfidf_matrix</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">top_indices</span> <span class="o">=</span> <span class="n">mean_weights</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="n">n_terms</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">top_indices</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">representative_docs_for_cluster</span><span class="p">(</span><span class="n">embeddings</span><span class="p">,</span> <span class="n">cluster_labels</span><span class="p">,</span> <span class="n">corpus_df</span><span class="p">,</span> <span class="n">cluster_idx</span><span class="p">,</span> <span class="n">n_docs</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">cluster_labels</span> <span class="o">==</span> <span class="n">cluster_idx</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">centroid</span> <span class="o">=</span> <span class="n">embeddings</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">embeddings</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">-</span> <span class="n">centroid</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">idx</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">distances</span><span class="p">)][:</span><span class="n">n_docs</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">corpus_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">order</span><span class="p">][[</span><span class="s2">&quot;doc_id&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">]]</span>
+
+
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_TOPICS</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--- Cluster </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2"> ---&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top terms:&quot;</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">top_terms_for_cluster</span><span class="p">(</span><span class="n">tfidf_matrix</span><span class="p">,</span> <span class="n">tfidf_feature_names</span><span class="p">,</span> <span class="n">cluster_labels</span><span class="p">,</span> <span class="n">c</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Representative documents:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">representative_docs_for_cluster</span><span class="p">(</span><span class="n">document_embeddings</span><span class="p">,</span> <span class="n">cluster_labels</span><span class="p">,</span> <span class="n">corpus_df</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  [</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;doc_id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="compare-a-specific-document-across-methods">
+<h3>Compare a specific document across methods<a class="headerlink" href="#compare-a-specific-document-across-methods" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">describe_document</span></code> looks up one document’s assigned NMF topic, LDA topic, and embedding cluster, each with its top words or terms, so you can compare them side by side for a document you choose.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">describe_document</span><span class="p">(</span><span class="n">doc_id</span><span class="p">):</span>
+    <span class="n">match_index</span> <span class="o">=</span> <span class="n">corpus_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">corpus_df</span><span class="p">[</span><span class="s2">&quot;doc_id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">doc_id</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">corpus_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">match_index</span><span class="p">]</span>
+    <span class="n">nmf_topic</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nmf_topic_matrix</span><span class="p">[</span><span class="n">match_index</span><span class="p">]</span><span class="o">.</span><span class="n">argmax</span><span class="p">())</span>
+    <span class="n">lda_topic</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lda_topic_matrix</span><span class="p">[</span><span class="n">match_index</span><span class="p">]</span><span class="o">.</span><span class="n">argmax</span><span class="p">())</span>
+    <span class="n">cluster</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cluster_labels</span><span class="p">[</span><span class="n">match_index</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Document </span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;NMF topic </span><span class="si">{</span><span class="n">nmf_topic</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">top_words_for_topic</span><span class="p">(</span><span class="n">nmf_model</span><span class="p">,</span><span class="w"> </span><span class="n">tfidf_feature_names</span><span class="p">,</span><span class="w"> </span><span class="n">nmf_topic</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">))</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;LDA topic </span><span class="si">{</span><span class="n">lda_topic</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">top_words_for_topic</span><span class="p">(</span><span class="n">lda_model</span><span class="p">,</span><span class="w"> </span><span class="n">count_feature_names</span><span class="p">,</span><span class="w"> </span><span class="n">lda_topic</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">))</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Embedding cluster </span><span class="si">{</span><span class="n">cluster</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">top_terms_for_cluster</span><span class="p">(</span><span class="n">tfidf_matrix</span><span class="p">,</span><span class="w"> </span><span class="n">tfidf_feature_names</span><span class="p">,</span><span class="w"> </span><span class="n">cluster_labels</span><span class="p">,</span><span class="w"> </span><span class="n">cluster</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">))</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># Try a few doc_id values from the corpus, for example:</span>
+<span class="n">describe_document</span><span class="p">(</span><span class="mi">29</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3>Pause and interpret<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>Try <code class="docutils literal notranslate"><span class="pre">describe_document(...)</span></code> with two or three different <code class="docutils literal notranslate"><span class="pre">doc_id</span></code> values, including at least one you expect to be borderline.</p>
+<ol class="arabic simple">
+<li><p>Did semantic grouping connect any documents that do not share much vocabulary?</p></li>
+<li><p>Find one document whose embedding cluster disagrees with its NMF or LDA topic. What does the document actually say, and which grouping (if either) seems right to you?</p></li>
+<li><p>Did the embedding method produce any grouping that surprised you or seems questionable? What evidence would you want before trusting it?</p></li>
+</ol>
+<p><strong>Your response:</strong></p>
+<p><em>Replace this text with your answer.</em></p>
+</section>
+</section>
+<section id="optional-llm-assisted-labeling">
+<h2>6. Optional: LLM-assisted labeling<a class="headerlink" href="#optional-llm-assisted-labeling" title="Permalink to this heading">#</a></h2>
+<p>This section is independent of Sections 1-5. Skip it if you do not have an API key, encounter quota limits, or prefer not to make an API call; a fallback example is provided below so you can still complete the evaluation questions. It sends only a topic’s top words and 2-3 representative document snippets from this corpus, not personal or course-submission data, to Gemini.</p>
+<p><strong>Important:</strong> first write your own label for a topic (ideally one you found ambiguous above) before looking at the LLM’s label. You need your own answer to compare against.</p>
+<p><strong>Write your own label and one-sentence justification for the topic you chose, before running the cells below.</strong></p>
+<p><strong>Your label and justification:</strong></p>
+<p><em>Replace this text with your answer.</em></p>
+<section id="setup-before-any-gemini-code">
+<h3>Setup before any Gemini code<a class="headerlink" href="#setup-before-any-gemini-code" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Go to <a class="reference external" href="https://aistudio.google.com/">Google AI Studio</a> and create or retrieve an API key. If you completed Week 05’s optional Gemini section, you can reuse that key.</p></li>
+<li><p>In Colab, open the key icon (<strong>Secrets</strong>) in the left sidebar, add a secret named exactly <code class="docutils literal notranslate"><span class="pre">GEMINI_API_KEY</span></code>, and paste your key as its value.</p></li>
+<li><p>Toggle “Notebook access” on for that secret so this notebook can read it.</p></li>
+<li><p>Never paste your API key directly into a code cell.</p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">RUN_GEMINI</span> <span class="pre">=</span> <span class="pre">True</span></code> in the cell below only after completing steps 1-3.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Optional Gemini setup. This runs only if you choose to configure this section.</span>
+<span class="n">RUN_GEMINI</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Change to True only after adding GEMINI_API_KEY in Colab Secrets.</span>
+<span class="n">GEMINI_MODEL</span> <span class="o">=</span> <span class="s2">&quot;YOUR_CURRENT_FLASH_MODEL&quot;</span>  <span class="c1"># Copy a current Flash text-model ID from AI Studio.</span>
+
+<span class="k">if</span> <span class="n">RUN_GEMINI</span><span class="p">:</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="s2">&quot;-q&quot;</span><span class="p">,</span> <span class="s2">&quot;-U&quot;</span><span class="p">,</span> <span class="s2">&quot;google-genai&quot;</span><span class="p">])</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">userdata</span>
+    <span class="n">GEMINI_API_KEY</span> <span class="o">=</span> <span class="n">userdata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;GEMINI_API_KEY&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">GEMINI_API_KEY</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;GEMINI_API_KEY secret not found. Add it in Colab Secrets, or leave RUN_GEMINI = False.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Minimal connection test. It makes no labeling calls.</span>
+<span class="k">if</span> <span class="n">RUN_GEMINI</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">google</span><span class="w"> </span><span class="kn">import</span> <span class="n">genai</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">genai</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">GEMINI_API_KEY</span><span class="p">)</span>
+    <span class="n">test_response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">generate_content</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">GEMINI_MODEL</span><span class="p">,</span> <span class="n">contents</span><span class="o">=</span><span class="s2">&quot;Reply with exactly: connected&quot;</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">test_response</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Connection test skipped (RUN_GEMINI = False).&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ask-gemini-to-label-a-topic">
+<h3>Ask Gemini to label a topic<a class="headerlink" href="#ask-gemini-to-label-a-topic" title="Permalink to this heading">#</a></h3>
+<p>The prompt below is fixed: your job in this section is to evaluate the response, not to engineer the prompt.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">GEMINI_PROMPT_TEMPLATE</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;You are helping label a topic discovered by a topic model.</span>
+<span class="s2">You are given the topic&#39;s top words and a few representative documents.</span>
+<span class="s2">Propose a short topic label (2-4 words) and a one-sentence justification that</span>
+<span class="s2">refers only to the evidence below. Do not invent facts not supported by the</span>
+<span class="s2">evidence.</span>
+
+<span class="s2">Top words: </span><span class="si">{top_words}</span>
+
+<span class="s2">Representative documents:</span>
+<span class="si">{representative_docs}</span>
+
+<span class="s2">Respond in this format:</span>
+<span class="s2">Label: &lt;your label&gt;</span>
+<span class="s2">Justification: &lt;one sentence, referencing the evidence above&gt;</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">build_gemini_prompt</span><span class="p">(</span><span class="n">top_words</span><span class="p">,</span> <span class="n">representative_docs</span><span class="p">):</span>
+    <span class="n">docs_block</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">doc</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">representative_docs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">GEMINI_PROMPT_TEMPLATE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">top_words</span><span class="o">=</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">top_words</span><span class="p">),</span> <span class="n">representative_docs</span><span class="o">=</span><span class="n">docs_block</span><span class="p">)</span>
+
+
+<span class="c1"># Example: build the prompt for one NMF topic. Change topic_choice to the</span>
+<span class="c1"># topic you labeled above (the fallback example below corresponds to the</span>
+<span class="c1"># health topic; on a typical run that is topic index 3, but check your own</span>
+<span class="c1"># output from Section 2 rather than assuming the index).</span>
+<span class="n">topic_choice</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">chosen_top_words</span> <span class="o">=</span> <span class="n">top_words_for_topic</span><span class="p">(</span><span class="n">nmf_model</span><span class="p">,</span> <span class="n">tfidf_feature_names</span><span class="p">,</span> <span class="n">topic_choice</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">chosen_docs</span> <span class="o">=</span> <span class="n">top_documents_for_topic</span><span class="p">(</span><span class="n">nmf_topic_matrix</span><span class="p">,</span> <span class="n">corpus_df</span><span class="p">,</span> <span class="n">topic_choice</span><span class="p">,</span> <span class="mi">3</span><span class="p">)[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">gemini_prompt</span> <span class="o">=</span> <span class="n">build_gemini_prompt</span><span class="p">(</span><span class="n">chosen_top_words</span><span class="p">,</span> <span class="n">chosen_docs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gemini_prompt</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">FALLBACK_TOP_WORDS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;medicine&quot;</span><span class="p">,</span> <span class="s2">&quot;treatment&quot;</span><span class="p">,</span> <span class="s2">&quot;patient&quot;</span><span class="p">,</span> <span class="s2">&quot;health&quot;</span><span class="p">,</span> <span class="s2">&quot;medical&quot;</span><span class="p">,</span> <span class="s2">&quot;disease&quot;</span><span class="p">,</span> <span class="s2">&quot;public&quot;</span><span class="p">,</span> <span class="s2">&quot;doctor&quot;</span><span class="p">]</span>
+<span class="n">FALLBACK_DOCS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;Herman, I would think you of all people would/could distinguish between &quot;health&quot; and &quot;treatment of disease.&quot; All the prevention medicine people preach this all the time. You cannot buy health. You can buy treatment of disease, assuming you are lucky enough to have a disease which can be treated.&#39;</span><span class="p">,</span>
+    <span class="s2">&quot;You can probably get this information by calling your public health department in your county. There are bulletins in medical libraries that give recommendations, or you could call the infectious diseases section of the medicine department of your local medical school.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Dyer, you&#39;re rude. Medicine is not a totally scientific endeavour. It&#39;s often practiced in a disorganized manner. Most early treatment of non-life threatening illness is done on a guess, hazarded after anecdotal evidence given by the patient.&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="c1"># A fixed, pre-written example response, used only if you skip the live API call.</span>
+<span class="c1"># It matches the actual top words and representative documents this notebook&#39;s</span>
+<span class="c1"># NMF health topic produces in Section 2, so it is a faithful stand-in for a</span>
+<span class="c1"># real Gemini call rather than an unrelated invented example.</span>
+<span class="n">FALLBACK_GEMINI_RESPONSE</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;Label: Medical Treatment and Public Health Philosophy</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Justification: The documents debate what counts as legitimate medical treatment versus &quot;</span>
+    <span class="s2">&quot;general health advice, using words like &#39;treatment&#39;, &#39;disease&#39;, &#39;medicine&#39;, and &#39;public&#39;. &quot;</span>
+    <span class="s2">&quot;Public health experts agree this debate has shaped over 60 percent of modern healthcare &quot;</span>
+    <span class="s2">&quot;policy.&quot;</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="n">RUN_GEMINI</span><span class="p">:</span>
+    <span class="n">gemini_response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">generate_content</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">GEMINI_MODEL</span><span class="p">,</span> <span class="n">contents</span><span class="o">=</span><span class="n">gemini_prompt</span><span class="p">)</span>
+    <span class="n">gemini_label_text</span> <span class="o">=</span> <span class="n">gemini_response</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">gemini_label_text</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using fallback example response (RUN_GEMINI = False):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">FALLBACK_GEMINI_RESPONSE</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>Pause and interpret<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>Compare the Gemini (or fallback) response to your own label from before you ran this section.</p>
+<ol class="arabic simple">
+<li><p>Does the label accurately represent the topic?</p></li>
+<li><p>What in the top words or representative documents supports the justification? Quote it.</p></li>
+<li><p>Did the response add anything (a claim, a statistic, a detail) that is not actually supported by the evidence you gave it?</p></li>
+<li><p>Did Gemini discover this topic, or interpret a topic that NMF had already discovered? How do you know?</p></li>
+<li><p>Would you keep your original label, use the LLM’s label, or revise either one? Explain using evidence, not a general impression.</p></li>
+</ol>
+<p><strong>Your response:</strong></p>
+<p><em>Replace this text with your answer.</em></p>
+</section>
+</section>
+<section id="final-comparison-and-reflection">
+<h2>7. Final comparison and reflection<a class="headerlink" href="#final-comparison-and-reflection" title="Permalink to this heading">#</a></h2>
+<p>Complete the table with observations from your own run. Do not reduce this to a single “best method.”</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Approach</p></th>
+<th class="head"><p>Representation</p></th>
+<th class="head"><p>How topics/groups are found</p></th>
+<th class="head"><p>Evidence available for interpretation</p></th>
+<th class="head"><p>Strengths you observed</p></th>
+<th class="head"><p>Limitations you observed</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NMF</p></td>
+<td><p>Sparse TF-IDF vectors</p></td>
+<td><p>Matrix factorization</p></td>
+<td><p>Top words, representative documents</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>LDA</p></td>
+<td><p>Sparse count vectors</p></td>
+<td><p>Probabilistic generative model</p></td>
+<td><p>Top words, representative documents</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Embeddings + clustering</p></td>
+<td><p>Dense semantic vectors</p></td>
+<td><p>Distance-based clustering</p></td>
+<td><p>Cluster terms, representative documents</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>LLM-assisted labeling (optional)</p></td>
+<td><p>Natural-language evidence you supplied</p></td>
+<td><p>Not discovery; labels evidence from another method</p></td>
+<td><p>The label and justification text itself</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Reflection:</strong> what evidence would you want to see before trusting a topic label in a real analysis, regardless of which method produced it?</p>
+<p><strong>Your response:</strong></p>
+<p><em>Replace this text with your answer.</em></p>
+</section>
+<section id="validation-checks">
+<h2>Validation checks<a class="headerlink" href="#validation-checks" title="Permalink to this heading">#</a></h2>
+<p>These are transparent checks for the core workflow. They validate that the notebook ran end to end, not that your interpretations are “correct” (there is no single correct interpretation for most of the questions above).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">corpus_df</span><span class="p">)</span> <span class="o">==</span> <span class="mi">52</span>
+<span class="k">assert</span> <span class="n">corpus_df</span><span class="p">[</span><span class="s2">&quot;doc_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">==</span> <span class="mi">52</span>
+<span class="k">assert</span> <span class="n">tfidf_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">52</span>
+<span class="k">assert</span> <span class="n">count_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">52</span>
+<span class="k">assert</span> <span class="n">nmf_topic_matrix</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">52</span><span class="p">,</span> <span class="n">NUM_TOPICS</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">lda_topic_matrix</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">52</span><span class="p">,</span> <span class="n">NUM_TOPICS</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">document_embeddings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">52</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cluster_labels</span><span class="p">)</span> <span class="o">==</span> <span class="mi">52</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">cluster_labels</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="n">NUM_TOPICS</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Core workflow checks passed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module6"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="topics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">6.1 Topic Modeling and Modern Topic Analysis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="week6_coding_practice_solution.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">6.3 Coding Practice: Topic Modeling and Modern Topic Analysis (Solution)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-goals">Learning goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-corpus">1. Setup and corpus</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-before-modeling">Predict before modeling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nmf-with-tf-idf">2. NMF with TF-IDF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#display-utilities">Display utilities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pause-and-interpret">Pause and interpret</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lda-with-count-features">3. LDA with count features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-side-by-side-comparison">Write a side-by-side comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Pause and interpret</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-quantitative-check-briefly">4. A quantitative check, briefly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding-based-grouping">5. Embedding-based grouping</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cluster-the-embeddings">Cluster the embeddings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-each-cluster">Inspect each cluster</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-a-specific-document-across-methods">Compare a specific document across methods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Pause and interpret</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-llm-assisted-labeling">6. Optional: LLM-assisted labeling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-before-any-gemini-code">Setup before any Gemini code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ask-gemini-to-label-a-topic">Ask Gemini to label a topic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Pause and interpret</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-comparison-and-reflection">7. Final comparison and reflection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-checks">Validation checks</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
