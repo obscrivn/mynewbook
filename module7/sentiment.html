@@ -1,0 +1,828 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>7.1 Sentiment, Affect, and Lexicons &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module7/sentiment';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Speech" href="../speech.html" />
+    <link rel="prev" title="Chapter 7 Sentiment, Affect, and Lexicons" href="module7.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module4/module4.html">Chapter 4 Similarity and Retrieval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module4/cluster.html">4.1 Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/practice.html">4.2 Experiment: From Similarity Scores to Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/week4_coding_practice.html">4.3 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module5/module5.html">Chapter 5 Text Classification and Model Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module5/classification.html">5.1 Text Classification and Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/week5_coding_practice.html">5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module6/module6.html">Chapter 6 Topic Modeling and Modern Topic Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module6/topics.html">6.1 Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice.html">6.2 Coding Practice: Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice_solution.html">6.3 Coding Practice: Topic Modeling and Modern Topic Analysis (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module7.html">Chapter 7 Sentiment, Affect, and Lexicons</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">7.1 Sentiment, Affect, and Lexicons</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phonetics.html">Speech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recognizer.html">Speech Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule7/sentiment.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module7/sentiment.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>7.1 Sentiment, Affect, and Lexicons</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-sentiment-analysis-asking">1. What Is Sentiment Analysis Asking?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polarity-valence-and-affect">2. Polarity, Valence, and Affect</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-lexicons-three-kinds-of-affective-knowledge">3. Sentiment Lexicons: Three Kinds of Affective Knowledge</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-lexicon-based-prediction">4. A Simple Lexicon-Based Prediction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-word-level-scoring-breaks">5. Where Word-Level Scoring Breaks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-and-compositionality-negation-intensifiers-and-downtoners">6. Context and Compositionality: Negation, Intensifiers, and Downtoners</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-dependence-and-polysemy">7. Domain Dependence and Polysemy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extending-lexicons-with-embeddings-the-semantic-axis-method">8. Extending Lexicons with Embeddings: The Semantic-Axis Method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beyond-binary-scalar-sentiment-and-potts-diagrams">9. Beyond Binary: Scalar Sentiment and Potts Diagrams</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-lexicons-to-modern-sentiment-models">10. From Lexicons to Modern Sentiment Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-still-matters-regardless-of-method">11. What Still Matters Regardless of Method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="sentiment-affect-and-lexicons">
+<h1>7.1 Sentiment, Affect, and Lexicons<a class="headerlink" href="#sentiment-affect-and-lexicons" title="Permalink to this heading">#</a></h1>
+<p><strong>Module 6:</strong> Without predefined labels, can we discover meaningful structure in a collection?</p>
+<p><strong>Module 7:</strong> Given a piece of text, can we infer the writer’s evaluative attitude toward what it describes?</p>
+<p>This week asks a more specific question than either discovery or classification. We are not looking for an arbitrary category, and we are not just asking what a text is about. We are asking how the writer feels about it.</p>
+<figure class="align-default" id="sentiment-pipeline">
+<img alt="../_images/sentiment-analysis-pipeline.svg" src="../_images/sentiment-analysis-pipeline.svg" /><figcaption>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text">From Text to an Evaluated Sentiment Judgment</span><a class="headerlink" href="#sentiment-pipeline" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>A useful guiding question for this chapter:</p>
+<p><strong>How can we identify and interpret attitudes in text, and why is sentiment harder than simply counting positive and negative words?</strong></p>
+<p>Throughout this reading we will use four short movie-review snippets.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ol class="arabic simple">
+<li><p>“This movie is absolutely amazing. The acting is incredible and the story never slows down.”</p></li>
+<li><p>“The acting is not bad, but the story really drags in the middle.”</p></li>
+<li><p>“A fairly disappointing sequel. Somewhat entertaining, but nothing we haven’t seen before.”</p></li>
+<li><p>“Totally unwatchable. The plot made no sense.”</p></li>
+</ol>
+</div>
+<p>At a glance, (1) reads clearly positive and (4) reads clearly negative. Reviews (2) and (3) are harder: each one mixes a negative-sounding word with something that softens or reverses it. By the end of this chapter you should be able to say exactly why (2) and (3) are harder, not just that they are.</p>
+<section id="what-is-sentiment-analysis-asking">
+<h2>1. What Is Sentiment Analysis Asking?<a class="headerlink" href="#what-is-sentiment-analysis-asking" title="Permalink to this heading">#</a></h2>
+<p>Sentiment analysis is one way of extracting <strong>affective meaning</strong>: meaning related to emotion, mood, opinion, and evaluation, from text <span id="id1">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. One influential typology divides affective states into several kinds: brief <strong>emotions</strong> (angry, joyful), longer-lasting <strong>moods</strong> (gloomy, cheerful), <strong>interpersonal stances</strong> taken toward another person in an interaction (cold, friendly), relatively stable <strong>personality traits</strong> (anxious, hostile), and <strong>attitudes</strong>, enduring evaluative beliefs and preferences toward an object or person (liking, valuing, disliking) <span id="id2">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>.</p>
+<p><strong>Sentiment analysis extracts attitudes.</strong> It asks what someone likes or dislikes, based on affect-rich text such as reviews, editorials, or social media posts <span id="id3">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. It does not try to classify every emotion, mood, or personality signal in a text. Keeping that one distinction in mind, attitude extraction rather than a full map of human affect, is enough to use this chapter well.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Topic analysis</strong> (Module 6): what is this text about?</p>
+<p><strong>Classification</strong> (Module 5): which predefined category does this text belong to?</p>
+<p><strong>Sentiment analysis</strong> (this module): what evaluative attitude does the writer express toward what the text is about?</p>
+</div>
+<p>Sentiment analysis is still, mechanically, a form of classification: it typically assigns a label such as <code class="docutils literal notranslate"><span class="pre">positive</span></code>, <code class="docutils literal notranslate"><span class="pre">negative</span></code>, or <code class="docutils literal notranslate"><span class="pre">neutral</span></code>. What makes it worth its own chapter is the kind of label it predicts and the kind of evidence it depends on, which is the subject of the rest of this chapter.</p>
+</section>
+<section id="polarity-valence-and-affect">
+<h2>2. Polarity, Valence, and Affect<a class="headerlink" href="#polarity-valence-and-affect" title="Permalink to this heading">#</a></h2>
+<p>The simplest and most common way to represent sentiment is <strong>polarity</strong>: is a word, sentence, or document positive, negative, or neutral?</p>
+<p>A more general way to describe affect represents it along continuous dimensions rather than discrete categories. The two most common dimensions are <strong>valence</strong>, how pleasant or unpleasant something is, and <strong>arousal</strong>, the level of alertness or energy it provokes; a third, less commonly used dimension is <strong>dominance</strong>, the degree of control associated with it <span id="id4">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Valence</strong> is the dimension that matters most for this chapter. It is, in effect, a continuous version of polarity: how pleasant or unpleasant a word or text is. <strong>Arousal</strong> and <strong>dominance</strong> are worth knowing by name, but this course does not develop them further.</p>
+</div>
+<p>The NRC Valence, Arousal, and Dominance (VAD) lexicon assigns scores on all three dimensions to 20,000 words <span id="id5">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. A few examples make the point that these dimensions capture genuinely different things:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Word</p></th>
+<th class="head text-right"><p>Valence</p></th>
+<th class="head text-right"><p>Arousal</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">delightful</span></code></p></td>
+<td class="text-right"><p>.918</p></td>
+<td class="text-right"><p>n/a</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">vacation</span></code></p></td>
+<td class="text-right"><p>.840</p></td>
+<td class="text-right"><p>n/a</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">enraged</span></code></p></td>
+<td class="text-right"><p>n/a</p></td>
+<td class="text-right"><p>.962</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">torture</span></code></p></td>
+<td class="text-right"><p>.115</p></td>
+<td class="text-right"><p>n/a</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">vacation</span></code> sits near the top of the valence scale (pleasant). <code class="docutils literal notranslate"><span class="pre">enraged</span></code> sits near the top of the arousal scale (a highly activated, and typically unpleasant, state). Valence and arousal answer different questions, <em>how pleasant</em> versus <em>how activating</em> <span id="id6">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>, which is exactly why a lexicon might track them separately.</p>
+</section>
+<section id="sentiment-lexicons-three-kinds-of-affective-knowledge">
+<h2>3. Sentiment Lexicons: Three Kinds of Affective Knowledge<a class="headerlink" href="#sentiment-lexicons-three-kinds-of-affective-knowledge" title="Permalink to this heading">#</a></h2>
+<p>A <strong>sentiment lexicon</strong> (or affect lexicon) is a list of words, each annotated with some kind of affective information <span id="id7">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. Lexicons differ in what <em>kind</em> of information they encode, not just in which words they include. Three examples illustrate three different kinds of affective knowledge.</p>
+<p><strong>A hand-built binary polarity lexicon.</strong> The lexicon of Hu and Liu (2004) lists around 2,000 positive words and nearly 4,800 negative words, drawn from product reviews <span id="id8">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. It is one of several hand-built binary lexicons, alongside the General Inquirer and the MPQA Subjectivity lexicon, that largely agree on clearly polarized words:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Positive</p></th>
+<th class="head"><p>Negative</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">excellent</span></code>, <code class="docutils literal notranslate"><span class="pre">happy</span></code>, <code class="docutils literal notranslate"><span class="pre">wonderful</span></code>, <code class="docutils literal notranslate"><span class="pre">proud</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">terrible</span></code>, <code class="docutils literal notranslate"><span class="pre">disappointment</span></code>, <code class="docutils literal notranslate"><span class="pre">fake</span></code>, <code class="docutils literal notranslate"><span class="pre">miserable</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>This is the simplest possible lexicon design: a word is either on the positive list, the negative list, or neither.</p>
+<p><strong>A continuous, multi-dimensional lexicon.</strong> NRC VAD, introduced in Section 2, assigns every word a score on three separate scales instead of a single yes/no label <span id="id9">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. It represents affect as a <em>position</em> in space, not a category.</p>
+<p><strong>A psychological-category lexicon.</strong> LIWC (Linguistic Inquiry and Word Count) organizes words into dozens of categories relevant to social-psychological analysis, not just positive and negative <span id="id10">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. Alongside categories for positive and negative emotion, LIWC includes categories such as <strong>Insight</strong> (<code class="docutils literal notranslate"><span class="pre">believe</span></code>, <code class="docutils literal notranslate"><span class="pre">know</span></code>, <code class="docutils literal notranslate"><span class="pre">think</span></code>) and <strong>Negate</strong> (<code class="docutils literal notranslate"><span class="pre">no</span></code>, <code class="docutils literal notranslate"><span class="pre">never</span></code>, <code class="docutils literal notranslate"><span class="pre">cannot</span></code>) <span id="id11">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. A lexicon, in other words, does not have to be about polarity at all: it can encode any aspect of meaning a researcher has chosen to annotate.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These three are representative examples, not a complete catalog. Many sentiment and affect lexicons exist. What is worth remembering is the kind of knowledge each represents (binary, continuous, categorical), not a list of resource names.</p>
+</div>
+</section>
+<section id="a-simple-lexicon-based-prediction">
+<h2>4. A Simple Lexicon-Based Prediction<a class="headerlink" href="#a-simple-lexicon-based-prediction" title="Permalink to this heading">#</a></h2>
+<p>Once a lexicon exists, the simplest way to use it is a rule: count the positive and negative words in a document, and let the ratio decide the label <span id="id12">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If a document has more positive lexicon matches than negative ones, by more than some threshold, call it positive. If it has more negative matches, call it negative. Otherwise, call it neutral.</p>
+</div>
+<p>Applied to review (1), “absolutely amazing… incredible,” a lexicon match on <code class="docutils literal notranslate"><span class="pre">amazing</span></code> and <code class="docutils literal notranslate"><span class="pre">incredible</span></code> gives a clearly positive ratio. Applied to review (4), “unwatchable… no sense,” the ratio is clearly negative.</p>
+<p>This approach needs no labeled training data and no model fitting: it is built entirely from a pre-existing word list. That makes it fast, fully interpretable (you can always point to exactly which words drove the decision), and useful as a baseline when labeled data is scarce <span id="id13">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. It is also, as the next section shows, easy to fool.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>Try it yourself.</strong> Run the ratio rule on review (2), “The acting is not bad, but the story really drags in the middle.” <code class="docutils literal notranslate"><span class="pre">bad</span></code> and <code class="docutils literal notranslate"><span class="pre">drags</span></code> both sound negative. Does a word-counting rule get this review’s overall tone right? Keep your answer in mind for Section 6.</p>
+</div>
+</section>
+<section id="where-word-level-scoring-breaks">
+<h2>5. Where Word-Level Scoring Breaks<a class="headerlink" href="#where-word-level-scoring-breaks" title="Permalink to this heading">#</a></h2>
+<p>A ratio of positive-to-negative word matches treats a document as a bag of independent sentiment words. That assumption breaks in predictable ways: negation, intensity, domain, and word sense can all change what a word contributes to a document’s sentiment, without changing which words are present.</p>
+<p>A real-world illustration comes from a large-scale comparison of 1-star and 5-star Yelp restaurant reviews <span id="id14">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. The words most strongly associated with each class were not limited to obvious sentiment words:</p>
+<ul class="simple">
+<li><p><strong>1-star reviews</strong> used negative words (<code class="docutils literal notranslate"><span class="pre">worst</span></code>, <code class="docutils literal notranslate"><span class="pre">rude</span></code>, <code class="docutils literal notranslate"><span class="pre">terrible</span></code>), but also logical negation (<code class="docutils literal notranslate"><span class="pre">no</span></code>, <code class="docutils literal notranslate"><span class="pre">not</span></code>), first-person plural pronouns (<code class="docutils literal notranslate"><span class="pre">we</span></code>, <code class="docutils literal notranslate"><span class="pre">us</span></code>, <code class="docutils literal notranslate"><span class="pre">our</span></code>), and nouns naming people (<code class="docutils literal notranslate"><span class="pre">manager</span></code>, <code class="docutils literal notranslate"><span class="pre">waiter</span></code>, <code class="docutils literal notranslate"><span class="pre">customer</span></code>).</p></li>
+<li><p><strong>5-star reviews</strong> used positive words (<code class="docutils literal notranslate"><span class="pre">great</span></code>, <code class="docutils literal notranslate"><span class="pre">delicious</span></code>, <code class="docutils literal notranslate"><span class="pre">amazing</span></code>), but also emphatics and universals (<code class="docutils literal notranslate"><span class="pre">very</span></code>, <code class="docutils literal notranslate"><span class="pre">always</span></code>, <code class="docutils literal notranslate"><span class="pre">everything</span></code>), second-person pronouns (<code class="docutils literal notranslate"><span class="pre">you</span></code>), and nouns naming restaurant qualities (<code class="docutils literal notranslate"><span class="pre">atmosphere</span></code>, <code class="docutils literal notranslate"><span class="pre">dessert</span></code>, <code class="docutils literal notranslate"><span class="pre">course</span></code>).</p></li>
+</ul>
+<p>A simple positive/negative word count captures the first half of each list and misses the second half entirely, even though the second half is doing real work: it reflects <em>how</em> the review tells its story, a confrontation narrative versus a recommendation, not just <em>which</em> sentiment words appear <span id="id15">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>.</p>
+<p>The next two sections walk through the specific mechanisms behind this gap: how negation and intensity change a word’s contribution (Section 6), and how domain and word sense change a word’s baseline meaning (Section 7).</p>
+</section>
+<section id="context-and-compositionality-negation-intensifiers-and-downtoners">
+<h2>6. Context and Compositionality: Negation, Intensifiers, and Downtoners<a class="headerlink" href="#context-and-compositionality-negation-intensifiers-and-downtoners" title="Permalink to this heading">#</a></h2>
+<p><strong>Negation</strong> can flip or shift a word’s polarity. One clear signal is morphological: words that share a root but differ by a negative affix, such as <code class="docutils literal notranslate"><span class="pre">adequate</span></code>/<code class="docutils literal notranslate"><span class="pre">inadequate</span></code> or <code class="docutils literal notranslate"><span class="pre">thoughtful</span></code>/<code class="docutils literal notranslate"><span class="pre">thoughtless</span></code>, tend to have opposite polarity <span id="id16">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. The same logic applies at the sentence level: the Yelp finding from Section 5, that 1-star reviews use “no” and “not” more than 5-star reviews, is a document-level trace of exactly this effect.</p>
+<p>Look back at review (2): “not bad” is not simply <code class="docutils literal notranslate"><span class="pre">not</span></code> plus <code class="docutils literal notranslate"><span class="pre">bad</span></code>. It reads closer to <em>mildly positive</em>, or at least <em>not negative</em>, even though <code class="docutils literal notranslate"><span class="pre">bad</span></code> is a strongly negative word on its own. A rule that scores <code class="docutils literal notranslate"><span class="pre">bad</span></code> by itself, without checking what comes before it, scores this review wrong.</p>
+<p><strong>Intensifiers</strong> (also called emphatics) and <strong>downtoners</strong> (also called attenuators) are adverbs that change how strongly a sentiment word should be read, without changing its direction <span id="id17">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>:</p>
+<ul class="simple">
+<li><p>Intensifiers push a word toward the extreme: <code class="docutils literal notranslate"><span class="pre">totally</span></code>, <code class="docutils literal notranslate"><span class="pre">absolutely</span></code>, <code class="docutils literal notranslate"><span class="pre">utterly</span></code>.</p></li>
+<li><p>Downtoners pull a word toward the middle: <code class="docutils literal notranslate"><span class="pre">somewhat</span></code>, <code class="docutils literal notranslate"><span class="pre">fairly</span></code>, <code class="docutils literal notranslate"><span class="pre">pretty</span></code>.</p></li>
+</ul>
+<p>Review (1) uses <code class="docutils literal notranslate"><span class="pre">absolutely</span></code> to intensify <code class="docutils literal notranslate"><span class="pre">amazing</span></code>. Review (3) uses <code class="docutils literal notranslate"><span class="pre">fairly</span></code> and <code class="docutils literal notranslate"><span class="pre">somewhat</span></code> to soften <code class="docutils literal notranslate"><span class="pre">disappointing</span></code> and <code class="docutils literal notranslate"><span class="pre">entertaining</span></code>. A rule that only checks whether a word is on a positive or negative list, without checking its neighbors, cannot tell “disappointing” from “fairly disappointing,” even though a human reader clearly can.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Word-level sentiment scores cannot be added up as if each word contributed its meaning independently. Negation, intensifiers, and downtoners all change how words combine, which is exactly what a simple bag-of-words ratio (Section 4) cannot see.</p>
+</div>
+</section>
+<section id="domain-dependence-and-polysemy">
+<h2>7. Domain Dependence and Polysemy<a class="headerlink" href="#domain-dependence-and-polysemy" title="Permalink to this heading">#</a></h2>
+<p><strong>Domain dependence.</strong> A word’s polarity is not fixed across every context. One way sentiment lexicons try to stay accurate across domains is to start from different seed words for different genres of text <span id="id18">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. A lexicon built for general text, for Twitter, and for financial text can each use their own representative seed list. The word <code class="docutils literal notranslate"><span class="pre">volatile</span></code>, for instance, appears as a negative seed word specifically in the finance-domain seed list, reflecting that unpredictable price swings are undesirable in that context <span id="id19">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. A general-purpose or Twitter-domain seed list does not include <code class="docutils literal notranslate"><span class="pre">volatile</span></code> at all. The lesson is not really about this one word: it is that a lexicon tuned for one domain can mislabel text from another, and a sentiment system should be built, or at least checked, with its target domain in mind.</p>
+<p><strong>Polysemy.</strong> The same surface word can carry different sentiment depending on which sense is intended. SentiWordNet, which assigns polarity scores to individual WordNet senses rather than to whole words, makes this concrete <span id="id20">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sense</p></th>
+<th class="head"><p>Gloss</p></th>
+<th class="head text-right"><p>Positive</p></th>
+<th class="head text-right"><p>Negative</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">estimable#2</span></code></p></td>
+<td><p>“deserving of esteem”</p></td>
+<td class="text-right"><p>0.75</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">estimable#3</span></code></p></td>
+<td><p>“may be computed or estimated”</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">acute#6</span></code></p></td>
+<td><p>“of critical importance”</p></td>
+<td class="text-right"><p>0.625</p></td>
+<td class="text-right"><p>0.125</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">acute#1</span></code></p></td>
+<td><p>“having a rapid onset and severe course”</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>0.5</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">estimable</span></code> is positive in one sense and purely neutral in another. <code class="docutils literal notranslate"><span class="pre">acute</span></code> is mildly positive in one sense (“acute insight”) and negative in another (“an acute illness”). A lexicon that scores the word <code class="docutils literal notranslate"><span class="pre">acute</span></code> once, without regard to sense, cannot represent both facts at the same time <span id="id21">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Domain dependence and polysemy are two different reasons the <em>same word</em> can mean different things for sentiment: domain dependence is about <em>where</em> the word is used, polysemy is about <em>which sense</em> is intended. Both are reasons a lexicon lookup is a starting point, not a final answer.</p>
+</div>
+</section>
+<section id="extending-lexicons-with-embeddings-the-semantic-axis-method">
+<h2>8. Extending Lexicons with Embeddings: The Semantic-Axis Method<a class="headerlink" href="#extending-lexicons-with-embeddings-the-semantic-axis-method" title="Permalink to this heading">#</a></h2>
+<p>Module 4 introduced embeddings and cosine similarity as a way to compare the meaning of two pieces of text <span id="id22">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. The same tools can build or extend a sentiment lexicon, with no hand-labeling beyond a small set of seed words.</p>
+<p>The idea, sometimes called the <strong>semantic-axis method</strong>, works in three steps <span id="id23">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>:</p>
+<ol class="arabic simple">
+<li><p>Choose a small set of positive seed words (for example, <code class="docutils literal notranslate"><span class="pre">good</span></code>, <code class="docutils literal notranslate"><span class="pre">lovely</span></code>, <code class="docutils literal notranslate"><span class="pre">excellent</span></code>) and a small set of negative seed words (<code class="docutils literal notranslate"><span class="pre">bad</span></code>, <code class="docutils literal notranslate"><span class="pre">horrible</span></code>, <code class="docutils literal notranslate"><span class="pre">unpleasant</span></code>).</p></li>
+<li><p>Compute the embedding for each seed word, and average the positive seed embeddings into one <strong>positive centroid</strong>, and the negative seed embeddings into one <strong>negative centroid</strong>. The vector pointing from the negative centroid to the positive centroid is the <strong>semantic axis</strong>: a direction in embedding space that represents “more positive.”</p></li>
+<li><p>For any new word, use cosine similarity (Module 4) to measure how closely its embedding aligns with that axis. A word whose embedding points more toward the positive centroid gets a higher sentiment score.</p></li>
+</ol>
+<p>This directly reuses the representation and similarity tools from Module 4, just pointed at a new question: not “are these two documents similar,” but “which direction, in meaning space, does this word lean?”</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Seed words can also be chosen per domain. A finance-specific seed set (<code class="docutils literal notranslate"><span class="pre">successful</span></code>, <code class="docutils literal notranslate"><span class="pre">profit</span></code>, <code class="docutils literal notranslate"><span class="pre">gains</span></code> as positive; <code class="docutils literal notranslate"><span class="pre">loss</span></code>, <code class="docutils literal notranslate"><span class="pre">volatile</span></code>, <code class="docutils literal notranslate"><span class="pre">litigation</span></code> as negative) induces a lexicon tuned to financial text, directly addressing the domain-dependence problem from Section 7 <span id="id24">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>.</p>
+</div>
+<p>Because this method needs only a handful of hand-chosen seed words, not a large hand-labeled lexicon, it is a practical way to build or extend sentiment coverage for a new domain or a language without an existing lexicon.</p>
+</section>
+<section id="beyond-binary-scalar-sentiment-and-potts-diagrams">
+<h2>9. Beyond Binary: Scalar Sentiment and Potts Diagrams<a class="headerlink" href="#beyond-binary-scalar-sentiment-and-potts-diagrams" title="Permalink to this heading">#</a></h2>
+<p>Sentiment is not always binary. Online reviews usually come with a star rating, 1 to 5 or 1 to 10, which gives a natural, continuous supervision signal: instead of asking whether a word is positive or negative, we can ask how a word’s <em>frequency</em> is distributed across every rating level <span id="id25">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>.</p>
+<p>Plotting that distribution for a word produces a <strong>Potts diagram</strong>, and the shape of the curve is informative <span id="id26">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>:</p>
+<ul class="simple">
+<li><p><strong>Strongly polarized words</strong> (<code class="docutils literal notranslate"><span class="pre">great</span></code>, <code class="docutils literal notranslate"><span class="pre">terrible</span></code>) produce a <strong>J-shaped</strong> (or reverse-J-shaped) curve: the word is overwhelmingly concentrated at one end of the rating scale.</p></li>
+<li><p><strong>Weakly polarized words</strong> produce a <strong>hump-shaped</strong> curve, concentrated in the middle of the scale rather than at either extreme.</p></li>
+</ul>
+<p>This same shape distinguishes the intensifiers and downtoners from Section 6. Emphatic adverbs like <code class="docutils literal notranslate"><span class="pre">totally</span></code> and <code class="docutils literal notranslate"><span class="pre">absolutely</span></code> tend to produce J-shaped or U-shaped curves, appearing disproportionately in the most extreme reviews. Downtoners like <code class="docutils literal notranslate"><span class="pre">somewhat</span></code> and <code class="docutils literal notranslate"><span class="pre">fairly</span></code> produce hump-shaped curves, appearing disproportionately in reviews near the middle of the scale <span id="id27">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. In other words, the compositional effect from Section 6, intensifiers push toward the extremes, downtoners pull toward the middle, is the same pattern a Potts diagram makes visible across an entire review corpus.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Binary polarity is a useful simplification, not the full picture. Scalar sentiment captures strength, not just direction, and the J-shape versus hump-shape distinction is a concrete, visual argument for why “positive or negative” alone leaves information on the table.</p>
+</div>
+</section>
+<section id="from-lexicons-to-modern-sentiment-models">
+<h2>10. From Lexicons to Modern Sentiment Models<a class="headerlink" href="#from-lexicons-to-modern-sentiment-models" title="Permalink to this heading">#</a></h2>
+<p><strong>Lexicons inside supervised models.</strong> Everything so far in this chapter has used a lexicon on its own, with no labeled training data. When labeled data <em>is</em> available, lexicon-derived counts do not have to be thrown away: they can be added as features to a supervised classifier (Module 5), alongside ordinary word or n-gram features <span id="id28">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. This combines human-curated sentiment knowledge with patterns the classifier learns directly from labeled data. That is the one genuinely sentiment-specific twist on the classification pipeline from Module 5; everything else there (train/dev/test splits, evaluation metrics, the classifier itself) carries over unchanged, so it is not repeated here.</p>
+<p><strong>What changes with transformers and LLMs.</strong> The methods in this chapter, hand-built lexicons, rule-based scoring, embedding-based lexicon induction, predate large pretrained language models. Modern sentiment systems increasingly use transformer-based classifiers or prompt a large language model directly, often with no sentiment-specific training data at all (zero-shot) <span id="id29">[<a class="reference internal" href="../references.html#id10" title="Wenxuan Zhang, Yue Deng, Bing Liu, Sinno Jialin Pan, and Lidong Bing. Sentiment analysis in the era of large language models: a reality check. arXiv preprint arXiv:2305.15005, 2023. URL: https://arxiv.org/abs/2305.15005.">ZDL+23</a>]</span>.</p>
+<p>A recent evaluation across a wide range of sentiment tasks found a consistent pattern: large language models perform well in zero-shot and few-shot settings on simpler sentiment tasks, such as deciding whether a sentence is positive or negative, but they still lag behind smaller, task-specific models on tasks that require structured or fine-grained sentiment understanding, such as identifying sentiment toward one specific aspect of a product rather than the product as a whole <span id="id30">[<a class="reference internal" href="../references.html#id10" title="Wenxuan Zhang, Yue Deng, Bing Liu, Sinno Jialin Pan, and Lidong Bing. Sentiment analysis in the era of large language models: a reality check. arXiv preprint arXiv:2305.15005, 2023. URL: https://arxiv.org/abs/2305.15005.">ZDL+23</a>]</span>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A larger, more capable model does not make the questions in this chapter disappear. Negation, intensity, domain dependence, and word sense can still confuse a transformer or an LLM; they are just no longer handled by an explicit lexicon lookup. The deeper lesson of this chapter, that word-level and even sentence-level evidence can be ambiguous, carries forward regardless of which model produces the prediction <span id="id31">[<a class="reference internal" href="../references.html#id10" title="Wenxuan Zhang, Yue Deng, Bing Liu, Sinno Jialin Pan, and Lidong Bing. Sentiment analysis in the era of large language models: a reality check. arXiv preprint arXiv:2305.15005, 2023. URL: https://arxiv.org/abs/2305.15005.">ZDL+23</a>]</span>.</p>
+</div>
+</section>
+<section id="what-still-matters-regardless-of-method">
+<h2>11. What Still Matters Regardless of Method<a class="headerlink" href="#what-still-matters-regardless-of-method" title="Permalink to this heading">#</a></h2>
+<p>Whatever system produced a sentiment judgment, lexicon-based, supervised, or a large language model, the same questions are worth asking before you trust the result:</p>
+<ul class="simple">
+<li><p>What exactly is being predicted: polarity, a star rating, an emotion, or sentiment toward one specific aspect?</p></li>
+<li><p>What evidence in the text supports that prediction?</p></li>
+<li><p>Could negation change the reading?</p></li>
+<li><p>Could an intensifier or downtoner change the strength of the reading?</p></li>
+<li><p>Could the same word carry a different polarity in another domain, or in another sense?</p></li>
+<li><p>Is the output binary when the underlying sentiment is actually more nuanced?</p></li>
+<li><p>What would a simple lexicon miss here that a larger model might catch, and what might the larger model get wrong that a transparent lexicon would have gotten right?</p></li>
+</ul>
+<p>These questions do not go away as methods improve. They are the durable skill this chapter is actually teaching: knowing what evidence a sentiment judgment rests on, and being able to say where that evidence might be incomplete.</p>
+</section>
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Sentiment analysis extracts <strong>attitudes</strong>, a specific kind of evaluative judgment, not a full map of emotion, mood, or personality.</p></li>
+<li><p><strong>Valence</strong> (pleasant vs. unpleasant) is the dimension most directly tied to sentiment; arousal and dominance are related but not developed further here.</p></li>
+<li><p>Lexicons differ in <em>kind</em>, not just content: binary polarity lists, continuous multi-dimensional scores, and category-based lexicons each encode different information.</p></li>
+<li><p>A simple positive/negative word ratio is a fast, interpretable baseline, and it is also easy to fool.</p></li>
+<li><p>Negation, intensifiers, and downtoners mean sentiment words cannot be summed as if they were independent.</p></li>
+<li><p>The same word can mean different things for sentiment depending on domain or word sense.</p></li>
+<li><p>Embeddings and cosine similarity (Module 4) can induce or extend a sentiment lexicon from a handful of seed words, with no large hand-labeled resource required.</p></li>
+<li><p>Sentiment does not have to be binary: scalar, rating-based sentiment captures strength as well as direction.</p></li>
+<li><p>Transformers and LLMs change <em>how</em> sentiment is predicted, but they do not remove the need to ask what evidence supports a prediction and where that evidence might be incomplete.</p></li>
+</ul>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<p><span id="id32">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span></p>
+<p><span id="id33">[<a class="reference internal" href="../references.html#id10" title="Wenxuan Zhang, Yue Deng, Bing Liu, Sinno Jialin Pan, and Lidong Bing. Sentiment analysis in the era of large language models: a reality check. arXiv preprint arXiv:2305.15005, 2023. URL: https://arxiv.org/abs/2305.15005.">ZDL+23</a>]</span></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module7"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="module7.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 7 Sentiment, Affect, and Lexicons</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../speech.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Speech</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-sentiment-analysis-asking">1. What Is Sentiment Analysis Asking?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polarity-valence-and-affect">2. Polarity, Valence, and Affect</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-lexicons-three-kinds-of-affective-knowledge">3. Sentiment Lexicons: Three Kinds of Affective Knowledge</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-lexicon-based-prediction">4. A Simple Lexicon-Based Prediction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-word-level-scoring-breaks">5. Where Word-Level Scoring Breaks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-and-compositionality-negation-intensifiers-and-downtoners">6. Context and Compositionality: Negation, Intensifiers, and Downtoners</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-dependence-and-polysemy">7. Domain Dependence and Polysemy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extending-lexicons-with-embeddings-the-semantic-axis-method">8. Extending Lexicons with Embeddings: The Semantic-Axis Method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beyond-binary-scalar-sentiment-and-potts-diagrams">9. Beyond Binary: Scalar Sentiment and Potts Diagrams</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-lexicons-to-modern-sentiment-models">10. From Lexicons to Modern Sentiment Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-still-matters-regardless-of-method">11. What Still Matters Regardless of Method</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
