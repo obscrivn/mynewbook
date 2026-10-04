@@ -24,13 +24,13 @@ Throughout this reading we will use four short movie-review snippets.
 4. "Totally unwatchable. The plot made no sense."
 ```
 
-At a glance, (1) reads clearly positive and (4) reads clearly negative. Reviews (2) and (3) are harder: each one mixes a negative-sounding word with something that softens or reverses it. By the end of this chapter you should be able to say exactly why (2) and (3) are harder, not just that they are.
+At a glance, (1) reads clearly positive and (4) reads clearly negative. Reviews (2) and (3) are harder: each one mixes a negative-sounding word with something that softens or reverses it. By the end of this chapter you should be able to say exactly why (2) and (3) are harder.
 
 ## 1. What Is Sentiment Analysis Asking?
 
 Sentiment analysis is one way of extracting **affective meaning**: meaning related to emotion, mood, opinion, and evaluation, from text {cite}`jurafsky2026`. One influential typology divides affective states into several kinds: brief **emotions** (angry, joyful), longer-lasting **moods** (gloomy, cheerful), **interpersonal stances** taken toward another person in an interaction (cold, friendly), relatively stable **personality traits** (anxious, hostile), and **attitudes**, enduring evaluative beliefs and preferences toward an object or person (liking, valuing, disliking) {cite}`jurafsky2026`.
 
-**Sentiment analysis extracts attitudes.** It asks what someone likes or dislikes, based on affect-rich text such as reviews, editorials, or social media posts {cite}`jurafsky2026`. It does not try to classify every emotion, mood, or personality signal in a text. Keeping that one distinction in mind, attitude extraction rather than a full map of human affect, is enough to use this chapter well.
+**Sentiment analysis extracts attitudes.** It asks what someone likes or dislikes, based on affect-rich text such as reviews, editorials, or social media posts {cite}`jurafsky2026`. It does not try to classify every emotion, mood, or personality signal in a text. Think of it as an attitude extraction rather than a full map of human emotions.
 
 ```{important}
 **Topic analysis** (Module 6): what is this text about?
@@ -49,7 +49,7 @@ The simplest and most common way to represent sentiment is **polarity**: is a wo
 A more general way to describe affect represents it along continuous dimensions rather than discrete categories. The two most common dimensions are **valence**, how pleasant or unpleasant something is, and **arousal**, the level of alertness or energy it provokes; a third, less commonly used dimension is **dominance**, the degree of control associated with it {cite}`jurafsky2026`.
 
 ```{important}
-**Valence** is the dimension that matters most for this chapter. It is, in effect, a continuous version of polarity: how pleasant or unpleasant a word or text is. **Arousal** and **dominance** are worth knowing by name, but this course does not develop them further.
+**Valence** is the dimension that matters most for this chapter. It is a continuous version of polarity: how pleasant or unpleasant a word or text is.
 ```
 
 The NRC Valence, Arousal, and Dominance (VAD) lexicon assigns scores on all three dimensions to 20,000 words {cite}`jurafsky2026`. A few examples make the point that these dimensions capture genuinely different things:
@@ -93,7 +93,7 @@ If a document has more positive lexicon matches than negative ones, by more than
 
 Applied to review (1), "absolutely amazing... incredible," a lexicon match on `amazing` and `incredible` gives a clearly positive ratio. Applied to review (4), "unwatchable... no sense," the ratio is clearly negative.
 
-This approach needs no labeled training data and no model fitting: it is built entirely from a pre-existing word list. That makes it fast, fully interpretable (you can always point to exactly which words drove the decision), and useful as a baseline when labeled data is scarce {cite}`jurafsky2026`. It is also, as the next section shows, easy to fool.
+This approach needs no labeled training data and no model fitting: it is built entirely from a pre-existing word list. That makes it fast, fully interpretable (you can always point to exactly which words drove the decision), and useful as a baseline when labeled data is scarce {cite}`jurafsky2026`.
 
 ```{tip}
 **Try it yourself.** Run the ratio rule on review (2), "The acting is not bad, but the story really drags in the middle." `bad` and `drags` both sound negative. Does a word-counting rule get this review's overall tone right? Keep your answer in mind for Section 6.

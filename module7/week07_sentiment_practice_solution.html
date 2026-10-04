@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>7.3 Coding Practice: Sentiment Analysis &#8212; Introduction to NLP</title>
+    <title>7.3 Coding Practice: Sentiment Analysis Solution &#8212; Introduction to NLP</title>
   
   
   
@@ -212,7 +212,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="module7.html">Chapter 7 Sentiment, Affect, and Lexicons</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="sentiment.html">7.1 Sentiment, Affect, and Lexicons</a></li>
 <li class="toctree-l2"><a class="reference internal" href="week07_sentiment_practice.html">7.2 Coding Practice: Sentiment Analysis</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">7.3 Coding Practice: Sentiment Analysis</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">7.3 Coding Practice: Sentiment Analysis Solution</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -407,7 +407,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>7.3 Coding Practice: Sentiment Analysis</h1>
+    <h1>7.3 Coding Practice: Sentiment Analysis Solution</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -447,8 +447,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="coding-practice-sentiment-analysis">
-<h1>7.3 Coding Practice: Sentiment Analysis<a class="headerlink" href="#coding-practice-sentiment-analysis" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="coding-practice-sentiment-analysis-solution">
+<h1>7.3 Coding Practice: Sentiment Analysis Solution<a class="headerlink" href="#coding-practice-sentiment-analysis-solution" title="Permalink to this heading">#</a></h1>
 <p>This notebook compares two approaches to IMDb sentiment classification:</p>
 <ul class="simple">
 <li><p>a lexicon-based / rule-based method using VADER</p></li>
@@ -462,10 +462,7 @@ document.write(`
 <p>GitHub notebook: <a class="reference external" href="https://github.com/obscrivn/mynewbook/blob/master/module7/week07_sentiment_practice_solution.ipynb">module7/week07_sentiment_practice_solution.ipynb</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ssl</span>
-<span class="n">ssl</span><span class="o">.</span><span class="n">_create_default_https_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_unverified_context</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">nltk</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">nltk.corpus</span><span class="w"> </span><span class="kn">import</span> <span class="n">movie_reviews</span>
@@ -492,6 +489,14 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[nltk_data] Error loading movie_reviews: &lt;urlopen error [SSL:
+[nltk_data]     CERTIFICATE_VERIFY_FAILED] certificate verify failed:
+[nltk_data]     unable to get local issuer certificate (_ssl.c:992)&gt;
+[nltk_data] Error loading vader_lexicon: &lt;urlopen error [SSL:
+[nltk_data]     CERTIFICATE_VERIFY_FAILED] certificate verify failed:
+[nltk_data]     unable to get local issuer certificate (_ssl.c:992)&gt;
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loaded 2000 movie reviews from the NLTK corpus.
 </pre></div>
 </div>
@@ -751,31 +756,21 @@ document.write(`
 </div></blockquote>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vader_accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">vader_df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">],</span> <span class="n">vader_df</span><span class="p">[</span><span class="s1">&#39;vader_label&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;VADER accuracy: </span><span class="si">{</span><span class="n">vader_accuracy</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">vader_df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">],</span> <span class="n">vader_df</span><span class="p">[</span><span class="s1">&#39;vader_label&#39;</span><span class="p">],</span> <span class="n">digits</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">vader_df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">],</span> <span class="n">vader_df</span><span class="p">[</span><span class="s1">&#39;vader_label&#39;</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;negative&#39;</span><span class="p">,</span> <span class="s1">&#39;positive&#39;</span><span class="p">]))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">vader_predict_label</span><span class="p">(</span><span class="n">review</span><span class="p">):</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">polarity_scores</span><span class="p">(</span><span class="n">review</span><span class="p">)</span>
+    <span class="n">compound</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="s1">&#39;compound&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">compound</span> <span class="o">&gt;=</span> <span class="mf">0.05</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;positive&#39;</span>
+    <span class="k">if</span> <span class="n">compound</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mf">0.05</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;negative&#39;</span>
+    <span class="k">return</span> <span class="s1">&#39;positive&#39;</span> <span class="k">if</span> <span class="n">compound</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;negative&#39;</span>
 
-<span class="n">wrong_examples</span> <span class="o">=</span> <span class="n">vader_df</span><span class="p">[</span><span class="n">vader_df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">vader_df</span><span class="p">[</span><span class="s1">&#39;vader_label&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">wrong_examples</span><span class="p">[[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;vader_label&#39;</span><span class="p">,</span> <span class="s1">&#39;compound&#39;</span><span class="p">,</span> <span class="s1">&#39;review&#39;</span><span class="p">]]</span>
+<span class="n">vader_df</span><span class="p">[</span><span class="s1">&#39;vader_label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vader_df</span><span class="p">[</span><span class="s1">&#39;review&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">vader_predict_label</span><span class="p">)</span>
+<span class="n">vader_df</span><span class="p">[[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;vader_label&#39;</span><span class="p">,</span> <span class="s1">&#39;compound&#39;</span><span class="p">,</span> <span class="s1">&#39;review&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>VADER accuracy: 0.635
-              precision    recall  f1-score   support
-
-    negative      0.718     0.444     0.549      1000
-    positive      0.598     0.826     0.694      1000
-
-    accuracy                          0.635      2000
-   macro avg      0.658     0.635     0.621      2000
-weighted avg      0.658     0.635     0.621      2000
-
-[[444 556]
- [174 826]]
-</pre></div>
-</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -809,6 +804,20 @@ weighted avg      0.658     0.635     0.621      2000
       <td>the verdict : spine-chilling drama from horror maestro stephen king , featuring an outstanding , oscar-winning performance from kathy bates . \ngeez , french and saunders had a...</td>
     </tr>
     <tr>
+      <th>1</th>
+      <td>negative</td>
+      <td>negative</td>
+      <td>-0.9878</td>
+      <td>" the 44 caliber killer has struck again . " \nstarring john leguizamo , mira sorvino , adrian brody , jennifer esposito , michael rispoli , bebe neuwirth . \nrated r . \nsumm...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>positive</td>
+      <td>positive</td>
+      <td>0.9968</td>
+      <td>in the company of men made a splash at the sundance film festival because , in a year plagued by brothers mcmullen-style , earnestly shallow gen-x angst pictures , it seemed to...</td>
+    </tr>
+    <tr>
       <th>3</th>
       <td>negative</td>
       <td>positive</td>
@@ -816,25 +825,11 @@ weighted avg      0.658     0.635     0.621      2000
       <td>in the year 2029 , captain leo davidson ( mark wahlberg , " boogie nights " ) is training 'his' chimp pericles to pilot a pod from the usaf oberon space station . \nwhen an ele...</td>
     </tr>
     <tr>
-      <th>7</th>
+      <th>4</th>
       <td>positive</td>
-      <td>negative</td>
-      <td>-0.9977</td>
-      <td>( warning to those who have not seen seven : this review contains some spoiler information . ) \nseven is a powerful , fully-realized film on the level of the silence of the l...</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>negative</td>
       <td>positive</td>
-      <td>0.9418</td>
-      <td>movie reviewers have an obligation to see the good , the bad , and the despicable . \ni originally wrote this review for my college newspaper back in '95 , but i wanted to re-w...</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>positive</td>
-      <td>negative</td>
-      <td>-0.7343</td>
-      <td>plot : a human space astronaut accidentally falls upon a planet ruled by apes . \nhe is taken prisoner along with some other humans , and tries his best to escape his simian ca...</td>
+      <td>0.9951</td>
+      <td>[note that followups are directed to rec . arts . movies . current-films and rec . arts . movies . startrek . current \nonly , not to rec . arts . sf . movies . \n-moderator] \...</td>
     </tr>
   </tbody>
 </table>
@@ -864,6 +859,94 @@ weighted avg      0.658     0.635     0.621      2000
 </pre></div>
 </div>
 </div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vader_test_predictions</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">vader_predict_label</span><span class="p">)</span>
+<span class="n">vader_accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">vader_test_predictions</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;VADER accuracy (held-out set): </span><span class="si">{</span><span class="n">vader_accuracy</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">vader_test_predictions</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">vader_test_predictions</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;negative&#39;</span><span class="p">,</span> <span class="s1">&#39;positive&#39;</span><span class="p">]))</span>
+
+<span class="n">test_predictions_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;review&#39;</span><span class="p">:</span> <span class="n">X_test</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">y_test</span><span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">test_predictions_df</span><span class="p">[</span><span class="s1">&#39;vader_label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vader_test_predictions</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">wrong_examples</span> <span class="o">=</span> <span class="n">test_predictions_df</span><span class="p">[</span><span class="n">test_predictions_df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">test_predictions_df</span><span class="p">[</span><span class="s1">&#39;vader_label&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">wrong_examples</span><span class="p">[[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;vader_label&#39;</span><span class="p">,</span> <span class="s1">&#39;review&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>VADER accuracy (held-out set): 0.610
+              precision    recall  f1-score   support
+
+    negative      0.690     0.400     0.506       250
+    positive      0.577     0.820     0.678       250
+
+    accuracy                          0.610       500
+   macro avg      0.634     0.610     0.592       500
+weighted avg      0.634     0.610     0.592       500
+
+[[100 150]
+ [ 45 205]]
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>vader_label</th>
+      <th>review</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>negative</td>
+      <td>positive</td>
+      <td>david schwimmer ( from the television series " friends " ) stars as a sensitive ( and slightly neurotic ) single guy who gets more than he expected from the grieving mother ( b...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>negative</td>
+      <td>positive</td>
+      <td>one of the responses those that enjoy " detroit rock city " ( probably kiss fans , mostly ) might have upon first glance at the rating i've given the film might be something li...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>negative</td>
+      <td>positive</td>
+      <td>the yet-to-be-released krippendorf's tribe is being marketed as a family comedy , but buyer beware . \nthis movie can't make up its mind . \nis it a family comedy with vulgar r...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>positive</td>
+      <td>negative</td>
+      <td>scream 2 isn't quite as clever as its predecessor , but it fills the gap with a cutting wit . \ndeath -- even gruesome , bloody death -- can be funny if handled the right way (...</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>negative</td>
+      <td>positive</td>
+      <td>upon first viewing of this movie , the phrases " been there " and " done that " come quickly to mind . \nspy hard manages to steal almost every joke from the zucker brothers fi...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -980,6 +1063,7 @@ weighted avg      0.821     0.820     0.820       500
 <section id="part-4-compare-the-two-approaches">
 <h2>Part 4: Compare the two approaches<a class="headerlink" href="#part-4-compare-the-two-approaches" title="Permalink to this heading">#</a></h2>
 <p>Run both models on the same small set of selected reviews and compare their outputs directly.</p>
+<p>For a fair comparison, both methods are evaluated on the same held-out review set.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected</span> <span class="o">=</span> <span class="n">test_df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>

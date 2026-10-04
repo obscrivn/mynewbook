@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'module7/sentiment';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Speech" href="../speech.html" />
+    <link rel="next" title="7.2 Coding Practice: Sentiment Analysis" href="week07_sentiment_practice.html" />
     <link rel="prev" title="Chapter 7 Sentiment, Affect, and Lexicons" href="module7.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -211,6 +211,8 @@ const thebe_selector_output = ".output, .cell_output"
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="module7.html">Chapter 7 Sentiment, Affect, and Lexicons</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">7.1 Sentiment, Affect, and Lexicons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week07_sentiment_practice.html">7.2 Coding Practice: Sentiment Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week07_sentiment_practice_solution.html">7.3 Coding Practice: Sentiment Analysis Solution</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -461,11 +463,11 @@ document.write(`
 <li><p>“Totally unwatchable. The plot made no sense.”</p></li>
 </ol>
 </div>
-<p>At a glance, (1) reads clearly positive and (4) reads clearly negative. Reviews (2) and (3) are harder: each one mixes a negative-sounding word with something that softens or reverses it. By the end of this chapter you should be able to say exactly why (2) and (3) are harder, not just that they are.</p>
+<p>At a glance, (1) reads clearly positive and (4) reads clearly negative. Reviews (2) and (3) are harder: each one mixes a negative-sounding word with something that softens or reverses it. By the end of this chapter you should be able to say exactly why (2) and (3) are harder.</p>
 <section id="what-is-sentiment-analysis-asking">
 <h2>1. What Is Sentiment Analysis Asking?<a class="headerlink" href="#what-is-sentiment-analysis-asking" title="Permalink to this heading">#</a></h2>
 <p>Sentiment analysis is one way of extracting <strong>affective meaning</strong>: meaning related to emotion, mood, opinion, and evaluation, from text <span id="id1">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. One influential typology divides affective states into several kinds: brief <strong>emotions</strong> (angry, joyful), longer-lasting <strong>moods</strong> (gloomy, cheerful), <strong>interpersonal stances</strong> taken toward another person in an interaction (cold, friendly), relatively stable <strong>personality traits</strong> (anxious, hostile), and <strong>attitudes</strong>, enduring evaluative beliefs and preferences toward an object or person (liking, valuing, disliking) <span id="id2">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>.</p>
-<p><strong>Sentiment analysis extracts attitudes.</strong> It asks what someone likes or dislikes, based on affect-rich text such as reviews, editorials, or social media posts <span id="id3">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. It does not try to classify every emotion, mood, or personality signal in a text. Keeping that one distinction in mind, attitude extraction rather than a full map of human affect, is enough to use this chapter well.</p>
+<p><strong>Sentiment analysis extracts attitudes.</strong> It asks what someone likes or dislikes, based on affect-rich text such as reviews, editorials, or social media posts <span id="id3">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. It does not try to classify every emotion, mood, or personality signal in a text. Think of it as an attitude extraction rather than a full map of human emotions.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p><strong>Topic analysis</strong> (Module 6): what is this text about?</p>
@@ -480,7 +482,7 @@ document.write(`
 <p>A more general way to describe affect represents it along continuous dimensions rather than discrete categories. The two most common dimensions are <strong>valence</strong>, how pleasant or unpleasant something is, and <strong>arousal</strong>, the level of alertness or energy it provokes; a third, less commonly used dimension is <strong>dominance</strong>, the degree of control associated with it <span id="id4">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p><strong>Valence</strong> is the dimension that matters most for this chapter. It is, in effect, a continuous version of polarity: how pleasant or unpleasant a word or text is. <strong>Arousal</strong> and <strong>dominance</strong> are worth knowing by name, but this course does not develop them further.</p>
+<p><strong>Valence</strong> is the dimension that matters most for this chapter. It is a continuous version of polarity: how pleasant or unpleasant a word or text is.</p>
 </div>
 <p>The NRC Valence, Arousal, and Dominance (VAD) lexicon assigns scores on all three dimensions to 20,000 words <span id="id5">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. A few examples make the point that these dimensions capture genuinely different things:</p>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -545,7 +547,7 @@ document.write(`
 <p>If a document has more positive lexicon matches than negative ones, by more than some threshold, call it positive. If it has more negative matches, call it negative. Otherwise, call it neutral.</p>
 </div>
 <p>Applied to review (1), “absolutely amazing… incredible,” a lexicon match on <code class="docutils literal notranslate"><span class="pre">amazing</span></code> and <code class="docutils literal notranslate"><span class="pre">incredible</span></code> gives a clearly positive ratio. Applied to review (4), “unwatchable… no sense,” the ratio is clearly negative.</p>
-<p>This approach needs no labeled training data and no model fitting: it is built entirely from a pre-existing word list. That makes it fast, fully interpretable (you can always point to exactly which words drove the decision), and useful as a baseline when labeled data is scarce <span id="id13">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>. It is also, as the next section shows, easy to fool.</p>
+<p>This approach needs no labeled training data and no model fitting: it is built entirely from a pre-existing word list. That makes it fast, fully interpretable (you can always point to exactly which words drove the decision), and useful as a baseline when labeled data is scarce <span id="id13">[<a class="reference internal" href="../references.html#id2" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26</a>]</span>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p><strong>Try it yourself.</strong> Run the ratio rule on review (2), “The acting is not bad, but the story really drags in the middle.” <code class="docutils literal notranslate"><span class="pre">bad</span></code> and <code class="docutils literal notranslate"><span class="pre">drags</span></code> both sound negative. Does a word-counting rule get this review’s overall tone right? Keep your answer in mind for Section 6.</p>
@@ -734,11 +736,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="../speech.html"
+       href="week07_sentiment_practice.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Speech</p>
+        <p class="prev-next-title">7.2 Coding Practice: Sentiment Analysis</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
