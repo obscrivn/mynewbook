@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="710" viewBox="0 0 720 710" role="img" aria-labelledby="title desc">
+  <title id="title">From job text to an evaluated recommendation</title>
+  <desc id="desc">Job text and a user profile share a representation space. Generate candidates, score matches, re-rank with explicit preferences, and display results. Independent relevance judgments and error analysis inform improvements.</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#46576c"/></marker></defs>
+  <rect width="720" height="710" fill="#f8fafc" rx="16"/>
+  <g font-family="Arial, sans-serif" fill="#162b43" text-anchor="middle">
+    <text x="360" y="35" font-size="23" font-weight="bold">From job text to an evaluated recommendation</text>
+    <g stroke="#53779d" stroke-width="1.5" fill="#e8f0fa">
+      <rect x="40" y="70" width="300" height="70" rx="10"/>
+      <rect x="380" y="70" width="300" height="70" rx="10"/>
+      <rect x="200" y="180" width="260" height="70" rx="10"/>
+      <rect x="200" y="280" width="260" height="70" rx="10"/>
+      <rect x="200" y="380" width="260" height="70" rx="10"/>
+      <rect x="200" y="480" width="260" height="70" rx="10"/>
+      <rect x="490" y="375" width="205" height="80" rx="10" fill="#e6f4ed" stroke="#467861"/>
+      <rect x="150" y="590" width="440" height="90" rx="10" fill="#fff3dc" stroke="#956b25"/>
+    </g>
+    <g font-size="21">
+      <text x="190" y="98">Job descriptions</text><text x="190" y="123" font-size="17">Represent the collection</text>
+      <text x="530" y="98">User profile</text><text x="530" y="123" font-size="17">Same representation space</text>
+      <text x="330" y="208">Generate candidates</text><text x="330" y="233" font-size="17">Lexical / semantic matches</text>
+      <text x="330" y="308">Score</text><text x="330" y="333" font-size="17">Rank available items</text>
+      <text x="330" y="408">Re-rank</text><text x="330" y="433" font-size="17">Apply context</text>
+      <text x="330" y="508">Display</text><text x="330" y="533" font-size="17">Top-k results</text>
+      <text x="592" y="401" font-size="18">Declared preferences</text><text x="592" y="425" font-size="17">Constraints and</text><text x="592" y="446" font-size="17">desired variety</text>
+      <text x="370" y="621">Evaluate the displayed list</text><text x="370" y="647" font-size="17">Independent relevance judgments</text><text x="370" y="670" font-size="17">and error analysis</text>
+      <text x="74" y="565" font-size="17">Improve</text><text x="74" y="588" font-size="17">the process</text>
+    </g>
+  </g>
+  <g fill="none" stroke="#46576c" stroke-width="2" marker-end="url(#arrow)">
+    <path d="M190 140 V160 H270 V177"/><path d="M530 140 V160 H400 V177"/>
+    <path d="M330 250 V277"/><path d="M330 350 V377"/><path d="M330 450 V477"/>
+    <path d="M490 415 H463"/>
+    <path d="M330 550 V587"/>
+    <path d="M150 635 H115 V215 H197" stroke-dasharray="6 5"/>
+  </g>
+</svg>

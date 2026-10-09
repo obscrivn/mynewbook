@@ -1,0 +1,1080 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>8.1 Recommendation Systems and Personalized Text Ranking &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module8/recommendation';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Speech" href="../speech.html" />
+    <link rel="prev" title="Chapter 8 Recommendation Systems and Personalized Text Ranking" href="module8.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module4/module4.html">Chapter 4 Similarity and Retrieval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module4/cluster.html">4.1 Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/practice.html">4.2 Experiment: From Similarity Scores to Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/week4_coding_practice.html">4.3 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module5/module5.html">Chapter 5 Text Classification and Model Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module5/classification.html">5.1 Text Classification and Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/week5_coding_practice.html">5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module6/module6.html">Chapter 6 Topic Modeling and Modern Topic Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module6/topics.html">6.1 Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice.html">6.2 Coding Practice: Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice_solution.html">6.3 Coding Practice: Topic Modeling and Modern Topic Analysis (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module7/module7.html">Chapter 7 Sentiment, Affect, and Lexicons</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module7/sentiment.html">7.1 Sentiment, Affect, and Lexicons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module7/week07_sentiment_practice.html">7.2 Coding Practice: Sentiment Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module7/week07_sentiment_practice_solution.html">7.3 Coding Practice: Sentiment Analysis Solution</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module8.html">Chapter 8 Recommendation Systems and Personalized Text Ranking</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">8.1 Recommendation Systems and Personalized Text Ranking</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phonetics.html">Speech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recognizer.html">Speech Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule8/recommendation.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module8/recommendation.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>8.1 Recommendation Systems and Personalized Text Ranking</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-recommendation-systems-matter">1. Why recommendation systems matter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-recommendation-systems">2. Types of recommendation systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-text-based-recommendations">3. Building text-based recommendations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-worked-ranking-example">A worked ranking example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbors-and-score-direction">Nearest neighbors and score direction</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lexical-vs-semantic-ranking">4. Lexical vs. semantic ranking</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bm25-repeated-matches-and-description-length">BM25: repeated matches and description length</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-matching-and-vocabulary-mismatch">Semantic matching and vocabulary mismatch</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#personalization-and-user-preferences">5. Personalization and user preferences</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-recommendation-quality">6. Evaluating recommendation quality</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-two-lists">Comparing two lists</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-the-errors-and-the-metric-s-limits">Reading the errors and the metric’s limits</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modern-recommendation-pipelines">7. Modern recommendation pipelines</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-knowledge-check">8. Summary and knowledge check</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-reasoning">Check your reasoning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="recommendation-systems-and-personalized-text-ranking">
+<h1>8.1 Recommendation Systems and Personalized Text Ranking<a class="headerlink" href="#recommendation-systems-and-personalized-text-ranking" title="Permalink to this heading">#</a></h1>
+<p><a class="reference internal" href="../module3/features.html"><span class="doc std std-doc">Week 03</span></a> represented text as vectors. <a class="reference internal" href="../module4/cluster.html"><span class="doc std std-doc">Week 04</span></a> compared those vectors and retrieved nearby texts. Now we add a person with preferences:</p>
+<p><strong>Which items should we recommend to this user, and what evidence would show that the recommendations are useful?</strong></p>
+<p>We will follow a fictional candidate, Alex, who knows Python and SQL and wants an early-career reporting role. Job descriptions are our items. All snippets, feature weights, and relevance labels below are teaching examples, not live vacancies or measured model performance. This is an opportunity-discovery exercise, not a system for ranking people or making hiring decisions.</p>
+<p>By the end, you should be able to compare recommendation approaches, explain text-based ranking, interpret BM25 and embedding matches, calculate Precision&#64;5, and identify missing context or misleading results.</p>
+<section id="why-recommendation-systems-matter">
+<h2>1. Why recommendation systems matter<a class="headerlink" href="#why-recommendation-systems-matter" title="Permalink to this heading">#</a></h2>
+<p>A job description may mention every skill in Alex’s profile and still be a poor recommendation: it might require ten years of management experience. Textual resemblance is useful evidence, but relevance depends on what Alex wants to do.</p>
+<p>Related tasks use different information:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Task</p></th>
+<th class="head"><p>Question in our example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Search</p></td>
+<td><p>What does Alex request now, such as “junior SQL analyst”?</p></td>
+</tr>
+<tr class="row-odd"><td><p>Retrieval</p></td>
+<td><p>Which descriptions should enter the result set?</p></td>
+</tr>
+<tr class="row-even"><td><p>Ranking</p></td>
+<td><p>In what order should those descriptions appear?</p></td>
+</tr>
+<tr class="row-odd"><td><p>Recommendation</p></td>
+<td><p>Which opportunities should we suggest, using the available evidence about Alex’s interests?</p></td>
+</tr>
+<tr class="row-even"><td><p>Personalization</p></td>
+<td><p>How should Alex’s preferences change the suggestions?</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Search and recommendation overlap. A query can express preferences; a recommendation can help someone discover items they did not explicitly request. Google distinguishes suggestions based on user interests from suggestions related to a currently viewed item <span id="id1">[<a class="reference internal" href="../references.html#id12" title="Google for Developers. Recommendation systems: overview. See also Recommendations: What and Why? Accessed October 9, 2026. URL: https://developers.google.com/machine-learning/recommendation/overview/types.">GooglefDevelopersc</a>]</span>. The same distinction applies to learning resources, research articles, and movies.</p>
+<p>In <a class="reference internal" href="../module5/classification.html"><span class="doc std std-doc">Week 05</span></a>, a classifier assigned a category to each input. Ranking instead orders candidates relative to one another. A job can rank first in a poor collection even when none of the available jobs is useful.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A top-ranked item is the best match under the chosen method among the available candidates. That statement does not establish relevance, qualifications, or a probability of success.</p>
+</div>
+</section>
+<section id="types-of-recommendation-systems">
+<h2>2. Types of recommendation systems<a class="headerlink" href="#types-of-recommendation-systems" title="Permalink to this heading">#</a></h2>
+<p>Consider four ways to choose jobs for Alex. Each requires different evidence.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Approach</p></th>
+<th class="head"><p>Data needed</p></th>
+<th class="head"><p>Example and useful starting point</p></th>
+<th class="head"><p>Main limitation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Popularity-based</p></td>
+<td><p>Aggregate views, saves, or another declared global measure</p></td>
+<td><p>Show frequently saved vacancies; a simple baseline when profile information is missing</p></td>
+<td><p>Broad attention can obscure individual needs</p></td>
+</tr>
+<tr class="row-odd"><td><p>Content-based</p></td>
+<td><p>Item features and a user’s preferences or liked-item features</p></td>
+<td><p>Match Alex’s Python/SQL profile to job text</p></td>
+<td><p>Can miss interests not expressed in the features</p></td>
+</tr>
+<tr class="row-even"><td><p>Collaborative</p></td>
+<td><p>Interaction histories across users and items</p></td>
+<td><p>Suggest jobs saved by people with similar interaction patterns</p></td>
+<td><p>New users/items have little interaction evidence</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hybrid</p></td>
+<td><p>More than one signal or recommendation method</p></td>
+<td><p>Combine text matches with interaction-derived candidates</p></td>
+<td><p>More signals require more careful comparison and evaluation</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Content-based filtering</strong> uses an item’s properties to match a user’s interests. Those interests can be stated directly or inferred from behavior <span id="id2">[<a class="reference internal" href="../references.html#id13" title="Google for Developers. Content-based filtering. See also Content-Based Filtering Advantages and Disadvantages. Accessed October 9, 2026. URL: https://developers.google.com/machine-learning/recommendation/content-based/basics.">GooglefDevelopersb</a>]</span>. Recommending movies similar to one Alex liked is item-to-item matching; comparing Alex’s profile to jobs is profile-to-item matching. Both can be content-based.</p>
+<p><strong>Collaborative filtering</strong> uses relationships in other users’ interaction data, rather than only textual descriptions. A tiny example makes the intuition visible <span id="id3">[<a class="reference internal" href="../references.html#id14" title="Google for Developers. Collaborative filtering. See also Collaborative Filtering Advantages and Disadvantages. Accessed October 9, 2026. URL: https://developers.google.com/machine-learning/recommendation/collaborative/basics.">GooglefDevelopersa</a>]</span>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>User</p></th>
+<th class="head"><p>Reporting job A</p></th>
+<th class="head"><p>Reporting job B</p></th>
+<th class="head"><p>NLP job C</p></th>
+<th class="head"><p>NLP job D</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Alex</p></td>
+<td><p>Saved</p></td>
+<td><p>?</p></td>
+<td><p>?</p></td>
+<td><p>?</p></td>
+</tr>
+<tr class="row-odd"><td><p>Blair</p></td>
+<td><p>Saved</p></td>
+<td><p>Saved</p></td>
+<td><p>?</p></td>
+<td><p>?</p></td>
+</tr>
+<tr class="row-even"><td><p>Casey</p></td>
+<td><p>?</p></td>
+<td><p>?</p></td>
+<td><p>Saved</p></td>
+<td><p>Saved</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Alex and Blair share a save, so Blair’s interest in B might nominate B for Alex. This is a reason to investigate, not proof Alex will like it. The question marks mean <strong>unobserved</strong>, not disliked. We do not need matrix-factorization mathematics to understand this pattern.</p>
+<p><strong>Explicit feedback</strong> states a preference: “I want reporting roles,” a rating, or a declared skill interest. <strong>Implicit feedback</strong> records behavior: a view, click, or save. A click may reflect curiosity rather than a favorable judgment. The meaning of each signal must be specified before using it <span id="id4">[<a class="reference internal" href="../references.html#id14" title="Google for Developers. Collaborative filtering. See also Collaborative Filtering Advantages and Disadvantages. Accessed October 9, 2026. URL: https://developers.google.com/machine-learning/recommendation/collaborative/basics.">GooglefDevelopersa</a>]</span>.</p>
+</section>
+<section id="building-text-based-recommendations">
+<h2>3. Building text-based recommendations<a class="headerlink" href="#building-text-based-recommendations" title="Permalink to this heading">#</a></h2>
+<p>Our baseline compares Alex’s profile to each job description. Recall that <strong>TF-IDF</strong> assigns term weights using within-document frequency and collection rarity. Descriptions and profile text must use the same vocabulary and weighting scheme to be compared <span id="id5">[<a class="reference internal" href="../references.html#id11" title="Christopher D. Manning, Prabhakar Raghavan, and Hinrich Schütze. Introduction to Information Retrieval. Cambridge University Press, 2008. Chapters 6 and 8, and Section 11.4.3. URL: https://nlp.stanford.edu/IR-book/.">MRS08</a>]</span>. In a baseline workflow, fit the representation on the job collection and transform profile text into that space.</p>
+<p>Preprocessing affects what evidence survives. Removing punctuation may damage a skill such as <code class="docutils literal notranslate"><span class="pre">C++</span></code>; removing negation may change “no management experience required.” Keep the representation choices connected to the task, rather than applying a cleaning recipe automatically.</p>
+<p>For nonzero vectors, cosine similarity is:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{cosine}(u,j)=\frac{u\cdot j}{\|u\|\,\|j\|}.
+\]</div>
+<p>It compares direction. Compute one score for each job, sort descending, and return the <strong>top-k</strong>, the first k jobs. This is the query-as-vector ranking idea from information retrieval, with a profile supplying the input <span id="id6">[<a class="reference internal" href="../references.html#id11" title="Christopher D. Manning, Prabhakar Raghavan, and Hinrich Schütze. Introduction to Information Retrieval. Cambridge University Press, 2008. Chapters 6 and 8, and Section 11.4.3. URL: https://nlp.stanford.edu/IR-book/.">MRS08</a>]</span>.</p>
+<section id="a-worked-ranking-example">
+<h3>A worked ranking example<a class="headerlink" href="#a-worked-ranking-example" title="Permalink to this heading">#</a></h3>
+<p>To make every calculation visible, use just four features: <strong>Python, SQL, NLP, equipment maintenance</strong>, in that order. Alex’s vector is <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">1,</span> <span class="pre">0,</span> <span class="pre">0)</span></code>. The following deliberately simplified weights are assigned for illustration; they are not TF-IDF estimates. They leave out seniority and many other important details.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>Fictional role and description</p></th>
+<th class="head"><p>Feature vector</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>J1</p></td>
+<td><p>Junior data analyst: Python and SQL reporting; early-career applicants welcome</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">1,</span> <span class="pre">0,</span> <span class="pre">0)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>J2</p></td>
+<td><p>Analytics director: Python and SQL strategy; extensive team-management experience required</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(2,</span> <span class="pre">1,</span> <span class="pre">0,</span> <span class="pre">0)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>J3</p></td>
+<td><p>Research data assistant: Python and SQL reporting on language data; NLP training provided</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">0)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>J4</p></td>
+<td><p>SQL reporting analyst: database reports and basic text tagging; early-career role</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">1,</span> <span class="pre">1,</span> <span class="pre">0)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>J5</p></td>
+<td><p>Senior NLP engineer: Python language models; production modeling experience required</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">0,</span> <span class="pre">2,</span> <span class="pre">0)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>J6</p></td>
+<td><p>Equipment technician: machinery inspection and maintenance</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">1)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For J3, the dot product is <code class="docutils literal notranslate"><span class="pre">1×1</span> <span class="pre">+</span> <span class="pre">1×1</span> <span class="pre">=</span> <span class="pre">2</span></code>. Alex’s length is <span class="math notranslate nohighlight">\(\sqrt{2}\)</span> and J3’s length is <span class="math notranslate nohighlight">\(\sqrt{3}\)</span>. Therefore:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{cosine}(u,J3)=\frac{2}{\sqrt{2}\sqrt{3}}\approx0.816.
+\]</div>
+<p>Repeating this calculation produces the complete ranking:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>Rank</p></th>
+<th class="head"><p>Job</p></th>
+<th class="head"><p>Cosine calculation</p></th>
+<th class="head text-right"><p>Score, rounded</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td><p>J1</p></td>
+<td><p><span class="math notranslate nohighlight">\(2/(\sqrt{2}\sqrt{2})\)</span></p></td>
+<td class="text-right"><p>1.000</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td><p>J2</p></td>
+<td><p><span class="math notranslate nohighlight">\(3/(\sqrt{2}\sqrt{5})\)</span></p></td>
+<td class="text-right"><p>0.949</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>3</p></td>
+<td><p>J3</p></td>
+<td><p><span class="math notranslate nohighlight">\(2/(\sqrt{2}\sqrt{3})\)</span></p></td>
+<td class="text-right"><p>0.816</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>4</p></td>
+<td><p>J4</p></td>
+<td><p><span class="math notranslate nohighlight">\(1/(\sqrt{2}\sqrt{2})\)</span></p></td>
+<td class="text-right"><p>0.500</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>5</p></td>
+<td><p>J5</p></td>
+<td><p><span class="math notranslate nohighlight">\(1/(\sqrt{2}\sqrt{5})\)</span></p></td>
+<td class="text-right"><p>0.316</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>6</p></td>
+<td><p>J6</p></td>
+<td><p><span class="math notranslate nohighlight">\(0/(\sqrt{2}\times1)\)</span></p></td>
+<td class="text-right"><p>0.000</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>With <strong>k = 5</strong>, display J1, J2, J3, J4, and J5. J2 ranks highly because its vector points close to Alex’s, even though the description’s management requirement conflicts with Alex’s goal. Section 6 will evaluate this exact list.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Matching text is not matching every requirement. Our four features cannot represent a constraint they never encoded. A more detailed vector does not automatically solve that problem either.</p>
+</div>
+</section>
+<section id="nearest-neighbors-and-score-direction">
+<h3>Nearest neighbors and score direction<a class="headerlink" href="#nearest-neighbors-and-score-direction" title="Permalink to this heading">#</a></h3>
+<p>Nearest-neighbor retrieval finds close items in the representation space. It is not automatically collaborative filtering, and it is different from a KNN classifier that predicts a label from neighbors’ labels. With <strong>cosine distance = 1 − cosine similarity</strong>, smaller distances correspond to larger similarities. Other distances can produce different orders; name the metric rather than treating any returned number as a generic score. Google’s <a class="reference external" href="https://developers.google.com/machine-learning/recommendation/overview/candidate-generation">candidate-generation explanation</a> discusses this distinction.</p>
+<p>An empty profile or one containing no known vocabulary may produce a zero vector. Cosine’s formula is then undefined. Treat that as missing representation evidence and use a declared fallback or ask for preferences, rather than suggesting that an arbitrary tie is a meaningful match.</p>
+</section>
+</section>
+<section id="lexical-vs-semantic-ranking">
+<h2>4. Lexical vs. semantic ranking<a class="headerlink" href="#lexical-vs-semantic-ranking" title="Permalink to this heading">#</a></h2>
+<p>The representation and scoring rule can both change results:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Main matching evidence</p></th>
+<th class="head"><p>What to inspect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TF-IDF + cosine</p></td>
+<td><p>Shared terms weighted by collection rarity; vector direction</p></td>
+<td><p>Important shared skills and vocabulary mismatches</p></td>
+</tr>
+<tr class="row-odd"><td><p>BM25</p></td>
+<td><p>Query-term matches weighted with frequency saturation and document-length normalization</p></td>
+<td><p>Repeated terms, rare terms, and description length</p></td>
+</tr>
+<tr class="row-even"><td><p>Sentence embeddings + cosine</p></td>
+<td><p>Closeness in a model’s learned text space</p></td>
+<td><p>Paraphrases, domain meaning, and misleading semantic associations</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="bm25-repeated-matches-and-description-length">
+<h3>BM25: repeated matches and description length<a class="headerlink" href="#bm25-repeated-matches-and-description-length" title="Permalink to this heading">#</a></h3>
+<p><strong>Okapi BM25</strong> is a lexical query-to-document ranking function. Two descriptions that mention <code class="docutils literal notranslate"><span class="pre">SQL</span></code> once need not receive the same score: that mention may be more concentrated in a short description. Conversely, repeating <code class="docutils literal notranslate"><span class="pre">SQL</span></code> many times should not increase its contribution without limit <span id="id7">[<a class="reference internal" href="../references.html#id11" title="Christopher D. Manning, Prabhakar Raghavan, and Hinrich Schütze. Introduction to Information Retrieval. Cambridge University Press, 2008. Chapters 6 and 8, and Section 11.4.3. URL: https://nlp.stanford.edu/IR-book/.">MRS08</a>]</span>.</p>
+<p>Two controls govern these effects: <strong>k1</strong> controls term-frequency saturation, and <strong>b</strong> controls length normalization. Setting <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">0</span></code> removes the length adjustment; increasing it strengthens that adjustment. A larger k1 makes repeated matches saturate more slowly. Elasticsearch documents defaults of <code class="docutils literal notranslate"><span class="pre">k1</span> <span class="pre">=</span> <span class="pre">1.2</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">0.75</span></code>; these are implementation defaults, not universally optimal choices <span id="id8">[<a class="reference internal" href="../references.html#id20" title="Shane Connelly. Practical bm25: part 2, the bm25 algorithm and its variables. 2018. Elastic, April 19, 2018. URL: https://www.elastic.co/blog/practical-bm25-part-2-the-bm25-algorithm-and-its-variables.">Con18</a>, <a class="reference internal" href="../references.html#id19" title="Elastic. Elasticsearch reference: similarity settings. BM25 similarity parameters. Accessed October 9, 2026. URL: https://www.elastic.co/docs/reference/elasticsearch/index-settings/similarity.">Elastic</a>]</span>.</p>
+<p>Here is a controlled illustration for the single query term <code class="docutils literal notranslate"><span class="pre">SQL</span></code>. Hold its rarity weight, <strong>IDF</strong>, at 1, fix the collection’s average description length at <strong>100 tokens</strong>, and use those parameter values. Only the term’s count or description length changes:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>SQL occurrences</p></th>
+<th class="head text-right"><p>Description length</p></th>
+<th class="head text-right"><p>SQL’s BM25 contribution</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>100</p></td>
+<td class="text-right"><p>1.000</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>100</p></td>
+<td class="text-right"><p>1.375</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>100</p></td>
+<td class="text-right"><p>1.571</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>50</p></td>
+<td class="text-right"><p>1.257</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>200</p></td>
+<td class="text-right"><p>0.710</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>At average length, the two-occurrence calculation is <strong>(2 × 2.2) / (2 + 1.2) = 1.375</strong>. Going from one to two occurrences adds 0.375; adding a third adds about 0.196. That diminishing gain is saturation. Holding count at one, the short description contributes more than the long description. This illustrates one term’s contribution, not a complete multi-term recommendation score.</p>
+<p>The average length and rarity weight stay fixed for these comparisons. They are hypothetical variations against the same background collection, not a five-document corpus whose statistics should be recomputed. The numerical mechanism follows the BM25 term-frequency/length factor described by Stanford and Elastic; the examples are original <span id="id9">[<a class="reference internal" href="../references.html#id20" title="Shane Connelly. Practical bm25: part 2, the bm25 algorithm and its variables. 2018. Elastic, April 19, 2018. URL: https://www.elastic.co/blog/practical-bm25-part-2-the-bm25-algorithm-and-its-variables.">Con18</a>, <a class="reference internal" href="../references.html#id11" title="Christopher D. Manning, Prabhakar Raghavan, and Hinrich Schütze. Introduction to Information Retrieval. Cambridge University Press, 2008. Chapters 6 and 8, and Section 11.4.3. URL: https://nlp.stanford.edu/IR-book/.">MRS08</a>]</span>.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Optional mathematics: one disclosed BM25 variant<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">One common form, using Lucene-style positive IDF, is written below in two steps. First define the length adjustment <span class="math notranslate nohighlight">\(a_d\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+a_d=1-b+b\frac{|d|}{\operatorname{avgDL}}.
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{BM25}(q,d)=\sum_{t\in q}\operatorname{IDF}(t)
+\frac{f(t,d)(k_1+1)}{f(t,d)+k_1a_d},
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{IDF}(t)=\ln\left(1+\frac{N-n_t+0.5}{n_t+0.5}\right).
+\]</div>
+<p class="sd-card-text">Here the sum runs over distinct query terms, <span class="math notranslate nohighlight">\(f(t,d)\)</span> is the term count, <span class="math notranslate nohighlight">\(|d|\)</span> is the document’s token length, avgDL is average token length, N is the number of documents, and <span class="math notranslate nohighlight">\(n_t\)</span> counts documents containing the term. The table above sets IDF to 1 to isolate the remaining factor.</p>
+<p class="sd-card-text">BM25 variants differ, particularly in IDF and query-term handling. Older log-odds IDF forms can be negative for common terms. State which variant you use before comparing numerical outputs. You do not need to derive this formula or calculate IDF by hand for the core lesson.</p>
+</div>
+</details></section>
+<section id="semantic-matching-and-vocabulary-mismatch">
+<h3>Semantic matching and vocabulary mismatch<a class="headerlink" href="#semantic-matching-and-vocabulary-mismatch" title="Permalink to this heading">#</a></h3>
+<p>Suppose Alex searches for <code class="docutils literal notranslate"><span class="pre">NLP</span></code> in another session, while a description says “language understanding.” Literal term matching can miss that connection. <strong>Sentence embeddings</strong> represent texts in a learned space where related wording may be close; semantic search compares an input embedding with corpus embeddings <span id="id10">[<a class="reference internal" href="../references.html#id16" title="Sentence Transformers. Semantic search. Project documentation. Accessed October 9, 2026. URL: https://www.sbert.net/examples/sentence_transformer/applications/semantic-search/README.html.">SentenceTransformersa</a>]</span>.</p>
+<p>The query and descriptions need compatible encodings. Short-query/long-description retrieval can differ from comparing two similarly sized sentences, so choose a model suited to the task. Semantic relatedness remains a hypothesis to evaluate: “language understanding” might describe a senior research role rather than Alex’s desired reporting work.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>BM25 and cosine scores have different meanings and scales. Neither is a calibrated relevance probability. Dense-vector cosine can be negative; it is not limited to the nonnegative range of ordinary TF-IDF vectors.</p>
+</div>
+<p>Sentence Transformers documents similarity functions and examples of negative cosine values <span id="id11">[<a class="reference internal" href="../references.html#id17" title="Sentence Transformers. Semantic textual similarity. Project documentation. Accessed October 9, 2026. URL: https://sbert.net/docs/sentence_transformer/usage/semantic_textual_similarity.html.">SentenceTransformersb</a>]</span>. Compare methods using relevance judgments and returned IDs, rather than asking which model produced the largest raw number.</p>
+</section>
+</section>
+<section id="personalization-and-user-preferences">
+<h2>5. Personalization and user preferences<a class="headerlink" href="#personalization-and-user-preferences" title="Permalink to this heading">#</a></h2>
+<p>Alex’s profile expresses current skills and an early-career reporting goal. A second fictional user, Morgan, has Python/NLP experience and wants a senior language-modeling role. J5’s description may be worth showing to Morgan, while J1 may be less useful. The collection has not changed; the person and evaluation context have.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Preference or context</p></th>
+<th class="head"><p>Alex</p></th>
+<th class="head"><p>Morgan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Skills emphasized</p></td>
+<td><p>Python, SQL</p></td>
+<td><p>Python, NLP</p></td>
+</tr>
+<tr class="row-odd"><td><p>Work sought</p></td>
+<td><p>Reporting</p></td>
+<td><p>Language modeling</p></td>
+</tr>
+<tr class="row-even"><td><p>Level sought</p></td>
+<td><p>Early career</p></td>
+<td><p>Senior technical role</p></td>
+</tr>
+<tr class="row-odd"><td><p>Shared evidence</p></td>
+<td><p>The same six descriptions</p></td>
+<td><p>The same six descriptions</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>An explicit text profile offers a starting point without interaction history. Persistent personalization could retain declared interests and update them from later feedback. A single search phrase expresses a one-time need; storing a preference model across sessions introduces additional context and responsibilities <span id="id12">[<a class="reference internal" href="../references.html#id13" title="Google for Developers. Content-based filtering. See also Content-Based Filtering Advantages and Disadvantages. Accessed October 9, 2026. URL: https://developers.google.com/machine-learning/recommendation/content-based/basics.">GooglefDevelopersb</a>]</span>.</p>
+<p>Separate <strong>soft preferences</strong>, which can influence scores, from <strong>hard constraints</strong>, which remove unacceptable candidates. If Alex explicitly excludes management roles, remove J2. If Alex excludes senior roles, also remove J5. The remaining list is J1, J3, J4, J6 in the original relative order. J6 is still irrelevant despite surviving those constraints. Filtering cannot create useful jobs missing from the collection.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Do not fill every display slot at any cost. State when too few useful or eligible candidates remain. A preference filter and a relevance judgment answer different questions.</p>
+</div>
+<p>This is where <strong>candidate generation, scoring, and re-ranking</strong> become helpful distinctions. First gather possible jobs, then score them, then apply declared preferences or other list-level adjustments. A preference may also shape candidate generation earlier. Google’s overview presents these as a common architecture, not a requirement to use three separate models <span id="id13">[<a class="reference internal" href="../references.html#id12" title="Google for Developers. Recommendation systems: overview. See also Recommendations: What and Why? Accessed October 9, 2026. URL: https://developers.google.com/machine-learning/recommendation/overview/types.">GooglefDevelopersc</a>]</span>.</p>
+</section>
+<section id="evaluating-recommendation-quality">
+<h2>6. Evaluating recommendation quality<a class="headerlink" href="#evaluating-recommendation-quality" title="Permalink to this heading">#</a></h2>
+<p>Before looking at a ranking, define <strong>relevance</strong> for a specific profile. Our rule is: a job is worth showing to Alex if its described tasks fit the reporting goal and its stated experience expectations do not conflict with the early-career preference. A description lacking a key requirement should prompt uncertainty rather than invented facts.</p>
+<p>For this exercise, use the following independent teaching judgments. The label is not obtained by thresholding cosine similarity.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>Returned rank</p></th>
+<th class="head"><p>Job</p></th>
+<th class="head text-right"><p>Relevant to Alex?</p></th>
+<th class="head"><p>Reason</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>1</p></td>
+<td><p>J1</p></td>
+<td class="text-right"><p>1</p></td>
+<td><p>Early-career Python/SQL reporting</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>2</p></td>
+<td><p>J2</p></td>
+<td class="text-right"><p>0</p></td>
+<td><p>Requires extensive management experience</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>3</p></td>
+<td><p>J3</p></td>
+<td class="text-right"><p>1</p></td>
+<td><p>Reporting work with NLP training provided</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>4</p></td>
+<td><p>J4</p></td>
+<td class="text-right"><p>1</p></td>
+<td><p>Early-career SQL reporting</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>5</p></td>
+<td><p>J5</p></td>
+<td class="text-right"><p>0</p></td>
+<td><p>Senior language-modeling role</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Precision&#64;K</strong> is the number of relevant items among the first K recommendations divided by K <span id="id14">[<a class="reference internal" href="../references.html#id11" title="Christopher D. Manning, Prabhakar Raghavan, and Hinrich Schütze. Introduction to Information Retrieval. Cambridge University Press, 2008. Chapters 6 and 8, and Section 11.4.3. URL: https://nlp.stanford.edu/IR-book/.">MRS08</a>, <a class="reference internal" href="../references.html#id18" title="Recommenders Team. Recommenders evaluation. Microsoft-origin Recommenders project; Python precision at k and recall at k documentation. Accessed October 9, 2026. URL: https://recommenders-team.github.io/recommenders/evaluation.html.">RecommendersTeam</a>]</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{Precision&#64;5}=\frac{1+0+1+1+0}{5}=\frac{3}{5}=0.60.
+\]</div>
+<p>Three of Alex’s five displayed jobs satisfy our rubric. The score says nothing about the chance of an offer.</p>
+<section id="comparing-two-lists">
+<h3>Comparing two lists<a class="headerlink" href="#comparing-two-lists" title="Permalink to this heading">#</a></h3>
+<p>Imagine a second illustrative ordering, <strong>J1, J3, J2, J5, J6</strong>. Its flags are <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">1,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0]</span></code>, giving <strong>Precision&#64;5 = 2/5 = 0.40</strong>. It puts useful jobs earlier but misses J4. These are two teaching lists, not claimed BM25-versus-embedding results.</p>
+<p>Precision&#64;5 only counts the relevant items inside the cutoff. Swapping J1 and J2 in the first list would leave it at 0.60. To compare ordering within the displayed set or graded relevance, additional measures such as NDCG can help; their calculation is beyond this week’s core scope <span id="id15">[<a class="reference internal" href="../references.html#id11" title="Christopher D. Manning, Prabhakar Raghavan, and Hinrich Schütze. Introduction to Information Retrieval. Cambridge University Press, 2008. Chapters 6 and 8, and Section 11.4.3. URL: https://nlp.stanford.edu/IR-book/.">MRS08</a>]</span>.</p>
+<p><strong>Recall&#64;K</strong> asks how many of all relevant jobs were recovered. If the fully judged collection has exactly three relevant jobs for Alex, the first list’s Recall&#64;5 is <strong>3/3 = 1.00</strong>, despite its imperfect precision. The second list has Recall&#64;5 <strong>2/3 ≈ 0.67</strong>. Recall’s denominator therefore needs judgments beyond the returned list. Unknown relevance must not silently become “irrelevant.”</p>
+</section>
+<section id="reading-the-errors-and-the-metric-s-limits">
+<h3>Reading the errors and the metric’s limits<a class="headerlink" href="#reading-the-errors-and-the-metric-s-limits" title="Permalink to this heading">#</a></h3>
+<p>J2 reveals a missing seniority constraint. J5 shares a skill but serves a different work goal. These errors suggest inspecting context, not just changing a similarity threshold. Human judges may disagree on borderline descriptions; document the rubric and rationales.</p>
+<p>For a fair method comparison, keep the profile, corpus, K, and judgments fixed; use unique item IDs and a stated tie rule. Under the Recommenders Precision&#64;K convention, fewer than K returned items still use denominator K. Report the returned count too <span id="id16">[<a class="reference internal" href="../references.html#id18" title="Recommenders Team. Recommenders evaluation. Microsoft-origin Recommenders project; Python precision at k and recall at k documentation. Accessed October 9, 2026. URL: https://recommenders-team.github.io/recommenders/evaluation.html.">RecommendersTeam</a>]</span>. If no jobs are relevant, recall is undefined; specify how such profiles are reported. Avoid tuning on judgments and then calling those same judgments an independent test.</p>
+<p>A <strong>cold-start</strong> user has little history; a new job has few interactions. Content can supply evidence, but cannot reveal preferences never provided. Interaction-only systems have particular difficulty with unseen items <span id="id17">[<a class="reference internal" href="../references.html#id14" title="Google for Developers. Collaborative filtering. See also Collaborative Filtering Advantages and Disadvantages. Accessed October 9, 2026. URL: https://developers.google.com/machine-learning/recommendation/collaborative/basics.">GooglefDevelopersa</a>]</span>. Also examine <strong>diversity</strong>: five near-duplicate jobs may satisfy a relevance rubric while offering little choice. Check outcomes for multiple profiles and describe limitations; one tiny synthetic example cannot establish production quality or fairness.</p>
+</section>
+</section>
+<section id="modern-recommendation-pipelines">
+<h2>7. Modern recommendation pipelines<a class="headerlink" href="#modern-recommendation-pipelines" title="Permalink to this heading">#</a></h2>
+<p>The diagram separates representation matching from user context and evaluation. It is an original teaching adaptation of Google’s architecture and re-ranking guidance <span id="id18">[<a class="reference internal" href="../references.html#id12" title="Google for Developers. Recommendation systems: overview. See also Recommendations: What and Why? Accessed October 9, 2026. URL: https://developers.google.com/machine-learning/recommendation/overview/types.">GooglefDevelopersc</a>, <a class="reference internal" href="../references.html#id15" title="Google for Developers. Recommendation systems: re-ranking. Accessed October 9, 2026. URL: https://developers.google.com/machine-learning/recommendation/dnn/re-ranking.">GooglefDevelopersd</a>]</span>.</p>
+<figure class="align-default" id="job-recommendation-pipeline">
+<img alt="Job descriptions and a user profile supply compatible representations. Candidate generation feeds scoring, then re-ranking with stated preferences, then a displayed list. Independent relevance judgments evaluate that list and inform improvements." src="../_images/job-recommendation-pipeline.svg" /><figcaption>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text">From Text Matching to an Evaluated Recommendation</span><a class="headerlink" href="#job-recommendation-pipeline" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In a small collection, candidate generation may consider every job. At larger scale, <strong>hybrid retrieval</strong> can nominate candidates from both lexical and semantic searches. Deduplicate their IDs, score the selected candidates, and apply final list adjustments. Combining methods is a design choice to evaluate, not a guaranteed improvement. Avoid averaging uncalibrated BM25 and cosine scores; even a simple combination needs a declared rule.</p>
+<p>Re-ranking can account for freshness, explicit dislikes, or diversity <span id="id19">[<a class="reference internal" href="../references.html#id15" title="Google for Developers. Recommendation systems: re-ranking. Accessed October 9, 2026. URL: https://developers.google.com/machine-learning/recommendation/dnn/re-ranking.">GooglefDevelopersd</a>]</span>. For jobs, freshness might exclude expired listings; diversity might prevent the same role from filling every slot. <strong>Popularity bias</strong> deserves scrutiny when aggregate attention dominates suggestions: inspect whether relevant low-attention jobs disappear. Fairness requires examination of whose needs the system serves; merely omitting demographic fields does not demonstrate an unbiased system.</p>
+<p>For this exercise, use fictional profiles and task-related preferences. A real deployment would also need decisions about data collection, retention, access, and user control. These are responsible design questions, not features to infer from text similarity.</p>
+<p>An LLM-assisted explanation should point to evidence in the retrieved description: “J1 mentions Python and SQL reporting and welcomes early-career applicants.” It should not invent credentials or conclude Alex is guaranteed to qualify. An explanation’s fluency is not evaluation evidence. Check its assertions against the profile and job text just as you checked the ranking.</p>
+</section>
+<section id="summary-and-knowledge-check">
+<h2>8. Summary and knowledge check<a class="headerlink" href="#summary-and-knowledge-check" title="Permalink to this heading">#</a></h2>
+<p>The main decision is not simply whether two texts resemble one another. It is whether the representation, ranking rule, and available context support useful recommendations for this person.</p>
+<ul class="simple">
+<li><p><strong>Popularity-based</strong> suggestions use global attention; <strong>content-based</strong> suggestions use item properties and interests; <strong>collaborative</strong> suggestions use cross-user interaction patterns; <strong>hybrid</strong> systems combine evidence.</p></li>
+<li><p><strong>Retrieval</strong> selects candidates; <strong>ranking</strong> orders them; <strong>personalization</strong> brings user preferences into those decisions.</p></li>
+<li><p>TF-IDF/cosine emphasizes shared weighted terms. BM25 adjusts lexical evidence for repetition and length. Embeddings can connect related wording, but still need relevance evaluation.</p></li>
+<li><p><strong>Precision&#64;5</strong> checks the displayed five against independent judgments. <strong>Recall&#64;5</strong> checks recovery of the complete relevant set.</p></li>
+<li><p>Raw matching scores, human relevance labels, and hiring suitability are different quantities.</p></li>
+</ul>
+<section id="check-your-reasoning">
+<h3>Check your reasoning<a class="headerlink" href="#check-your-reasoning" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Alex has no click history but supplies a skill profile. Which approach can use it, and what remains unknown?</p></li>
+<li><p>BM25 finds an exact certification name while an embedding method finds a paraphrase. What evidence would justify preferring either result?</p></li>
+<li><p>Two lists have equal Precision&#64;5 but different order and domain diversity. What does the metric establish, and what does it miss?</p></li>
+<li><p>Changing a search phrase changes results. What additional information would support persistent personalization?</p></li>
+</ol>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Suggested reasoning<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<ol class="arabic simple">
+<li><p class="sd-card-text">Content-based matching can use the declared profile. Unstated preferences and the meaning of future behavior remain uncertain.</p></li>
+<li><p class="sd-card-text">Inspect the job’s stated requirements and the user’s needs under the same relevance rubric. Neither exact wording nor semantic closeness wins automatically.</p></li>
+<li><p class="sd-card-text">The lists contain the same number of relevant items at the cutoff. Their within-list ordering, range of choices, and completeness can still differ.</p></li>
+<li><p class="sd-card-text">A retained, user-controlled preference profile or documented history can support recommendations across sessions. A changed query alone only establishes a changed current input.</p></li>
+</ol>
+</div>
+</details><p>When you move to coding practice, follow the same sequence: inspect text and preferences, build a TF-IDF/cosine baseline, retrieve stable job IDs, compare a second representation, then evaluate both lists using the same judgments. Be ready to explain one useful match, one failure, and one piece of missing context.</p>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<p>Core architecture and recommendation types: <span id="id20">[<a class="reference internal" href="../references.html#id14" title="Google for Developers. Collaborative filtering. See also Collaborative Filtering Advantages and Disadvantages. Accessed October 9, 2026. URL: https://developers.google.com/machine-learning/recommendation/collaborative/basics.">GooglefDevelopersa</a>, <a class="reference internal" href="../references.html#id13" title="Google for Developers. Content-based filtering. See also Content-Based Filtering Advantages and Disadvantages. Accessed October 9, 2026. URL: https://developers.google.com/machine-learning/recommendation/content-based/basics.">GooglefDevelopersb</a>, <a class="reference internal" href="../references.html#id12" title="Google for Developers. Recommendation systems: overview. See also Recommendations: What and Why? Accessed October 9, 2026. URL: https://developers.google.com/machine-learning/recommendation/overview/types.">GooglefDevelopersc</a>, <a class="reference internal" href="../references.html#id15" title="Google for Developers. Recommendation systems: re-ranking. Accessed October 9, 2026. URL: https://developers.google.com/machine-learning/recommendation/dnn/re-ranking.">GooglefDevelopersd</a>]</span>.</p>
+<p>Vector ranking, BM25, and evaluation foundations: <span id="id21">[<a class="reference internal" href="../references.html#id11" title="Christopher D. Manning, Prabhakar Raghavan, and Hinrich Schütze. Introduction to Information Retrieval. Cambridge University Press, 2008. Chapters 6 and 8, and Section 11.4.3. URL: https://nlp.stanford.edu/IR-book/.">MRS08</a>]</span> (Chapters 6, 8, and §11.4.3).</p>
+<p>Semantic representations and search: <span id="id22">[<a class="reference internal" href="../references.html#id16" title="Sentence Transformers. Semantic search. Project documentation. Accessed October 9, 2026. URL: https://www.sbert.net/examples/sentence_transformer/applications/semantic-search/README.html.">SentenceTransformersa</a>, <a class="reference internal" href="../references.html#id17" title="Sentence Transformers. Semantic textual similarity. Project documentation. Accessed October 9, 2026. URL: https://sbert.net/docs/sentence_transformer/usage/semantic_textual_similarity.html.">SentenceTransformersb</a>]</span>.</p>
+<p>Evaluation conventions: <span id="id23">[<a class="reference internal" href="../references.html#id18" title="Recommenders Team. Recommenders evaluation. Microsoft-origin Recommenders project; Python precision at k and recall at k documentation. Accessed October 9, 2026. URL: https://recommenders-team.github.io/recommenders/evaluation.html.">RecommendersTeam</a>]</span>.</p>
+<p>BM25 parameter documentation and explanation: <span id="id24">[<a class="reference internal" href="../references.html#id20" title="Shane Connelly. Practical bm25: part 2, the bm25 algorithm and its variables. 2018. Elastic, April 19, 2018. URL: https://www.elastic.co/blog/practical-bm25-part-2-the-bm25-algorithm-and-its-variables.">Con18</a>, <a class="reference internal" href="../references.html#id19" title="Elastic. Elasticsearch reference: similarity settings. BM25 similarity parameters. Accessed October 9, 2026. URL: https://www.elastic.co/docs/reference/elasticsearch/index-settings/similarity.">Elastic</a>]</span>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module8"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="module8.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 8 Recommendation Systems and Personalized Text Ranking</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../speech.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Speech</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-recommendation-systems-matter">1. Why recommendation systems matter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-recommendation-systems">2. Types of recommendation systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-text-based-recommendations">3. Building text-based recommendations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-worked-ranking-example">A worked ranking example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbors-and-score-direction">Nearest neighbors and score direction</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lexical-vs-semantic-ranking">4. Lexical vs. semantic ranking</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bm25-repeated-matches-and-description-length">BM25: repeated matches and description length</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-matching-and-vocabulary-mismatch">Semantic matching and vocabulary mismatch</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#personalization-and-user-preferences">5. Personalization and user preferences</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-recommendation-quality">6. Evaluating recommendation quality</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-two-lists">Comparing two lists</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-the-errors-and-the-metric-s-limits">Reading the errors and the metric’s limits</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modern-recommendation-pipelines">7. Modern recommendation pipelines</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-and-knowledge-check">8. Summary and knowledge check</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-reasoning">Check your reasoning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
