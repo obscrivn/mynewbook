@@ -9,14 +9,14 @@ chapters:
     - file: module1/language
     - file: module1/Working_with_Text_Data
     - file: module1/Import_Language_Data
- 
+
 - file: module2/module2
   sections:
     - file: module2/tokenization
     - file: module2/modern_tokenization
     - file: module2/regex
     - file: module2/spacy_tokenization
-    
+
 - file: module3/module3
   sections:
     - file: module3/features
@@ -33,9 +33,15 @@ chapters:
     - file: module5/classification
     - file: module5/week5_coding_practice
 
+- file: module8/module8
+  sections:
+    - file: module8/recommendation
+    - file: module8/week08_recommendation_practice
+    - file: module8/week08_recommendation_practice_solution
+
 - file: speech
   sections:
     - file: phonetics
-    - file: recognizer  
+    - file: recognizer
 - file: translation
 - file: references
