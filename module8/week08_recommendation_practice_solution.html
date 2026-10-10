@@ -1,0 +1,1644 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking (Solution) &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module8/week08_recommendation_practice_solution';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Speech" href="../speech.html" />
+    <link rel="prev" title="8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking" href="week08_recommendation_practice.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module4/module4.html">Chapter 4 Similarity and Retrieval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module4/cluster.html">4.1 Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/practice.html">4.2 Experiment: From Similarity Scores to Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/week4_coding_practice.html">4.3 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module5/module5.html">Chapter 5 Text Classification and Model Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module5/classification.html">5.1 Text Classification and Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/week5_coding_practice.html">5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module8.html">Chapter 8 Recommendation Systems and Personalized Text Ranking</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="recommendation.html">8.1 Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week08_recommendation_practice.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phonetics.html">Speech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recognizer.html">Speech Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule8/week08_recommendation_practice_solution.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module8/week08_recommendation_practice_solution.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking (Solution)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-goals">Learning goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#content-based-filtering-inspect-the-job-collection">1. Content-based filtering: inspect the job collection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-1-fit-tf-idf-on-the-job-collection">TODO 1: Fit TF-IDF on the job collection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cosine-similarity-and-a-recommendation-function">2. Cosine similarity and a recommendation function</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-2-compute-cosine-similarity-and-rank-the-jobs">TODO 2: Compute cosine similarity and rank the jobs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-3-build-a-recommendation-function">TODO 3: Build a recommendation function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collaborative-filtering">3. Collaborative filtering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-before-computing">Predict before computing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-4-compare-users-with-cosine-similarity">TODO 4: Compare users with cosine similarity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-5-make-one-collaborative-filtering-recommendation">TODO 5: Make one collaborative-filtering recommendation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bm25-ranking-and-a-direct-comparison-with-tf-idf-cosine">4. BM25 ranking and a direct comparison with TF-IDF/cosine</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-6-compute-bm25-scores">TODO 6: Compute BM25 scores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-7-rank-the-same-query-with-tf-idf-cosine-side-by-side">TODO 7: Rank the same query with TF-IDF/cosine, side by side</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection-and-comparison">5. Reflection and comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-checks">Validation checks</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="coding-practice-recommendation-systems-and-personalized-text-ranking-solution">
+<h1>8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking (Solution)<a class="headerlink" href="#coding-practice-recommendation-systems-and-personalized-text-ranking-solution" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module8/week08_recommendation_practice_solution.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>This notebook continues the reading’s running example. <strong>Alex</strong> knows Python and SQL and wants an early-career reporting role. All job descriptions, ratings, and relevance judgments below are teaching examples, not real postings or measured outcomes.</p>
+<p>You will build the same job collection into three recommendation approaches:</p>
+<ol class="arabic simple">
+<li><p><strong>Content-based filtering</strong> with TF-IDF and cosine similarity (Parts 1-2)</p></li>
+<li><p><strong>Collaborative filtering</strong> with a small user-job ratings table (Part 3)</p></li>
+<li><p><strong>BM25 ranking</strong>, compared against the TF-IDF/cosine baseline (Part 4)</p></li>
+</ol>
+<p>Part 5 asks you to compare the three approaches and apply them to a new scenario.</p>
+<section id="learning-goals">
+<h2>Learning goals<a class="headerlink" href="#learning-goals" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Explain the difference between content-based and collaborative filtering.</p></li>
+<li><p>Represent text descriptions using TF-IDF and interpret the resulting feature matrix.</p></li>
+<li><p>Calculate and interpret cosine similarity for a content-based recommendation.</p></li>
+<li><p>Compare users with sparse rating data and produce one collaborative-filtering recommendation.</p></li>
+<li><p>Apply BM25 to rank job descriptions against a search query, using the <code class="docutils literal notranslate"><span class="pre">rank-bm25</span></code> library.</p></li>
+<li><p>Compare BM25 and TF-IDF/cosine rankings on the same query and explain why they differ.</p></li>
+<li><p>Compare recommendation methods and recognize their limitations.</p></li>
+</ul>
+</section>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
+<p>Run the next cell once. It installs <code class="docutils literal notranslate"><span class="pre">rank-bm25</span></code>, the only package Colab does not already include, using the same guarded pattern as the Week 06 notebook (check first, install quietly if missing). Everything else in this notebook uses <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, and <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>, which Colab already provides.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">importlib.util</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="c1"># One-time setup. rank-bm25 is small and pure Python; this is the only</span>
+<span class="c1"># install in the notebook. Safe to rerun.</span>
+<span class="k">if</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="s2">&quot;rank_bm25&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="s2">&quot;-q&quot;</span><span class="p">,</span> <span class="s2">&quot;rank-bm25&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics.pairwise</span><span class="w"> </span><span class="kn">import</span> <span class="n">cosine_similarity</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rank_bm25</span><span class="w"> </span><span class="kn">import</span> <span class="n">BM25Okapi</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_colwidth&quot;</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
+<span class="n">RANDOM_STATE</span> <span class="o">=</span> <span class="mi">42</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="content-based-filtering-inspect-the-job-collection">
+<h2>1. Content-based filtering: inspect the job collection<a class="headerlink" href="#content-based-filtering-inspect-the-job-collection" title="Permalink to this heading">#</a></h2>
+<p>The job collection below extends the six jobs from the reading (<code class="docutils literal notranslate"><span class="pre">J1</span></code>-<code class="docutils literal notranslate"><span class="pre">J6</span></code>) with six new ones (<code class="docutils literal notranslate"><span class="pre">J7</span></code>-<code class="docutils literal notranslate"><span class="pre">J12</span></code>), still fit for Alex to search. Some are strong matches for Alex’s early-career Python/SQL reporting goal; some look similar on the surface but require senior or management experience the reading already warned about; two are unrelated maintenance jobs included as a sanity check (an unrelated job should score near zero).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jobs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span>
+    <span class="p">{</span><span class="s2">&quot;job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;J1&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Junior Data Analyst&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Early-career data analyst role. Use Python and SQL to build recurring reports for the operations team. New graduates welcome; on-the-job training provided.&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;J2&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Analytics Director&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Lead the analytics strategy using Python and SQL. Requires ten or more years of experience managing a data team and setting department priorities.&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;J3&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Research Data Assistant&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Support a research group with Python and SQL reporting on language data. NLP training will be provided; no prior NLP experience required.&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;J4&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;SQL Reporting Analyst&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Build SQL database reports and apply basic text tagging to customer feedback. Early-career role with a supportive onboarding program.&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;J5&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Senior NLP Engineer&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Build and deploy Python language models in production. Requires several years of hands-on experience shipping NLP systems at scale.&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;J6&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Equipment Maintenance Technician&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Inspect and maintain manufacturing machinery. Mechanical aptitude required; no programming or data experience needed.&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;J7&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Junior SQL Analyst&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Entry-level analyst writing SQL queries and building dashboards. No management responsibilities; ideal for a first data role.&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;J8&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Data Science Intern&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Learn Python, Python, and more Python while supporting the data science team with small reporting tasks. Early-career, mentorship-focused internship.&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;J9&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Senior Project Manager&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Manage cross-functional technical projects. Some familiarity with Python is helpful, but the role is centered on people management and long-term planning.&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;J10&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;NLP Research Scientist&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Conduct advanced NLP research with large language models. PhD or equivalent research experience required; focus on publishing novel methods.&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;J11&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Business Intelligence Reporting Analyst&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Maintain SQL-based reporting dashboards for business stakeholders. Early-career friendly, with limited opportunity to grow into modeling work.&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;job_id&quot;</span><span class="p">:</span> <span class="s2">&quot;J12&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Warehouse Equipment Technician&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Perform routine maintenance on warehouse equipment. Hands-on mechanical work; no data or text skills involved.&quot;</span><span class="p">},</span>
+<span class="p">])</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;job_id&quot;</span><span class="p">)</span>
+
+<span class="n">jobs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>title</th>
+      <th>description</th>
+    </tr>
+    <tr>
+      <th>job_id</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>J1</th>
+      <td>Junior Data Analyst</td>
+      <td>Early-career data analyst role. Use Python and SQL to build recurring reports for the operations team. New graduates...</td>
+    </tr>
+    <tr>
+      <th>J2</th>
+      <td>Analytics Director</td>
+      <td>Lead the analytics strategy using Python and SQL. Requires ten or more years of experience managing a data team and ...</td>
+    </tr>
+    <tr>
+      <th>J3</th>
+      <td>Research Data Assistant</td>
+      <td>Support a research group with Python and SQL reporting on language data. NLP training will be provided; no prior NLP...</td>
+    </tr>
+    <tr>
+      <th>J4</th>
+      <td>SQL Reporting Analyst</td>
+      <td>Build SQL database reports and apply basic text tagging to customer feedback. Early-career role with a supportive on...</td>
+    </tr>
+    <tr>
+      <th>J5</th>
+      <td>Senior NLP Engineer</td>
+      <td>Build and deploy Python language models in production. Requires several years of hands-on experience shipping NLP sy...</td>
+    </tr>
+    <tr>
+      <th>J6</th>
+      <td>Equipment Maintenance Technician</td>
+      <td>Inspect and maintain manufacturing machinery. Mechanical aptitude required; no programming or data experience needed.</td>
+    </tr>
+    <tr>
+      <th>J7</th>
+      <td>Junior SQL Analyst</td>
+      <td>Entry-level analyst writing SQL queries and building dashboards. No management responsibilities; ideal for a first d...</td>
+    </tr>
+    <tr>
+      <th>J8</th>
+      <td>Data Science Intern</td>
+      <td>Learn Python, Python, and more Python while supporting the data science team with small reporting tasks. Early-caree...</td>
+    </tr>
+    <tr>
+      <th>J9</th>
+      <td>Senior Project Manager</td>
+      <td>Manage cross-functional technical projects. Some familiarity with Python is helpful, but the role is centered on peo...</td>
+    </tr>
+    <tr>
+      <th>J10</th>
+      <td>NLP Research Scientist</td>
+      <td>Conduct advanced NLP research with large language models. PhD or equivalent research experience required; focus on p...</td>
+    </tr>
+    <tr>
+      <th>J11</th>
+      <td>Business Intelligence Reporting Analyst</td>
+      <td>Maintain SQL-based reporting dashboards for business stakeholders. Early-career friendly, with limited opportunity t...</td>
+    </tr>
+    <tr>
+      <th>J12</th>
+      <td>Warehouse Equipment Technician</td>
+      <td>Perform routine maintenance on warehouse equipment. Hands-on mechanical work; no data or text skills involved.</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Alex’s profile is one short piece of text, written the same way a job description is written, so it can be compared using the same vocabulary and weighting.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alex_profile</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;Early-career candidate skilled in Python and SQL, interested in reporting roles. &quot;</span>
+    <span class="s2">&quot;Open to learning NLP but does not want a senior management position.&quot;</span>
+<span class="p">)</span>
+<span class="n">alex_profile</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Early-career candidate skilled in Python and SQL, interested in reporting roles. Open to learning NLP but does not want a senior management position.&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="todo-1-fit-tf-idf-on-the-job-collection">
+<h3>TODO 1: Fit TF-IDF on the job collection<a class="headerlink" href="#todo-1-fit-tf-idf-on-the-job-collection" title="Permalink to this heading">#</a></h3>
+<p>Fit a <code class="docutils literal notranslate"><span class="pre">TfidfVectorizer</span></code> on the <code class="docutils literal notranslate"><span class="pre">description</span></code> column of <code class="docutils literal notranslate"><span class="pre">jobs</span></code>, then transform Alex’s profile into the <em>same</em> vector space (do not re-fit on the profile).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfidf</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">stop_words</span><span class="o">=</span><span class="s2">&quot;english&quot;</span><span class="p">)</span>
+<span class="n">job_tfidf</span> <span class="o">=</span> <span class="n">tfidf</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">jobs</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">])</span>
+<span class="n">alex_tfidf</span> <span class="o">=</span> <span class="n">tfidf</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span><span class="n">alex_profile</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Job feature matrix shape:&quot;</span><span class="p">,</span> <span class="n">job_tfidf</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Alex profile vector shape:&quot;</span><span class="p">,</span> <span class="n">alex_tfidf</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Job feature matrix shape: (12, 117)
+Alex profile vector shape: (1, 117)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Guided question:</strong> The feature matrix has one row per job and one column per vocabulary term. Why must Alex’s profile be <em>transformed</em> using the vectorizer already fit on the jobs, rather than fitting a brand-new vectorizer on the profile text alone?</p>
+<p><strong>Suggested answer:</strong> Cosine similarity only makes sense when both vectors live in the same feature space (same columns, same weighting). Fitting a separate vectorizer on the one-sentence profile would create a different, much smaller vocabulary with different IDF weights, so the two vectors would not be comparable. Transforming the profile through the vectorizer already fit on the jobs keeps both on the same axes.</p>
+</section>
+</section>
+<section id="cosine-similarity-and-a-recommendation-function">
+<h2>2. Cosine similarity and a recommendation function<a class="headerlink" href="#cosine-similarity-and-a-recommendation-function" title="Permalink to this heading">#</a></h2>
+<p>Now compare Alex’s profile vector against every job vector and rank the jobs.</p>
+<section id="todo-2-compute-cosine-similarity-and-rank-the-jobs">
+<h3>TODO 2: Compute cosine similarity and rank the jobs<a class="headerlink" href="#todo-2-compute-cosine-similarity-and-rank-the-jobs" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alex_scores</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">alex_tfidf</span><span class="p">,</span> <span class="n">job_tfidf</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="n">scored_jobs</span> <span class="o">=</span> <span class="n">jobs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">scored_jobs</span><span class="p">[</span><span class="s2">&quot;cosine_score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">alex_scores</span>
+<span class="n">scored_jobs</span> <span class="o">=</span> <span class="n">scored_jobs</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;cosine_score&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">scored_jobs</span><span class="p">[[</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;cosine_score&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>title</th>
+      <th>cosine_score</th>
+    </tr>
+    <tr>
+      <th>job_id</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>J3</th>
+      <td>Research Data Assistant</td>
+      <td>0.391911</td>
+    </tr>
+    <tr>
+      <th>J8</th>
+      <td>Data Science Intern</td>
+      <td>0.363823</td>
+    </tr>
+    <tr>
+      <th>J11</th>
+      <td>Business Intelligence Reporting Analyst</td>
+      <td>0.282511</td>
+    </tr>
+    <tr>
+      <th>J1</th>
+      <td>Junior Data Analyst</td>
+      <td>0.229865</td>
+    </tr>
+    <tr>
+      <th>J4</th>
+      <td>SQL Reporting Analyst</td>
+      <td>0.187631</td>
+    </tr>
+    <tr>
+      <th>J7</th>
+      <td>Junior SQL Analyst</td>
+      <td>0.177334</td>
+    </tr>
+    <tr>
+      <th>J9</th>
+      <td>Senior Project Manager</td>
+      <td>0.154500</td>
+    </tr>
+    <tr>
+      <th>J5</th>
+      <td>Senior NLP Engineer</td>
+      <td>0.149281</td>
+    </tr>
+    <tr>
+      <th>J2</th>
+      <td>Analytics Director</td>
+      <td>0.101627</td>
+    </tr>
+    <tr>
+      <th>J10</th>
+      <td>NLP Research Scientist</td>
+      <td>0.080536</td>
+    </tr>
+    <tr>
+      <th>J6</th>
+      <td>Equipment Maintenance Technician</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>J12</th>
+      <td>Warehouse Equipment Technician</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="todo-3-build-a-recommendation-function">
+<h3>TODO 3: Build a recommendation function<a class="headerlink" href="#todo-3-build-a-recommendation-function" title="Permalink to this heading">#</a></h3>
+<p>Write a function that returns the top-<code class="docutils literal notranslate"><span class="pre">k</span></code> jobs for a given profile vector, excluding nothing special here (there is no “query item” to exclude, since Alex’s profile is not itself a job).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">recommend_jobs</span><span class="p">(</span><span class="n">profile_vector</span><span class="p">,</span> <span class="n">job_matrix</span><span class="p">,</span> <span class="n">jobs_df</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">profile_vector</span><span class="p">,</span> <span class="n">job_matrix</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">ranked</span> <span class="o">=</span> <span class="n">jobs_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">ranked</span><span class="p">[</span><span class="s2">&quot;cosine_score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span>
+    <span class="k">return</span> <span class="n">ranked</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;cosine_score&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">k</span><span class="p">)[[</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;cosine_score&quot;</span><span class="p">]]</span>
+
+
+<span class="n">recommend_jobs</span><span class="p">(</span><span class="n">alex_tfidf</span><span class="p">,</span> <span class="n">job_tfidf</span><span class="p">,</span> <span class="n">jobs</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>title</th>
+      <th>cosine_score</th>
+    </tr>
+    <tr>
+      <th>job_id</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>J3</th>
+      <td>Research Data Assistant</td>
+      <td>0.391911</td>
+    </tr>
+    <tr>
+      <th>J8</th>
+      <td>Data Science Intern</td>
+      <td>0.363823</td>
+    </tr>
+    <tr>
+      <th>J11</th>
+      <td>Business Intelligence Reporting Analyst</td>
+      <td>0.282511</td>
+    </tr>
+    <tr>
+      <th>J1</th>
+      <td>Junior Data Analyst</td>
+      <td>0.229865</td>
+    </tr>
+    <tr>
+      <th>J4</th>
+      <td>SQL Reporting Analyst</td>
+      <td>0.187631</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><strong>Guided questions:</strong></p>
+<ul class="simple">
+<li><p>Why might two jobs have high cosine similarity even though one is clearly a poor match for Alex (hint: look at <code class="docutils literal notranslate"><span class="pre">J2</span></code> and <code class="docutils literal notranslate"><span class="pre">J9</span></code>)?</p></li>
+<li><p>Does high text similarity guarantee a good recommendation?</p></li>
+<li><p>What information does TF-IDF miss that a human reader would notice immediately in the full description?</p></li>
+</ul>
+<p><strong>Suggested answers:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">J2</span></code> and <code class="docutils literal notranslate"><span class="pre">J9</span></code> both share vocabulary with Alex’s profile (“Python”, “SQL”, or general data-team language) while requiring senior/management experience the profile explicitly does not want. Shared words do not encode the seniority constraint.</p></li>
+<li><p>No. High similarity means shared, weighted vocabulary, not fit on constraints like required years of experience, management scope, or career level, none of which TF-IDF represents unless that language happens to appear in the text.</p></li>
+<li><p>TF-IDF has no notion of <em>requirements</em> versus <em>nice-to-haves</em>, no notion of contradicted constraints (“ten or more years” directly conflicts with “early-career”), and cannot tell that a word appearing once as a brief mention (“some familiarity with Python”) carries different weight than a role built around that skill.</p></li>
+</ul>
+</section>
+</section>
+<section id="collaborative-filtering">
+<h2>3. Collaborative filtering<a class="headerlink" href="#collaborative-filtering" title="Permalink to this heading">#</a></h2>
+<p>Now set the job <em>text</em> aside. A small group of users has rated a subset of these jobs (1-5 scale). A blank cell means the user has not rated that job, <strong>not</strong> that they dislike it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rating_job_ids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;J1&quot;</span><span class="p">,</span> <span class="s2">&quot;J2&quot;</span><span class="p">,</span> <span class="s2">&quot;J3&quot;</span><span class="p">,</span> <span class="s2">&quot;J4&quot;</span><span class="p">,</span> <span class="s2">&quot;J5&quot;</span><span class="p">,</span> <span class="s2">&quot;J7&quot;</span><span class="p">,</span> <span class="s2">&quot;J9&quot;</span><span class="p">,</span> <span class="s2">&quot;J10&quot;</span><span class="p">,</span> <span class="s2">&quot;J11&quot;</span><span class="p">]</span>
+
+<span class="n">ratings</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;J1&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="s2">&quot;J2&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+        <span class="s2">&quot;J3&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span>
+        <span class="s2">&quot;J4&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="s2">&quot;J5&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span>
+        <span class="s2">&quot;J7&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="s2">&quot;J9&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span>
+        <span class="s2">&quot;J10&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span>
+        <span class="s2">&quot;J11&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span>
+    <span class="p">},</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Alex&quot;</span><span class="p">,</span> <span class="s2">&quot;Blair&quot;</span><span class="p">,</span> <span class="s2">&quot;Casey&quot;</span><span class="p">,</span> <span class="s2">&quot;Dana&quot;</span><span class="p">,</span> <span class="s2">&quot;Evan&quot;</span><span class="p">],</span>
+<span class="p">)[</span><span class="n">rating_job_ids</span><span class="p">]</span>
+
+<span class="n">ratings</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>J1</th>
+      <th>J2</th>
+      <th>J3</th>
+      <th>J4</th>
+      <th>J5</th>
+      <th>J7</th>
+      <th>J9</th>
+      <th>J10</th>
+      <th>J11</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Alex</th>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Blair</th>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>Casey</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>5.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Dana</th>
+      <td>NaN</td>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Evan</th>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="predict-before-computing">
+<h3>Predict before computing<a class="headerlink" href="#predict-before-computing" title="Permalink to this heading">#</a></h3>
+<p>Skim the table. Which user do you expect to be most similar to Alex, and why? Which jobs do you expect to be hard to compare because too few users rated them?</p>
+</section>
+<section id="todo-4-compare-users-with-cosine-similarity">
+<h3>TODO 4: Compare users with cosine similarity<a class="headerlink" href="#todo-4-compare-users-with-cosine-similarity" title="Permalink to this heading">#</a></h3>
+<p>Missing ratings are filled with 0 only so the similarity calculation can run. This is a simplification, not a claim that a missing rating means the lowest possible score. Compute Alex’s cosine similarity to every other user.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratings_filled</span> <span class="o">=</span> <span class="n">ratings</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">alex_vector</span> <span class="o">=</span> <span class="n">ratings_filled</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s2">&quot;Alex&quot;</span><span class="p">]]</span>
+<span class="n">other_users</span> <span class="o">=</span> <span class="n">ratings_filled</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;Alex&quot;</span><span class="p">)</span>
+
+<span class="n">similarity_scores</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">alex_vector</span><span class="p">,</span> <span class="n">other_users</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="n">user_similarity</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">similarity_scores</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">other_users</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">user_similarity</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Blair    0.864741
+Evan     0.833032
+Casey    0.263982
+Dana     0.000000
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="todo-5-make-one-collaborative-filtering-recommendation">
+<h3>TODO 5: Make one collaborative-filtering recommendation<a class="headerlink" href="#todo-5-make-one-collaborative-filtering-recommendation" title="Permalink to this heading">#</a></h3>
+<p>Using Alex’s most similar user, recommend a job Alex has <strong>not</strong> yet rated that the neighbor rated highly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">most_similar_user</span> <span class="o">=</span> <span class="n">user_similarity</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Most similar user to Alex:&quot;</span><span class="p">,</span> <span class="n">most_similar_user</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;(cosine = </span><span class="si">{</span><span class="n">user_similarity</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+<span class="n">alex_rated</span> <span class="o">=</span> <span class="n">ratings</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;Alex&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">index</span>
+<span class="n">neighbor_ratings</span> <span class="o">=</span> <span class="n">ratings</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">most_similar_user</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">candidate_jobs</span> <span class="o">=</span> <span class="n">neighbor_ratings</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">alex_rated</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidate_jobs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">recommended_job_id</span> <span class="o">=</span> <span class="n">candidate_jobs</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recommend </span><span class="si">{</span><span class="n">recommended_job_id</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">jobs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">recommended_job_id</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">): &quot;</span>
+          <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">most_similar_user</span><span class="si">}</span><span class="s2"> rated it </span><span class="si">{</span><span class="n">neighbor_ratings</span><span class="p">[</span><span class="n">recommended_job_id</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">/5, &quot;</span>
+          <span class="s2">&quot;and Alex has not rated it.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No unseen job to recommend from this neighbor; their rated jobs overlap entirely with Alex&#39;s.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Most similar user to Alex: Blair (cosine = 0.865)
+Recommend J11 (Business Intelligence Reporting Analyst): Blair rated it 5/5, and Alex has not rated it.
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Guided questions:</strong></p>
+<ul class="simple">
+<li><p>How is this different from the content-based approach in Parts 1-2? What evidence does it use that TF-IDF never sees?</p></li>
+<li><p>What happens when a new user has no ratings at all? Could this method make a recommendation for them?</p></li>
+<li><p>The blank cells were filled with 0 to run the calculation. What could go wrong if 0 is later read as “this user dislikes the job,” instead of “we don’t know”?</p></li>
+</ul>
+<p><strong>Suggested answers:</strong></p>
+<ul class="simple">
+<li><p>Collaborative filtering never looks at the job text at all; it only uses patterns in <em>who rated what</em>. Two users can be judged similar even if the jobs they rated use completely different wording, as long as their rating patterns line up.</p></li>
+<li><p>No, not with this method alone. A brand-new user with zero ratings has an all-zero row, which has no meaningful cosine similarity to anyone (the calculation returns 0 for every comparison). This is the cold-start problem; content-based filtering (Parts 1-2) can still work for that user if they provide profile text instead of ratings.</p></li>
+<li><p>Treating a filled-in 0 as a real negative rating would make every unrated job look like a disliked job, which could suppress jobs a user simply never got to rate, and would silently misrepresent “unobserved” as “rejected.” The fill is only a trick to make the arithmetic run, not a modeling choice to rely on.</p></li>
+</ul>
+</section>
+</section>
+<section id="bm25-ranking-and-a-direct-comparison-with-tf-idf-cosine">
+<h2>4. BM25 ranking and a direct comparison with TF-IDF/cosine<a class="headerlink" href="#bm25-ranking-and-a-direct-comparison-with-tf-idf-cosine" title="Permalink to this heading">#</a></h2>
+<p>BM25 ranks documents against a search <em>query</em>, rather than a profile paragraph. Use the same 12 jobs and compare BM25’s ranking to a TF-IDF/cosine ranking of the exact same query.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;early career Python SQL reporting role&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[a-z]+&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+
+
+<span class="n">tokenized_jobs</span> <span class="o">=</span> <span class="p">[</span><span class="n">tokenize</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span> <span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">jobs</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]]</span>
+<span class="n">tokenized_query</span> <span class="o">=</span> <span class="n">tokenize</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="n">tokenized_jobs</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&#39;early&#39;,
+  &#39;career&#39;,
+  &#39;data&#39;,
+  &#39;analyst&#39;,
+  &#39;role&#39;,
+  &#39;use&#39;,
+  &#39;python&#39;,
+  &#39;and&#39;,
+  &#39;sql&#39;,
+  &#39;to&#39;,
+  &#39;build&#39;,
+  &#39;recurring&#39;,
+  &#39;reports&#39;,
+  &#39;for&#39;,
+  &#39;the&#39;,
+  &#39;operations&#39;,
+  &#39;team&#39;,
+  &#39;new&#39;,
+  &#39;graduates&#39;,
+  &#39;welcome&#39;,
+  &#39;on&#39;,
+  &#39;the&#39;,
+  &#39;job&#39;,
+  &#39;training&#39;,
+  &#39;provided&#39;],
+ [&#39;lead&#39;,
+  &#39;the&#39;,
+  &#39;analytics&#39;,
+  &#39;strategy&#39;,
+  &#39;using&#39;,
+  &#39;python&#39;,
+  &#39;and&#39;,
+  &#39;sql&#39;,
+  &#39;requires&#39;,
+  &#39;ten&#39;,
+  &#39;or&#39;,
+  &#39;more&#39;,
+  &#39;years&#39;,
+  &#39;of&#39;,
+  &#39;experience&#39;,
+  &#39;managing&#39;,
+  &#39;a&#39;,
+  &#39;data&#39;,
+  &#39;team&#39;,
+  &#39;and&#39;,
+  &#39;setting&#39;,
+  &#39;department&#39;,
+  &#39;priorities&#39;]]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="todo-6-compute-bm25-scores">
+<h3>TODO 6: Compute BM25 scores<a class="headerlink" href="#todo-6-compute-bm25-scores" title="Permalink to this heading">#</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">BM25Okapi</span></code> from <code class="docutils literal notranslate"><span class="pre">rank-bm25</span></code> on the tokenized job collection, then score the tokenized query against it. You are not implementing the BM25 formula yourself; the library handles term frequency, inverse document frequency, and document-length normalization. Elasticsearch’s documented defaults are <code class="docutils literal notranslate"><span class="pre">k1</span> <span class="pre">=</span> <span class="pre">1.2</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">0.75</span></code>; <code class="docutils literal notranslate"><span class="pre">rank-bm25</span></code> uses the same defaults unless you pass different values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bm25</span> <span class="o">=</span> <span class="n">BM25Okapi</span><span class="p">(</span><span class="n">tokenized_jobs</span><span class="p">)</span>
+<span class="n">bm25_scores</span> <span class="o">=</span> <span class="n">bm25</span><span class="o">.</span><span class="n">get_scores</span><span class="p">(</span><span class="n">tokenized_query</span><span class="p">)</span>
+
+<span class="n">bm25_ranked</span> <span class="o">=</span> <span class="n">jobs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">bm25_ranked</span><span class="p">[</span><span class="s2">&quot;bm25_score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bm25_scores</span>
+<span class="n">bm25_ranked</span> <span class="o">=</span> <span class="n">bm25_ranked</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;bm25_score&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">bm25_ranked</span><span class="p">[[</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;bm25_score&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>title</th>
+      <th>bm25_score</th>
+    </tr>
+    <tr>
+      <th>job_id</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>J11</th>
+      <td>Business Intelligence Reporting Analyst</td>
+      <td>2.322769</td>
+    </tr>
+    <tr>
+      <th>J8</th>
+      <td>Data Science Intern</td>
+      <td>2.220544</td>
+    </tr>
+    <tr>
+      <th>J4</th>
+      <td>SQL Reporting Analyst</td>
+      <td>1.907966</td>
+    </tr>
+    <tr>
+      <th>J1</th>
+      <td>Junior Data Analyst</td>
+      <td>1.715026</td>
+    </tr>
+    <tr>
+      <th>J3</th>
+      <td>Research Data Assistant</td>
+      <td>0.955530</td>
+    </tr>
+    <tr>
+      <th>J7</th>
+      <td>Junior SQL Analyst</td>
+      <td>0.665957</td>
+    </tr>
+    <tr>
+      <th>J9</th>
+      <td>Senior Project Manager</td>
+      <td>0.595774</td>
+    </tr>
+    <tr>
+      <th>J2</th>
+      <td>Analytics Director</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>J5</th>
+      <td>Senior NLP Engineer</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>J6</th>
+      <td>Equipment Maintenance Technician</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>J10</th>
+      <td>NLP Research Scientist</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>J12</th>
+      <td>Warehouse Equipment Technician</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="todo-7-rank-the-same-query-with-tf-idf-cosine-side-by-side">
+<h3>TODO 7: Rank the same query with TF-IDF/cosine, side by side<a class="headerlink" href="#todo-7-rank-the-same-query-with-tf-idf-cosine-side-by-side" title="Permalink to this heading">#</a></h3>
+<p>Transform <code class="docutils literal notranslate"><span class="pre">query</span></code> through the <strong>same</strong> <code class="docutils literal notranslate"><span class="pre">tfidf</span></code> vectorizer from Part 1 (do not re-fit), score it against <code class="docutils literal notranslate"><span class="pre">job_tfidf</span></code>, and place the two rankings next to each other for comparison.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query_tfidf</span> <span class="o">=</span> <span class="n">tfidf</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span><span class="n">query</span><span class="p">])</span>
+<span class="n">tfidf_query_scores</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">query_tfidf</span><span class="p">,</span> <span class="n">job_tfidf</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="n">comparison</span> <span class="o">=</span> <span class="n">jobs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">comparison</span><span class="p">[</span><span class="s2">&quot;bm25_score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bm25_scores</span>
+<span class="n">comparison</span><span class="p">[</span><span class="s2">&quot;tfidf_cosine_score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tfidf_query_scores</span>
+
+<span class="n">bm25_top5</span> <span class="o">=</span> <span class="n">comparison</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;bm25_score&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)[[</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;bm25_score&quot;</span><span class="p">]]</span>
+<span class="n">cosine_top5</span> <span class="o">=</span> <span class="n">comparison</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;tfidf_cosine_score&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)[[</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;tfidf_cosine_score&quot;</span><span class="p">]]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top 5 by BM25:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">bm25_top5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Top 5 by TF-IDF/cosine:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">cosine_top5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Top 5 by BM25:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>title</th>
+      <th>bm25_score</th>
+    </tr>
+    <tr>
+      <th>job_id</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>J11</th>
+      <td>Business Intelligence Reporting Analyst</td>
+      <td>2.322769</td>
+    </tr>
+    <tr>
+      <th>J8</th>
+      <td>Data Science Intern</td>
+      <td>2.220544</td>
+    </tr>
+    <tr>
+      <th>J4</th>
+      <td>SQL Reporting Analyst</td>
+      <td>1.907966</td>
+    </tr>
+    <tr>
+      <th>J1</th>
+      <td>Junior Data Analyst</td>
+      <td>1.715026</td>
+    </tr>
+    <tr>
+      <th>J3</th>
+      <td>Research Data Assistant</td>
+      <td>0.955530</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Top 5 by TF-IDF/cosine:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>title</th>
+      <th>tfidf_cosine_score</th>
+    </tr>
+    <tr>
+      <th>job_id</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>J8</th>
+      <td>Data Science Intern</td>
+      <td>0.419016</td>
+    </tr>
+    <tr>
+      <th>J1</th>
+      <td>Junior Data Analyst</td>
+      <td>0.343270</td>
+    </tr>
+    <tr>
+      <th>J11</th>
+      <td>Business Intelligence Reporting Analyst</td>
+      <td>0.325368</td>
+    </tr>
+    <tr>
+      <th>J4</th>
+      <td>SQL Reporting Analyst</td>
+      <td>0.296563</td>
+    </tr>
+    <tr>
+      <th>J3</th>
+      <td>Research Data Assistant</td>
+      <td>0.231428</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><strong>Guided questions:</strong></p>
+<ul class="simple">
+<li><p>Where do the two rankings agree? Where do they put jobs in a different order?</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">J8</span></code> repeats the word “Python” three times in a short description. Look at how <code class="docutils literal notranslate"><span class="pre">J8</span></code> scores under BM25 versus TF-IDF/cosine. Does repeating a term help the same way under both methods?</p></li>
+<li><p>How does document length affect ranking? Compare a short job description to a longer one that mentions the same query terms about the same number of times.</p></li>
+<li><p>What happens if the query uses a synonym that is absent from a job description word-for-word (for example, “reporting” instead of a description that only says “dashboards”)? Would either method catch that match?</p></li>
+</ul>
+<p><strong>Suggested answers:</strong></p>
+<ul class="simple">
+<li><p>Both methods tend to agree that the clearly irrelevant jobs (<code class="docutils literal notranslate"><span class="pre">J6</span></code>, <code class="docutils literal notranslate"><span class="pre">J12</span></code>) score at or near the bottom, and that strong lexical matches like <code class="docutils literal notranslate"><span class="pre">J1</span></code>, <code class="docutils literal notranslate"><span class="pre">J4</span></code>, <code class="docutils literal notranslate"><span class="pre">J7</span></code> score well under both. They can disagree on the exact order among the moderately-matching jobs, because the two methods weight term frequency and document length differently.</p></li>
+<li><p>Not identically. BM25’s term-frequency component saturates (<code class="docutils literal notranslate"><span class="pre">k1</span></code> controls how quickly extra repeats stop adding score), while TF-IDF’s raw term frequency grows roughly linearly before the vector is normalized. Repeating “Python” three times helps <code class="docutils literal notranslate"><span class="pre">J8</span></code> under both, but the <em>size</em> of that boost is governed by different mechanics.</p></li>
+<li><p>BM25 explicitly normalizes by document length through the <code class="docutils literal notranslate"><span class="pre">b</span></code> parameter, directly rewarding a short, concentrated match over a long document repeating the same term. TF-IDF/cosine normalizes each document vector to unit length, which also discounts long documents, but through vector-length normalization rather than BM25’s explicit length-adjustment term inside the score formula.</p></li>
+<li><p>Neither. Both BM25 and TF-IDF/cosine here are purely lexical: they only match the exact tokens present in the text. A description that only says “dashboards” produces a zero contribution for the query term “reporting,” regardless of the method. Catching that connection requires a different representation (semantic/embedding-based matching), which the reading describes but which neither method here implements.</p></li>
+</ul>
+</section>
+</section>
+<section id="reflection-and-comparison">
+<h2>5. Reflection and comparison<a class="headerlink" href="#reflection-and-comparison" title="Permalink to this heading">#</a></h2>
+<p>Fill in the table below.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Input Data</p></th>
+<th class="head"><p>Strength</p></th>
+<th class="head"><p>Limitation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Content-based (TF-IDF + cosine)</p></td>
+<td><p>Job text and a profile written the same way</p></td>
+<td><p>?</p></td>
+<td><p>?</p></td>
+</tr>
+<tr class="row-odd"><td><p>Collaborative filtering</p></td>
+<td><p>User-job ratings (no text at all)</p></td>
+<td><p>?</p></td>
+<td><p>?</p></td>
+</tr>
+<tr class="row-even"><td><p>BM25</p></td>
+<td><p>A search query and the job text collection</p></td>
+<td><p>?</p></td>
+<td><p>?</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Suggested completion:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Input Data</p></th>
+<th class="head"><p>Strength</p></th>
+<th class="head"><p>Limitation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Content-based (TF-IDF + cosine)</p></td>
+<td><p>Job text and a profile written the same way</p></td>
+<td><p>Works immediately for a brand-new user with no history, as long as they can describe what they want</p></td>
+<td><p>Only matches on vocabulary already present in the text; misses unstated constraints and synonyms</p></td>
+</tr>
+<tr class="row-odd"><td><p>Collaborative filtering</p></td>
+<td><p>User-job ratings (no text at all)</p></td>
+<td><p>Can surface jobs a text-based method would never connect, based purely on shared taste patterns</p></td>
+<td><p>Fails for new users or new jobs with no ratings yet (cold start); needs enough overlapping ratings to be meaningful</p></td>
+</tr>
+<tr class="row-even"><td><p>BM25</p></td>
+<td><p>A search query and the job text collection</p></td>
+<td><p>Rewards concentrated, length-normalized term matches; good for short, specific queries</p></td>
+<td><p>Still purely lexical; cannot match a synonym or paraphrase that never appears in the text</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Scenario questions:</strong></p>
+<ol class="arabic simple">
+<li><p>A brand-new user signs up with no ratings yet, but writes two sentences about what kind of role they want. Which method(s) from this notebook could make a recommendation for them right now, and which could not?</p></li>
+<li><p>Alex later says: “Show me jobs most like J11, not jobs that match my profile.” Which part of this notebook already computes something close to that request, and what would you need to change to answer it directly?</p></li>
+</ol>
+<p><em>Conceptual extension (not implemented here):</em> nearest-neighbor search (KNN) uses the same similarity idea as Part 2 and Part 3 to retrieve the closest items or users at scale, rather than scoring every item one at a time. Everything in this notebook is a small enough collection that a full comparison already works, which is itself why a dedicated KNN step was not needed.</p>
+<p><strong>Suggested answers:</strong></p>
+<ol class="arabic simple">
+<li><p>Content-based filtering (Parts 1-2) can use the two sentences immediately, by transforming them through the already-fitted TF-IDF vectorizer, the same way Alex’s profile was handled. Collaborative filtering (Part 3) cannot help this user yet; they have no ratings row, so every similarity score against them would be 0. BM25 (Part 4) could also work if the two sentences are treated as a query, for the same reason as TF-IDF.</p></li>
+<li><p>The cosine similarity step in Part 2 is already <em>almost</em> this: instead of comparing Alex’s profile vector to every job, you would compare <code class="docutils literal notranslate"><span class="pre">J11</span></code>’s own TF-IDF row to every other job’s row, using the same <code class="docutils literal notranslate"><span class="pre">job_tfidf</span></code> matrix. This is item-to-item content-based filtering rather than profile-to-item.</p></li>
+</ol>
+</section>
+<section id="validation-checks">
+<h2>Validation checks<a class="headerlink" href="#validation-checks" title="Permalink to this heading">#</a></h2>
+<p>These checks confirm the notebook ran top to bottom with no hidden state.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">jobs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;Expected 12 jobs in the collection.&quot;</span>
+<span class="k">assert</span> <span class="n">job_tfidf</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">12</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">recommend_jobs</span><span class="p">(</span><span class="n">alex_tfidf</span><span class="p">,</span> <span class="n">job_tfidf</span><span class="p">,</span> <span class="n">jobs</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span> <span class="o">==</span> <span class="mi">5</span>
+<span class="k">assert</span> <span class="n">ratings</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="s2">&quot;Expected 5 users and 9 rated jobs.&quot;</span>
+<span class="k">assert</span> <span class="n">most_similar_user</span> <span class="o">==</span> <span class="s2">&quot;Blair&quot;</span><span class="p">,</span> <span class="s2">&quot;Expected Blair to be Alex&#39;s most similar neighbor in this dataset.&quot;</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">bm25_scores</span><span class="p">)</span> <span class="o">==</span> <span class="mi">12</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tfidf_query_scores</span><span class="p">)</span> <span class="o">==</span> <span class="mi">12</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All checks passed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All checks passed.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module8"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="week08_recommendation_practice.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../speech.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Speech</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-goals">Learning goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#content-based-filtering-inspect-the-job-collection">1. Content-based filtering: inspect the job collection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-1-fit-tf-idf-on-the-job-collection">TODO 1: Fit TF-IDF on the job collection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cosine-similarity-and-a-recommendation-function">2. Cosine similarity and a recommendation function</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-2-compute-cosine-similarity-and-rank-the-jobs">TODO 2: Compute cosine similarity and rank the jobs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-3-build-a-recommendation-function">TODO 3: Build a recommendation function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collaborative-filtering">3. Collaborative filtering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-before-computing">Predict before computing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-4-compare-users-with-cosine-similarity">TODO 4: Compare users with cosine similarity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-5-make-one-collaborative-filtering-recommendation">TODO 5: Make one collaborative-filtering recommendation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bm25-ranking-and-a-direct-comparison-with-tf-idf-cosine">4. BM25 ranking and a direct comparison with TF-IDF/cosine</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-6-compute-bm25-scores">TODO 6: Compute BM25 scores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-7-rank-the-same-query-with-tf-idf-cosine-side-by-side">TODO 7: Rank the same query with TF-IDF/cosine, side by side</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection-and-comparison">5. Reflection and comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-checks">Validation checks</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

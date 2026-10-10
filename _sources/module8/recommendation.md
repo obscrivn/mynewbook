@@ -278,6 +278,8 @@ The main decision is not simply whether two texts resemble one another. It is wh
 
 When you move to coding practice, follow the same sequence: inspect text and preferences, build a TF-IDF/cosine baseline, retrieve stable job IDs, compare a second representation, then evaluate both lists using the same judgments. Be ready to explain one useful match, one failure, and one piece of missing context.
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module8/week08_recommendation_practice.ipynb)
+
 ## References
 
 Core architecture and recommendation types: {cite}`googleRecommendations,googleContentBased,googleCollaborative,googleReranking`.
