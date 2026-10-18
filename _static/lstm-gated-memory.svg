@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" role="img" aria-labelledby="title desc">
+  <title id="title">Simplified intuition for LSTM memory control</title>
+  <desc id="desc">A context lane carries the writer's positive verdict from the start of the rearranged review to the end. An add valve writes it, a forget valve keeps it, and an output valve reveals it to the classifier. The hidden state handles local words.</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#46576c"/></marker></defs>
+  <rect width="720" height="480" fill="#f8fafc" rx="16"/>
+<g font-family="Arial, sans-serif" fill="#162b43" text-anchor="middle">
+<text x="360" y="38" font-size="22" font-weight="bold">LSTM: a gated context lane (simplified)</text>
+<text x="360" y="66" font-size="15">“I loved it, even though everyone told me … called it boring.”</text>
+<rect x="40" y="110" width="640" height="60" rx="30" fill="#e6f4ed" stroke="#467861" stroke-width="1.5"/>
+<text x="360" y="100" font-size="16" font-weight="bold">Context (cell) state: longer-term memory</text>
+<text x="360" y="146" font-size="16">“writer’s verdict: positive” travels along the lane</text>
+<rect x="40" y="300" width="640" height="56" rx="28" fill="#e8f0fa" stroke="#53779d" stroke-width="1.5"/>
+<text x="360" y="290" font-size="16" font-weight="bold">Hidden state: what is needed right now</text>
+<text x="360" y="334" font-size="16">handles local words: “slow”, “reviews”, “boring”</text>
+<circle cx="130" cy="230" r="26" fill="#fff3dc" stroke="#956b25" stroke-width="1.5"/>
+<text x="130" y="236" font-size="18">◐</text>
+<line x1="130" y1="202" x2="130" y2="174" stroke="#46576c" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="360" cy="230" r="26" fill="#fff3dc" stroke="#956b25" stroke-width="1.5"/>
+<text x="360" y="236" font-size="18">◐</text>
+<line x1="360" y1="202" x2="360" y2="174" stroke="#46576c" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="560" cy="230" r="26" fill="#fff3dc" stroke="#956b25" stroke-width="1.5"/>
+<text x="560" y="236" font-size="18">◐</text>
+<line x1="560" y1="174" x2="560" y2="200" stroke="#46576c" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="164" y="222" font-size="15" font-weight="bold" text-anchor="start">Add gate</text><text x="164" y="240" font-size="14" text-anchor="start">write</text><text x="164" y="257" font-size="13" fill="#46576c" text-anchor="start">after “I loved it”</text>
+<text x="394" y="222" font-size="15" font-weight="bold" text-anchor="start">Forget gate</text><text x="394" y="240" font-size="14" text-anchor="start">keep (≈1)</text><text x="394" y="257" font-size="13" fill="#46576c" text-anchor="start">through the middle</text>
+<text x="594" y="222" font-size="15" font-weight="bold" text-anchor="start">Output gate</text><text x="594" y="240" font-size="14" text-anchor="start">reveal</text><text x="594" y="257" font-size="13" fill="#46576c" text-anchor="start">at the end</text>
+<rect x="60" y="380" width="600" height="72" rx="10" fill="#ffffff" stroke="#956b25"/>
+<text x="360" y="406" font-size="15">Gates are learned soft masks (values between 0 and 1).</text>
+<text x="360" y="428" font-size="15">This picture shows what a well-trained model would need to do,</text>
+<text x="360" y="446" font-size="15">not values measured from a real model.</text>
+</g>
+</svg>

@@ -39,6 +39,12 @@ chapters:
     - file: module8/week08_recommendation_practice
     - file: module8/week08_recommendation_practice_solution
 
+- file: module9/module9
+  sections:
+    - file: module9/sequence_models
+    - file: module9/week09_lstm_practice
+    - file: module9/week09_lstm_practice_solution
+
 - file: speech
   sections:
     - file: phonetics

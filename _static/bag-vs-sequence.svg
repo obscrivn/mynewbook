@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="640" viewBox="0 0 720 640" role="img" aria-labelledby="title desc">
+  <title id="title">One document vector versus an ordered sequence</title>
+  <desc id="desc">Top: the review as an unordered bag of word counts. Bottom: the same review as an ordered sequence of eleven token vectors.</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#46576c"/></marker></defs>
+  <rect width="720" height="640" fill="#f8fafc" rx="16"/>
+<g font-family="Arial, sans-serif" fill="#162b43" text-anchor="middle">
+<text x="360" y="38" font-size="22" font-weight="bold">Same review, two representations</text>
+<rect x="40" y="62" width="640" height="225" rx="12" fill="#fff3dc" stroke="#956b25" stroke-width="1.5"/>
+<text x="360" y="92" font-size="19" font-weight="bold">Bag of words: one vector, order discarded</text>
+<rect x="35" y="103" width="125" height="36" rx="8" fill="#ffe1d6" stroke="#956b25"/>
+<text x="97" y="128" font-size="17">boring: 1</text>
+<rect x="190" y="103" width="125" height="36" rx="8" fill="#ffffff" stroke="#956b25"/>
+<text x="252" y="128" font-size="17">but: 1</text>
+<rect x="345" y="103" width="125" height="36" rx="8" fill="#ffffff" stroke="#956b25"/>
+<text x="407" y="128" font-size="17">everyone: 1</text>
+<rect x="500" y="103" width="125" height="36" rx="8" fill="#ffffff" stroke="#956b25"/>
+<text x="562" y="128" font-size="17">film: 1</text>
+<rect x="35" y="151" width="125" height="36" rx="8" fill="#ffffff" stroke="#956b25"/>
+<text x="97" y="176" font-size="17">i: 1</text>
+<rect x="190" y="151" width="125" height="36" rx="8" fill="#ffffff" stroke="#956b25"/>
+<text x="252" y="176" font-size="17">it: 1</text>
+<rect x="345" y="151" width="125" height="36" rx="8" fill="#ffe1d6" stroke="#956b25"/>
+<text x="407" y="176" font-size="17">loved: 1</text>
+<rect x="500" y="151" width="125" height="36" rx="8" fill="#ffffff" stroke="#956b25"/>
+<text x="562" y="176" font-size="17">me: 1</text>
+<rect x="35" y="199" width="125" height="36" rx="8" fill="#ffffff" stroke="#956b25"/>
+<text x="97" y="224" font-size="17">the: 1</text>
+<rect x="190" y="199" width="125" height="36" rx="8" fill="#ffffff" stroke="#956b25"/>
+<text x="252" y="224" font-size="17">told: 1</text>
+<rect x="345" y="199" width="125" height="36" rx="8" fill="#ffffff" stroke="#956b25"/>
+<text x="407" y="224" font-size="17">was: 1</text>
+<text x="360" y="275" font-size="15">Alphabetical here on purpose: any order gives the same vector.</text>
+<rect x="40" y="310" width="640" height="300" rx="12" fill="#e8f0fa" stroke="#53779d" stroke-width="1.5"/>
+<text x="360" y="340" font-size="19" font-weight="bold">Sequence: one vector per token, in order</text>
+<rect x="81" y="373" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="81" y="386" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="81" y="399" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="81" y="412" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<text x="95" y="445" font-size="16">Everyone</text>
+<text x="95" y="365" font-size="13" fill="#46576c">x₁</text>
+<rect x="187" y="373" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="187" y="386" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="187" y="399" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="187" y="412" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<text x="201" y="445" font-size="16">told</text>
+<text x="201" y="365" font-size="13" fill="#46576c">x₂</text>
+<rect x="293" y="373" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="293" y="386" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="293" y="399" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="293" y="412" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<text x="307" y="445" font-size="16">me</text>
+<text x="307" y="365" font-size="13" fill="#46576c">x₃</text>
+<rect x="399" y="373" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="399" y="386" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="399" y="399" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="399" y="412" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<text x="413" y="445" font-size="16">the</text>
+<text x="413" y="365" font-size="13" fill="#46576c">x₄</text>
+<rect x="505" y="373" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="505" y="386" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="505" y="399" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="505" y="412" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<text x="519" y="445" font-size="16">film</text>
+<text x="519" y="365" font-size="13" fill="#46576c">x₅</text>
+<rect x="611" y="373" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="611" y="386" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="611" y="399" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="611" y="412" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<text x="625" y="445" font-size="16">was</text>
+<text x="625" y="365" font-size="13" fill="#46576c">x₆</text>
+<rect x="81" y="493" width="28" height="12" fill="#ffd9c7" stroke="#53779d" stroke-width="1"/>
+<rect x="81" y="506" width="28" height="12" fill="#ffd9c7" stroke="#53779d" stroke-width="1"/>
+<rect x="81" y="519" width="28" height="12" fill="#ffd9c7" stroke="#53779d" stroke-width="1"/>
+<rect x="81" y="532" width="28" height="12" fill="#ffd9c7" stroke="#53779d" stroke-width="1"/>
+<text x="95" y="565" font-size="16">boring</text>
+<text x="95" y="485" font-size="13" fill="#46576c">x₇</text>
+<rect x="187" y="493" width="28" height="12" fill="#ffd9c7" stroke="#53779d" stroke-width="1"/>
+<rect x="187" y="506" width="28" height="12" fill="#ffd9c7" stroke="#53779d" stroke-width="1"/>
+<rect x="187" y="519" width="28" height="12" fill="#ffd9c7" stroke="#53779d" stroke-width="1"/>
+<rect x="187" y="532" width="28" height="12" fill="#ffd9c7" stroke="#53779d" stroke-width="1"/>
+<text x="201" y="565" font-size="16">but</text>
+<text x="201" y="485" font-size="13" fill="#46576c">x₈</text>
+<rect x="293" y="493" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="293" y="506" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="293" y="519" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="293" y="532" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<text x="307" y="565" font-size="16">I</text>
+<text x="307" y="485" font-size="13" fill="#46576c">x₉</text>
+<rect x="399" y="493" width="28" height="12" fill="#ffd9c7" stroke="#53779d" stroke-width="1"/>
+<rect x="399" y="506" width="28" height="12" fill="#ffd9c7" stroke="#53779d" stroke-width="1"/>
+<rect x="399" y="519" width="28" height="12" fill="#ffd9c7" stroke="#53779d" stroke-width="1"/>
+<rect x="399" y="532" width="28" height="12" fill="#ffd9c7" stroke="#53779d" stroke-width="1"/>
+<text x="413" y="565" font-size="16">loved</text>
+<text x="413" y="485" font-size="13" fill="#46576c">x₁₀</text>
+<rect x="505" y="493" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="505" y="506" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="505" y="519" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<rect x="505" y="532" width="28" height="12" fill="#c9dcf2" stroke="#53779d" stroke-width="1"/>
+<text x="519" y="565" font-size="16">it</text>
+<text x="519" y="485" font-size="13" fill="#46576c">x₁₁</text>
+<text x="360" y="595" font-size="15">Position matters: “but” sits between the reported view and the writer’s own.</text>
+</g>
+</svg>
