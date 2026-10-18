@@ -43,6 +43,8 @@ chapters:
   sections:
     - file: module9/sequence_models
     - file: module9/week09_lstm_practice
+    - file: module9/huggingface_intro
+    - file: module9/week09_huggingface_intro
     - file: module9/week09_lstm_practice_solution
 
 - file: speech
