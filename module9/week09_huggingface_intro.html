@@ -1,0 +1,778 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Exploring Pretrained Models with Hugging Face &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module9/week09_huggingface_intro';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9.2 Coding Practice: LSTM Sentiment Classification (Solution)" href="week09_lstm_practice_solution.html" />
+    <link rel="prev" title="Optional: Exploring Pretrained Models with Hugging Face" href="huggingface_intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module4/module4.html">Chapter 4 Similarity and Retrieval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module4/cluster.html">4.1 Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/practice.html">4.2 Experiment: From Similarity Scores to Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/week4_coding_practice.html">4.3 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module5/module5.html">Chapter 5 Text Classification and Model Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module5/classification.html">5.1 Text Classification and Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/week5_coding_practice.html">5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module8/module8.html">Chapter 8 Recommendation Systems and Personalized Text Ranking</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module8/recommendation.html">8.1 Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module8/week08_recommendation_practice.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module8/week08_recommendation_practice_solution.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module9.html">Chapter 9 From RNNs and LSTMs to Language Models</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="sequence_models.html">9.1 From RNNs and LSTMs to Language Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week09_lstm_practice.html">9.2 Coding Practice: LSTM Sentiment Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="huggingface_intro.html">Optional: Exploring Pretrained Models with Hugging Face</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Exploring Pretrained Models with Hugging Face</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week09_lstm_practice_solution.html">9.2 Coding Practice: LSTM Sentiment Classification (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phonetics.html">Speech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recognizer.html">Speech Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule9/week09_huggingface_intro.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module9/week09_huggingface_intro.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Exploring Pretrained Models with Hugging Face</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-a-ready-to-use-classifier-3-minutes">1. Load a ready-to-use classifier (3 minutes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#look-behind-the-pipeline-5-minutes">2. Look behind the pipeline (5 minutes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#try-negation-and-contrast-57-minutes">3. Try negation and contrast (5–7 minutes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpret-the-result-23-minutes">4. Interpret the result (2–3 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#official-references">Official references</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="exploring-pretrained-models-with-hugging-face">
+<h1>Exploring Pretrained Models with Hugging Face<a class="headerlink" href="#exploring-pretrained-models-with-hugging-face" title="Permalink to this heading">#</a></h1>
+<p><strong>Optional Week 09 extension · 15–20 minutes · ungraded</strong></p>
+<p><a class="reference external" href="https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module9/week09_huggingface_intro.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>In the LSTM practice you trained a small classifier. Here you reuse a model whose weights have already been learned. You will load a sentiment pipeline, inspect its tokens, and investigate negation and contrast. No training is needed.</p>
+<p>Hugging Face provides a <strong>Hub</strong> of shared models and the <strong>Transformers</strong> Python library for using them. A checkpoint contains learned weights and configuration. Our checkpoint is DistilBERT, a smaller BERT-style transformer fine-tuned on SST-2 English movie-review sentiment. It predicts <strong>NEGATIVE</strong> or <strong>POSITIVE</strong>; it is not a text-generating chatbot.</p>
+<p>By the end, you should be able to trace a pipeline from text to scores and explain why a confident prediction can still be misleading.</p>
+<section id="load-a-ready-to-use-classifier-3-minutes">
+<h2>1. Load a ready-to-use classifier (3 minutes)<a class="headerlink" href="#load-a-ready-to-use-classifier-3-minutes" title="Permalink to this heading">#</a></h2>
+<p>Choose a standard <strong>CPU</strong> runtime in Colab. Run the cells from top to bottom. The first run needs internet to download the public model (roughly 270 MB); later runs can use its cache. No Hugging Face account, token, or API key is required.</p>
+<p>Install the tested Transformers version with <code class="docutils literal notranslate"><span class="pre">%pip</span></code>, which targets this notebook’s Python environment. Colab supplies PyTorch. If Colab requests a runtime restart, restart and run all cells again.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> -q install &quot;transformers==5.17.0&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">transformers</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">pipeline</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Transformers:&quot;</span><span class="p">,</span> <span class="n">transformers</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="s2">&quot;| PyTorch:&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">set_num_threads</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">MODEL_ID</span> <span class="o">=</span> <span class="s2">&quot;distilbert/distilbert-base-uncased-finetuned-sst-2-english&quot;</span>
+<span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span>
+    <span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">MODEL_ID</span><span class="p">,</span>
+    <span class="n">tokenizer</span><span class="o">=</span><span class="n">MODEL_ID</span><span class="p">,</span>
+    <span class="n">device</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># CPU</span>
+    <span class="n">model_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;disable_mmap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># Load weights into memory for CPU compatibility</span>
+<span class="p">)</span>
+<span class="n">review</span> <span class="o">=</span> <span class="s2">&quot;Everyone told me the film was boring, but I loved it.&quot;</span>
+<span class="n">classifier</span><span class="p">(</span><span class="n">review</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Transformers: 5.17.0 | PyTorch: 2.14.0
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;label&#39;: &#39;POSITIVE&#39;, &#39;score&#39;: 0.9997287392616272}]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <strong>label</strong> is the class with the highest score. For this two-class model, the <strong>score</strong> is that class’s softmax probability. It is not a rating out of five, a measure of how emotional the writer is, or a guarantee that the prediction is correct.</p>
+<p>The checkpoint is named explicitly so we know which model and tokenizer we are using. Its parameters stay fixed during this activity.</p>
+<p><strong>Question 1:</strong> Before running the next cell, predict the labels for “The film was good” and “The film was not good.” What would count as evidence that negation changed the prediction?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">examples</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;The film was good.&quot;</span><span class="p">,</span> <span class="s2">&quot;The film was not good.&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">text</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">examples</span><span class="p">,</span> <span class="n">classifier</span><span class="p">(</span><span class="n">examples</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">8s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>POSITIVE 0.9999 | The film was good.
+NEGATIVE 0.9997 | The film was not good.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="look-behind-the-pipeline-5-minutes">
+<h2>2. Look behind the pipeline (5 minutes)<a class="headerlink" href="#look-behind-the-pipeline-5-minutes" title="Permalink to this heading">#</a></h2>
+<p>A pipeline joins three steps:</p>
+<ol class="arabic simple">
+<li><p><strong>Preprocess:</strong> the tokenizer splits text into tokens and maps them to vocabulary IDs.</p></li>
+<li><p><strong>Run the model:</strong> embeddings and transformer layers produce representations; a classification head produces two raw scores, called logits.</p></li>
+<li><p><strong>Postprocess:</strong> softmax converts logits into probabilities, and the pipeline attaches label names.</p></li>
+</ol>
+<p>Use the tokenizer already attached to our classifier. Its vocabulary and preprocessing must match the model. An ID is a lookup index, not a sentiment score or an embedding.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">tokenizer</span>
+<span class="n">encoded</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">review</span><span class="p">)</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">convert_ids_to_tokens</span><span class="p">(</span><span class="n">encoded</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Token           ID&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">token</span><span class="p">,</span> <span class="n">token_id</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">encoded</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">]):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">token</span><span class="si">:</span><span class="s2">14s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">token_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Attention mask:&quot;</span><span class="p">,</span> <span class="n">encoded</span><span class="p">[</span><span class="s2">&quot;attention_mask&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Subword example:&quot;</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s2">&quot;unbelievably watchable&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Token           ID
+[CLS]          101
+everyone       3071
+told           2409
+me             2033
+the            1996
+film           2143
+was            2001
+boring         11771
+,              1010
+but            2021
+i              1045
+loved          3866
+it             2009
+.              1012
+[SEP]          102
+Attention mask: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+Subword example: [&#39;un&#39;, &#39;##bel&#39;, &#39;##ie&#39;, &#39;##va&#39;, &#39;##bly&#39;, &#39;watch&#39;, &#39;##able&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">[CLS]</span></code> and <code class="docutils literal notranslate"><span class="pre">[SEP]</span></code> are special boundary tokens. This uncased tokenizer lowercases the text; punctuation can have its own token. A word may split into smaller pieces: <code class="docutils literal notranslate"><span class="pre">##</span></code> marks a continuation in this tokenizer. Tokenization can differ from the simple word splitting used in the LSTM practice.</p>
+<p>The attention mask marks real tokens with 1 and padding with 0. There is no padding in this single example. It is not an explanation of which words mattered most.</p>
+<p><strong>Question 2:</strong> Which tokens differ from splitting the original review on spaces? Why would using another model’s token IDs be a problem?</p>
+<p>Now expose the model and postprocessing steps without loading another model. <code class="docutils literal notranslate"><span class="pre">return_tensors=&quot;pt&quot;</span></code> creates the PyTorch tensors you met in the LSTM practice. Inference mode avoids tracking gradients; no weights are updated.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">review</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">classifier</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">inference_mode</span><span class="p">():</span>
+    <span class="n">logits</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span><span class="o">.</span><span class="n">logits</span>
+<span class="n">probabilities</span> <span class="o">=</span> <span class="n">logits</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input shape:&quot;</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Raw logits:&quot;</span><span class="p">,</span> <span class="n">logits</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">label_id</span><span class="p">,</span> <span class="n">probability</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">probabilities</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">classifier</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">id2label</span><span class="p">[</span><span class="n">label_id</span><span class="p">],</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">probability</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Check that these exposed steps reproduce pipeline postprocessing.</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="n">review</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">best_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">probabilities</span><span class="o">.</span><span class="n">argmax</span><span class="p">())</span>
+<span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">classifier</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">id2label</span><span class="p">[</span><span class="n">best_id</span><span class="p">]</span>
+<span class="k">assert</span> <span class="nb">abs</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">probabilities</span><span class="p">[</span><span class="n">best_id</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mf">1e-5</span>
+<span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">probabilities</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Input shape: (1, 15)
+Raw logits: [[-3.994314193725586, 4.217988014221191]]
+NEGATIVE 0.0003
+POSITIVE 0.9997
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="try-negation-and-contrast-57-minutes">
+<h2>3. Try negation and contrast (5–7 minutes)<a class="headerlink" href="#try-negation-and-contrast-57-minutes" title="Permalink to this heading">#</a></h2>
+<p>Predict what will happen before running the cell. The first pair uses the same words in a different order. The next pair reverses the clauses of our running review. The final example mixes opinions without a clear positive or negative verdict.</p>
+<p><code class="docutils literal notranslate"><span class="pre">top_k=None</span></code> asks for both labels. We select probabilities by label name rather than assuming the returned list has a particular order.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reviews</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;The acting was good, not bad.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The acting was bad, not good.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Everyone told me the film was boring, but I loved it.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;I loved it, but everyone told me the film was boring.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The film was neither good nor bad.&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">all_scores</span> <span class="o">=</span> <span class="n">classifier</span><span class="p">(</span><span class="n">reviews</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;P(positive)  P(negative)  Predicted label | Review&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">text</span><span class="p">,</span> <span class="n">scores</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">reviews</span><span class="p">,</span> <span class="n">all_scores</span><span class="p">):</span>
+    <span class="n">by_label</span> <span class="o">=</span> <span class="p">{</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]:</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">scores</span><span class="p">}</span>
+    <span class="n">winner</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">])[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">by_label</span><span class="p">[</span><span class="s1">&#39;POSITIVE&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">       </span><span class="si">{</span><span class="n">by_label</span><span class="p">[</span><span class="s1">&#39;NEGATIVE&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">       </span><span class="si">{</span><span class="n">winner</span><span class="si">:</span><span class="s2">8s</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">by_label</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-5</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>P(positive)  P(negative)  Predicted label | Review
+0.9997       0.0003       POSITIVE | The acting was good, not bad.
+0.0002       0.9998       NEGATIVE | The acting was bad, not good.
+0.9997       0.0003       POSITIVE | Everyone told me the film was boring, but I loved it.
+0.0017       0.9983       NEGATIVE | I loved it, but everyone told me the film was boring.
+0.0132       0.9868       NEGATIVE | The film was neither good nor bad.
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Question 3:</strong> Choose one prediction you find questionable. Explain your interpretation of the review and why even a high model score would not settle the disagreement. Then change one phrase below and see whether the prediction changes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_review</span> <span class="o">=</span> <span class="s2">&quot;The film was boring, but the ending was wonderful.&quot;</span>
+<span class="n">classifier</span><span class="p">(</span><span class="n">my_review</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;label&#39;: &#39;POSITIVE&#39;, &#39;score&#39;: 0.9997474551200867},
+ {&#39;label&#39;: &#39;NEGATIVE&#39;, &#39;score&#39;: 0.0002525213931221515}]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="interpret-the-result-23-minutes">
+<h2>4. Interpret the result (2–3 minutes)<a class="headerlink" href="#interpret-the-result-23-minutes" title="Permalink to this heading">#</a></h2>
+<p>A change in these examples shows sensitivity to that wording, not reliable language understanding. Reversing clauses can change emphasis without changing who holds an opinion. Human readers may also disagree on mixed reviews.</p>
+<p>This classifier must choose between two labels: it has no neutral or mixed class. Its scores sum to one even for unclear or unfamiliar input. Training data can encode biases, and performance on English movie reviews does not establish performance on other languages, topics, sarcasm, or groups of people. A high softmax score is not a calibrated guarantee of accuracy. Long inputs may be truncated, hiding a later qualification. Assess reliability with representative labeled test data, not just these few examples.</p>
+<p><strong>Connecting to Week 10:</strong> the LSTM processed tokens recurrently. DistilBERT uses transformer attention to form contextual representations, then a classifier predicts sentiment. Reusing a pretrained representation for a task is transfer learning. We used an already fine-tuned checkpoint; we did not fine-tune it ourselves. Week 10 will explain attention and how encoder models such as BERT differ from generative LLMs.</p>
+<section id="official-references">
+<h3>Official references<a class="headerlink" href="#official-references" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://huggingface.co/learn/llm-course/en/chapter1/3">Hugging Face: Working with pipelines</a></p></li>
+<li><p><a class="reference external" href="https://huggingface.co/learn/llm-course/en/chapter2/2">Hugging Face: Behind the pipeline</a></p></li>
+<li><p><a class="reference external" href="https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english">Checkpoint model card, training details, and limitations</a></p></li>
+</ul>
+<p>Explanations and examples here are adapted for Week 09; the output above comes from your execution.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module9"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="huggingface_intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Optional: Exploring Pretrained Models with Hugging Face</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="week09_lstm_practice_solution.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">9.2 Coding Practice: LSTM Sentiment Classification (Solution)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-a-ready-to-use-classifier-3-minutes">1. Load a ready-to-use classifier (3 minutes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#look-behind-the-pipeline-5-minutes">2. Look behind the pipeline (5 minutes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#try-negation-and-contrast-57-minutes">3. Try negation and contrast (5–7 minutes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpret-the-result-23-minutes">4. Interpret the result (2–3 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#official-references">Official references</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

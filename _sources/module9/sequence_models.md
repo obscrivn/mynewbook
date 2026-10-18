@@ -203,7 +203,7 @@ Part-of-speech tagging is the classic labeling task: the model reads each word i
 In [Week 08](../module8/recommendation.md), content-based and collaborative recommenders compared profiles, items, and interaction patterns. None of those methods needs an LSTM. Some recommendation problems, however, depend on **order**: a user who just watched three thrillers in one session may want a different next item than one who watched them months apart. Treating a session's clicks as a sequence and predicting the **next item** has the same shape as predicting the next word. Hidasi et al. proposed RNN-based recommendation for short sessions where long user histories are unavailable {cite}`hidasi2015session`. The idea is a short extension of this week, not its focus.
 ````
 
-Coding practice for this week is handled separately. When you work with an LSTM sentiment model in code, look for the steps above: an embedding layer, a recurrent layer producing hidden states, a choice between the final state and pooling, and a classifier trained on review labels.
+In this week's coding practice, you will run a small LSTM sentiment model. Look for the steps above: an embedding layer, a recurrent layer producing hidden states, a choice between the final state and pooling, and a classifier trained on review labels.
 
 ## 6. From Recurrent Models to Language Modeling
 
@@ -288,6 +288,8 @@ This chapter only previews attention. Week 10 explains how it works and how tran
 ```
 
 Next, the coding practice gives you hands-on experience with an LSTM, and the Week 10 lecture introduces attention and transformers.
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module9/week09_lstm_practice.ipynb)
 
 ## References
 
