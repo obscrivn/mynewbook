@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="_static/.ipynb_checkpoints/book-style-checkpoint.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -201,6 +202,18 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="module5/week5_coding_practice.html">5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="module6/module6.html">Chapter 6 Topic Modeling and Modern Topic Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="module6/topics.html">6.1 Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module6/week6_coding_practice.html">6.2 Coding Practice: Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module6/week6_coding_practice_solution.html">6.3 Coding Practice: Topic Modeling and Modern Topic Analysis (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="module7/module7.html">Chapter 7 Sentiment, Affect, and Lexicons</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="module7/sentiment.html">7.1 Sentiment, Affect, and Lexicons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module7/week07_sentiment_practice.html">7.2 Coding Practice: Sentiment Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module7/week07_sentiment_practice_solution.html">7.3 Coding Practice: Sentiment Analysis Solution</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="module8/module8.html">Chapter 8 Recommendation Systems and Personalized Text Ranking</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="module8/recommendation.html">8.1 Recommendation Systems and Personalized Text Ranking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="module8/week08_recommendation_practice.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking</a></li>
@@ -210,8 +223,6 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 has-children"><a class="reference internal" href="module9/module9.html">Chapter 9 From RNNs and LSTMs to Language Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="module9/sequence_models.html">9.1 From RNNs and LSTMs to Language Models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="module9/week09_lstm_practice.html">9.2 Coding Practice: LSTM Sentiment Classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="module9/huggingface_intro.html">Optional: Exploring Pretrained Models with Hugging Face</a></li>
-<li class="toctree-l2"><a class="reference internal" href="module9/week09_huggingface_intro.html">Exploring Pretrained Models with Hugging Face</a></li>
 <li class="toctree-l2"><a class="reference internal" href="module9/week09_lstm_practice_solution.html">9.2 Coding Practice: LSTM Sentiment Classification (Solution)</a></li>
 </ul>
 </details></li>
@@ -422,7 +433,11 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="references">
 <h1>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h1>
 <div class="docutils container" id="id1">
-<div class="citation" id="id17" role="doc-biblioentry">
+<div class="citation" id="id9" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>CB09<span class="fn-bracket">]</span></span>
+<p>Jonathan Chang and David M. Blei. Relational topic models for document networks. In <em>Proceedings of the 12th International Conference on Artificial Intelligence and Statistics (AISTATS)</em>. 2009.</p>
+</div>
+<div class="citation" id="id20" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Con18<span class="fn-bracket">]</span></span>
 <p>Shane Connelly. Practical bm25: part 2, the bm25 algorithm and its variables. 2018. Elastic, April 19, 2018. URL: <a class="reference external" href="https://www.elastic.co/blog/practical-bm25-part-2-the-bm25-algorithm-and-its-variables">https://www.elastic.co/blog/practical-bm25-part-2-the-bm25-algorithm-and-its-variables</a>.</p>
 </div>
@@ -430,7 +445,7 @@ document.write(`
 <span class="label"><span class="fn-bracket">[</span>Eis19<span class="fn-bracket">]</span></span>
 <p>Jacob Eisenstein. <em>Introduction to Natural Language Processing</em>. MIT Press, 2019. ISBN 9780262042840.</p>
 </div>
-<div class="citation" id="id20" role="doc-biblioentry">
+<div class="citation" id="id23" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>HKBT15<span class="fn-bracket">]</span></span>
 <p>Balázs Hidasi, Alexandros Karatzoglou, Linas Baltrunas, and Domonkos Tikk. Session-based recommendations with recurrent neural networks. 2015. URL: <a class="reference external" href="https://arxiv.org/abs/1511.06939">https://arxiv.org/abs/1511.06939</a>, <a class="reference external" href="https://arxiv.org/abs/1511.06939">arXiv:1511.06939</a>.</p>
 </div>
@@ -438,11 +453,11 @@ document.write(`
 <span class="label"><span class="fn-bracket">[</span>JM26a<span class="fn-bracket">]</span></span>
 <p>Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Third edition online manuscript, released January 6, 2026. URL: <a class="reference external" href="https://web.stanford.edu/~jurafsky/slp3/">https://web.stanford.edu/~jurafsky/slp3/</a>.</p>
 </div>
-<div class="citation" id="id18" role="doc-biblioentry">
+<div class="citation" id="id21" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>JM26b<span class="fn-bracket">]</span></span>
 <p>Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: <a class="reference external" href="https://web.stanford.edu/~jurafsky/slp3/">https://web.stanford.edu/~jurafsky/slp3/</a>.</p>
 </div>
-<div class="citation" id="id8" role="doc-biblioentry">
+<div class="citation" id="id11" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>MRS08<span class="fn-bracket">]</span></span>
 <p>Christopher D. Manning, Prabhakar Raghavan, and Hinrich Schütze. <em>Introduction to Information Retrieval</em>. Cambridge University Press, 2008. Chapters 6 and 8, and Section 11.4.3. URL: <a class="reference external" href="https://nlp.stanford.edu/IR-book/">https://nlp.stanford.edu/IR-book/</a>.</p>
 </div>
@@ -462,39 +477,47 @@ document.write(`
 <span class="label"><span class="fn-bracket">[</span>Sar19<span class="fn-bracket">]</span></span>
 <p>Dipanjan Sarkar. <em>Text Analytics with Python: A Practitioner's Guide to Natural Language Processing</em>. Apress, 2 edition, 2019. <a class="reference external" href="https://doi.org/10.1007/978-1-4842-4354-1">doi:10.1007/978-1-4842-4354-1</a>.</p>
 </div>
-<div class="citation" id="id19" role="doc-biblioentry">
+<div class="citation" id="id22" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>VSP+17<span class="fn-bracket">]</span></span>
 <p>Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. Attention is all you need. 2017. URL: <a class="reference external" href="https://arxiv.org/abs/1706.03762">https://arxiv.org/abs/1706.03762</a>, <a class="reference external" href="https://arxiv.org/abs/1706.03762">arXiv:1706.03762</a>.</p>
 </div>
-<div class="citation" id="id16" role="doc-biblioentry">
+<div class="citation" id="id8" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>XYL+26<span class="fn-bracket">]</span></span>
+<p>Xuan Xu, Zhongliang Yang, Haolun Li, Rui Tian, Beilin Chu, Jia Song, Yu Li, Shaolin Tan, and Linna Zhou. Towards modern topic models: a survey of taxonomies and paradigm shifts from algorithm-centric to llm-centered topic analysis. In <em>Findings of the Association for Computational Linguistics: ACL 2026</em>. 2026.</p>
+</div>
+<div class="citation" id="id10" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>ZDL+23<span class="fn-bracket">]</span></span>
+<p>Wenxuan Zhang, Yue Deng, Bing Liu, Sinno Jialin Pan, and Lidong Bing. Sentiment analysis in the era of large language models: a reality check. <em>arXiv preprint arXiv:2305.15005</em>, 2023. URL: <a class="reference external" href="https://arxiv.org/abs/2305.15005">https://arxiv.org/abs/2305.15005</a>.</p>
+</div>
+<div class="citation" id="id19" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>Elastic<span class="fn-bracket">]</span></span>
 <p>Elastic. Elasticsearch reference: similarity settings. BM25 similarity parameters. Accessed October 9, 2026. URL: <a class="reference external" href="https://www.elastic.co/docs/reference/elasticsearch/index-settings/similarity">https://www.elastic.co/docs/reference/elasticsearch/index-settings/similarity</a>.</p>
 </div>
-<div class="citation" id="id11" role="doc-biblioentry">
+<div class="citation" id="id14" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>GooglefDevelopersa<span class="fn-bracket">]</span></span>
 <p>Google for Developers. Collaborative filtering. See also Collaborative Filtering Advantages and Disadvantages. Accessed October 9, 2026. URL: <a class="reference external" href="https://developers.google.com/machine-learning/recommendation/collaborative/basics">https://developers.google.com/machine-learning/recommendation/collaborative/basics</a>.</p>
 </div>
-<div class="citation" id="id10" role="doc-biblioentry">
+<div class="citation" id="id13" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>GooglefDevelopersb<span class="fn-bracket">]</span></span>
 <p>Google for Developers. Content-based filtering. See also Content-Based Filtering Advantages and Disadvantages. Accessed October 9, 2026. URL: <a class="reference external" href="https://developers.google.com/machine-learning/recommendation/content-based/basics">https://developers.google.com/machine-learning/recommendation/content-based/basics</a>.</p>
 </div>
-<div class="citation" id="id9" role="doc-biblioentry">
+<div class="citation" id="id12" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>GooglefDevelopersc<span class="fn-bracket">]</span></span>
 <p>Google for Developers. Recommendation systems: overview. See also Recommendations: What and Why? Accessed October 9, 2026. URL: <a class="reference external" href="https://developers.google.com/machine-learning/recommendation/overview/types">https://developers.google.com/machine-learning/recommendation/overview/types</a>.</p>
 </div>
-<div class="citation" id="id12" role="doc-biblioentry">
+<div class="citation" id="id15" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>GooglefDevelopersd<span class="fn-bracket">]</span></span>
 <p>Google for Developers. Recommendation systems: re-ranking. Accessed October 9, 2026. URL: <a class="reference external" href="https://developers.google.com/machine-learning/recommendation/dnn/re-ranking">https://developers.google.com/machine-learning/recommendation/dnn/re-ranking</a>.</p>
 </div>
-<div class="citation" id="id15" role="doc-biblioentry">
+<div class="citation" id="id18" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>RecommendersTeam<span class="fn-bracket">]</span></span>
 <p>Recommenders Team. Recommenders evaluation. Microsoft-origin Recommenders project; Python precision at k and recall at k documentation. Accessed October 9, 2026. URL: <a class="reference external" href="https://recommenders-team.github.io/recommenders/evaluation.html">https://recommenders-team.github.io/recommenders/evaluation.html</a>.</p>
 </div>
-<div class="citation" id="id13" role="doc-biblioentry">
+<div class="citation" id="id16" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>SentenceTransformersa<span class="fn-bracket">]</span></span>
 <p>Sentence Transformers. Semantic search. Project documentation. Accessed October 9, 2026. URL: <a class="reference external" href="https://www.sbert.net/examples/sentence_transformer/applications/semantic-search/README.html">https://www.sbert.net/examples/sentence_transformer/applications/semantic-search/README.html</a>.</p>
 </div>
-<div class="citation" id="id14" role="doc-biblioentry">
+<div class="citation" id="id17" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>SentenceTransformersb<span class="fn-bracket">]</span></span>
 <p>Sentence Transformers. Semantic textual similarity. Project documentation. Accessed October 9, 2026. URL: <a class="reference external" href="https://sbert.net/docs/sentence_transformer/usage/semantic_textual_similarity.html">https://sbert.net/docs/sentence_transformer/usage/semantic_textual_similarity.html</a>.</p>
 </div>
