@@ -1,0 +1,1020 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>9.1 From RNNs and LSTMs to Language Models &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module9/sequence_models';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Speech" href="../speech.html" />
+    <link rel="prev" title="Chapter 9 From RNNs and LSTMs to Language Models" href="module9.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module4/module4.html">Chapter 4 Similarity and Retrieval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module4/cluster.html">4.1 Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/practice.html">4.2 Experiment: From Similarity Scores to Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/week4_coding_practice.html">4.3 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module5/module5.html">Chapter 5 Text Classification and Model Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module5/classification.html">5.1 Text Classification and Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/week5_coding_practice.html">5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module6/module6.html">Chapter 6 Topic Modeling and Modern Topic Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module6/topics.html">6.1 Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice.html">6.2 Coding Practice: Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice_solution.html">6.3 Coding Practice: Topic Modeling and Modern Topic Analysis (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module7/module7.html">Chapter 7 Sentiment, Affect, and Lexicons</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module7/sentiment.html">7.1 Sentiment, Affect, and Lexicons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module7/week07_sentiment_practice.html">7.2 Coding Practice: Sentiment Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module7/week07_sentiment_practice_solution.html">7.3 Coding Practice: Sentiment Analysis Solution</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module8/module8.html">Chapter 8 Recommendation Systems and Personalized Text Ranking</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module8/recommendation.html">8.1 Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module8/week08_recommendation_practice.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module8/week08_recommendation_practice_solution.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module9.html">Chapter 9 From RNNs and LSTMs to Language Models</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">9.1 From RNNs and LSTMs to Language Models</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phonetics.html">Speech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recognizer.html">Speech Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule9/sequence_models.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module9/sequence_models.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>9.1 From RNNs and LSTMs to Language Models</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-the-dots-when-word-order-changes-meaning">1. Connecting the Dots: When Word Order Changes Meaning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-text-vectors-to-sequences">2. From Text Vectors to Sequences</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-neural-layer-in-one-paragraph">A neural layer in one paragraph</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-recurrent-neural-networks-work">3. How Recurrent Neural Networks Work</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-backpropagation-through-time">Training: backpropagation through time</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-lstms-were-developed">4. Why LSTMs Were Developed</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gated-memory">Gated memory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-remembered">What is remembered?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lstms-in-applied-nlp">5. LSTMs in Applied NLP</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-as-sequence-classification">Sentiment as sequence classification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-other-task-shapes">Two other task shapes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-recurrent-models-to-language-modeling">6. From Recurrent Models to Language Modeling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-move-beyond-recurrence">7. Why Move Beyond Recurrence?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways-and-knowledge-check">8. Key Takeaways and Knowledge Check</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-reasoning">Check your reasoning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="from-rnns-and-lstms-to-language-models">
+<h1>9.1 From RNNs and LSTMs to Language Models<a class="headerlink" href="#from-rnns-and-lstms-to-language-models" title="Permalink to this heading">#</a></h1>
+<p>In <a class="reference internal" href="../module7/sentiment.html"><span class="doc std std-doc">Week 07</span></a> you saw that sentiment words cannot simply be added up: negation, intensity, and contrast change what each word contributes. This week asks how a model can take that into account:</p>
+<p><strong>How can an NLP model use word order and remember context, and why did this lead from recurrent models to modern language models?</strong></p>
+<p>We will follow one short movie review throughout the chapter:</p>
+<blockquote>
+<div><p><strong>“Everyone told me the film was boring, but I loved it.”</strong></p>
+</div></blockquote>
+<p>The review contains a negative word (<em>boring</em>) and a positive word (<em>loved</em>). Which one expresses the writer’s own view depends on the order of the words and on the word <em>but</em>. All model outputs, probabilities, and “memory” descriptions below are <strong>illustrative teaching examples</strong>. They show what information a model would need, not what any particular trained model actually predicts.</p>
+<p>By the end, you should be able to:</p>
+<ul class="simple">
+<li><p>explain what earlier text representations capture or omit about order</p></li>
+<li><p>trace how a recurrent neural network (RNN) reads a sentence</p></li>
+<li><p>explain why LSTMs were introduced and what their gates do</p></li>
+<li><p>distinguish three sequence task shapes</p></li>
+<li><p>explain language modeling without confusing recurrent models with today’s transformer-based LLMs</p></li>
+<li><p>name the limits of recurrence that motivate Week 10</p></li>
+</ul>
+<section id="connecting-the-dots-when-word-order-changes-meaning">
+<h2>1. Connecting the Dots: When Word Order Changes Meaning<a class="headerlink" href="#connecting-the-dots-when-word-order-changes-meaning" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> vectors, classifiers, and why negation breaks lexicon scoring. <em>New problem:</em> keeping track of order and context across a whole text. <em>Next:</em> representing a text as a sequence rather than a single vector.</p>
+</div>
+<p>Several earlier tools captured useful information about text, but each handled order differently:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Representation (week)</p></th>
+<th class="head"><p>What it captures</p></th>
+<th class="head"><p>What it loses or limits</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Bag-of-words, TF-IDF (<a class="reference internal" href="../module3/features.html"><span class="doc std std-doc">Week 03</span></a>)</p></td>
+<td><p>Which words occur and how much they matter</p></td>
+<td><p>Word order across the text</p></td>
+</tr>
+<tr class="row-odd"><td><p>n-grams</p></td>
+<td><p>Short local sequences, such as <em>not bad</em></p></td>
+<td><p>Anything outside the n-word window</p></td>
+</tr>
+<tr class="row-even"><td><p>Word embeddings</p></td>
+<td><p>Meaning similarity between individual words</p></td>
+<td><p>Order, if word vectors are simply averaged into one document vector</p></td>
+</tr>
+<tr class="row-odd"><td><p>Logistic regression (<a class="reference internal" href="../module5/classification.html"><span class="doc std std-doc">Week 05</span></a>)</p></td>
+<td><p>A weighted decision over whatever features you give it</p></td>
+<td><p>Only as order-aware as its features</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Consider a minimal pair:</p>
+<ul class="simple">
+<li><p><em>The acting was good, not bad.</em></p></li>
+<li><p><em>The acting was bad, not good.</em></p></li>
+</ul>
+<p>Both sentences contain exactly the same words, so their bag-of-words vectors are identical. Bigrams can tell them apart, because <em>not bad</em> and <em>not good</em> are different features. Local order is enough here.</p>
+<p>Now reorder our running review using the same words:</p>
+<ul class="simple">
+<li><p><em>Everyone told me the film was boring, but I loved it.</em></p></li>
+<li><p><em>I loved it, but everyone told me the film was boring.</em></p></li>
+</ul>
+<p>The bags of words are again identical. Many readers would hear the first as a positive review and the second as more hesitant, because what comes after <em>but</em> tends to carry the writer’s emphasis. Few bigrams differ between these two versions. What changes is the overall structure: who said <em>boring</em>, and which clause comes last. To capture that, a model needs to read the text <strong>in order</strong> and <strong>carry information forward</strong> from earlier words.</p>
+</section>
+<section id="from-text-vectors-to-sequences">
+<h2>2. From Text Vectors to Sequences<a class="headerlink" href="#from-text-vectors-to-sequences" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> one vector per document. <em>New problem:</em> keeping one vector per token, in order. <em>Next:</em> a network that reads those vectors one at a time.</p>
+</div>
+<p>Earlier weeks usually turned a whole document into <strong>one vector</strong> and then classified or compared that vector. A sequence model instead keeps <strong>one vector per token, in order</strong>. Each token can be represented by an embedding, and the text becomes an ordered list <span class="math notranslate nohighlight">\(x_1, x_2, \ldots, x_n\)</span>. Here, <span class="math notranslate nohighlight">\(x_1\)</span> is the vector for <em>Everyone</em>, <span class="math notranslate nohighlight">\(x_2\)</span> is the vector for <em>told</em>, and so on. The position in the list is called a <strong>time step</strong>, even for written text, because the model processes the tokens one after another.</p>
+<figure class="align-default" id="bag-vs-sequence">
+<img alt="Left panel shows the running review as an unordered bag of word counts in which boring and loved each appear once. Right panel shows the same review as an ordered row of eleven token vectors from Everyone to it." src="../_images/bag-vs-sequence.svg" /><figcaption>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text">One document vector versus an ordered sequence of token vectors</span><a class="headerlink" href="#bag-vs-sequence" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="a-neural-layer-in-one-paragraph">
+<h3>A neural layer in one paragraph<a class="headerlink" href="#a-neural-layer-in-one-paragraph" title="Permalink to this heading">#</a></h3>
+<p>Recurrent networks are neural networks, so we need one idea that earlier chapters did not cover. In Week 05, logistic regression computed a <strong>weighted sum</strong> of features and passed it through a function that turned the score into a probability. A <strong>neural layer</strong> does many such weighted sums at once, each with its own weights, and passes every result through a nonlinear function. The output is a new vector of learned features rather than a single score. Layers can be stacked, and the final layer can use a softmax, the same bridge idea from Week 05, to choose among classes or words. All the weights are learned from examples: training repeatedly adjusts them in the direction that reduces the loss (the prediction error) <span id="id1">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span>.</p>
+<p>That is all the neural-network background this chapter requires.</p>
+</section>
+</section>
+<section id="how-recurrent-neural-networks-work">
+<h2>3. How Recurrent Neural Networks Work<a class="headerlink" href="#how-recurrent-neural-networks-work" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> a neural layer turns an input vector into a new vector. <em>New problem:</em> letting that layer remember what came before. <em>Next:</em> why that memory fades over long distances.</p>
+</div>
+<p>A <strong>recurrent neural network (RNN)</strong> reads a sequence one token at a time. At each step it combines two things:</p>
+<ol class="arabic simple">
+<li><p>the vector for the <strong>current token</strong>, and</p></li>
+<li><p>its own <strong>hidden state</strong> from the previous step: a vector that summarizes what it has read so far.</p></li>
+</ol>
+<p>The result is a new hidden state, which is passed to the next step. Jurafsky and Martin describe the previous hidden layer as providing “a form of memory, or context” <span id="id2">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (§14.1). The simple RNN architecture discussed in that chapter is often called an Elman network, after Elman (1990).</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Optional: the recurrence in one line<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">For readers who like notation, a simple RNN computes each hidden state as</p>
+<div class="math notranslate nohighlight">
+\[h_t = g(U h_{t-1} + W x_t)\]</div>
+<p class="sd-card-text">where <span class="math notranslate nohighlight">\(x_t\)</span> is the current token vector, <span class="math notranslate nohighlight">\(h_{t-1}\)</span> is the previous hidden state, <span class="math notranslate nohighlight">\(W\)</span> and <span class="math notranslate nohighlight">\(U\)</span> are weight matrices, and <span class="math notranslate nohighlight">\(g\)</span> is a nonlinear function. The same <span class="math notranslate nohighlight">\(W\)</span> and <span class="math notranslate nohighlight">\(U\)</span> are used at every step <span id="id3">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (§14.1.1). You will not need to calculate with this equation.</p>
+</div>
+</details><p>Two properties matter for applied work:</p>
+<ul class="simple">
+<li><p><strong>Shared weights.</strong> The same weights are reused at every time step. The model therefore has the same number of parameters for a 5-word review and a 500-word review.</p></li>
+<li><p><strong>No fixed window.</strong> Unlike an n-gram, the hidden state can, in principle, carry information from the very beginning of the sequence <span id="id4">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (§14.1, §14.2).</p></li>
+</ul>
+<p>Drawing the network once per time step, called <strong>unrolling</strong>, makes this visible:</p>
+<figure class="align-default" id="rnn-unrolled-review">
+<img alt="An unrolled RNN reads the review one token at a time. Each box receives a token vector from below and the previous hidden state from the left, and passes a new hidden state to the right. The same weights label every step. The final hidden state feeds a sentiment classifier." src="../_images/rnn-unrolled-review.svg" /><figcaption>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text">An unrolled RNN reading the running review, with a classifier at the end</span><a class="headerlink" href="#rnn-unrolled-review" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="training-backpropagation-through-time">
+<h3>Training: backpropagation through time<a class="headerlink" href="#training-backpropagation-through-time" title="Permalink to this heading">#</a></h3>
+<p>How are the shared weights learned? The model reads the sequence forward and computes a loss. The error signal is then sent <strong>backward through every time step</strong>, because each hidden state influenced all the steps after it. Since every step uses the same weights, their adjustments are combined. This procedure is called <strong>backpropagation through time (BPTT)</strong>. With modern frameworks, the unrolled network is trained like any other network <span id="id5">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (§14.1.2).</p>
+<p>BPTT also reveals a weakness. To learn that <em>boring</em> at step 7 matters for a decision at step 11, the error signal must travel back through every step in between. The next section explains why that is hard.</p>
+</section>
+</section>
+<section id="why-lstms-were-developed">
+<h2>4. Why LSTMs Were Developed<a class="headerlink" href="#why-lstms-were-developed" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> an RNN carries a running summary forward. <em>New problem:</em> that summary tends to forget distant words. <em>Next:</em> using gated memory in real NLP tasks.</p>
+</div>
+<p>In practice, simple RNNs struggle to use information far from the current position. The information in their hidden states “tends to be fairly local”, more about the last few tokens than earlier ones <span id="id6">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (§14.5). The chapter gives two reasons:</p>
+<ol class="arabic simple">
+<li><p><strong>One vector, two jobs.</strong> The hidden state must be useful for the current step <em>and</em> carry forward everything needed later. Each new token rewrites it.</p></li>
+<li><p><strong>Vanishing gradients.</strong> During BPTT, the error signal passes through repeated multiplications at every step. It often shrinks toward zero before it reaches distant steps, so the model cannot learn long-range connections well.</p></li>
+</ol>
+<p>To see why distance matters for sentiment, rearrange the review so that the decisive clause comes first:</p>
+<blockquote>
+<div><p><em>I loved it, even though everyone told me the film was slow and the reviews called it boring.</em></p>
+</div></blockquote>
+<p>When the model reaches the final word, the most recent tokens are <em>slow</em> and <em>boring</em>. The writer’s own verdict, <em>I loved it</em>, is more than a dozen tokens back. A simple RNN whose memory fades would be pulled toward the recent negative words.</p>
+<section id="gated-memory">
+<h3>Gated memory<a class="headerlink" href="#gated-memory" title="Permalink to this heading">#</a></h3>
+<p>The <strong>long short-term memory (LSTM)</strong> network, introduced by Hochreiter and Schmidhuber (1997), addresses this by adding a separate <strong>context</strong> (often called the <em>cell state</em>) alongside the hidden state. It then controls the flow of information with three learned <strong>gates</strong> <span id="id7">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (§14.5):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Gate</p></th>
+<th class="head"><p>Plain-language job</p></th>
+<th class="head"><p>In our rearranged review (simplified intuition)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Forget gate</strong></p></td>
+<td><p>Erase information no longer needed</p></td>
+<td><p>Little reason to erase “the writer loved it” when <em>even though</em> signals a concession</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Add gate</strong> (input gate)</p></td>
+<td><p>Write useful new information into the context</p></td>
+<td><p>Store “writer’s verdict: positive” after <em>I loved it</em>. Note <em>boring</em> as someone else’s report</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Output gate</strong></p></td>
+<td><p>Reveal the part of the context needed right now</p></td>
+<td><p>At the end, expose the stored verdict to the classifier</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Each gate produces values between 0 and 1 and acts like a soft mask: values near 1 let information pass, values near 0 block it. Crucially, the gates are <strong>learned from data</strong>. Nobody programs a rule such as “remember the writer’s verdict”. The right-hand column describes what a <em>well-trained</em> model would need to do, not a guaranteed behavior.</p>
+<figure class="align-default" id="lstm-gated-memory">
+<img alt="A horizontal context lane runs across the rearranged review. An add valve writes the writer's positive verdict early, a forget valve lets it pass through the middle of the sentence, and an output valve reveals it at the end. The hidden state lane below handles local words such as slow and boring." src="../_images/lstm-gated-memory.svg" /><figcaption>
+<p><span class="caption-number">Fig. 19 </span><span class="caption-text">Simplified intuition for LSTM memory control (not a picture of learned values)</span><a class="headerlink" href="#lstm-gated-memory" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>LSTMs <strong>improve</strong>, but do not solve, the problem of long-range context. Gated memory makes distant information easier to keep, which is why LSTMs replaced simple RNNs as the standard recurrent unit <span id="id8">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (§14.5.1). But an LSTM still squeezes everything it has read into fixed-size vectors, and very distant or very detailed information can still be lost.</p>
+</div>
+</section>
+<section id="what-is-remembered">
+<h3>What is remembered?<a class="headerlink" href="#what-is-remembered" title="Permalink to this heading">#</a></h3>
+<p>The table follows the original review step by step. It asks what a sentiment model would <em>need</em> to have kept so far. It does not describe what any particular model stores.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>After reading…</p></th>
+<th class="head"><p>Information worth keeping</p></th>
+<th class="head"><p>Why</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><em>Everyone told me</em></p></td>
+<td><p>Someone other than the writer is about to give an opinion</p></td>
+<td><p>Later sentiment words may not be the writer’s own</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>…the film was boring</em></p></td>
+<td><p>A negative opinion, attributed to “everyone”</p></td>
+<td><p>Useful, but not necessarily the final verdict</p></td>
+</tr>
+<tr class="row-even"><td><p><em>…, but</em></p></td>
+<td><p>A contrast is coming</p></td>
+<td><p>What follows will likely carry the writer’s emphasis</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>…I loved</em></p></td>
+<td><p>The writer’s own view is positive</p></td>
+<td><p>This is the evidence most relevant to the label</p></td>
+</tr>
+<tr class="row-even"><td><p><em>…it.</em> (end)</p></td>
+<td><p>Overall: positive, despite reported criticism</p></td>
+<td><p>This summary is what the classifier reads</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Try the same exercise mentally for the rearranged review. Which row would have to survive the longest?</p>
+</section>
+</section>
+<section id="lstms-in-applied-nlp">
+<h2>5. LSTMs in Applied NLP<a class="headerlink" href="#lstms-in-applied-nlp" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> how an LSTM reads and remembers. <em>New problem:</em> connecting it to real tasks. <em>Next:</em> using the same machinery to predict text.</p>
+</div>
+<section id="sentiment-as-sequence-classification">
+<h3>Sentiment as sequence classification<a class="headerlink" href="#sentiment-as-sequence-classification" title="Permalink to this heading">#</a></h3>
+<p>Our running task, deciding whether a review is positive or negative, is <strong>sequence classification</strong>: one label for a whole text. A standard recurrent design works like this <span id="id9">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (§14.3.2):</p>
+<ol class="arabic simple">
+<li><p>Convert tokens to embeddings.</p></li>
+<li><p>Run an RNN or LSTM over the sequence.</p></li>
+<li><p>Take the <strong>final hidden state</strong> as a summary of the whole text, or <strong>pool</strong> all the hidden states (for example by averaging them).</p></li>
+<li><p>Pass that summary to a small feedforward classifier with a softmax.</p></li>
+</ol>
+<p>The loss comes only from the final label, and the error signal flows back through the classifier and every recurrent step. This is called <strong>end-to-end training</strong>. Intermediate steps do not need their own labels.</p>
+<p>Compared with the Week 05 and Week 07 pipelines, the main change is that the representation is no longer a fixed bag of features. It is built step by step, in order. The evaluation questions from Week 05 still apply unchanged: which metric, which errors, which threshold.</p>
+<p><strong>Bidirectional LSTMs.</strong> A final hidden state naturally reflects more information about the end of the sentence than its beginning <span id="id10">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (§14.4.2). For classification, the whole text is available at once, so a common remedy is a <strong>bidirectional</strong> LSTM. One LSTM reads left to right, another reads right to left, and their final states are combined. In the rearranged review, the backward reader finishes on <em>I loved it</em>. You will often see bidirectional LSTMs in applied code.</p>
+</section>
+<section id="two-other-task-shapes">
+<h3>Two other task shapes<a class="headerlink" href="#two-other-task-shapes" title="Permalink to this heading">#</a></h3>
+<p>The same recurrent machinery supports different outputs <span id="id11">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (§14.3, §14.6):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Task shape</p></th>
+<th class="head"><p>Output</p></th>
+<th class="head"><p>Example with our review</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Sequence classification</strong></p></td>
+<td><p>One label for the whole sequence</p></td>
+<td><p><em>positive</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Sequence labeling</strong></p></td>
+<td><p>One label per token</p></td>
+<td><p>Everyone/PRON told/VERB me/PRON the/DET film/NOUN was/AUX boring/ADJ but/CCONJ I/PRON loved/VERB it/PRON</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Next-token prediction</strong> (language modeling)</p></td>
+<td><p>A probability distribution over the next token, at every step</p></td>
+<td><p>After <em>…but I</em>, which word comes next?</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Part-of-speech tagging is the classic labeling task: the model reads each word in context and assigns a tag at every step. The third row leads directly to language models in Section 6.</p>
+<div class="tip admonition">
+<p class="admonition-title">Brief application: sequential recommendation</p>
+<p>In <a class="reference internal" href="../module8/recommendation.html"><span class="doc std std-doc">Week 08</span></a>, content-based and collaborative recommenders compared profiles, items, and interaction patterns. None of those methods needs an LSTM. Some recommendation problems, however, depend on <strong>order</strong>: a user who just watched three thrillers in one session may want a different next item than one who watched them months apart. Treating a session’s clicks as a sequence and predicting the <strong>next item</strong> has the same shape as predicting the next word. Hidasi et al. proposed RNN-based recommendation for short sessions where long user histories are unavailable <span id="id12">[<a class="reference internal" href="../references.html#id23" title="Balázs Hidasi, Alexandros Karatzoglou, Linas Baltrunas, and Domonkos Tikk. Session-based recommendations with recurrent neural networks. 2015. arXiv:1511.06939. URL: https://arxiv.org/abs/1511.06939, arXiv:1511.06939.">HKBT15</a>]</span>. The idea is a short extension of this week, not its focus.</p>
+</div>
+<p>Coding practice for this week is handled separately. When you work with an LSTM sentiment model in code, look for the steps above: an embedding layer, a recurrent layer producing hidden states, a choice between the final state and pooling, and a classifier trained on review labels.</p>
+</section>
+</section>
+<section id="from-recurrent-models-to-language-modeling">
+<h2>6. From Recurrent Models to Language Modeling<a class="headerlink" href="#from-recurrent-models-to-language-modeling" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> recurrent models can output something at every step. <em>New problem:</em> predicting the next word itself. <em>Next:</em> why the field moved beyond recurrence.</p>
+</div>
+<p>A <strong>language model</strong> assigns a probability to each possible next token given the tokens so far. It can also assign probabilities to whole sequences by multiplying these step-by-step probabilities <span id="id13">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (§14.2). An n-gram model looks back n−1 words. An <strong>RNN language model</strong> instead uses its hidden state as a summary of <em>all</em> previous words. RNN language models were proposed by Mikolov et al. (2010) <span id="id14">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (§14.2).</p>
+<p>At each step, the model outputs a probability distribution over the vocabulary. For the prefix <em>“Everyone told me the film was boring, but I…”</em>, an illustrative distribution might look like this:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Next token</p></th>
+<th class="head text-right"><p>Illustrative probability</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>loved</p></td>
+<td class="text-right"><p>0.21</p></td>
+</tr>
+<tr class="row-odd"><td><p>liked</p></td>
+<td class="text-right"><p>0.16</p></td>
+</tr>
+<tr class="row-even"><td><p>enjoyed</p></td>
+<td class="text-right"><p>0.12</p></td>
+</tr>
+<tr class="row-odd"><td><p>thought</p></td>
+<td class="text-right"><p>0.07</p></td>
+</tr>
+<tr class="row-even"><td><p>disagree</p></td>
+<td class="text-right"><p>0.04</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>(all other words)</em></p></td>
+<td class="text-right"><p>0.40</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>These numbers are invented to show the <em>form</em> of the output. They are not measurements from a trained model. Notice the difference from sentiment classification: a classifier outputs one label for a whole text, while a language model outputs a distribution over thousands of possible tokens at every position.</p>
+<p><strong>Self-supervision.</strong> Where do the training labels come from? From the text itself. At each position, the correct answer is simply the word that actually comes next. In Jurafsky and Martin’s words, “the natural sequence of words is its own supervision” <span id="id15">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (§14.2.2). No human annotation is needed, so any large collection of text can serve as training data. Training compares the predicted distribution with the true next word and adjusts the weights through BPTT.</p>
+<p><strong>Generation.</strong> A trained language model can produce text by repeatedly sampling a next token, appending it, and predicting again. This is called <strong>autoregressive generation</strong> <span id="id16">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (§14.3.3).</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>RNN/LSTM language models are not the same thing as today’s LLMs.</strong> Modern large language models are built on the <strong>transformer</strong> architecture, not on LSTMs. What they share with RNN language models is the <em>training idea</em>: self-supervised prediction of the next token. Jurafsky and Martin’s textbook covers transformers and pretraining in a separate chapter (Chapter 7). Additional training stages used for chat assistants appear in another chapter on post-training (Chapter 8) <span id="id17">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span>. Recurrent language models came first historically and introduced key ideas. They are not the internal engine of current LLMs.</p>
+</div>
+</section>
+<section id="why-move-beyond-recurrence">
+<h2>7. Why Move Beyond Recurrence?<a class="headerlink" href="#why-move-beyond-recurrence" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> RNNs and LSTMs read in order and carry a summary forward. <em>New problem:</em> the limits of that design. <em>Next (Week 10):</em> attention, transformers, BERT, and transfer learning.</p>
+</div>
+<p>Recurrent models were a major step, but three limitations motivated what came next:</p>
+<ol class="arabic simple">
+<li><p><strong>One step at a time.</strong> Computing step <em>t</em> requires the hidden state from step <em>t−1</em>, so a recurrent model must process a sequence from start to end <span id="id18">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (§14.1.1). The transformer paper presents its attention-only design as dispensing with recurrence and being more parallelizable, so that it needs much less training time <span id="id19">[<a class="reference internal" href="../references.html#id22" title="Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. Attention is all you need. 2017. arXiv:1706.03762. URL: https://arxiv.org/abs/1706.03762, arXiv:1706.03762.">VSP+17</a>]</span>.</p></li>
+<li><p><strong>A fixed-size summary.</strong> Consider translation with an <strong>encoder-decoder</strong> model: one RNN encodes the source sentence, and another decodes a translation. In the basic design, the decoder sees the source only through the encoder’s final hidden state. That state acts as a <strong>bottleneck</strong>: it must represent everything about the source, and information from the beginning of long sentences may be poorly represented <span id="id20">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (§14.7, §14.8).</p></li>
+<li><p><strong>Fading distance.</strong> Even with gates, distant details compete with recent ones for space in the same vectors (Section 4).</p></li>
+</ol>
+<p><strong>Attention</strong> was introduced as a remedy for the bottleneck. Instead of relying only on the final summary, the decoder can look back at <strong>all</strong> the encoder’s hidden states at each step. It gives each state a weight according to how relevant it is right now <span id="id21">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (§14.8). Transformers went further, building models on attention without recurrence <span id="id22">[<a class="reference internal" href="../references.html#id22" title="Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. Attention is all you need. 2017. arXiv:1706.03762. URL: https://arxiv.org/abs/1706.03762, arXiv:1706.03762.">VSP+17</a>]</span>.</p>
+<figure class="align-default" id="recurrence-vs-attention">
+<img alt="Top panel shows a chain of recurrent states in which the last step reaches earlier words only through the chain. Bottom panel shows the last step drawing weighted connections directly back to every earlier state, with thicker lines for more relevant words." src="../_images/recurrence-vs-attention.svg" /><figcaption>
+<p><span class="caption-number">Fig. 20 </span><span class="caption-text">Recurrence passes information along a chain; attention looks back at every earlier state with learned weights</span><a class="headerlink" href="#recurrence-vs-attention" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>This chapter only previews attention. Week 10 explains how it works and how transformers, BERT, and transfer learning build on it. Transformers also have their own costs and limitations, which are part of that discussion. Attention did not make every earlier idea obsolete. Ordered input, learned representations, self-supervised next-token prediction, and careful evaluation all carry forward.</p>
+</section>
+<section id="key-takeaways-and-knowledge-check">
+<h2>8. Key Takeaways and Knowledge Check<a class="headerlink" href="#key-takeaways-and-knowledge-check" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Simple RNN</p></th>
+<th class="head"><p>LSTM</p></th>
+<th class="head"><p>Transformer (Week 10 preview)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>How context is kept</p></td>
+<td><p>One hidden state, rewritten at every step</p></td>
+<td><p>Hidden state plus a gated context (cell) state</p></td>
+<td><p>Attention over all positions</p></td>
+</tr>
+<tr class="row-odd"><td><p>Strength</p></td>
+<td><p>Reads any length with shared weights; no fixed window</p></td>
+<td><p>Retains longer-range information more reliably</p></td>
+<td><p>Direct access to distant tokens; parallelizable training</p></td>
+</tr>
+<tr class="row-even"><td><p>Main limit</p></td>
+<td><p>Memory fades; vanishing gradients</p></td>
+<td><p>Still sequential; still a fixed-size summary</p></td>
+<td><p>Its own costs and limits (Week 10)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Where you meet it</p></td>
+<td><p>Concept and history</p></td>
+<td><p>Applied sequence classification and labeling; this week’s coding practice</p></td>
+<td><p>Modern LLMs, BERT, transfer learning</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>Bag-of-words and averaged embeddings lose order across a text. n-grams keep only local order.</p></li>
+<li><p>An <strong>RNN</strong> reads token vectors in order, carrying a <strong>hidden state</strong> forward with <strong>shared weights</strong>. It is trained with <strong>backpropagation through time</strong>.</p></li>
+<li><p><strong>LSTMs</strong> add a gated context so the model can learn what to erase, write, and reveal. This improves long-range memory but does not solve it.</p></li>
+<li><p>The same recurrent machinery supports <strong>sequence classification</strong> (sentiment), <strong>sequence labeling</strong> (POS tagging), and <strong>next-token prediction</strong> (language modeling).</p></li>
+<li><p>Language models are trained by <strong>self-supervision</strong>: the next word is the label. Modern LLMs share this training idea but use transformers, not LSTMs.</p></li>
+<li><p>Step-by-step processing and fixed-size summaries motivated <strong>attention</strong> and <strong>transformers</strong>.</p></li>
+</ul>
+<section id="check-your-reasoning">
+<h3>Check your reasoning<a class="headerlink" href="#check-your-reasoning" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><em>“Everyone told me the film was boring, but I loved it”</em> and <em>“I loved it, but everyone told me the film was boring”</em> contain the same words. Which earlier representations treat them identically, and what does an RNN add?</p></li>
+<li><p>In <em>“I loved it, even though everyone told me the film was slow and the reviews called it boring”</em>, what must a sentiment model still carry when it reaches <em>boring</em>? Why is that harder for a simple RNN than for an LSTM?</p></li>
+<li><p>For each task, name the task shape and what the model outputs: deciding review polarity, tagging every word’s part of speech, suggesting the next word on a phone keyboard.</p></li>
+<li><p>A classmate says, “Modern LLMs are just very large LSTMs.” What is right and what is wrong about that claim? Which limitation of recurrence will Week 10 address?</p></li>
+</ol>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Suggested reasoning<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<ol class="arabic simple">
+<li><p class="sd-card-text">Bag-of-words and TF-IDF vectors are identical, and so is an average of word embeddings. Bigrams differ only slightly. An RNN reads the words in order and updates its summary, so the position of <em>but</em> and of each clause can affect the final representation.</p></li>
+<li><p class="sd-card-text">It must still carry the writer’s own verdict from the first three words: <em>I loved it</em>. A simple RNN’s hidden state is rewritten at every step and tends to reflect recent tokens. An LSTM’s gates can learn to keep that information in the context state, although this is not guaranteed.</p></li>
+<li><p class="sd-card-text">Polarity: sequence classification, one label per review. POS tagging: sequence labeling, one tag per token. Keyboard suggestion: next-token prediction, a probability distribution over possible next words.</p></li>
+<li><p class="sd-card-text">Right: LLMs are also trained to predict the next token from large amounts of text, using self-supervision. Wrong: they are built on transformers, not LSTMs. Week 10 addresses step-by-step processing and the fixed-size summary, using attention.</p></li>
+</ol>
+</div>
+</details><p>Next, the coding practice gives you hands-on experience with an LSTM, and the Week 10 lecture introduces attention and transformers.</p>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<p>Main source for recurrent networks, LSTMs, task architectures, language modeling, encoder-decoder models, and attention: <span id="id23">[<a class="reference internal" href="../references.html#id21" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 14, RNNs and LSTMs. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26b</a>]</span> (Chapter 14, “RNNs and LSTMs”).</p>
+<p>Transformer architecture: <span id="id24">[<a class="reference internal" href="../references.html#id22" title="Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. Attention is all you need. 2017. arXiv:1706.03762. URL: https://arxiv.org/abs/1706.03762, arXiv:1706.03762.">VSP+17</a>]</span>.</p>
+<p>Sequential recommendation extension: <span id="id25">[<a class="reference internal" href="../references.html#id23" title="Balázs Hidasi, Alexandros Karatzoglou, Linas Baltrunas, and Domonkos Tikk. Session-based recommendations with recurrent neural networks. 2015. arXiv:1511.06939. URL: https://arxiv.org/abs/1511.06939, arXiv:1511.06939.">HKBT15</a>]</span>.</p>
+<p><strong>Optional deeper reading:</strong> Jurafsky and Martin, Chapter 14, especially §14.1 (recurrent networks), §14.2 (RNN language models), §14.3.2 (sequence classification), and §14.5 (the LSTM), available at <a class="reference external" href="https://web.stanford.edu/~jurafsky/slp3/">https://web.stanford.edu/~jurafsky/slp3/</a>. The chapter uses more notation than this reading. Its equations are not required.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module9"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="module9.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 9 From RNNs and LSTMs to Language Models</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../speech.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Speech</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-the-dots-when-word-order-changes-meaning">1. Connecting the Dots: When Word Order Changes Meaning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-text-vectors-to-sequences">2. From Text Vectors to Sequences</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-neural-layer-in-one-paragraph">A neural layer in one paragraph</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-recurrent-neural-networks-work">3. How Recurrent Neural Networks Work</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-backpropagation-through-time">Training: backpropagation through time</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-lstms-were-developed">4. Why LSTMs Were Developed</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gated-memory">Gated memory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-remembered">What is remembered?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lstms-in-applied-nlp">5. LSTMs in Applied NLP</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-as-sequence-classification">Sentiment as sequence classification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-other-task-shapes">Two other task shapes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-recurrent-models-to-language-modeling">6. From Recurrent Models to Language Modeling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-move-beyond-recurrence">7. Why Move Beyond Recurrence?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways-and-knowledge-check">8. Key Takeaways and Knowledge Check</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-reasoning">Check your reasoning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
