@@ -1,0 +1,1097 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>10.2 Coding Practice: Exploring BERT-Family Models &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module10/week10_bert_practice';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="10.2 Coding Practice: Exploring BERT-Family Models (Solution)" href="week10_bert_practice_solution.html" />
+    <link rel="prev" title="10.1 Transformers, Pretrained Models, and Transfer Learning" href="transformers.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module4/module4.html">Chapter 4 Similarity and Retrieval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module4/cluster.html">4.1 Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/practice.html">4.2 Experiment: From Similarity Scores to Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/week4_coding_practice.html">4.3 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module5/module5.html">Chapter 5 Text Classification and Model Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module5/classification.html">5.1 Text Classification and Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/week5_coding_practice.html">5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module6/module6.html">Chapter 6 Topic Modeling and Modern Topic Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module6/topics.html">6.1 Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice.html">6.2 Coding Practice: Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice_solution.html">6.3 Coding Practice: Topic Modeling and Modern Topic Analysis (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module7/module7.html">Chapter 7 Sentiment, Affect, and Lexicons</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module7/sentiment.html">7.1 Sentiment, Affect, and Lexicons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module7/week07_sentiment_practice.html">7.2 Coding Practice: Sentiment Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module7/week07_sentiment_practice_solution.html">7.3 Coding Practice: Sentiment Analysis Solution</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module8/module8.html">Chapter 8 Recommendation Systems and Personalized Text Ranking</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module8/recommendation.html">8.1 Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module8/week08_recommendation_practice.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module8/week08_recommendation_practice_solution.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module9/module9.html">Chapter 9 From RNNs and LSTMs to Language Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module9/sequence_models.html">9.1 From RNNs and LSTMs to Language Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_lstm_practice.html">9.2 Coding Practice: LSTM Sentiment Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/huggingface_intro.html">Optional: Exploring Pretrained Models with Hugging Face</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_huggingface_intro.html">Exploring Pretrained Models with Hugging Face</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_lstm_practice_solution.html">9.2 Coding Practice: LSTM Sentiment Classification (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module10.html">Chapter 10 Transformers, Pretrained Models, and Transfer Learning</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="transformers.html">10.1 Transformers, Pretrained Models, and Transfer Learning</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">10.2 Coding Practice: Exploring BERT-Family Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week10_bert_practice_solution.html">10.2 Coding Practice: Exploring BERT-Family Models (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phonetics.html">Speech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recognizer.html">Speech Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule10/week10_bert_practice.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module10/week10_bert_practice.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>10.2 Coding Practice: Exploring BERT-Family Models</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-goals">Learning goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subword-tokens-about-8-minutes">1. Subword tokens (about 8 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-1-find-a-word-that-gets-split">TODO 1: Find a word that gets split</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bert-s-fill-in-the-blank-game-about-8-minutes">2. BERT’s fill-in-the-blank game (about 8 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-2-change-the-right-hand-context">TODO 2: Change the right-hand context</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#same-word-different-vectors-about-10-minutes">3. Same word, different vectors (about 10 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-3-build-the-similarity-table">TODO 3: Build the similarity table</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-ready-made-sentiment-classifier-about-10-minutes">4. A ready-made sentiment classifier (about 10 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-4-try-to-fool-the-model">TODO 4: Try to fool the model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-the-model-cards-about-8-minutes">5. Read the model cards (about 8 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-5-fill-in-a-model-card-checklist">TODO 5: Fill in a model card checklist</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap-up</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#looking-ahead">Looking ahead</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-checks">Validation checks</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="coding-practice-exploring-bert-family-models">
+<h1>10.2 Coding Practice: Exploring BERT-Family Models<a class="headerlink" href="#coding-practice-exploring-bert-family-models" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module10/week10_bert_practice.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>This guided practice follows the Week 10 reading, <em>Transformers, Pretrained Models, and Transfer Learning</em>. You will not train anything. Instead, you will open up pretrained models and see the ideas from the reading in action:</p>
+<ol class="arabic simple">
+<li><p>how a BERT-family model splits text into <strong>subword tokens</strong></p></li>
+<li><p>how BERT plays its <strong>fill-in-the-blank</strong> game (masked language modeling)</p></li>
+<li><p>how the same word gets <strong>different vectors in different contexts</strong></p></li>
+<li><p>how a <strong>ready-made sentiment classifier</strong> handles tricky sentences</p></li>
+<li><p>how to read a <strong>model card</strong> before trusting a model</p></li>
+</ol>
+<p>We will use <strong>DistilBERT</strong>, a smaller and faster version of BERT that runs comfortably on a free Colab CPU, and a ready-made sentiment model.</p>
+<p>Each part follows the same rhythm: a short explanation, a question to <strong>predict first</strong>, a small piece of code to run or complete, and a look at the output. Plan for about 40 to 50 minutes.</p>
+<p>This is ungraded practice. There is nothing to submit. If you get stuck, look at the hints in the code comments, or open the solution notebook.</p>
+<section id="learning-goals">
+<h2>Learning goals<a class="headerlink" href="#learning-goals" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Inspect subword tokens and special tokens such as <code class="docutils literal notranslate"><span class="pre">[CLS]</span></code>, <code class="docutils literal notranslate"><span class="pre">[SEP]</span></code>, and <code class="docutils literal notranslate"><span class="pre">[MASK]</span></code>.</p></li>
+<li><p>Use a masked language model and explain how context on both sides changes its guesses.</p></li>
+<li><p>Compare contextual vectors for the same word in different sentences.</p></li>
+<li><p>Use a ready-made fine-tuned classifier and judge its predictions on challenging sentences.</p></li>
+<li><p>Read a model card and decide whether a model fits a task.</p></li>
+</ul>
+</section>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
+<p>Choose a standard <strong>CPU</strong> runtime in Colab (Runtime &gt; Change runtime type &gt; CPU). Run the cells from top to bottom.</p>
+<p>The first run downloads two public models from the Hugging Face Hub (together roughly 750 MB), which can take a minute or two. No Hugging Face account, token, or API key is needed. If Colab shows a message about an <code class="docutils literal notranslate"><span class="pre">HF_TOKEN</span></code>, you can ignore it.</p>
+<p>The next cell installs the tested version of the Transformers library. Colab already includes PyTorch. If Colab asks you to restart the runtime, restart it and run all cells again.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">pip</span> <span class="o">-</span><span class="n">q</span> <span class="n">install</span> <span class="s2">&quot;transformers==5.17.0&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">transformers</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoModel</span><span class="p">,</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">huggingface_hub</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelCard</span>
+
+<span class="n">transformers</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">set_verbosity_error</span><span class="p">()</span>  <span class="c1"># hide long loading messages</span>
+<span class="n">transformers</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">disable_progress_bar</span><span class="p">()</span>  <span class="c1"># hide progress bars</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">set_num_threads</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Transformers:&quot;</span><span class="p">,</span> <span class="n">transformers</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="s2">&quot;| PyTorch:&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+
+<span class="c1"># The pretrained BERT-family model we explore in Parts 1 to 3.</span>
+<span class="n">BASE_MODEL</span> <span class="o">=</span> <span class="s2">&quot;distilbert/distilbert-base-uncased&quot;</span>
+<span class="n">review</span> <span class="o">=</span> <span class="s2">&quot;Everyone told me the film was boring, but I loved it.&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="subword-tokens-about-8-minutes">
+<h2>1. Subword tokens (about 8 minutes)<a class="headerlink" href="#subword-tokens-about-8-minutes" title="Permalink to this heading">#</a></h2>
+<p>Before a model can read text, a <strong>tokenizer</strong> splits it into tokens and turns each token into an ID number. Every model has its <strong>own</strong> tokenizer, and you must always use the tokenizer that matches the model.</p>
+<p>BERT-family tokenizers use <strong>subwords</strong>: common words stay whole, while rare or long words are split into smaller pieces. A piece that starts with <code class="docutils literal notranslate"><span class="pre">##</span></code> continues the previous piece.</p>
+<p><strong>Predict first:</strong> our review has 11 words. Will the tokenizer produce more or fewer than 11 tokens? Which extra tokens do you expect?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">BASE_MODEL</span><span class="p">)</span>
+
+<span class="n">encoded</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">review</span><span class="p">)</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">convert_ids_to_tokens</span><span class="p">(</span><span class="n">encoded</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of tokens:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Token          ID&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">token</span><span class="p">,</span> <span class="n">token_id</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">encoded</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">]):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">token</span><span class="si">:</span><span class="s2">14s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">token_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice three things:</p>
+<ul class="simple">
+<li><p>The tokenizer lowercases the text, because this is an <em>uncased</em> model.</p></li>
+<li><p>Punctuation gets its own tokens.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[CLS]</span></code> is added at the start and <code class="docutils literal notranslate"><span class="pre">[SEP]</span></code> at the end. In the reading, BERT uses the vector for <code class="docutils literal notranslate"><span class="pre">[CLS]</span></code> as a summary of the whole text when it classifies. Remember that this is a BERT-style convention: other models summarize a text in other ways.</p></li>
+</ul>
+<section id="todo-1-find-a-word-that-gets-split">
+<h3>TODO 1: Find a word that gets split<a class="headerlink" href="#todo-1-find-a-word-that-gets-split" title="Permalink to this heading">#</a></h3>
+<p>Write a sentence with at least one long or unusual word (a movie title, a technical term, or a made-up word) and look at its tokens.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO 1: replace the sentence below with your own.</span>
+<span class="n">my_sentence</span> <span class="o">=</span> <span class="s2">&quot;Write your own sentence here.&quot;</span>
+
+<span class="c1"># This line is complete: it shows how the tokenizer splits your sentence.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">my_sentence</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Question 1:</strong> Which words were split into pieces? Why is it useful that the tokenizer can split an unknown word into pieces instead of replacing it with an “unknown” token, as our Week 9 LSTM vocabulary did?</p>
+</section>
+</section>
+<section id="bert-s-fill-in-the-blank-game-about-8-minutes">
+<h2>2. BERT’s fill-in-the-blank game (about 8 minutes)<a class="headerlink" href="#bert-s-fill-in-the-blank-game-about-8-minutes" title="Permalink to this heading">#</a></h2>
+<p>The reading explained that BERT is pretrained by <strong>masked language modeling</strong>: some words are hidden behind <code class="docutils literal notranslate"><span class="pre">[MASK]</span></code>, and the model guesses them using the words on <strong>both</strong> sides.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">fill-mask</span></code> pipeline lets you play this game with DistilBERT. It returns the five most likely words for the blank, each with a probability.</p>
+<p><strong>Predict first:</strong> in <em>“Everyone told me the film was [MASK], but I loved it.”</em>, what kind of word do you expect? Does the part <strong>after</strong> the blank (<em>but I loved it</em>) help?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fill_mask</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span>
+    <span class="s2">&quot;fill-mask&quot;</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">BASE_MODEL</span><span class="p">,</span>
+    <span class="n">tokenizer</span><span class="o">=</span><span class="n">BASE_MODEL</span><span class="p">,</span>
+    <span class="n">device</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># CPU</span>
+    <span class="n">model_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;disable_mmap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># load weights into memory for CPU compatibility</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">show_guesses</span><span class="p">(</span><span class="n">sentence</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">guess</span> <span class="ow">in</span> <span class="n">fill_mask</span><span class="p">(</span><span class="n">sentence</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="n">k</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   </span><span class="si">{</span><span class="n">guess</span><span class="p">[</span><span class="s1">&#39;token_str&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">12s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">guess</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+
+
+<span class="n">show_guesses</span><span class="p">(</span><span class="s2">&quot;Everyone told me the film was [MASK], but I loved it.&quot;</span><span class="p">)</span>
+<span class="n">show_guesses</span><span class="p">(</span><span class="s2">&quot;Everyone told me the film was [MASK].&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The only difference between the two sentences is the text <strong>after</strong> the blank. A left-to-right model reading <em>“Everyone told me the film was …”</em> could not use that text at all, but BERT can.</p>
+<section id="todo-2-change-the-right-hand-context">
+<h3>TODO 2: Change the right-hand context<a class="headerlink" href="#todo-2-change-the-right-hand-context" title="Permalink to this heading">#</a></h3>
+<p>Write a sentence with one <code class="docutils literal notranslate"><span class="pre">[MASK]</span></code>, where the words <strong>after</strong> the blank should change the guess. Then make a second version with a different ending. For example, try endings that suggest a positive or a negative opinion.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO 2: write two sentences that differ only AFTER the [MASK].</span>
+<span class="c1"># Each sentence must contain exactly one [MASK].</span>
+<span class="n">sentence_a</span> <span class="o">=</span> <span class="s2">&quot;The ending was [MASK], so I ...&quot;</span>
+<span class="n">sentence_b</span> <span class="o">=</span> <span class="s2">&quot;The ending was [MASK], so I ...&quot;</span>
+
+<span class="n">show_guesses</span><span class="p">(</span><span class="n">sentence_a</span><span class="p">)</span>
+<span class="n">show_guesses</span><span class="p">(</span><span class="n">sentence_b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Question 2:</strong> Did the guesses change in the way you expected? Look at the probabilities: is the model very sure about any guess? What does that tell you about how many words could reasonably fill the blank?</p>
+</section>
+</section>
+<section id="same-word-different-vectors-about-10-minutes">
+<h2>3. Same word, different vectors (about 10 minutes)<a class="headerlink" href="#same-word-different-vectors-about-10-minutes" title="Permalink to this heading">#</a></h2>
+<p>In Module 3, a static embedding such as word2vec gave each word <strong>one</strong> vector. The reading explained that a transformer gives each word a <strong>contextual</strong> vector that depends on the sentence.</p>
+<p>We will test this with the word <em>score</em>, which can mean music or a rating:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sentence</p></th>
+<th class="head"><p>Meaning of <em>score</em></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>The film’s score was haunting.</p></td>
+<td><p>music</p></td>
+</tr>
+<tr class="row-odd"><td><p>The film’s score on the review site was low.</p></td>
+<td><p>rating</p></td>
+</tr>
+<tr class="row-even"><td><p>The soundtrack and the score were beautiful.</p></td>
+<td><p>music</p></td>
+</tr>
+<tr class="row-odd"><td><p>Critics gave the film a low score.</p></td>
+<td><p>rating</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>First, notice that the tokenizer gives <em>score</em> the <strong>same ID</strong> in every sentence. Any difference must therefore come from the context.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">score_sentences</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;The film&#39;s score was haunting.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The film&#39;s score on the review site was low.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The soundtrack and the score were beautiful.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Critics gave the film a low score.&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">score_sentences</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">convert_tokens_to_ids</span><span class="p">(</span><span class="s2">&quot;score&quot;</span><span class="p">),</span> <span class="s2">&quot;|&quot;</span><span class="p">,</span> <span class="n">sentence</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now load the DistilBERT model itself (the pretrained <strong>body</strong> from the reading) and pull out the vector it builds for one word in a sentence. The helper function below is complete. It returns a vector of 768 numbers.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">AutoModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">BASE_MODEL</span><span class="p">,</span> <span class="n">disable_mmap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">word_vector</span><span class="p">(</span><span class="n">sentence</span><span class="p">,</span> <span class="n">word</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return DistilBERT&#39;s contextual vector for `word` in `sentence`.&quot;&quot;&quot;</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">sentence</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">inference_mode</span><span class="p">():</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">tokens</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">convert_ids_to_tokens</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">position</span> <span class="o">=</span> <span class="n">tokens</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>  <span class="c1"># where the word sits in this sentence</span>
+    <span class="k">return</span> <span class="n">outputs</span><span class="o">.</span><span class="n">last_hidden_state</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">position</span><span class="p">]</span>
+
+
+<span class="n">v</span> <span class="o">=</span> <span class="n">word_vector</span><span class="p">(</span><span class="n">score_sentences</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;score&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Vector length:&quot;</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First five numbers:&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">v</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To compare two vectors we use <strong>cosine similarity</strong>, which you met in Week 4: values near 1 mean the vectors point in a very similar direction.</p>
+<p><strong>Predict first:</strong> which pairs of sentences should give the most similar vectors for <em>score</em>?</p>
+<section id="todo-3-build-the-similarity-table">
+<h3>TODO 3: Build the similarity table<a class="headerlink" href="#todo-3-build-the-similarity-table" title="Permalink to this heading">#</a></h3>
+<p>Complete the loop so it prints the cosine similarity between the <em>score</em> vector of every pair of sentences.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">score_vectors</span> <span class="o">=</span> <span class="p">[</span><span class="n">word_vector</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">score_sentences</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;      S1     S2     S3     S4&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">vec_i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">score_vectors</span><span class="p">):</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">vec_j</span> <span class="ow">in</span> <span class="n">score_vectors</span><span class="p">:</span>
+        <span class="c1"># TODO 3: compute the cosine similarity between vec_i and vec_j.</span>
+        <span class="c1"># Hint:  torch.nn.functional.cosine_similarity(vec_i, vec_j, dim=0).item()</span>
+        <span class="n">similarity</span> <span class="o">=</span> <span class="o">...</span>
+        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">similarity</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;S</span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> &quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">s</span><span class="si">:</span><span class="s2">6.3f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">row</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Question 3:</strong> Which pairs are most similar? Do the two “music” sentences (S1 and S3) and the two “rating” sentences (S2 and S4) group together? Why would a static embedding give 1.000 for every pair?</p>
+</section>
+</section>
+<section id="a-ready-made-sentiment-classifier-about-10-minutes">
+<h2>4. A ready-made sentiment classifier (about 10 minutes)<a class="headerlink" href="#a-ready-made-sentiment-classifier-about-10-minutes" title="Permalink to this heading">#</a></h2>
+<p>In the reading, the first way to use a pretrained model was to <strong>use a ready-made model</strong> that someone already fine-tuned. Here we load one: a RoBERTa model (a member of the BERT family) fine-tuned for sentiment, with <strong>three</strong> labels: negative, neutral, and positive.</p>
+<p>This is a different model from DistilBERT, so it has its own tokenizer. Look at how differently it splits the same words: <code class="docutils literal notranslate"><span class="pre">Ġ</span></code> marks a token that starts with a space.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SENTIMENT_MODEL</span> <span class="o">=</span> <span class="s2">&quot;cardiffnlp/twitter-roberta-base-sentiment-latest&quot;</span>
+<span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span>
+    <span class="s2">&quot;sentiment-analysis&quot;</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">SENTIMENT_MODEL</span><span class="p">,</span>
+    <span class="n">tokenizer</span><span class="o">=</span><span class="n">SENTIMENT_MODEL</span><span class="p">,</span>
+    <span class="n">device</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">model_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;disable_mmap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classifier</span><span class="o">.</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">review</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Predict first:</strong> for each sentence below, write down the label you would give (negative, neutral, or positive) <strong>before</strong> running the cell. Which ones do you think the model will get wrong?</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>#</p></th>
+<th class="head"><p>Sentence</p></th>
+<th class="head"><p>Challenge</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Everyone told me the film was boring, but I loved it.</p></td>
+<td><p>contrast</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>The film was not bad.</p></td>
+<td><p>negation</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>The film was not good.</p></td>
+<td><p>negation</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>The film was neither good nor bad.</p></td>
+<td><p>mixed / neutral</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>Oh great, another three-hour movie with no plot.</p></td>
+<td><p>sarcasm</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>The movie starts at 7 pm.</p></td>
+<td><p>no opinion</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>I expected to hate it, but it was fun.</p></td>
+<td><p>contrast</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>The acting was great, but the story made no sense.</p></td>
+<td><p>mixed</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">challenge_sentences</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Everyone told me the film was boring, but I loved it.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The film was not bad.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The film was not good.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The film was neither good nor bad.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Oh great, another three-hour movie with no plot.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The movie starts at 7 pm.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;I expected to hate it, but it was fun.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The acting was great, but the story made no sense.&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">show_predictions</span><span class="p">(</span><span class="n">sentences</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;negative  neutral  positive  label     | sentence&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">sentence</span><span class="p">,</span> <span class="n">scores</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sentences</span><span class="p">,</span> <span class="n">classifier</span><span class="p">(</span><span class="n">sentences</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="kc">None</span><span class="p">)):</span>
+        <span class="n">by_label</span> <span class="o">=</span> <span class="p">{</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]:</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">scores</span><span class="p">}</span>
+        <span class="n">best</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">by_label</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">by_label</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">by_label</span><span class="p">[</span><span class="s1">&#39;negative&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">     </span><span class="si">{</span><span class="n">by_label</span><span class="p">[</span><span class="s1">&#39;neutral&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">    &quot;</span>
+              <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">by_label</span><span class="p">[</span><span class="s1">&#39;positive&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">     </span><span class="si">{</span><span class="n">best</span><span class="si">:</span><span class="s2">9s</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">sentence</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="n">show_predictions</span><span class="p">(</span><span class="n">challenge_sentences</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="todo-4-try-to-fool-the-model">
+<h3>TODO 4: Try to fool the model<a class="headerlink" href="#todo-4-try-to-fool-the-model" title="Permalink to this heading">#</a></h3>
+<p>Write at least three sentences of your own that you think will be hard for the model: for example sarcasm, double negation, a mixed review, or a review about a topic far from social media and movies.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO 4: add at least three challenging sentences of your own.</span>
+<span class="n">my_sentences</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Write a challenging sentence here.&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">show_predictions</span><span class="p">(</span><span class="n">my_sentences</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Question 4:</strong> Which predictions do you disagree with? Pick one and explain why the model might have made that mistake. Does a high score (for example 0.80) mean the prediction is correct?</p>
+</section>
+</section>
+<section id="read-the-model-cards-about-8-minutes">
+<h2>5. Read the model cards (about 8 minutes)<a class="headerlink" href="#read-the-model-cards-about-8-minutes" title="Permalink to this heading">#</a></h2>
+<p>The reading said to <strong>read the model card</strong> before trusting a model. A model card is the model’s user guide: training data, labels, intended uses, and limitations.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ModelCard</span></code> tool downloads a card as text. We will compare two cards:</p>
+<ul class="simple">
+<li><p>the sentiment model from Part 4</p></li>
+<li><p>the DistilBERT movie-review sentiment model you used in Week 9</p></li>
+</ul>
+<p>First, look at the short summary (metadata) at the top of each card.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">WEEK9_MODEL</span> <span class="o">=</span> <span class="s2">&quot;distilbert/distilbert-base-uncased-finetuned-sst-2-english&quot;</span>
+<span class="n">cards</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">ModelCard</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="n">SENTIMENT_MODEL</span><span class="p">,</span> <span class="n">WEEK9_MODEL</span><span class="p">]}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">card_headings</span><span class="p">(</span><span class="n">card</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List the section headings of a model card, skipping code examples.&quot;&quot;&quot;</span>
+    <span class="n">headings</span><span class="p">,</span> <span class="n">in_code</span> <span class="o">=</span> <span class="p">[],</span> <span class="kc">False</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">card</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;```&quot;</span><span class="p">):</span>
+            <span class="n">in_code</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">in_code</span>
+        <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">in_code</span><span class="p">:</span>
+            <span class="n">headings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">headings</span>
+
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">cards</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">card</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   datasets:&quot;</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;datasets&quot;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   language:&quot;</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;language&quot;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   license: &quot;</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;license&quot;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   sections:&quot;</span><span class="p">,</span> <span class="n">card_headings</span><span class="p">(</span><span class="n">card</span><span class="p">)[:</span><span class="mi">12</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The Week 9 model card has a section called <strong>Risks, Limitations and Biases</strong>. The helper below prints any section of a card by its heading.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">show_section</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">heading</span><span class="p">,</span> <span class="n">max_chars</span><span class="o">=</span><span class="mi">1500</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Print the text under a heading in a model card.&quot;&quot;&quot;</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">card</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="k">if</span> <span class="n">heading</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">))</span>
+    <span class="n">section</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="n">start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]:</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;# &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;## &quot;</span><span class="p">):</span>
+            <span class="k">break</span>
+        <span class="n">section</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">section</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()[:</span><span class="n">max_chars</span><span class="p">])</span>
+
+
+<span class="n">show_section</span><span class="p">(</span><span class="n">cards</span><span class="p">[</span><span class="n">WEEK9_MODEL</span><span class="p">],</span> <span class="s2">&quot;Risks, Limitations and Biases&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now print the opening description of the Part 4 sentiment model’s card.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">cards</span><span class="p">[</span><span class="n">SENTIMENT_MODEL</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()[:</span><span class="mi">900</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="todo-5-fill-in-a-model-card-checklist">
+<h3>TODO 5: Fill in a model card checklist<a class="headerlink" href="#todo-5-fill-in-a-model-card-checklist" title="Permalink to this heading">#</a></h3>
+<p>Using what you just read, fill in the checklist for the <strong>Part 4 sentiment model</strong>. Write short answers in plain words.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO 5: replace each &quot;...&quot; with a short answer.</span>
+<span class="n">checklist</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;training data&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;labels&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;language&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;limitations described on the card?&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;a task it fits well&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;a task I would test carefully first&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="n">question</span><span class="p">,</span> <span class="n">answer</span> <span class="ow">in</span> <span class="n">checklist</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">question</span><span class="si">:</span><span class="s2">38s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">answer</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Question 5:</strong> The Week 9 model was fine-tuned on movie review sentences, and the Part 4 model on tweets. A local hospital wants to sort patient comments into positive, neutral, and negative. Which model would you try first, and what would you check before trusting it?</p>
+</section>
+</section>
+<section id="wrap-up">
+<h2>Wrap-up<a class="headerlink" href="#wrap-up" title="Permalink to this heading">#</a></h2>
+<section id="reflection">
+<h3>Reflection<a class="headerlink" href="#reflection" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Which of the three ways to use a pretrained model (ready-made, feature extractor, fine-tuning) did you use in Part 4? Which part of this notebook used the pretrained <strong>body</strong> directly?</p></li>
+<li><p>In Part 2, the guesses changed when you changed words <strong>after</strong> the blank. Why could a left-to-right model like GPT not do this?</p></li>
+<li><p>Name one thing you would always check before using a pretrained model for a real project.</p></li>
+</ol>
+</section>
+<section id="looking-ahead">
+<h3>Looking ahead<a class="headerlink" href="#looking-ahead" title="Permalink to this heading">#</a></h3>
+<p>Today you used pretrained models without training anything. The same DistilBERT body you explored in Part 3 can become a classifier for <strong>your</strong> data: either by training a small classifier on its vectors, or by fine-tuning it. Many modern chat assistants work the other way around: they are large <strong>decoder</strong> models that you use by writing instructions (prompts) rather than by training.</p>
+</section>
+</section>
+<section id="validation-checks">
+<h2>Validation checks<a class="headerlink" href="#validation-checks" title="Permalink to this heading">#</a></h2>
+<p>These checks confirm that the notebook ran from top to bottom. If one fails, rerun the notebook from the start (Runtime &gt; Restart and run all in Colab).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">tokens</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;[CLS]&quot;</span> <span class="ow">and</span> <span class="n">tokens</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;[SEP]&quot;</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">fill_mask</span><span class="p">(</span><span class="s2">&quot;The film was [MASK].&quot;</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span> <span class="o">==</span> <span class="mi">5</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">score_vectors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span> <span class="ow">and</span> <span class="n">score_vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">768</span>
+<span class="n">same</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">score_vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">score_vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="k">assert</span> <span class="nb">abs</span><span class="p">(</span><span class="n">same</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-4</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">{</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">classifier</span><span class="p">(</span><span class="n">review</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="kc">None</span><span class="p">)}</span>
+<span class="k">assert</span> <span class="n">labels</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;negative&quot;</span><span class="p">,</span> <span class="s2">&quot;neutral&quot;</span><span class="p">,</span> <span class="s2">&quot;positive&quot;</span><span class="p">}</span>
+<span class="k">assert</span> <span class="s2">&quot;Risks, Limitations and Biases&quot;</span> <span class="ow">in</span> <span class="n">cards</span><span class="p">[</span><span class="n">WEEK9_MODEL</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All checks passed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module10"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="transformers.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">10.1 Transformers, Pretrained Models, and Transfer Learning</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="week10_bert_practice_solution.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">10.2 Coding Practice: Exploring BERT-Family Models (Solution)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-goals">Learning goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subword-tokens-about-8-minutes">1. Subword tokens (about 8 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-1-find-a-word-that-gets-split">TODO 1: Find a word that gets split</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bert-s-fill-in-the-blank-game-about-8-minutes">2. BERT’s fill-in-the-blank game (about 8 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-2-change-the-right-hand-context">TODO 2: Change the right-hand context</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#same-word-different-vectors-about-10-minutes">3. Same word, different vectors (about 10 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-3-build-the-similarity-table">TODO 3: Build the similarity table</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-ready-made-sentiment-classifier-about-10-minutes">4. A ready-made sentiment classifier (about 10 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-4-try-to-fool-the-model">TODO 4: Try to fool the model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-the-model-cards-about-8-minutes">5. Read the model cards (about 8 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-5-fill-in-a-model-card-checklist">TODO 5: Fill in a model card checklist</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap-up</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#looking-ahead">Looking ahead</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-checks">Validation checks</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

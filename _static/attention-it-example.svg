@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="470" viewBox="0 0 760 470" role="img" aria-labelledby="title desc">
+  <title id="title">Who does "it" refer to?</title>
+  <desc id="desc">Two sentences about a film losing an award to a documentary. In the first sentence, ending "too long", the thickest attention line from "it" goes to "film". In the second, ending "so moving", the thickest line goes to "documentary". Thicker lines mean more weight. Weights are illustrative.</desc>
+  <rect width="760" height="470" fill="#f8fafc" rx="16"/>
+  <g font-family="Arial, sans-serif" fill="#162b43" text-anchor="middle">
+    <text x="380" y="36" font-size="21" font-weight="bold">Who does "it" refer to?</text>
+
+    <!-- Sentence 1 -->
+    <text x="380" y="72" font-size="15" fill="#46576c">Sentence 1: ... because it was too long.</text>
+    <rect x="30" y="150" width="78" height="40" rx="9" fill="#e8f0fa" stroke="#53779d" stroke-width="1.5"/><text x="69" y="175" font-size="15">film</text>
+    <rect x="120" y="150" width="70" height="40" rx="9" fill="#e8f0fa" stroke="#53779d" stroke-width="1.5"/><text x="155" y="175" font-size="15">lost</text>
+    <rect x="202" y="150" width="78" height="40" rx="9" fill="#e8f0fa" stroke="#53779d" stroke-width="1.5"/><text x="241" y="175" font-size="15">award</text>
+    <rect x="292" y="150" width="128" height="40" rx="9" fill="#e8f0fa" stroke="#53779d" stroke-width="1.5"/><text x="356" y="175" font-size="15">documentary</text>
+    <rect x="432" y="150" width="86" height="40" rx="9" fill="#e8f0fa" stroke="#53779d" stroke-width="1.5"/><text x="475" y="175" font-size="15">because</text>
+    <rect x="530" y="150" width="50" height="40" rx="9" fill="#fff4dc" stroke="#b7862b" stroke-width="2"/><text x="555" y="175" font-size="15" font-weight="bold">it</text>
+    <rect x="592" y="150" width="62" height="40" rx="9" fill="#e8f0fa" stroke="#53779d" stroke-width="1.5"/><text x="623" y="175" font-size="15">long</text>
+    <path d="M555 150 C 480 95, 150 95, 69 150" fill="none" stroke="#467861" stroke-width="7" opacity="0.85"/>
+    <path d="M555 150 C 500 110, 400 110, 356 150" fill="none" stroke="#467861" stroke-width="2" opacity="0.85"/>
+    <path d="M555 150 C 575 125, 605 125, 623 150" fill="none" stroke="#467861" stroke-width="3.5" opacity="0.85"/>
+    <text x="69" y="212" font-size="13" fill="#467861" font-weight="bold">high</text>
+    <text x="356" y="212" font-size="13" fill="#46576c">low</text>
+    <text x="623" y="212" font-size="13" fill="#46576c">some</text>
+
+    <!-- Sentence 2 -->
+    <text x="380" y="262" font-size="15" fill="#46576c">Sentence 2: ... because it was so moving.</text>
+    <rect x="30" y="340" width="78" height="40" rx="9" fill="#e8f0fa" stroke="#53779d" stroke-width="1.5"/><text x="69" y="365" font-size="15">film</text>
+    <rect x="120" y="340" width="70" height="40" rx="9" fill="#e8f0fa" stroke="#53779d" stroke-width="1.5"/><text x="155" y="365" font-size="15">lost</text>
+    <rect x="202" y="340" width="78" height="40" rx="9" fill="#e8f0fa" stroke="#53779d" stroke-width="1.5"/><text x="241" y="365" font-size="15">award</text>
+    <rect x="292" y="340" width="128" height="40" rx="9" fill="#e8f0fa" stroke="#53779d" stroke-width="1.5"/><text x="356" y="365" font-size="15">documentary</text>
+    <rect x="432" y="340" width="86" height="40" rx="9" fill="#e8f0fa" stroke="#53779d" stroke-width="1.5"/><text x="475" y="365" font-size="15">because</text>
+    <rect x="530" y="340" width="50" height="40" rx="9" fill="#fff4dc" stroke="#b7862b" stroke-width="2"/><text x="555" y="365" font-size="15" font-weight="bold">it</text>
+    <rect x="592" y="340" width="82" height="40" rx="9" fill="#e8f0fa" stroke="#53779d" stroke-width="1.5"/><text x="633" y="365" font-size="15">moving</text>
+    <path d="M555 340 C 480 285, 150 285, 69 340" fill="none" stroke="#467861" stroke-width="2" opacity="0.85"/>
+    <path d="M555 340 C 500 300, 400 300, 356 340" fill="none" stroke="#467861" stroke-width="7" opacity="0.85"/>
+    <path d="M555 340 C 580 315, 610 315, 633 340" fill="none" stroke="#467861" stroke-width="3.5" opacity="0.85"/>
+    <text x="69" y="402" font-size="13" fill="#46576c">low</text>
+    <text x="356" y="402" font-size="13" fill="#467861" font-weight="bold">high</text>
+    <text x="633" y="402" font-size="13" fill="#46576c">some</text>
+
+    <text x="380" y="440" font-size="14">Thicker line = more weight. Lines to the other words are left out to keep the picture simple.</text>
+    <text x="380" y="460" font-size="13" fill="#46576c">Illustrative weights, not the output of a real model.</text>
+  </g>
+</svg>

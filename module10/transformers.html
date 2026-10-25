@@ -1,0 +1,1039 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>10.1 Transformers, Pretrained Models, and Transfer Learning &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module10/transformers';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="10.2 Coding Practice: Exploring BERT-Family Models" href="week10_bert_practice.html" />
+    <link rel="prev" title="Chapter 10 Transformers, Pretrained Models, and Transfer Learning" href="module10.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module4/module4.html">Chapter 4 Similarity and Retrieval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module4/cluster.html">4.1 Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/practice.html">4.2 Experiment: From Similarity Scores to Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/week4_coding_practice.html">4.3 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module5/module5.html">Chapter 5 Text Classification and Model Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module5/classification.html">5.1 Text Classification and Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/week5_coding_practice.html">5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module6/module6.html">Chapter 6 Topic Modeling and Modern Topic Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module6/topics.html">6.1 Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice.html">6.2 Coding Practice: Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice_solution.html">6.3 Coding Practice: Topic Modeling and Modern Topic Analysis (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module7/module7.html">Chapter 7 Sentiment, Affect, and Lexicons</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module7/sentiment.html">7.1 Sentiment, Affect, and Lexicons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module7/week07_sentiment_practice.html">7.2 Coding Practice: Sentiment Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module7/week07_sentiment_practice_solution.html">7.3 Coding Practice: Sentiment Analysis Solution</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module8/module8.html">Chapter 8 Recommendation Systems and Personalized Text Ranking</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module8/recommendation.html">8.1 Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module8/week08_recommendation_practice.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module8/week08_recommendation_practice_solution.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module9/module9.html">Chapter 9 From RNNs and LSTMs to Language Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module9/sequence_models.html">9.1 From RNNs and LSTMs to Language Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_lstm_practice.html">9.2 Coding Practice: LSTM Sentiment Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/huggingface_intro.html">Optional: Exploring Pretrained Models with Hugging Face</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_huggingface_intro.html">Exploring Pretrained Models with Hugging Face</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_lstm_practice_solution.html">9.2 Coding Practice: LSTM Sentiment Classification (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module10.html">Chapter 10 Transformers, Pretrained Models, and Transfer Learning</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">10.1 Transformers, Pretrained Models, and Transfer Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week10_bert_practice.html">10.2 Coding Practice: Exploring BERT-Family Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week10_bert_practice_solution.html">10.2 Coding Practice: Exploring BERT-Family Models (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../speech.html">Speech</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../phonetics.html">Speech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../recognizer.html">Speech Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule10/transformers.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module10/transformers.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>10.1 Transformers, Pretrained Models, and Transfer Learning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-we-left-off">1. Where We Left Off</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attention-letting-words-look-at-each-other">2. Attention: Letting Words Look at Each Other</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-idea">The idea</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#same-word-different-meaning">Same word, different meaning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#several-kinds-of-attention-at-once">Several kinds of attention at once</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#word-order-still-matters">Word order still matters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#three-families-of-transformer-models">3. Three Families of Transformer Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pretraining-and-transfer-learning">4. Pretraining and Transfer Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-reuse-a-model">Why reuse a model?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#three-ways-to-use-a-pretrained-model">Three ways to use a pretrained model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bert-learning-by-filling-in-blanks">5. BERT: Learning by Filling in Blanks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-predict-the-next-word-does-not-work-for-bert">Why “predict the next word” does not work for BERT</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#masked-language-modeling">Masked language modeling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-bert-to-a-sentiment-classifier">From BERT to a sentiment classifier</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-a-pretrained-model">6. Choosing a Pretrained Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-models-live">Where models live</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#start-with-the-task">Start with the task</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#read-the-model-card">Read the model card</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-it-on-your-own-data">Check it on your own data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#know-the-common-limits">Know the common limits</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways-and-knowledge-check">7. Key Takeaways and Knowledge Check</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-reasoning">Check your reasoning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="transformers-pretrained-models-and-transfer-learning">
+<h1>10.1 Transformers, Pretrained Models, and Transfer Learning<a class="headerlink" href="#transformers-pretrained-models-and-transfer-learning" title="Permalink to this heading">#</a></h1>
+<p>Last week ended with a question: if reading one word at a time makes it hard to remember the beginning of a long text, what could work better? This week answers it and then asks a very practical question:</p>
+<p><strong>How do transformers understand words in context, and how can we reuse a model that someone else already trained?</strong></p>
+<p>Most NLP work today does not start from scratch. People pick a <strong>pretrained model</strong>, check whether it suits their task, and adapt it. By the end of these notes you should be able to:</p>
+<ul class="simple">
+<li><p>explain in plain words how attention lets a word “look at” other words</p></li>
+<li><p>explain why the same word can get different meanings in different sentences</p></li>
+<li><p>tell apart the three main families of transformer models</p></li>
+<li><p>describe three ways to use a pretrained model</p></li>
+<li><p>explain how BERT learns by filling in blanks</p></li>
+<li><p>read a model card and decide whether a model fits your task</p></li>
+</ul>
+<p>We will reuse the movie review from Weeks 7 and 9:</p>
+<blockquote>
+<div><p><strong>“Everyone told me the film was boring, but I loved it.”</strong></p>
+</div></blockquote>
+<p>Model weights and attention patterns shown in the figures are <strong>illustrative</strong>. They show the idea, not the output of a real trained model. You will look at real model outputs in the coding practice.</p>
+<section id="where-we-left-off">
+<h2>1. Where We Left Off<a class="headerlink" href="#where-we-left-off" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> RNNs and LSTMs read a text one word at a time and carry a summary forward. <em>New problem:</em> that summary has limits. <em>Next:</em> a model that lets every word look at every other word directly.</p>
+</div>
+<p>In <a class="reference internal" href="../module9/sequence_models.html"><span class="doc std std-doc">Week 9</span></a> we saw three limits of recurrent models:</p>
+<ol class="arabic simple">
+<li><p>They read <strong>one step at a time</strong>, so training on large amounts of text is slow.</p></li>
+<li><p>They squeeze what they have read into <strong>one fixed-size summary</strong>.</p></li>
+<li><p>Even with LSTM gates, <strong>distant words fade</strong>.</p></li>
+</ol>
+<p>We also saw a preview of a fix called <strong>attention</strong>: instead of relying only on the final summary, a model can look back at all earlier words and decide how much each one matters right now.</p>
+<p>In 2017, a team at Google asked a bold question: what if we keep attention and drop the step-by-step reading entirely? Their model, the <strong>transformer</strong>, is built on attention without recurrence. Because it does not have to wait for step <em>t − 1</em> before handling step <em>t</em>, it can process many positions at once during training <span id="id1">[<a class="reference internal" href="../references.html#id22" title="Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. Attention is all you need. 2017. URL: https://arxiv.org/abs/1706.03762, arXiv:1706.03762.">VSP+17</a>]</span>. That made it practical to train on far more text than before, and it became the foundation of BERT, GPT, and today’s chat assistants.</p>
+</section>
+<section id="attention-letting-words-look-at-each-other">
+<h2>2. Attention: Letting Words Look at Each Other<a class="headerlink" href="#attention-letting-words-look-at-each-other" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> word embeddings from Module 3 give each word one vector. <em>New problem:</em> a word’s meaning depends on the words around it. <em>Next:</em> attention, which builds a new vector for each word in its context.</p>
+</div>
+<section id="the-idea">
+<h3>The idea<a class="headerlink" href="#the-idea" title="Permalink to this heading">#</a></h3>
+<p>Read these two sentences:</p>
+<blockquote>
+<div><p>The film lost the award to the documentary because <strong>it</strong> was too long.</p>
+<p>The film lost the award to the documentary because <strong>it</strong> was so moving.</p>
+</div></blockquote>
+<p>You probably had no trouble deciding that <em>it</em> means <em>the film</em> in the first sentence and <em>the documentary</em> in the second. You did this by looking at other words in the sentence (<em>long</em>, <em>moving</em>, <em>lost</em>, <em>award</em>) and deciding which ones mattered for understanding <em>it</em>.</p>
+<p><strong>Self-attention</strong> gives a model a way to do something similar. For each word, the model:</p>
+<ol class="arabic simple">
+<li><p>compares that word with every word in the text,</p></li>
+<li><p>gives each one a <strong>weight</strong> that says how relevant it is, and</p></li>
+<li><p>builds a new vector for the word by mixing in information from the others, using those weights.</p></li>
+</ol>
+<p>The weights are not written by hand. The model learns them from huge amounts of text. <a class="reference internal" href="#attention-it-example"><span class="std std-numref">Fig. 21</span></a> shows the idea for <em>it</em>.</p>
+<figure class="align-default" id="attention-it-example">
+<img alt="Two sentences about a film losing an award to a documentary. In the first, the word it has its thickest attention line to film. In the second, the thickest line goes to documentary. Line thickness is illustrative." src="../_images/attention-it-example.svg" /><figcaption>
+<p><span class="caption-number">Fig. 21 </span><span class="caption-text">Self-attention lets <em>it</em> draw on the words that help explain it (illustrative weights)</span><a class="headerlink" href="#attention-it-example" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>This idea comes from the textbook by Jurafsky and Martin, which uses a similar pair of sentences about a chicken and a road <span id="id2">[<a class="reference internal" href="../references.html#id24" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 7, Transformers and Pretraining; Chapter 9, Masked Language Models. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26c</a>]</span> (§7.1).</p>
+</section>
+<section id="same-word-different-meaning">
+<h3>Same word, different meaning<a class="headerlink" href="#same-word-different-meaning" title="Permalink to this heading">#</a></h3>
+<p>In Module 3, a word embedding such as word2vec gave each word <strong>one</strong> vector, whatever the sentence. Now compare:</p>
+<blockquote>
+<div><p>The film’s <strong>score</strong> was haunting. <em>(the music)</em></p>
+<p>The film’s <strong>score</strong> on the review site was low. <em>(the rating)</em></p>
+</div></blockquote>
+<p>A static embedding gives <em>score</em> the same vector both times. After attention, a transformer gives <em>score</em> a <strong>different</strong> vector in each sentence, because it mixed in <em>haunting</em> in one and <em>review site</em> and <em>low</em> in the other. These context-aware vectors are called <strong>contextual embeddings</strong> <span id="id3">[<a class="reference internal" href="../references.html#id24" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 7, Transformers and Pretraining; Chapter 9, Masked Language Models. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26c</a>]</span> (§7.1). They are a big reason transformers work so well: the model’s picture of a word now depends on how the word is used.</p>
+</section>
+<section id="several-kinds-of-attention-at-once">
+<h3>Several kinds of attention at once<a class="headerlink" href="#several-kinds-of-attention-at-once" title="Permalink to this heading">#</a></h3>
+<p>A transformer does not run attention just once. It runs several attention “heads” side by side. Each head has its own learned weights, so one head might focus on which noun a pronoun refers to, while another notices negation words like <em>not</em>, and another tracks nearby words <span id="id4">[<a class="reference internal" href="../references.html#id24" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 7, Transformers and Pretraining; Chapter 9, Masked Language Models. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26c</a>]</span> (§7.1). Researchers cannot always say exactly what each head does, but the idea of many viewpoints working together is a helpful picture. This is called <strong>multi-head attention</strong>.</p>
+<p>Transformers also stack many attention layers. Each layer refines the vectors from the layer below, so meaning is built up gradually.</p>
+</section>
+<section id="word-order-still-matters">
+<h3>Word order still matters<a class="headerlink" href="#word-order-still-matters" title="Permalink to this heading">#</a></h3>
+<p>Here is a puzzle. Attention compares every word with every other word, but nothing in that comparison says which word came first. Look at these two sentences:</p>
+<blockquote>
+<div><p>The <strong>film</strong> beat the <strong>documentary</strong>.</p>
+<p>The <strong>documentary</strong> beat the <strong>film</strong>.</p>
+</div></blockquote>
+<p>They contain exactly the same words. If a model only knew <em>which</em> words were present, it would treat them as the same sentence, just like the bag-of-words vectors in Module 3. The meanings are opposite, so order clearly matters.</p>
+<p>Transformers solve this by adding a <strong>position signal</strong> to each word’s vector before attention starts: a little bit of information that says “I am word 1”, “I am word 2”, and so on <span id="id5">[<a class="reference internal" href="../references.html#id24" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 7, Transformers and Pretraining; Chapter 9, Masked Language Models. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26c</a>, <a class="reference internal" href="../references.html#id22" title="Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. Attention is all you need. 2017. URL: https://arxiv.org/abs/1706.03762, arXiv:1706.03762.">VSP+17</a>]</span>. In Week 9, order came from reading word by word. In a transformer, order is <strong>added as information</strong>, and attention can then use it.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+For the curious: queries, keys, and values<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Inside an attention head, each word plays three roles <span id="id6">[<a class="reference internal" href="../references.html#id24" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 7, Transformers and Pretraining; Chapter 9, Masked Language Models. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26c</a>]</span> (§7.1.1):</p>
+<ul class="simple">
+<li><p class="sd-card-text">a <strong>query</strong>: “what am I looking for?”</p></li>
+<li><p class="sd-card-text">a <strong>key</strong>: “what can I offer to others who are looking?”</p></li>
+<li><p class="sd-card-text">a <strong>value</strong>: “what information do I pass on if I am chosen?”</p></li>
+</ul>
+<p class="sd-card-text">The model scores how well one word’s query matches another word’s key, turns the scores into weights with a softmax (the same softmax you met in Week 5), and adds up the values using those weights. In symbols, for all words at once:</p>
+<div class="math notranslate nohighlight">
+\[\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^{\top}}{\sqrt{d_k}}\right)V\]</div>
+<p class="sd-card-text">You do not need this formula for the course. It only makes precise the “compare, weight, mix” idea above <span id="id7">[<a class="reference internal" href="../references.html#id22" title="Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. Attention is all you need. 2017. URL: https://arxiv.org/abs/1706.03762, arXiv:1706.03762.">VSP+17</a>]</span>.</p>
+</div>
+</details></section>
+</section>
+<section id="three-families-of-transformer-models">
+<h2>3. Three Families of Transformer Models<a class="headerlink" href="#three-families-of-transformer-models" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> attention builds contextual vectors. <em>New problem:</em> different tasks need different kinds of output. <em>Next:</em> three model families built from the same parts.</p>
+</div>
+<p>All transformer models use attention, but they are arranged in three main ways <span id="id8">[<a class="reference internal" href="../references.html#id24" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 7, Transformers and Pretraining; Chapter 9, Masked Language Models. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26c</a>]</span> (§9.1):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Family</p></th>
+<th class="head"><p>How words can look at each other</p></th>
+<th class="head"><p>What it is good at</p></th>
+<th class="head"><p>Examples</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Encoder-only</strong></p></td>
+<td><p>Every word sees words on <strong>both</strong> sides</p></td>
+<td><p>Understanding a text: classification, finding names, matching</p></td>
+<td><p>BERT, RoBERTa, DistilBERT</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Decoder-only</strong></p></td>
+<td><p>Each word sees only the words <strong>before</strong> it</p></td>
+<td><p>Writing text one word at a time: autocomplete, chat</p></td>
+<td><p>GPT models and most chat assistants</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Encoder-decoder</strong></p></td>
+<td><p>An encoder reads the input; a decoder writes a new output</p></td>
+<td><p>Turning one text into another: translation, summarization</p></td>
+<td><p>The original transformer, T5</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="align-default" id="transformer-families">
+<img alt="Three panels. Encoder-only shows every word connected to every other word and produces one vector per word. Decoder-only shows each word connected only to earlier words and produces the next word. Encoder-decoder shows an encoder reading an English sentence and a decoder writing a translation." src="../_images/transformer-families.svg" /><figcaption>
+<p><span class="caption-number">Fig. 22 </span><span class="caption-text">The same building blocks arranged three ways</span><a class="headerlink" href="#transformer-families" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>A simple way to remember the difference: <strong>encoders read, decoders write.</strong> An encoder such as BERT sees the whole sentence at once and turns it into rich vectors, which makes it a great base for a classifier. A decoder can only look backward, which is exactly what you need to predict the next word, so decoders generate text. Encoders like BERT are not used to write running text <span id="id9">[<a class="reference internal" href="../references.html#id24" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 7, Transformers and Pretraining; Chapter 9, Masked Language Models. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26c</a>]</span> (§9.1).</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Today’s chat assistants are <strong>decoder</strong> models that received extra training after pretraining to follow instructions <span id="id10">[<a class="reference internal" href="../references.html#id24" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 7, Transformers and Pretraining; Chapter 9, Masked Language Models. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26c</a>]</span> (§7, introduction). BERT is an <strong>encoder</strong>. Both are transformers, but they are built for different jobs. When you choose a model, first ask: <em>do I need to understand a text or to produce a new one?</em></p>
+</div>
+</section>
+<section id="pretraining-and-transfer-learning">
+<h2>4. Pretraining and Transfer Learning<a class="headerlink" href="#pretraining-and-transfer-learning" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> in Week 9, language models learned by predicting the next word, with no human labels. <em>New problem:</em> most real tasks have only a small labeled dataset. <em>Next:</em> learn general language skills once, then reuse them.</p>
+</div>
+<section id="why-reuse-a-model">
+<h3>Why reuse a model?<a class="headerlink" href="#why-reuse-a-model" title="Permalink to this heading">#</a></h3>
+<p>Imagine you want a classifier for customer reviews of a new product, and you have only 500 labeled reviews. Training a large model from scratch on 500 examples would not work: there is not enough data for it to learn English, let alone opinions.</p>
+<p>The solution has two stages:</p>
+<ol class="arabic simple">
+<li><p><strong>Pretraining.</strong> A model learns from a huge amount of <em>unlabeled</em> text, such as books and web pages. The text itself provides the answers (for example, the next word), so no one has to label anything. This is <strong>self-supervised</strong> learning, which you met in Week 9. Pretraining is expensive, but it is done once, usually by a large lab.</p></li>
+<li><p><strong>Adapting.</strong> You take the pretrained model and teach it your specific task with a small labeled dataset.</p></li>
+</ol>
+<p>Reusing knowledge learned on one task to help with another is called <strong>transfer learning</strong> <span id="id11">[<a class="reference internal" href="../references.html#id24" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 7, Transformers and Pretraining; Chapter 9, Masked Language Models. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26c</a>]</span> (Ch. 9 introduction). A helpful picture is a <strong>body</strong> and a <strong>head</strong>. The body is the large pretrained model that understands language in general. The head is a small new part on top that gives the answer your task needs, such as “positive” or “negative” <span id="id12">[<a class="reference internal" href="../references.html#id26" title="Lewis Tunstall, Leandro von Werra, and Thomas Wolf. Natural Language Processing with Transformers. O'Reilly Media, revised edition, 2022. ISBN 9781098136796.">TvWW22</a>]</span>.</p>
+<figure class="align-default" id="transfer-learning-paths">
+<img alt="Unlabeled text trains a pretrained body. From there, three paths lead to a sentiment task. Path one uses a model that someone already fine-tuned. Path two freezes the body and trains only a small head. Path three updates the body and the head together." src="../_images/transfer-learning-paths.svg" /><figcaption>
+<p><span class="caption-number">Fig. 23 </span><span class="caption-text">One pretrained body, three ways to use it</span><a class="headerlink" href="#transfer-learning-paths" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="three-ways-to-use-a-pretrained-model">
+<h3>Three ways to use a pretrained model<a class="headerlink" href="#three-ways-to-use-a-pretrained-model" title="Permalink to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Approach</p></th>
+<th class="head"><p>What you do</p></th>
+<th class="head"><p>What gets trained</p></th>
+<th class="head"><p>When it fits</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>1. Use a ready-made model</strong></p></td>
+<td><p>Download a model that someone already adapted to your task, such as a sentiment classifier, and run it</p></td>
+<td><p>Nothing</p></td>
+<td><p>You want quick results and a suitable model already exists</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>2. Use it as a feature extractor</strong></p></td>
+<td><p>Keep the pretrained body frozen, turn each text into a vector, and train a small classifier (for example, the logistic regression from Week 5) on those vectors</p></td>
+<td><p>Only the small classifier</p></td>
+<td><p>You have a little labeled data and limited computing power</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>3. Fine-tune it</strong></p></td>
+<td><p>Add a head and keep training the body and head together on your labeled data</p></td>
+<td><p>The head and (some or all of) the body</p></td>
+<td><p>You have more labeled data and need the best accuracy</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The BERT paper compared approaches 2 and 3 and found that both can work well <span id="id13">[<a class="reference internal" href="../references.html#id25" title="Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. BERT: pre-training of deep bidirectional transformers for language understanding. In Proceedings of NAACL-HLT. 2019. URL: https://arxiv.org/abs/1810.04805, arXiv:1810.04805.">DCLT19</a>]</span>. Approach 1 is what you did in the Week 9 Hugging Face activity, and it is also how most people use chat assistants: they give instructions to a model that is already trained, rather than training it themselves <span id="id14">[<a class="reference internal" href="../references.html#id24" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 7, Transformers and Pretraining; Chapter 9, Masked Language Models. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26c</a>]</span> (§9.4).</p>
+<p>You have actually used transfer learning before. In Module 3, pretrained word embeddings such as word2vec or GloVe carried knowledge learned from large text collections into your own projects. Transformers take this much further: instead of reusing one vector per word, you reuse a whole model that understands words in context.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+A bit of history: transfer learning before transformers<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Transfer learning in NLP did not start with transformers. In 2018, a method called ULMFiT pretrained an <strong>LSTM</strong> language model on Wikipedia, adapted it to movie reviews, and then fine-tuned it as a sentiment classifier. With only 100 labeled examples, it matched models trained from scratch on 100 times more data <span id="id15">[<a class="reference internal" href="../references.html#id27" title="Jeremy Howard and Sebastian Ruder. Universal language model fine-tuning for text classification. In Proceedings of ACL. 2018. URL: https://arxiv.org/abs/1801.06146, arXiv:1801.06146.">HR18</a>, <a class="reference internal" href="../references.html#id26" title="Lewis Tunstall, Leandro von Werra, and Thomas Wolf. Natural Language Processing with Transformers. O'Reilly Media, revised edition, 2022. ISBN 9781098136796.">TvWW22</a>]</span>. Later that year, BERT and GPT combined this pretrain-then-adapt recipe with the transformer, and the approach took off.</p>
+</div>
+</details></section>
+</section>
+<section id="bert-learning-by-filling-in-blanks">
+<h2>5. BERT: Learning by Filling in Blanks<a class="headerlink" href="#bert-learning-by-filling-in-blanks" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> encoders see both sides of a word, and models are pretrained on unlabeled text. <em>New problem:</em> how do you pretrain a model that sees both sides? <em>Next:</em> a fill-in-the-blank game.</p>
+</div>
+<p><strong>BERT</strong> (Bidirectional Encoder Representations from Transformers) was released by Google in 2018 and is the best-known encoder model <span id="id16">[<a class="reference internal" href="../references.html#id25" title="Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. BERT: pre-training of deep bidirectional transformers for language understanding. In Proceedings of NAACL-HLT. 2019. URL: https://arxiv.org/abs/1810.04805, arXiv:1810.04805.">DCLT19</a>]</span>.</p>
+<section id="why-predict-the-next-word-does-not-work-for-bert">
+<h3>Why “predict the next word” does not work for BERT<a class="headerlink" href="#why-predict-the-next-word-does-not-work-for-bert" title="Permalink to this heading">#</a></h3>
+<p>A decoder learns by predicting the next word. That would be far too easy for BERT: since BERT can see the whole sentence, the “next word” is already visible to it <span id="id17">[<a class="reference internal" href="../references.html#id24" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 7, Transformers and Pretraining; Chapter 9, Masked Language Models. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26c</a>]</span> (§9.3).</p>
+</section>
+<section id="masked-language-modeling">
+<h3>Masked language modeling<a class="headerlink" href="#masked-language-modeling" title="Permalink to this heading">#</a></h3>
+<p>Instead, BERT plays a fill-in-the-blank game. During pretraining, some words in each sentence are hidden behind a special <code class="docutils literal notranslate"><span class="pre">[MASK]</span></code> token, and BERT must guess them using the words on <strong>both</strong> sides <span id="id18">[<a class="reference internal" href="../references.html#id25" title="Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. BERT: pre-training of deep bidirectional transformers for language understanding. In Proceedings of NAACL-HLT. 2019. URL: https://arxiv.org/abs/1810.04805, arXiv:1810.04805.">DCLT19</a>]</span>. For example:</p>
+<blockquote>
+<div><p>Everyone told me the film was <strong>[MASK]</strong>, but I loved it.</p>
+</div></blockquote>
+<p>To fill in this blank well, it helps to read the words <strong>after</strong> the blank: <em>but I loved it</em> suggests the missing word is something negative, such as <em>boring</em> or <em>slow</em>. A left-to-right model reading “Everyone told me the film was …” could not see that clue yet. This training game is called <strong>masked language modeling</strong>, and it is how BERT learns contextual vectors that use the whole sentence. You will try this yourself in the coding practice.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+For the curious: how much is masked?<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">In the original BERT, about 15% of the tokens in each training sentence were selected. Most of them were replaced with <code class="docutils literal notranslate"><span class="pre">[MASK]</span></code>, some with a random word, and some were left unchanged, so that BERT would not learn to pay attention only when it saw <code class="docutils literal notranslate"><span class="pre">[MASK]</span></code> <span id="id19">[<a class="reference internal" href="../references.html#id25" title="Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. BERT: pre-training of deep bidirectional transformers for language understanding. In Proceedings of NAACL-HLT. 2019. URL: https://arxiv.org/abs/1810.04805, arXiv:1810.04805.">DCLT19</a>, <a class="reference internal" href="../references.html#id24" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 7, Transformers and Pretraining; Chapter 9, Masked Language Models. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26c</a>]</span>.</p>
+</div>
+</details></section>
+<section id="from-bert-to-a-sentiment-classifier">
+<h3>From BERT to a sentiment classifier<a class="headerlink" href="#from-bert-to-a-sentiment-classifier" title="Permalink to this heading">#</a></h3>
+<p>After pretraining, BERT is a good reader but does not know anything about sentiment yet. To turn it into a classifier, we add a small head on top <span id="id20">[<a class="reference internal" href="../references.html#id24" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 7, Transformers and Pretraining; Chapter 9, Masked Language Models. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26c</a>]</span> (§9.4.1):</p>
+<ol class="arabic simple">
+<li><p>Tokenize the review. BERT adds a special <code class="docutils literal notranslate"><span class="pre">[CLS]</span></code> token at the start and <code class="docutils literal notranslate"><span class="pre">[SEP]</span></code> at the end. You saw these tokens in the Week 9 Hugging Face activity.</p></li>
+<li><p>Run the review through BERT. Every token, including <code class="docutils literal notranslate"><span class="pre">[CLS]</span></code>, now has a contextual vector.</p></li>
+<li><p>Use the vector for <code class="docutils literal notranslate"><span class="pre">[CLS]</span></code> as a summary of the whole review and pass it to a small classifier that outputs “positive” or “negative”.</p></li>
+</ol>
+<p>The <code class="docutils literal notranslate"><span class="pre">[CLS]</span></code> vector is a <strong>BERT-style</strong> convention, not a universal rule. Other models use a different special token, or average the vectors of all the tokens, to represent a whole text <span id="id21">[<a class="reference internal" href="../references.html#id24" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 7, Transformers and Pretraining; Chapter 9, Masked Language Models. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26c</a>]</span> (§9.4.1). The general idea is the same: turn the text into one vector, then classify that vector.</p>
+<p>BERT is also fairly small by today’s standards. The base version has about 110 million learned numbers (parameters) <span id="id22">[<a class="reference internal" href="../references.html#id25" title="Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. BERT: pre-training of deep bidirectional transformers for language understanding. In Proceedings of NAACL-HLT. 2019. URL: https://arxiv.org/abs/1810.04805, arXiv:1810.04805.">DCLT19</a>]</span>, while today’s largest chat models have hundreds of billions. That makes BERT-family models practical for everyday classification tasks, even on a laptop or in Google Colab.</p>
+</section>
+</section>
+<section id="choosing-a-pretrained-model">
+<h2>6. Choosing a Pretrained Model<a class="headerlink" href="#choosing-a-pretrained-model" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> how pretrained models are built and adapted. <em>New problem:</em> there are a huge number of models to choose from. <em>Next:</em> how to pick one and how to check it.</p>
+</div>
+<section id="where-models-live">
+<h3>Where models live<a class="headerlink" href="#where-models-live" title="Permalink to this heading">#</a></h3>
+<p>The <strong>Hugging Face Hub</strong> is a large public library of pretrained models and datasets, which you used in Week 9 <span id="id23">[<a class="reference internal" href="../references.html#id26" title="Lewis Tunstall, Leandro von Werra, and Thomas Wolf. Natural Language Processing with Transformers. O'Reilly Media, revised edition, 2022. ISBN 9781098136796.">TvWW22</a>]</span>. Each model on the Hub comes with:</p>
+<ul class="simple">
+<li><p>a name, called a <strong>checkpoint</strong>, such as <code class="docutils literal notranslate"><span class="pre">distilbert/distilbert-base-uncased</span></code></p></li>
+<li><p>its own <strong>tokenizer</strong>, which must match the model (another model’s tokenizer would give the wrong token IDs)</p></li>
+<li><p>a <strong>model card</strong>, the model’s “label” or user guide</p></li>
+</ul>
+</section>
+<section id="start-with-the-task">
+<h3>Start with the task<a class="headerlink" href="#start-with-the-task" title="Permalink to this heading">#</a></h3>
+<p>Before searching for a model, decide what you need, using the families from Section 3:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>You want to…</p></th>
+<th class="head"><p>Look for…</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>label a whole text (sentiment, topic, spam)</p></td>
+<td><p>an encoder fine-tuned for <strong>text classification</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>find names of people, places, or products</p></td>
+<td><p>an encoder fine-tuned for <strong>token classification</strong> (named entity recognition)</p></td>
+</tr>
+<tr class="row-even"><td><p>pull an answer out of a passage</p></td>
+<td><p>a model fine-tuned for <strong>question answering</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>translate or summarize</p></td>
+<td><p>an <strong>encoder-decoder</strong> model</p></td>
+</tr>
+<tr class="row-even"><td><p>write new text or chat</p></td>
+<td><p>a <strong>decoder</strong> model</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>These are the same kinds of tasks covered in the overview of transformer applications by Tunstall and colleagues <span id="id24">[<a class="reference internal" href="../references.html#id26" title="Lewis Tunstall, Leandro von Werra, and Thomas Wolf. Natural Language Processing with Transformers. O'Reilly Media, revised edition, 2022. ISBN 9781098136796.">TvWW22</a>]</span>.</p>
+</section>
+<section id="read-the-model-card">
+<h3>Read the model card<a class="headerlink" href="#read-the-model-card" title="Permalink to this heading">#</a></h3>
+<p>A model card tells you what the model was trained on, what it is meant for, and where it may fail. When you open one, look for:</p>
+<ul class="simple">
+<li><p><strong>Training data.</strong> What texts did it learn from? A sentiment model trained on movie reviews may struggle with medical notes, tweets, or product questions.</p></li>
+<li><p><strong>Labels.</strong> What answers can it give? A model with only “positive” and “negative” has to force a mixed or neutral review into one of those two labels.</p></li>
+<li><p><strong>Language.</strong> Most popular models are trained mainly on English.</p></li>
+<li><p><strong>Intended uses and limitations.</strong> Good model cards say where the model should <em>not</em> be used, and may report known biases.</p></li>
+<li><p><strong>Size and speed.</strong> Smaller models (for example DistilBERT, which you will use in the coding practice) run faster and fit more easily in Colab.</p></li>
+</ul>
+<p>A model with no model card, or a very thin one, is a warning sign: you have little information about what it learned.</p>
+</section>
+<section id="check-it-on-your-own-data">
+<h3>Check it on your own data<a class="headerlink" href="#check-it-on-your-own-data" title="Permalink to this heading">#</a></h3>
+<p>A model’s reported accuracy was measured on someone else’s test data. Before you trust a model, take a small labeled sample of <strong>your</strong> texts and measure accuracy, precision, and recall, just as in Week 5. Look at the errors, too. In Week 9 you saw that negation, contrast, and mixed opinions can trip models up. It is also worth comparing against a simple baseline such as TF-IDF with logistic regression: if the simple model is nearly as good, it may be the better choice because it is faster and easier to explain.</p>
+</section>
+<section id="know-the-common-limits">
+<h3>Know the common limits<a class="headerlink" href="#know-the-common-limits" title="Permalink to this heading">#</a></h3>
+<p>Pretrained transformers are powerful, but they are not magic <span id="id25">[<a class="reference internal" href="../references.html#id26" title="Lewis Tunstall, Leandro von Werra, and Thomas Wolf. Natural Language Processing with Transformers. O'Reilly Media, revised edition, 2022. ISBN 9781098136796.">TvWW22</a>]</span>:</p>
+<ul class="simple">
+<li><p><strong>Confidence is not correctness.</strong> A score of 0.99 means the model is sure, not that it is right.</p></li>
+<li><p><strong>Bias.</strong> Models learn from large collections of web and book text, and they can pick up the stereotypes in that text.</p></li>
+<li><p><strong>Hard to explain.</strong> It is difficult to say exactly why a transformer made a particular prediction.</p></li>
+<li><p><strong>Long texts.</strong> Because every word compares itself with every other word, the work grows quickly with text length, so many models have a maximum input length and may cut off the end of a long document <span id="id26">[<a class="reference internal" href="../references.html#id24" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 7, Transformers and Pretraining; Chapter 9, Masked Language Models. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26c</a>]</span> (§7.3).</p></li>
+<li><p><strong>Language coverage.</strong> Good pretrained models are much easier to find for English than for many other languages.</p></li>
+</ul>
+</section>
+</section>
+<section id="key-takeaways-and-knowledge-check">
+<h2>7. Key Takeaways and Knowledge Check<a class="headerlink" href="#key-takeaways-and-knowledge-check" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Static embeddings (Module 3)</p></th>
+<th class="head"><p>RNN / LSTM (Week 9)</p></th>
+<th class="head"><p>Transformer encoder (BERT)</p></th>
+<th class="head"><p>Transformer decoder (GPT)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>One vector per word or per word in context?</p></td>
+<td><p>Per word</p></td>
+<td><p>Per word in context, built left to right</p></td>
+<td><p>Per word in context, using both sides</p></td>
+<td><p>Per word in context, using the left side only</p></td>
+</tr>
+<tr class="row-odd"><td><p>How it reads</p></td>
+<td><p>Does not read order</p></td>
+<td><p>One word at a time</p></td>
+<td><p>All words at once, with attention</p></td>
+<td><p>All words at once in training, writes one word at a time</p></td>
+</tr>
+<tr class="row-even"><td><p>Typical use today</p></td>
+<td><p>Simple features, similarity</p></td>
+<td><p>Smaller sequence tasks</p></td>
+<td><p>Classification, labeling, search</p></td>
+<td><p>Text generation, chat</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p><strong>Attention</strong> lets every word build its meaning from the words around it, using learned weights.</p></li>
+<li><p>The result is <strong>contextual embeddings</strong>: the same word gets different vectors in different sentences. Transformers add <strong>position information</strong> because attention alone ignores order.</p></li>
+<li><p><strong>Encoders read, decoders write</strong>, and encoder-decoders turn one text into another.</p></li>
+<li><p><strong>Pretraining</strong> teaches general language skills from unlabeled text. <strong>Transfer learning</strong> reuses those skills for your task: use a ready-made model, use it as a feature extractor, or fine-tune it.</p></li>
+<li><p><strong>BERT</strong> is an encoder pretrained by filling in masked words, using context on both sides.</p></li>
+<li><p>Choose models by <strong>task</strong>, read the <strong>model card</strong>, and <strong>test on your own data</strong>.</p></li>
+</ul>
+<section id="check-your-reasoning">
+<h3>Check your reasoning<a class="headerlink" href="#check-your-reasoning" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>In “The critic praised the film because <strong>it</strong> was honest,” which word might <em>it</em> refer to? How does self-attention help a model decide?</p></li>
+<li><p>Why does a transformer need position information, when an RNN did not?</p></li>
+<li><p>For each task, which model family fits best? (a) sorting support emails into topics, (b) suggesting a reply to a customer, (c) translating product descriptions into Spanish.</p></li>
+<li><p>Your team has 300 labeled reviews and a free Colab notebook. Which of the three ways of using a pretrained model would you try first, and why?</p></li>
+<li><p>A sentiment model was fine-tuned on movie reviews. A classmate wants to use it on hospital patient feedback. What would you check on the model card, and what test would you run before trusting it?</p></li>
+</ol>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Suggested reasoning<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<ol class="arabic simple">
+<li><p class="sd-card-text"><em>It</em> could refer to the critic or to the film; <em>honest</em> fits a review or a film, so readers may disagree. Self-attention lets the vector for <em>it</em> draw on <em>critic</em>, <em>film</em>, and <em>honest</em>, with learned weights, so the model can use the surrounding words to decide.</p></li>
+<li><p class="sd-card-text">An RNN reads words in order, so order is built into how it works. Attention compares all words at once and has no built-in sense of which came first, so “The film beat the documentary” and “The documentary beat the film” would look the same without a position signal.</p></li>
+<li><p class="sd-card-text">(a) An encoder classifier, such as a BERT-family model. (b) A decoder model that generates text. (c) An encoder-decoder translation model (or a large decoder model that can translate).</p></li>
+<li><p class="sd-card-text">Start with a ready-made model if one fits the labels you need, and measure it on your 300 reviews. If none fits, use the pretrained model as a feature extractor and train logistic regression on its vectors: it needs little data and little computing power. Fine-tuning is an option later if those results are not good enough.</p></li>
+<li><p class="sd-card-text">Check the training data (movie reviews, not health care), the labels (only positive and negative?), the language, and any listed limitations. Then label a sample of real patient feedback, measure accuracy, precision, and recall, and read the mistakes, especially mixed or neutral comments.</p></li>
+</ol>
+</div>
+</details><p>Next, the coding practice lets you explore a BERT-family model hands-on: you will look at subword tokens, play BERT’s fill-in-the-blank game, compare contextual vectors, test a sentiment classifier on tricky sentences, and read a real model card.</p>
+<p><a class="reference external" href="https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module10/week10_bert_practice.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<p>Main source for attention, contextual embeddings, transformer families, masked language models, and fine-tuning: <span id="id27">[<a class="reference internal" href="../references.html#id24" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 7, Transformers and Pretraining; Chapter 9, Masked Language Models. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26c</a>]</span> (Chapter 7, “Transformers and Pretraining”, and Chapter 9, “Masked Language Models”).</p>
+<p>Transformer architecture: <span id="id28">[<a class="reference internal" href="../references.html#id22" title="Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. Attention is all you need. 2017. URL: https://arxiv.org/abs/1706.03762, arXiv:1706.03762.">VSP+17</a>]</span>. BERT and masked language modeling: <span id="id29">[<a class="reference internal" href="../references.html#id25" title="Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. BERT: pre-training of deep bidirectional transformers for language understanding. In Proceedings of NAACL-HLT. 2019. URL: https://arxiv.org/abs/1810.04805, arXiv:1810.04805.">DCLT19</a>]</span>. Transfer learning in NLP, applications, the Hugging Face Hub, and challenges: <span id="id30">[<a class="reference internal" href="../references.html#id26" title="Lewis Tunstall, Leandro von Werra, and Thomas Wolf. Natural Language Processing with Transformers. O'Reilly Media, revised edition, 2022. ISBN 9781098136796.">TvWW22</a>]</span> (Chapter 1). ULMFiT: <span id="id31">[<a class="reference internal" href="../references.html#id27" title="Jeremy Howard and Sebastian Ruder. Universal language model fine-tuning for text classification. In Proceedings of ACL. 2018. URL: https://arxiv.org/abs/1801.06146, arXiv:1801.06146.">HR18</a>]</span>.</p>
+<p><strong>Optional deeper reading:</strong> Jurafsky and Martin, §7.1 (attention) and Chapter 9, §§9.1 to 9.4 (encoders, masked language modeling, and fine-tuning), available free at <a class="reference external" href="https://web.stanford.edu/~jurafsky/slp3/">https://web.stanford.edu/~jurafsky/slp3/</a>. These chapters use more math than these notes. The equations are not required.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module10"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="module10.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 10 Transformers, Pretrained Models, and Transfer Learning</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="week10_bert_practice.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">10.2 Coding Practice: Exploring BERT-Family Models</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-we-left-off">1. Where We Left Off</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attention-letting-words-look-at-each-other">2. Attention: Letting Words Look at Each Other</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-idea">The idea</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#same-word-different-meaning">Same word, different meaning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#several-kinds-of-attention-at-once">Several kinds of attention at once</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#word-order-still-matters">Word order still matters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#three-families-of-transformer-models">3. Three Families of Transformer Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pretraining-and-transfer-learning">4. Pretraining and Transfer Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-reuse-a-model">Why reuse a model?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#three-ways-to-use-a-pretrained-model">Three ways to use a pretrained model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bert-learning-by-filling-in-blanks">5. BERT: Learning by Filling in Blanks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-predict-the-next-word-does-not-work-for-bert">Why “predict the next word” does not work for BERT</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#masked-language-modeling">Masked language modeling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-bert-to-a-sentiment-classifier">From BERT to a sentiment classifier</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-a-pretrained-model">6. Choosing a Pretrained Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-models-live">Where models live</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#start-with-the-task">Start with the task</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#read-the-model-card">Read the model card</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-it-on-your-own-data">Check it on your own data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#know-the-common-limits">Know the common limits</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways-and-knowledge-check">7. Key Takeaways and Knowledge Check</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-reasoning">Check your reasoning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
