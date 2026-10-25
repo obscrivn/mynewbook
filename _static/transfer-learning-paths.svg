@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="460" viewBox="0 0 780 460" role="img" aria-labelledby="title desc">
+  <title id="title">One pretrained body, three ways to use it</title>
+  <desc id="desc">Lots of unlabeled text is used to pretrain a model body once. From the pretrained body, three paths lead to a sentiment task with a small set of labeled reviews. Path 1: use a model someone already fine-tuned; nothing is trained. Path 2: keep the body frozen and train only a small classifier such as logistic regression. Path 3: fine-tune, updating the head and the body together.</desc>
+  <defs><marker id="arw" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#46576c"/></marker></defs>
+  <rect width="780" height="460" fill="#f8fafc" rx="16"/>
+  <g font-family="Arial, sans-serif" fill="#162b43" text-anchor="middle">
+    <text x="390" y="34" font-size="21" font-weight="bold">One pretrained body, three ways to use it</text>
+
+    <!-- Stage 1 -->
+    <rect x="30" y="70" width="190" height="80" rx="12" fill="#ffffff" stroke="#c8d3e0"/>
+    <text x="125" y="100" font-size="15" font-weight="bold">Lots of unlabeled text</text>
+    <text x="125" y="122" font-size="13" fill="#46576c">books, web pages</text>
+    <text x="125" y="140" font-size="13" fill="#46576c">(no labels needed)</text>
+    <line x1="220" y1="110" x2="285" y2="110" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)"/>
+    <text x="252" y="98" font-size="12" fill="#46576c">pretrain</text>
+    <text x="252" y="132" font-size="12" fill="#46576c">once</text>
+    <rect x="290" y="70" width="200" height="80" rx="12" fill="#e8f0fa" stroke="#53779d" stroke-width="1.8"/>
+    <text x="390" y="102" font-size="16" font-weight="bold">Pretrained body</text>
+    <text x="390" y="125" font-size="13">understands language</text>
+    <text x="390" y="142" font-size="13">in general (e.g., BERT)</text>
+    <rect x="560" y="70" width="190" height="80" rx="12" fill="#ffffff" stroke="#c8d3e0"/>
+    <text x="655" y="100" font-size="15" font-weight="bold">Your task</text>
+    <text x="655" y="122" font-size="13" fill="#46576c">sentiment of reviews,</text>
+    <text x="655" y="140" font-size="13" fill="#46576c">a few hundred labels</text>
+
+    <line x1="390" y1="150" x2="140" y2="200" stroke="#46576c" stroke-width="1.5" marker-end="url(#arw)"/>
+    <line x1="390" y1="150" x2="390" y2="200" stroke="#46576c" stroke-width="1.5" marker-end="url(#arw)"/>
+    <line x1="390" y1="150" x2="640" y2="200" stroke="#46576c" stroke-width="1.5" marker-end="url(#arw)"/>
+
+    <!-- Path 1 -->
+    <rect x="30" y="205" width="225" height="225" rx="12" fill="#ffffff" stroke="#c8d3e0"/>
+    <text x="142" y="232" font-size="15" font-weight="bold">1. Use a ready-made model</text>
+    <rect x="62" y="250" width="160" height="38" rx="9" fill="#e6f4ed" stroke="#467861"/><text x="142" y="274" font-size="13">head (already trained)</text>
+    <rect x="62" y="294" width="160" height="50" rx="9" fill="#e8f0fa" stroke="#53779d"/><text x="142" y="324" font-size="13">body</text>
+    <text x="142" y="372" font-size="13" font-weight="bold">Trained by you: nothing</text>
+    <text x="142" y="394" font-size="12" fill="#46576c">Someone else already</text>
+    <text x="142" y="411" font-size="12" fill="#46576c">fine-tuned it (Week 9)</text>
+
+    <!-- Path 2 -->
+    <rect x="278" y="205" width="225" height="225" rx="12" fill="#ffffff" stroke="#b7862b" stroke-width="2"/>
+    <text x="390" y="232" font-size="15" font-weight="bold">2. Feature extractor</text>
+    <rect x="310" y="250" width="160" height="38" rx="9" fill="#fff4dc" stroke="#b7862b"/><text x="390" y="274" font-size="13">small classifier (new)</text>
+    <rect x="310" y="294" width="160" height="50" rx="9" fill="#e8f0fa" stroke="#53779d"/><text x="390" y="316" font-size="13">body</text><text x="390" y="334" font-size="12" fill="#46576c">frozen (not changed)</text>
+    <text x="390" y="372" font-size="13" font-weight="bold">Trained by you: the classifier</text>
+    <text x="390" y="394" font-size="12" fill="#46576c">e.g., logistic regression</text>
+    <text x="390" y="411" font-size="12" fill="#46576c">on BERT vectors</text>
+
+    <!-- Path 3 -->
+    <rect x="526" y="205" width="225" height="225" rx="12" fill="#ffffff" stroke="#c8d3e0"/>
+    <text x="638" y="232" font-size="15" font-weight="bold">3. Fine-tune</text>
+    <rect x="558" y="250" width="160" height="38" rx="9" fill="#fff4dc" stroke="#b7862b"/><text x="638" y="274" font-size="13">head (new)</text>
+    <rect x="558" y="294" width="160" height="50" rx="9" fill="#fff4dc" stroke="#b7862b"/><text x="638" y="316" font-size="13">body</text><text x="638" y="334" font-size="12" fill="#46576c">keeps learning</text>
+    <text x="638" y="372" font-size="13" font-weight="bold">Trained by you: head + body</text>
+    <text x="638" y="394" font-size="12" fill="#46576c">needs more data and</text>
+    <text x="638" y="411" font-size="12" fill="#46576c">computing power</text>
+  </g>
+</svg>
