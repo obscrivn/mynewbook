@@ -53,9 +53,10 @@ chapters:
     - file: module10/week10_bert_practice
     - file: module10/week10_bert_practice_solution
 
-- file: speech
+- file: module11/module11
   sections:
-    - file: phonetics
-    - file: recognizer
+    - file: module11/speech_signals
+    - file: module11/speech_recognition
+
 - file: translation
 - file: references

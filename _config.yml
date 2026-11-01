@@ -6,6 +6,10 @@ author: Olga Scrivner
 logo: logo.png
 description: This website presents a set of lectures and practice on Natural Language Prrocessing, designed and written by Olga Scrivner with some material adapted from NLTK book (Bird et al., 2019) and Text Analytics with Python (Sarkar, 2019).
 
+# Files kept in the repository but not built or published.
+# speech.md, phonetics.md, recognizer.md: retired November 2026, replaced by module11/.
+exclude_patterns: [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints", speech.md, phonetics.md, recognizer.md]
+
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
 execute:
