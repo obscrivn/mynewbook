@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="470" viewBox="0 0 780 470" role="img" aria-labelledby="title desc">
+  <title id="title">The alignment problem and how CTC handles it</title>
+  <desc id="desc">Top: eleven audio frames, x1 to x11, for the spoken word night. The seven letters cover different numbers of frames: n covers frames 1 and 2, o covers frames 3 to 5, r covers frame 6, i covers frames 7 and 8, g covers frame 9, h covers frame 10, and t covers frame 11. Training data gives the letters but not these boundaries. Bottom: CTC lets the model output one symbol per frame, including a blank symbol, for the word dinner: d, i, i, n, blank, n, n, e, r, r. Step 1 merges repeated symbols to d, i, n, blank, n, e, r. Step 2 removes blanks to give dinner. Without the blank, merging would wrongly give diner.</desc>
+  <defs><marker id="arw" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#46576c"/></marker></defs>
+  <rect width="780" height="470" fill="#f8fafc" rx="16"/>
+  <g font-family="Arial, sans-serif" fill="#162b43" text-anchor="middle">
+    <text x="390" y="34" font-size="20" font-weight="bold">Matching audio frames to letters</text>
+    <rect x="15" y="50" width="750" height="190" rx="12" fill="#ffffff" stroke="#c8d3e0"/>
+    <text x="30" y="74" font-size="14" font-weight="bold" text-anchor="start">The alignment problem: which frames belong to which letter?</text>
+    <rect x="150" y="100" width="88" height="30" rx="7" fill="#e6f4ed" stroke="#467861"/>
+    <text x="194.0" y="120" font-size="15" font-weight="bold">n</text>
+    <text x="194.0" y="95" font-size="11" fill="#46576c">g1</text>
+    <rect x="246" y="100" width="136" height="30" rx="7" fill="#e6f4ed" stroke="#467861"/>
+    <text x="314.0" y="120" font-size="15" font-weight="bold">o</text>
+    <text x="314.0" y="95" font-size="11" fill="#46576c">g2</text>
+    <rect x="390" y="100" width="40" height="30" rx="7" fill="#e6f4ed" stroke="#467861"/>
+    <text x="410.0" y="120" font-size="15" font-weight="bold">r</text>
+    <text x="410.0" y="95" font-size="11" fill="#46576c">g3</text>
+    <rect x="438" y="100" width="88" height="30" rx="7" fill="#e6f4ed" stroke="#467861"/>
+    <text x="482.0" y="120" font-size="15" font-weight="bold">i</text>
+    <text x="482.0" y="95" font-size="11" fill="#46576c">g4</text>
+    <rect x="534" y="100" width="40" height="30" rx="7" fill="#e6f4ed" stroke="#467861"/>
+    <text x="554.0" y="120" font-size="15" font-weight="bold">g</text>
+    <text x="554.0" y="95" font-size="11" fill="#46576c">g5</text>
+    <rect x="582" y="100" width="40" height="30" rx="7" fill="#e6f4ed" stroke="#467861"/>
+    <text x="602.0" y="120" font-size="15" font-weight="bold">h</text>
+    <text x="602.0" y="95" font-size="11" fill="#46576c">g6</text>
+    <rect x="630" y="100" width="40" height="30" rx="7" fill="#e6f4ed" stroke="#467861"/>
+    <text x="650.0" y="120" font-size="15" font-weight="bold">t</text>
+    <text x="650.0" y="95" font-size="11" fill="#46576c">g7</text>
+    <rect x="158" y="142" width="24" height="56" rx="5" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="170.0" y="216" font-size="12" fill="#46576c">x1</text>
+    <rect x="206" y="142" width="24" height="56" rx="5" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="218.0" y="216" font-size="12" fill="#46576c">x2</text>
+    <rect x="254" y="142" width="24" height="56" rx="5" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="266.0" y="216" font-size="12" fill="#46576c">x3</text>
+    <rect x="302" y="142" width="24" height="56" rx="5" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="314.0" y="216" font-size="12" fill="#46576c">x4</text>
+    <rect x="350" y="142" width="24" height="56" rx="5" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="362.0" y="216" font-size="12" fill="#46576c">x5</text>
+    <rect x="398" y="142" width="24" height="56" rx="5" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="410.0" y="216" font-size="12" fill="#46576c">x6</text>
+    <rect x="446" y="142" width="24" height="56" rx="5" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="458.0" y="216" font-size="12" fill="#46576c">x7</text>
+    <rect x="494" y="142" width="24" height="56" rx="5" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="506.0" y="216" font-size="12" fill="#46576c">x8</text>
+    <rect x="542" y="142" width="24" height="56" rx="5" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="554.0" y="216" font-size="12" fill="#46576c">x9</text>
+    <rect x="590" y="142" width="24" height="56" rx="5" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="602.0" y="216" font-size="12" fill="#46576c">x10</text>
+    <rect x="638" y="142" width="24" height="56" rx="5" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="650.0" y="216" font-size="12" fill="#46576c">x11</text>
+    <text x="80" y="120" font-size="12" fill="#46576c">letters</text>
+    <text x="80" y="174" font-size="12" fill="#46576c">audio frames</text>
+    <text x="390" y="234" font-size="12" fill="#46576c">Many frames, few letters, and the training data does not say where each letter starts and ends.</text>
+    <rect x="15" y="255" width="750" height="200" rx="12" fill="#ffffff" stroke="#53779d" stroke-width="1.8"/>
+    <text x="30" y="279" font-size="14" font-weight="bold" text-anchor="start">One answer, CTC: a symbol for every frame, then two clean-up steps</text>
+    <text x="160" y="317" font-size="12" text-anchor="end" fill="#46576c">one symbol per frame</text>
+    <rect x="175" y="296" width="32" height="30" rx="6" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="191" y="317" font-size="15" font-weight="bold">d</text>
+    <rect x="213" y="296" width="32" height="30" rx="6" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="229" y="317" font-size="15" font-weight="bold">i</text>
+    <rect x="251" y="296" width="32" height="30" rx="6" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="267" y="317" font-size="15" font-weight="bold">i</text>
+    <rect x="289" y="296" width="32" height="30" rx="6" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="305" y="317" font-size="15" font-weight="bold">n</text>
+    <rect x="327" y="296" width="32" height="30" rx="6" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="343" y="317" font-size="15" font-weight="bold">_</text>
+    <rect x="365" y="296" width="32" height="30" rx="6" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="381" y="317" font-size="15" font-weight="bold">n</text>
+    <rect x="403" y="296" width="32" height="30" rx="6" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="419" y="317" font-size="15" font-weight="bold">n</text>
+    <rect x="441" y="296" width="32" height="30" rx="6" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="457" y="317" font-size="15" font-weight="bold">e</text>
+    <rect x="479" y="296" width="32" height="30" rx="6" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="495" y="317" font-size="15" font-weight="bold">r</text>
+    <rect x="517" y="296" width="32" height="30" rx="6" fill="#e8f0fa" stroke="#53779d"/>
+    <text x="533" y="317" font-size="15" font-weight="bold">r</text>
+    <text x="160" y="365" font-size="12" text-anchor="end" fill="#46576c">1. merge repeats</text>
+    <rect x="175" y="344" width="32" height="30" rx="6" fill="#fff4dc" stroke="#b7862b"/>
+    <text x="191" y="365" font-size="15" font-weight="bold">d</text>
+    <rect x="213" y="344" width="32" height="30" rx="6" fill="#fff4dc" stroke="#b7862b"/>
+    <text x="229" y="365" font-size="15" font-weight="bold">i</text>
+    <rect x="251" y="344" width="32" height="30" rx="6" fill="#fff4dc" stroke="#b7862b"/>
+    <text x="267" y="365" font-size="15" font-weight="bold">n</text>
+    <rect x="289" y="344" width="32" height="30" rx="6" fill="#fff4dc" stroke="#b7862b"/>
+    <text x="305" y="365" font-size="15" font-weight="bold">_</text>
+    <rect x="327" y="344" width="32" height="30" rx="6" fill="#fff4dc" stroke="#b7862b"/>
+    <text x="343" y="365" font-size="15" font-weight="bold">n</text>
+    <rect x="365" y="344" width="32" height="30" rx="6" fill="#fff4dc" stroke="#b7862b"/>
+    <text x="381" y="365" font-size="15" font-weight="bold">e</text>
+    <rect x="403" y="344" width="32" height="30" rx="6" fill="#fff4dc" stroke="#b7862b"/>
+    <text x="419" y="365" font-size="15" font-weight="bold">r</text>
+    <text x="160" y="413" font-size="12" text-anchor="end" fill="#46576c">2. remove blanks ( _ )</text>
+    <rect x="175" y="392" width="32" height="30" rx="6" fill="#e6f4ed" stroke="#467861"/>
+    <text x="191" y="413" font-size="15" font-weight="bold">d</text>
+    <rect x="213" y="392" width="32" height="30" rx="6" fill="#e6f4ed" stroke="#467861"/>
+    <text x="229" y="413" font-size="15" font-weight="bold">i</text>
+    <rect x="251" y="392" width="32" height="30" rx="6" fill="#e6f4ed" stroke="#467861"/>
+    <text x="267" y="413" font-size="15" font-weight="bold">n</text>
+    <rect x="289" y="392" width="32" height="30" rx="6" fill="#e6f4ed" stroke="#467861"/>
+    <text x="305" y="413" font-size="15" font-weight="bold">n</text>
+    <rect x="327" y="392" width="32" height="30" rx="6" fill="#e6f4ed" stroke="#467861"/>
+    <text x="343" y="413" font-size="15" font-weight="bold">e</text>
+    <rect x="365" y="392" width="32" height="30" rx="6" fill="#e6f4ed" stroke="#467861"/>
+    <text x="381" y="413" font-size="15" font-weight="bold">r</text>
+    <text x="640" y="415" font-size="16" font-weight="bold" fill="#467861">= "dinner"</text>
+    <text x="640" y="330" font-size="12" fill="#46576c">The blank keeps the</text>
+    <text x="640" y="346" font-size="12" fill="#46576c">two n's apart; without</text>
+    <text x="640" y="362" font-size="12" fill="#46576c">it we would get "diner".</text>
+  </g>
+</svg>

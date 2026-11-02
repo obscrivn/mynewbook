@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="440" viewBox="0 0 780 440" role="img" aria-labelledby="title desc">
+  <title id="title">Two ways to build a speech recognizer</title>
+  <desc id="desc">Top, the classic pipeline used from about the 1980s to the 2010s: audio becomes acoustic features; an acoustic model scores which sounds are present; a pronunciation dictionary links sounds to words; a language model scores which word sequences are likely; a search step combines the three scores to choose the best text. Bottom, the end-to-end neural approach used today: audio becomes a log-Mel spectrogram; a transformer or Conformer encoder builds a representation of the whole clip; a decoder, using attention or CTC, writes the text, often with punctuation and capital letters. One network is trained on audio paired with transcripts.</desc>
+  <defs><marker id="arw" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#46576c"/></marker></defs>
+  <rect width="780" height="440" fill="#f8fafc" rx="16"/>
+  <g font-family="Arial, sans-serif" fill="#162b43" text-anchor="middle">
+    <text x="390" y="34" font-size="20" font-weight="bold">Two ways to build a speech recognizer</text>
+    <rect x="15" y="50" width="750" height="180" rx="12" fill="#ffffff" stroke="#c8d3e0"/>
+    <text x="30" y="74" font-size="14" font-weight="bold" text-anchor="start">Classic pipeline (about 1980s to 2010s): separate parts, trained separately</text>
+    <rect x="30" y="120" width="90" height="60" rx="10" fill="#ffffff" stroke="#c8d3e0" stroke-width="1.5"/>
+    <text x="75.0" y="155.0" font-size="14" font-weight="bold" fill="#162b43">Audio</text>
+    <rect x="140" y="120" width="110" height="60" rx="10" fill="#ffffff" stroke="#c8d3e0" stroke-width="1.5"/>
+    <text x="195.0" y="146.5" font-size="14" font-weight="bold" fill="#162b43">Features</text>
+    <text x="195.0" y="163.5" font-size="12" fill="#46576c">e.g., MFCCs</text>
+    <rect x="285" y="86" width="200" height="40" rx="10" fill="#fff4dc" stroke="#b7862b" stroke-width="1.5"/>
+    <text x="385.0" y="111.0" font-size="12" font-weight="bold" fill="#162b43">Acoustic model: which sounds?</text>
+    <rect x="285" y="132" width="200" height="40" rx="10" fill="#fff4dc" stroke="#b7862b" stroke-width="1.5"/>
+    <text x="385.0" y="157.0" font-size="12" font-weight="bold" fill="#162b43">Pronunciation dictionary</text>
+    <rect x="285" y="178" width="200" height="40" rx="10" fill="#fff4dc" stroke="#b7862b" stroke-width="1.5"/>
+    <text x="385.0" y="203.0" font-size="12" font-weight="bold" fill="#162b43">Language model: which words?</text>
+    <rect x="520" y="120" width="110" height="60" rx="10" fill="#ffffff" stroke="#c8d3e0" stroke-width="1.5"/>
+    <text x="575.0" y="146.5" font-size="14" font-weight="bold" fill="#162b43">Search</text>
+    <text x="575.0" y="163.5" font-size="12" fill="#46576c">combine scores</text>
+    <rect x="655" y="120" width="95" height="60" rx="10" fill="#ffffff" stroke="#c8d3e0" stroke-width="1.5"/>
+    <text x="702.5" y="155.0" font-size="14" font-weight="bold" fill="#162b43">Text</text>
+    <line x1="120" y1="150" x2="136" y2="150" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)"/>
+    <line x1="250" y1="140" x2="281" y2="108" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)"/>
+    <line x1="485" y1="106" x2="516" y2="138" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)"/>
+    <line x1="485" y1="152" x2="516" y2="152" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)"/>
+    <line x1="485" y1="198" x2="516" y2="166" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)"/>
+    <line x1="630" y1="150" x2="651" y2="150" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)"/>
+    <rect x="15" y="250" width="750" height="175" rx="12" fill="#ffffff" stroke="#53779d" stroke-width="1.8"/>
+    <text x="30" y="274" font-size="14" font-weight="bold" text-anchor="start">End-to-end neural (today): one network trained on audio paired with transcripts</text>
+    <rect x="30" y="305" width="90" height="60" rx="10" fill="#ffffff" stroke="#c8d3e0" stroke-width="1.5"/>
+    <text x="75.0" y="340.0" font-size="14" font-weight="bold" fill="#162b43">Audio</text>
+    <rect x="140" y="305" width="120" height="60" rx="10" fill="#ffffff" stroke="#c8d3e0" stroke-width="1.5"/>
+    <text x="200.0" y="331.5" font-size="14" font-weight="bold" fill="#162b43">Log-Mel</text>
+    <text x="200.0" y="348.5" font-size="12" fill="#46576c">spectrogram</text>
+    <rect x="285" y="300" width="180" height="70" rx="10" fill="#e8f0fa" stroke="#53779d" stroke-width="1.5"/>
+    <text x="375.0" y="323.0" font-size="14" font-weight="bold" fill="#162b43">Encoder</text>
+    <text x="375.0" y="340.0" font-size="12" fill="#46576c">transformer or Conformer;</text>
+    <text x="375.0" y="357.0" font-size="12" fill="#46576c">reads the whole clip</text>
+    <rect x="490" y="300" width="150" height="70" rx="10" fill="#e8f0fa" stroke="#53779d" stroke-width="1.5"/>
+    <text x="565.0" y="323.0" font-size="14" font-weight="bold" fill="#162b43">Decoder</text>
+    <text x="565.0" y="340.0" font-size="12" fill="#46576c">attention or CTC;</text>
+    <text x="565.0" y="357.0" font-size="12" fill="#46576c">writes tokens</text>
+    <rect x="660" y="305" width="90" height="60" rx="10" fill="#ffffff" stroke="#c8d3e0" stroke-width="1.5"/>
+    <text x="705.0" y="331.5" font-size="14" font-weight="bold" fill="#162b43">Text</text>
+    <text x="705.0" y="348.5" font-size="12" fill="#46576c">with punctuation</text>
+    <line x1="120" y1="335" x2="136" y2="335" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)"/>
+    <line x1="260" y1="335" x2="281" y2="335" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)"/>
+    <line x1="465" y1="335" x2="486" y2="335" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)"/>
+    <line x1="640" y1="335" x2="656" y2="335" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)"/>
+    <text x="390" y="400" font-size="12" fill="#46576c">Language knowledge now lives inside the decoder; an extra language model can still be added to rescore guesses.</text>
+  </g>
+</svg>

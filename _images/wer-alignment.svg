@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="340" viewBox="0 0 800 340" role="img" aria-labelledby="title desc">
+  <title id="title">Counting word errors for one sentence</title>
+  <desc id="desc">Reference: the patient should not take aspirin today. Recognizer output: the patient should take a spring today. Aligned word by word: the, patient, should, and take match. The word not is missing, a deletion. Aspirin became a, a substitution. Spring is an extra word, an insertion. Today matches. Three errors over seven reference words gives a word error rate of 3 divided by 7, about 43 percent.</desc>
+  <defs><marker id="arw" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#46576c"/></marker></defs>
+  <rect width="800" height="340" fill="#f8fafc" rx="16"/>
+  <g font-family="Arial, sans-serif" fill="#162b43" text-anchor="middle">
+    <text x="400" y="34" font-size="20" font-weight="bold">Counting word errors for one sentence</text>
+    <rect x="15" y="50" width="770" height="210" rx="12" fill="#ffffff" stroke="#c8d3e0"/>
+    <text x="95" y="100" font-size="13" font-weight="bold" text-anchor="end">Reference</text>
+    <text x="95" y="150" font-size="13" font-weight="bold" text-anchor="end">Recognized</text>
+    <text x="95" y="200" font-size="13" font-weight="bold" text-anchor="end">Error</text>
+    <rect x="108" y="78" width="78" height="34" rx="7" fill="#e6f4ed" stroke="#467861"/>
+    <text x="147.0" y="100" font-size="14">the</text>
+    <rect x="108" y="128" width="78" height="34" rx="7" fill="#e6f4ed" stroke="#467861"/>
+    <text x="147.0" y="150" font-size="14">the</text>
+    <text x="147.0" y="200" font-size="13" fill="#467861">match</text>
+    <rect x="192" y="78" width="78" height="34" rx="7" fill="#e6f4ed" stroke="#467861"/>
+    <text x="231.0" y="100" font-size="14">patient</text>
+    <rect x="192" y="128" width="78" height="34" rx="7" fill="#e6f4ed" stroke="#467861"/>
+    <text x="231.0" y="150" font-size="14">patient</text>
+    <text x="231.0" y="200" font-size="13" fill="#467861">match</text>
+    <rect x="276" y="78" width="78" height="34" rx="7" fill="#e6f4ed" stroke="#467861"/>
+    <text x="315.0" y="100" font-size="14">should</text>
+    <rect x="276" y="128" width="78" height="34" rx="7" fill="#e6f4ed" stroke="#467861"/>
+    <text x="315.0" y="150" font-size="14">should</text>
+    <text x="315.0" y="200" font-size="13" fill="#467861">match</text>
+    <rect x="360" y="78" width="78" height="34" rx="7" fill="#fbe9e7" stroke="#b5523b"/>
+    <text x="399.0" y="100" font-size="14">not</text>
+    <rect x="360" y="128" width="78" height="34" rx="7" fill="#ffffff" stroke="#b5523b" stroke-dasharray="4 3"/>
+    <text x="399.0" y="150" font-size="13" fill="#b5523b">(none)</text>
+    <text x="399.0" y="199" font-size="15" font-weight="bold" fill="#b5523b">D</text>
+    <text x="399.0" y="216" font-size="11" fill="#b5523b">deletion</text>
+    <rect x="444" y="78" width="78" height="34" rx="7" fill="#e6f4ed" stroke="#467861"/>
+    <text x="483.0" y="100" font-size="14">take</text>
+    <rect x="444" y="128" width="78" height="34" rx="7" fill="#e6f4ed" stroke="#467861"/>
+    <text x="483.0" y="150" font-size="14">take</text>
+    <text x="483.0" y="200" font-size="13" fill="#467861">match</text>
+    <rect x="528" y="78" width="78" height="34" rx="7" fill="#fbe9e7" stroke="#b5523b"/>
+    <text x="567.0" y="100" font-size="14">aspirin</text>
+    <rect x="528" y="128" width="78" height="34" rx="7" fill="#fbe9e7" stroke="#b5523b"/>
+    <text x="567.0" y="150" font-size="14">a</text>
+    <text x="567.0" y="199" font-size="15" font-weight="bold" fill="#b5523b">S</text>
+    <text x="567.0" y="216" font-size="11" fill="#b5523b">substitution</text>
+    <rect x="612" y="78" width="78" height="34" rx="7" fill="#ffffff" stroke="#b5523b" stroke-dasharray="4 3"/>
+    <text x="651.0" y="100" font-size="13" fill="#b5523b">(none)</text>
+    <rect x="612" y="128" width="78" height="34" rx="7" fill="#fbe9e7" stroke="#b5523b"/>
+    <text x="651.0" y="150" font-size="14">spring</text>
+    <text x="651.0" y="199" font-size="15" font-weight="bold" fill="#b5523b">I</text>
+    <text x="651.0" y="216" font-size="11" fill="#b5523b">insertion</text>
+    <rect x="696" y="78" width="78" height="34" rx="7" fill="#e6f4ed" stroke="#467861"/>
+    <text x="735.0" y="100" font-size="14">today</text>
+    <rect x="696" y="128" width="78" height="34" rx="7" fill="#e6f4ed" stroke="#467861"/>
+    <text x="735.0" y="150" font-size="14">today</text>
+    <text x="735.0" y="200" font-size="13" fill="#467861">match</text>
+    <text x="400" y="246" font-size="12" fill="#46576c">Dropping one short word ("not") reverses the instruction, but it counts the same as any other error.</text>
+    <text x="400" y="292" font-size="16" font-weight="bold">WER = (S + D + I) / N = (1 + 1 + 1) / 7 = 3 / 7 ≈ 43%</text>
+    <text x="400" y="316" font-size="12" fill="#46576c">N = number of words in the reference (7). Extra words can push WER above 100%.</text>
+  </g>
+</svg>

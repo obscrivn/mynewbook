@@ -1,0 +1,1105 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>11.3 Coding Practice: Working with Speech in Python &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module11/week11_speech_practice';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module4/module4.html">Chapter 4 Similarity and Retrieval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module4/cluster.html">4.1 Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/practice.html">4.2 Experiment: From Similarity Scores to Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/week4_coding_practice.html">4.3 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module5/module5.html">Chapter 5 Text Classification and Model Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module5/classification.html">5.1 Text Classification and Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/week5_coding_practice.html">5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module6/module6.html">Chapter 6 Topic Modeling and Modern Topic Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module6/topics.html">6.1 Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice.html">6.2 Coding Practice: Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice_solution.html">6.3 Coding Practice: Topic Modeling and Modern Topic Analysis (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module7/module7.html">Chapter 7 Sentiment, Affect, and Lexicons</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module7/sentiment.html">7.1 Sentiment, Affect, and Lexicons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module7/week07_sentiment_practice.html">7.2 Coding Practice: Sentiment Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module7/week07_sentiment_practice_solution.html">7.3 Coding Practice: Sentiment Analysis Solution</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module8/module8.html">Chapter 8 Recommendation Systems and Personalized Text Ranking</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module8/recommendation.html">8.1 Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module8/week08_recommendation_practice.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module8/week08_recommendation_practice_solution.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module9/module9.html">Chapter 9 From RNNs and LSTMs to Language Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module9/sequence_models.html">9.1 From RNNs and LSTMs to Language Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_lstm_practice.html">9.2 Coding Practice: LSTM Sentiment Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/huggingface_intro.html">Optional: Exploring Pretrained Models with Hugging Face</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_huggingface_intro.html">Exploring Pretrained Models with Hugging Face</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_lstm_practice_solution.html">9.2 Coding Practice: LSTM Sentiment Classification (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module10/module10.html">Chapter 10 Transformers, Pretrained Models, and Transfer Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module10/transformers.html">10.1 Transformers, Pretrained Models, and Transfer Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module10/week10_bert_practice.html">10.2 Coding Practice: Exploring BERT-Family Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module10/week10_bert_practice_solution.html">10.2 Coding Practice: Exploring BERT-Family Models (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="module11.html">Chapter 11 Speech: From Sound to Text</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="speech_signals.html">11.1 Speech as Data: From Sound to Signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="speech_recognition.html">11.2 Speech Recognition: From Signal to Text</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../translation.html">Machine Translation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule11/week11_speech_practice.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module11/week11_speech_practice.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>11.3 Coding Practice: Working with Speech in Python</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-text-to-speech-about-5-minutes">1. From text to speech (about 5 minutes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sound-as-numbers-about-5-minutes">2. Sound as numbers (about 5 minutes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seeing-sound-spectrograms-about-10-minutes">3. Seeing sound: spectrograms (about 10 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-a-speech-model-actually-reads-the-log-mel-spectrogram">What a speech model actually reads: the log-Mel spectrogram</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-audio-ready-for-a-model-about-5-minutes">4. Getting audio ready for a model (about 5 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#telephone-quality">Telephone quality</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-speech-back-to-text-about-10-minutes">5. From speech back to text (about 10 minutes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measuring-errors-about-10-minutes">6. Measuring errors (about 10 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#telephone-quality-and-background-noise">Telephone quality and background noise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-try-it-with-your-own-voice">7. Optional: try it with your own voice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap-up</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="coding-practice-working-with-speech-in-python">
+<h1>11.3 Coding Practice: Working with Speech in Python<a class="headerlink" href="#coding-practice-working-with-speech-in-python" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module11/week11_speech_practice.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>This is a guided, ungraded activity. Follow the steps in order and run each cell. Along the way you will turn text into speech, look at sound as numbers and as pictures, prepare audio for a speech recognizer, turn the speech back into text, and measure the errors.</p>
+<p>The activity follows Readings <a class="reference external" href="https://obscrivn.github.io/mynewbook/module11/speech_signals.html">11.1</a> and <a class="reference external" href="https://obscrivn.github.io/mynewbook/module11/speech_recognition.html">11.2</a>. It runs on a CPU (no GPU needed) and takes about 40 to 50 minutes.</p>
+<p><strong>What you will do</strong></p>
+<ol class="arabic simple">
+<li><p>Make speech from text with gTTS, play it, and convert MP3 to WAV.</p></li>
+<li><p>Load the WAV file as numbers and draw its waveform.</p></li>
+<li><p>See the sound as a spectrogram and as a log-Mel spectrogram.</p></li>
+<li><p>Get the audio ready for a model: mono, 16,000 samples per second, and a telephone-quality copy.</p></li>
+<li><p>Transcribe the audio with two speech recognizers.</p></li>
+<li><p>Measure the errors with word error rate (WER), including with telephone audio and background noise.</p></li>
+<li><p>Optional: repeat everything with your own voice.</p></li>
+</ol>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
+<p>Run the next cell to install the packages this activity needs. In Google Colab this takes about a minute. The second line installs gTTS on its own, without its extra dependencies, so it does not change the versions of packages Colab already has.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">pip</span> <span class="o">-</span><span class="n">q</span> <span class="n">install</span> <span class="s2">&quot;transformers==5.17.0&quot;</span> <span class="s2">&quot;jiwer==4.0.0&quot;</span> <span class="s2">&quot;pydub==0.25.1&quot;</span> <span class="s2">&quot;audioop-lts; python_version &gt;= &#39;3.13&#39;&quot;</span>
+<span class="o">%</span><span class="n">pip</span> <span class="o">-</span><span class="n">q</span> <span class="n">install</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">deps</span> <span class="s2">&quot;gTTS==2.5.4&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now import the libraries. <code class="docutils literal notranslate"><span class="pre">soundfile</span></code> reads and writes audio files, <code class="docutils literal notranslate"><span class="pre">librosa</span></code> analyzes audio, <code class="docutils literal notranslate"><span class="pre">pydub</span></code> converts between audio formats, <code class="docutils literal notranslate"><span class="pre">jiwer</span></code> computes word error rate, and <code class="docutils literal notranslate"><span class="pre">transformers</span></code> gives us ready-made speech recognizers.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;HF_HUB_DISABLE_PROGRESS_BARS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>  <span class="c1"># keep the output tidy</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">soundfile</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">librosa</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">librosa.display</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jiwer</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">transformers</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydub</span><span class="w"> </span><span class="kn">import</span> <span class="n">AudioSegment</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Audio</span><span class="p">,</span> <span class="n">display</span>
+
+<span class="n">transformers</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">set_verbosity_error</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;transformers&quot;</span><span class="p">,</span> <span class="n">transformers</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="s2">&quot;| librosa&quot;</span><span class="p">,</span> <span class="n">librosa</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="s2">&quot;| jiwer 4.0.0&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="from-text-to-speech-about-5-minutes">
+<h2>1. From text to speech (about 5 minutes)<a class="headerlink" href="#from-text-to-speech-about-5-minutes" title="Permalink to this heading">#</a></h2>
+<p>We start with <strong>text-to-speech (TTS)</strong>: the reverse of speech recognition (Reading 11.2, Section 1). The <code class="docutils literal notranslate"><span class="pre">gTTS</span></code> library sends your text to Google Translate’s text-to-speech service and saves the spoken result as an MP3 file.</p>
+<p>Run the cell below. It saves the sentence as <code class="docutils literal notranslate"><span class="pre">welcome.mp3</span></code>. (In Colab, files are saved in the <code class="docutils literal notranslate"><span class="pre">/content</span></code> folder, which you can see in the file panel on the left.)</p>
+<p>If the service cannot be reached, the cell downloads a copy of the same file from the course website instead, so you can always continue.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import Google Text-To-Speech</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gtts</span><span class="w"> </span><span class="kn">import</span> <span class="n">gTTS</span>
+
+<span class="c1"># The text that you want to convert to audio</span>
+<span class="n">mytext</span> <span class="o">=</span> <span class="s1">&#39;Welcome to the big hotel California&#39;</span>
+
+<span class="c1"># Language in which you want to convert</span>
+<span class="n">language</span> <span class="o">=</span> <span class="s1">&#39;en&#39;</span>
+
+<span class="c1"># Passing the text and language to the engine, and</span>
+<span class="c1"># saving the converted audio in an mp3 file named welcome</span>
+<span class="n">COURSE_COPY</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/obscrivn/mynewbook/master/module11/data/welcome.mp3&quot;</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">myobj</span> <span class="o">=</span> <span class="n">gTTS</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">mytext</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="n">language</span><span class="p">)</span>
+    <span class="n">myobj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;welcome.mp3&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Created welcome.mp3 with gTTS.&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;gTTS could not reach Google&#39;s service:&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloading the course copy of welcome.mp3 instead.&quot;</span><span class="p">)</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">COURSE_COPY</span><span class="p">,</span> <span class="s2">&quot;welcome.mp3&quot;</span><span class="p">)</span>
+    <span class="n">mytext</span> <span class="o">=</span> <span class="s1">&#39;Welcome to the big hotel California&#39;</span>  <span class="c1"># the sentence in the course copy</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Listen to it. <code class="docutils literal notranslate"><span class="pre">autoplay=True</span></code> starts playing as soon as the cell runs; you can also press play.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Audio</span><span class="p">(</span><span class="s1">&#39;welcome.mp3&#39;</span><span class="p">,</span> <span class="n">autoplay</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>MP3 is a <strong>compressed</strong> format: it throws away detail that listeners are unlikely to notice, which makes files small. Most audio analysis tools, and the speech models later in this activity, work with <strong>WAV</strong>, which stores every sample as a plain number. The <code class="docutils literal notranslate"><span class="pre">pydub</span></code> library converts between the two (it uses the <code class="docutils literal notranslate"><span class="pre">ffmpeg</span></code> program, which Colab already has).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pydub</span><span class="w"> </span><span class="kn">import</span> <span class="n">AudioSegment</span>
+<span class="n">sound</span> <span class="o">=</span> <span class="n">AudioSegment</span><span class="o">.</span><span class="n">from_mp3</span><span class="p">(</span><span class="s2">&quot;welcome.mp3&quot;</span><span class="p">)</span>
+<span class="n">sound</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s2">&quot;welcome.wav&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;wav&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;welcome.mp3: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="s1">&#39;welcome.mp3&#39;</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;8,</span><span class="si">}</span><span class="s2"> bytes (compressed)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;welcome.wav: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="s1">&#39;welcome.wav&#39;</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;8,</span><span class="si">}</span><span class="s2"> bytes (every sample stored)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The WAV file holds the same sound but is several times larger, because nothing is compressed.</p>
+<p><strong>Try it (optional):</strong> change <code class="docutils literal notranslate"><span class="pre">mytext</span></code> to your own sentence and run the three cells above again. You can also try another language, for example <code class="docutils literal notranslate"><span class="pre">mytext</span> <span class="pre">=</span> <span class="pre">'Bienvenidos</span> <span class="pre">al</span> <span class="pre">gran</span> <span class="pre">hotel'</span></code> with <code class="docutils literal notranslate"><span class="pre">language</span> <span class="pre">=</span> <span class="pre">'es'</span></code>, or a different English accent by changing the gTTS line to <code class="docutils literal notranslate"><span class="pre">gTTS(text=mytext,</span> <span class="pre">lang='en',</span> <span class="pre">tld='co.uk')</span></code>. The rest of the activity works with whatever sentence you choose, because it uses <code class="docutils literal notranslate"><span class="pre">mytext</span></code> as the correct transcript.</p>
+</section>
+<section id="sound-as-numbers-about-5-minutes">
+<h2>2. Sound as numbers (about 5 minutes)<a class="headerlink" href="#sound-as-numbers-about-5-minutes" title="Permalink to this heading">#</a></h2>
+<p>A WAV file is a long list of numbers: one <strong>sample</strong> of air pressure for each tick of the clock (Reading 11.1, Section 4). Load it with <code class="docutils literal notranslate"><span class="pre">soundfile</span></code> and look at the basic facts.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">audio</span><span class="p">,</span> <span class="n">sr</span> <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;welcome.wav&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sampling rate:     &quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sr</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> samples per second&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of samples: &quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">audio</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Duration:          &quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">audio</span><span class="p">)</span> <span class="o">/</span> <span class="n">sr</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;seconds&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Channels:          &quot;</span><span class="p">,</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">audio</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">audio</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;(mono)&quot;</span> <span class="k">if</span> <span class="n">audio</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First 10 samples:  &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">audio</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Lowest and highest:&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">audio</span><span class="o">.</span><span class="n">min</span><span class="p">()),</span> <span class="mi">3</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">audio</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span> <span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>What to notice:</p>
+<ul class="simple">
+<li><p>gTTS produces <strong>24,000 samples per second</strong>. Multiply the duration by 24,000 and you get the number of samples.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">soundfile</span></code> scales the samples to numbers between -1 and 1. Zero means normal air pressure (silence).</p></li>
+<li><p>The first samples are close to zero: the recording starts with a little silence.</p></li>
+</ul>
+<p>Now draw the <strong>waveform</strong>: time on the horizontal axis, amplitude on the vertical axis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">audio</span><span class="p">))</span> <span class="o">/</span> <span class="n">sr</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">audio</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (seconds)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Amplitude&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Waveform: &#39;</span><span class="si">{</span><span class="n">mytext</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Taller stretches are louder, mostly vowels. Flat stretches are silence or quiet consonants. You cannot read the words off this picture, but you can see where the speech is.</p>
+<p>Zoom in on 30 milliseconds from the loudest part of the recording. Each dot is one sample.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.030</span> <span class="o">*</span> <span class="n">sr</span><span class="p">)</span>  <span class="c1"># 30 milliseconds, in samples</span>
+<span class="n">loudness</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">rms</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">audio</span><span class="p">,</span> <span class="n">frame_length</span><span class="o">=</span><span class="n">window</span><span class="p">,</span> <span class="n">hop_length</span><span class="o">=</span><span class="n">window</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">loudness</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">window</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">segment</span> <span class="o">=</span> <span class="n">audio</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">start</span> <span class="o">+</span> <span class="n">window</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="n">start</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">segment</span><span class="p">)))</span> <span class="o">/</span> <span class="n">sr</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">segment</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (milliseconds)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Amplitude&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;30 ms close-up of the loudest part&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">f0</span><span class="p">,</span> <span class="n">voiced</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">pyin</span><span class="p">(</span><span class="n">audio</span><span class="p">,</span> <span class="n">fmin</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">sr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Typical pitch (fundamental frequency, F0) of this voice: about </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">f0</span><span class="p">)</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> Hz&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The close-up shows a pattern that <strong>repeats</strong>: each repeat is one opening and closing of the vocal folds during a vowel. The number of repeats per second is the fundamental frequency (F0), which we hear as pitch. <code class="docutils literal notranslate"><span class="pre">librosa.pyin</span></code> estimates it for the whole recording.</p>
+</section>
+<section id="seeing-sound-spectrograms-about-10-minutes">
+<h2>3. Seeing sound: spectrograms (about 10 minutes)<a class="headerlink" href="#seeing-sound-spectrograms-about-10-minutes" title="Permalink to this heading">#</a></h2>
+<p>A waveform shows <em>how much</em> the air moves. A <strong>spectrogram</strong> shows <em>which frequencies</em> are present at each moment (Reading 11.1, Section 5):</p>
+<ul class="simple">
+<li><p>horizontal axis: time</p></li>
+<li><p>vertical axis: frequency in hertz, low at the bottom</p></li>
+<li><p>darkness: how much energy there is at that frequency and time (in this first plot, <strong>darker means more energy</strong>, as in the figures in Reading 11.1)</p></li>
+</ul>
+<p>The next cell defines a small helper that draws a waveform and a spectrogram one above the other, so the times line up. We will reuse it several times.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_waveform_and_spectrogram</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">sr</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">max_hz</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw the waveform (top) and spectrogram (bottom) of y on the same time axis.&quot;&quot;&quot;</span>
+    <span class="n">n_fft</span> <span class="o">=</span> <span class="mi">1024</span> <span class="k">if</span> <span class="n">sr</span> <span class="o">&gt;</span> <span class="mi">16000</span> <span class="k">else</span> <span class="mi">512</span>
+    <span class="n">hop</span> <span class="o">=</span> <span class="n">n_fft</span> <span class="o">//</span> <span class="mi">4</span>
+    <span class="n">spec_db</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">amplitude_to_db</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">librosa</span><span class="o">.</span><span class="n">stft</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">n_fft</span><span class="o">=</span><span class="n">n_fft</span><span class="p">,</span> <span class="n">hop_length</span><span class="o">=</span><span class="n">hop</span><span class="p">)),</span> <span class="n">ref</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;height_ratios&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]})</span>
+    <span class="n">librosa</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">waveshow</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">sr</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Waveform: </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Amplitude&quot;</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">specshow</span><span class="p">(</span><span class="n">spec_db</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">sr</span><span class="p">,</span> <span class="n">hop_length</span><span class="o">=</span><span class="n">hop</span><span class="p">,</span> <span class="n">x_axis</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="s2">&quot;hz&quot;</span><span class="p">,</span>
+                                   <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray_r&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Spectrogram (darker = more energy)&quot;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Time (seconds)&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Frequency (Hz)&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">max_hz</span><span class="p">:</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_hz</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%+2.0f</span><span class="s2"> dB&quot;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="n">plot_waveform_and_spectrogram</span><span class="p">(</span><span class="n">audio</span><span class="p">,</span> <span class="n">sr</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">mytext</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>How to read this picture:</p>
+<ul class="simple">
+<li><p><strong>The top of the frequency axis is 12,000 Hz</strong>, half of the 24,000 Hz sampling rate. A recording cannot contain frequencies above half its sampling rate (the Nyquist frequency, Reading 11.1, Section 4).</p></li>
+<li><p><strong>Vowels</strong> show dark horizontal bands at the bottom, called <strong>formants</strong>. Their positions change from vowel to vowel; that is how vowels are told apart.</p></li>
+<li><p><strong>Hissing sounds</strong> such as the <em>f</em> in <em>California</em> show up as fuzzy energy spread up into the high frequencies, without clear bands.</p></li>
+<li><p><strong>Stop consonants</strong> such as the <em>b</em> and <em>g</em> in <em>big</em> and the <em>t</em> in <em>hotel</em> show up as short pale gaps followed by a thin vertical burst.</p></li>
+<li><p><strong>There are no gaps between words.</strong> Pale gaps come from stop consonants and pauses, not from word boundaries.</p></li>
+</ul>
+<p>Zoom into the speech range below 5,000 Hz to see the formants more clearly:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_waveform_and_spectrogram</span><span class="p">(</span><span class="n">audio</span><span class="p">,</span> <span class="n">sr</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">mytext</span><span class="si">}</span><span class="s2">&#39; (0 to 5,000 Hz)&quot;</span><span class="p">,</span> <span class="n">max_hz</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="what-a-speech-model-actually-reads-the-log-mel-spectrogram">
+<h3>What a speech model actually reads: the log-Mel spectrogram<a class="headerlink" href="#what-a-speech-model-actually-reads-the-log-mel-spectrogram" title="Permalink to this heading">#</a></h3>
+<p>Speech recognizers do not read this plain spectrogram. They read a <strong>log-Mel spectrogram</strong> (Reading 11.1, Section 5): frames of 25 milliseconds taken every 10 milliseconds, with frequencies grouped on the Mel scale (more detail at low frequencies, like human hearing) and energy on a log scale.</p>
+<p>The cell below computes it with 80 Mel bands, the setting used by Whisper. This time the plot uses a color map, which is common in speech tools: <strong>brighter means more energy</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.025</span> <span class="o">*</span> <span class="n">sr</span><span class="p">)</span>   <span class="c1"># 25 ms window</span>
+<span class="n">hop</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.010</span> <span class="o">*</span> <span class="n">sr</span><span class="p">)</span>     <span class="c1"># a new frame every 10 ms</span>
+<span class="n">mel</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">melspectrogram</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">audio</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">sr</span><span class="p">,</span> <span class="n">n_fft</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span> <span class="n">hop_length</span><span class="o">=</span><span class="n">hop</span><span class="p">,</span> <span class="n">n_mels</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<span class="n">log_mel</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">power_to_db</span><span class="p">(</span><span class="n">mel</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Log-Mel spectrogram shape:&quot;</span><span class="p">,</span> <span class="n">log_mel</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot;-&gt; (Mel bands, frames)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">audio</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">sr</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds at one frame every 10 ms gives about </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">audio</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">sr</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> frames&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">specshow</span><span class="p">(</span><span class="n">log_mel</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">sr</span><span class="p">,</span> <span class="n">hop_length</span><span class="o">=</span><span class="n">hop</span><span class="p">,</span> <span class="n">x_axis</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="s2">&quot;mel&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;magma&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Log-Mel spectrogram (80 Mel bands; brighter = more energy)&quot;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Time (seconds)&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%+2.0f</span><span class="s2"> dB&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This grid of 80 numbers per 10 milliseconds is the “text” a speech recognizer reads. Notice how the Mel axis gives more room to low frequencies: the formant bands take up much more of the picture than in the plain spectrogram.</p>
+</section>
+</section>
+<section id="getting-audio-ready-for-a-model-about-5-minutes">
+<h2>4. Getting audio ready for a model (about 5 minutes)<a class="headerlink" href="#getting-audio-ready-for-a-model-about-5-minutes" title="Permalink to this heading">#</a></h2>
+<p>The speech models in Part 5 were trained on <strong>mono audio at 16,000 samples per second</strong>. Our file is at 24,000. Recordings from phones and computers come at many rates (44,100 and 48,000 are common) and are often stereo, so it is worth having one function that handles any WAV file.</p>
+<p>The function below reads a file <strong>without changing it</strong> and returns a new mono copy at 16,000 Hz. The original file stays exactly as it was.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">TARGET_SR</span> <span class="o">=</span> <span class="mi">16000</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">load_for_model</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">target_sr</span><span class="o">=</span><span class="n">TARGET_SR</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read an audio file without changing it, and return a mono copy at target_sr samples per second.&quot;&quot;&quot;</span>
+    <span class="n">original</span><span class="p">,</span> <span class="n">original_sr</span> <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">always_2d</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># shape: (samples, channels)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">original_sr</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> Hz, </span><span class="si">{</span><span class="n">original</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> channel(s), &quot;</span>
+          <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">original</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">original_sr</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds, </span><span class="si">{</span><span class="n">original</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> samples&quot;</span><span class="p">)</span>
+    <span class="n">mono</span> <span class="o">=</span> <span class="n">original</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>                              <span class="c1"># average the channels</span>
+    <span class="k">if</span> <span class="n">original_sr</span> <span class="o">!=</span> <span class="n">target_sr</span><span class="p">:</span>
+        <span class="n">mono</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">mono</span><span class="p">,</span> <span class="n">orig_sr</span><span class="o">=</span><span class="n">original_sr</span><span class="p">,</span> <span class="n">target_sr</span><span class="o">=</span><span class="n">target_sr</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  model copy: </span><span class="si">{</span><span class="n">target_sr</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> Hz, mono, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mono</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> samples&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mono</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+
+<span class="n">audio_16k</span> <span class="o">=</span> <span class="n">load_for_model</span><span class="p">(</span><span class="s2">&quot;welcome.wav&quot;</span><span class="p">)</span>
+<span class="n">sf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;welcome_16k.wav&quot;</span><span class="p">,</span> <span class="n">audio_16k</span><span class="p">,</span> <span class="n">TARGET_SR</span><span class="p">)</span>  <span class="c1"># saved under a new name; welcome.wav is untouched</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Audio</span><span class="p">(</span><span class="n">audio_16k</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="n">TARGET_SR</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The duration is the same, but there are fewer samples: duration × 16,000 instead of duration × 24,000. It sounds the same, because almost all of the speech information is below 8,000 Hz, the highest frequency a 16,000 Hz recording can hold.</p>
+<section id="telephone-quality">
+<h3>Telephone quality<a class="headerlink" href="#telephone-quality" title="Permalink to this heading">#</a></h3>
+<p>Telephone audio uses only <strong>8,000 samples per second</strong>, so it keeps frequencies up to about 4,000 Hz (Reading 11.1, Section 6). The function below imitates that by going down to 8,000 samples per second and back up to 16,000. Listen to the result and compare the two spectrograms.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">telephone</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">TARGET_SR</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Imitate telephone audio: keep only frequencies below about 4,000 Hz.&quot;&quot;&quot;</span>
+    <span class="n">narrow</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">orig_sr</span><span class="o">=</span><span class="n">sr</span><span class="p">,</span> <span class="n">target_sr</span><span class="o">=</span><span class="mi">8000</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">librosa</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">narrow</span><span class="p">,</span> <span class="n">orig_sr</span><span class="o">=</span><span class="mi">8000</span><span class="p">,</span> <span class="n">target_sr</span><span class="o">=</span><span class="n">sr</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+
+<span class="n">audio_phone</span> <span class="o">=</span> <span class="n">telephone</span><span class="p">(</span><span class="n">audio_16k</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Audio</span><span class="p">(</span><span class="n">audio_phone</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="n">TARGET_SR</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="p">[(</span><span class="n">audio_16k</span><span class="p">,</span> <span class="s2">&quot;16,000 Hz copy&quot;</span><span class="p">),</span> <span class="p">(</span><span class="n">audio_phone</span><span class="p">,</span> <span class="s2">&quot;Telephone quality&quot;</span><span class="p">)]):</span>
+    <span class="n">spec_db</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">amplitude_to_db</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">librosa</span><span class="o">.</span><span class="n">stft</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">n_fft</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">hop_length</span><span class="o">=</span><span class="mi">128</span><span class="p">)),</span> <span class="n">ref</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
+    <span class="n">librosa</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">specshow</span><span class="p">(</span><span class="n">spec_db</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">TARGET_SR</span><span class="p">,</span> <span class="n">hop_length</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">x_axis</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="s2">&quot;hz&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray_r&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Time (seconds)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frequency (Hz)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the telephone version, everything above about 4,000 Hz is gone. Listen for the <em>f</em> in <em>California</em>: much of its hiss lived up there, which is why <em>f</em> and <em>s</em> are easy to confuse on the phone.</p>
+</section>
+</section>
+<section id="from-speech-back-to-text-about-10-minutes">
+<h2>5. From speech back to text (about 10 minutes)<a class="headerlink" href="#from-speech-back-to-text-about-10-minutes" title="Permalink to this heading">#</a></h2>
+<p>Now we go the other way: <strong>speech recognition</strong>. We load two pretrained recognizers from the Hugging Face Hub (Reading 11.2, Section 4):</p>
+<ul class="simple">
+<li><p><strong>Whisper</strong> (<code class="docutils literal notranslate"><span class="pre">openai/whisper-base.en</span></code>): an attention <strong>encoder-decoder</strong>. It reads the whole clip and writes text one token at a time, with capital letters and punctuation.</p></li>
+<li><p><strong>wav2vec 2.0</strong> (<code class="docutils literal notranslate"><span class="pre">facebook/wav2vec2-base-960h</span></code>): a self-supervised encoder fine-tuned with <strong>CTC</strong>. It outputs one letter (or a blank) for every short slice of audio, then cleans up.</p></li>
+</ul>
+<p>The first run downloads both models (a few hundred megabytes), which takes a minute or two.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">whisper</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;automatic-speech-recognition&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;openai/whisper-base.en&quot;</span><span class="p">,</span>
+                   <span class="n">device</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">model_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;disable_mmap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+<span class="n">wav2vec</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;automatic-speech-recognition&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;facebook/wav2vec2-base-960h&quot;</span><span class="p">,</span>
+                   <span class="n">device</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">model_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;disable_mmap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">transcribe</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">TARGET_SR</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transcribe a mono audio array with both models.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;Whisper (encoder-decoder)&quot;</span><span class="p">:</span> <span class="n">whisper</span><span class="p">({</span><span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">y</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="s2">&quot;sampling_rate&quot;</span><span class="p">:</span> <span class="n">sr</span><span class="p">})[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+        <span class="s2">&quot;wav2vec 2.0 (CTC)&quot;</span><span class="p">:</span> <span class="n">wav2vec</span><span class="p">({</span><span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">y</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="s2">&quot;sampling_rate&quot;</span><span class="p">:</span> <span class="n">sr</span><span class="p">})[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+    <span class="p">}</span>
+
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">transcribe</span><span class="p">(</span><span class="n">audio_16k</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Correct text&#39;</span><span class="si">:</span><span class="s2">&lt;27</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">mytext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_name</span><span class="si">:</span><span class="s2">&lt;27</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Compare the two outputs:</p>
+<ul class="simple">
+<li><p><strong>Whisper</strong> writes text the way a person would: capital letters, punctuation, and often digits for numbers. Its decoder works like a language model, so it produces well-formed sentences.</p></li>
+<li><p><strong>wav2vec 2.0</strong> writes only <strong>UPPERCASE letters</strong>, with no punctuation. Its CTC output is built from letters chosen slice by slice, so it has no built-in sense of sentence formatting.</p></li>
+</ul>
+<p>Both may well have recognized the same words. Section 6 shows why the formatting differences still matter when we score them.</p>
+</section>
+<section id="measuring-errors-about-10-minutes">
+<h2>6. Measuring errors (about 10 minutes)<a class="headerlink" href="#measuring-errors-about-10-minutes" title="Permalink to this heading">#</a></h2>
+<p>Word error rate compares a model’s output (the <strong>hypothesis</strong>) with the correct text (the <strong>reference</strong>) and counts substitutions (S), deletions (D), and insertions (I) (Reading 11.2, Section 5):</p>
+<p>WER = (S + D + I) / number of words in the reference</p>
+<p>Here the reference is <code class="docutils literal notranslate"><span class="pre">mytext</span></code>, the sentence we gave gTTS. First, score the outputs exactly as they are.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reference</span> <span class="o">=</span> <span class="n">mytext</span>
+
+<span class="k">for</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_name</span><span class="si">:</span><span class="s2">&lt;27</span><span class="si">}</span><span class="s2"> raw WER = </span><span class="si">{</span><span class="n">jiwer</span><span class="o">.</span><span class="n">wer</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The raw scores count differences in capital letters and punctuation as word errors: <em>Welcome</em> and <em>WELCOME</em> are different strings to a computer. Before scoring, we <strong>normalize</strong> both texts in the same way. The function below lowercases the text and removes punctuation while keeping apostrophes (so <em>don’t</em> stays one word).</p>
+<p>Numbers need their own rule in real projects (<em>14</em> versus <em>fourteen</em>), and so do contractions (<em>don’t</em> versus <em>do not</em>). Whatever rules you choose, apply them to the reference and the hypothesis alike, and report them.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">normalize</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Lowercase, remove punctuation (keep apostrophes), and tidy spaces.&quot;&quot;&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^\w\s&#39;]&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+
+
+<span class="k">for</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">jiwer</span><span class="o">.</span><span class="n">wer</span><span class="p">(</span><span class="n">normalize</span><span class="p">(</span><span class="n">reference</span><span class="p">),</span> <span class="n">normalize</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_name</span><span class="si">:</span><span class="s2">&lt;27</span><span class="si">}</span><span class="s2"> normalized WER = </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">   (</span><span class="si">{</span><span class="n">normalize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>After normalization, only real word differences remain. <code class="docutils literal notranslate"><span class="pre">jiwer</span></code> can also show the alignment, marking each substitution (S), deletion (D), and insertion (I):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">alignment</span> <span class="o">=</span> <span class="n">jiwer</span><span class="o">.</span><span class="n">process_words</span><span class="p">(</span><span class="n">normalize</span><span class="p">(</span><span class="n">reference</span><span class="p">),</span> <span class="n">normalize</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  substitutions=</span><span class="si">{</span><span class="n">alignment</span><span class="o">.</span><span class="n">substitutions</span><span class="si">}</span><span class="s2">, deletions=</span><span class="si">{</span><span class="n">alignment</span><span class="o">.</span><span class="n">deletions</span><span class="si">}</span><span class="s2">, &quot;</span>
+          <span class="sa">f</span><span class="s2">&quot;insertions=</span><span class="si">{</span><span class="n">alignment</span><span class="o">.</span><span class="n">insertions</span><span class="si">}</span><span class="s2">, correct=</span><span class="si">{</span><span class="n">alignment</span><span class="o">.</span><span class="n">hits</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">jiwer</span><span class="o">.</span><span class="n">visualize_alignment</span><span class="p">(</span><span class="n">alignment</span><span class="p">,</span> <span class="n">show_measures</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="telephone-quality-and-background-noise">
+<h3>Telephone quality and background noise<a class="headerlink" href="#telephone-quality-and-background-noise" title="Permalink to this heading">#</a></h3>
+<p>Real recordings are rarely this clean. The next cell adds <strong>white noise</strong> (a steady hiss) so that the speech is 10 decibels louder than the noise, roughly a quiet voice in a noisy café. The random seed is fixed, so everyone gets the same noise. Listen to it, then look at its spectrogram.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">add_noise</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">snr_db</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add white noise so the speech is snr_db decibels louder than the noise.&quot;&quot;&quot;</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">noise</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+    <span class="n">speech_power</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">noise</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">speech_power</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">noise</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="n">snr_db</span> <span class="o">/</span> <span class="mi">10</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">noise</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+
+<span class="n">audio_noisy</span> <span class="o">=</span> <span class="n">add_noise</span><span class="p">(</span><span class="n">audio_16k</span><span class="p">,</span> <span class="n">snr_db</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Audio</span><span class="p">(</span><span class="n">audio_noisy</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="n">TARGET_SR</span><span class="p">))</span>
+<span class="n">plot_waveform_and_spectrogram</span><span class="p">(</span><span class="n">audio_noisy</span><span class="p">,</span> <span class="n">TARGET_SR</span><span class="p">,</span> <span class="s2">&quot;with background noise (10 dB)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The noise fills the whole spectrogram with gray, burying the quiet consonants first; the strong vowel bands still stand out. Now transcribe all three versions with both models and put the results in one table.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">reference</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transcribe each version with both models and score it against the reference.&quot;&quot;&quot;</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">condition</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">versions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">transcribe</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;condition&quot;</span><span class="p">:</span> <span class="n">condition</span><span class="p">,</span> <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">model_name</span><span class="p">,</span> <span class="s2">&quot;transcript&quot;</span><span class="p">:</span> <span class="n">text</span><span class="p">,</span>
+                         <span class="s2">&quot;normalized WER&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">jiwer</span><span class="o">.</span><span class="n">wer</span><span class="p">(</span><span class="n">normalize</span><span class="p">(</span><span class="n">reference</span><span class="p">),</span> <span class="n">normalize</span><span class="p">(</span><span class="n">text</span><span class="p">)),</span> <span class="mi">2</span><span class="p">)})</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+
+
+<span class="n">versions</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;clean (16 kHz)&quot;</span><span class="p">:</span> <span class="n">audio_16k</span><span class="p">,</span> <span class="s2">&quot;telephone&quot;</span><span class="p">:</span> <span class="n">audio_phone</span><span class="p">,</span> <span class="s2">&quot;noise 10 dB&quot;</span><span class="p">:</span> <span class="n">audio_noisy</span><span class="p">}</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">reference</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_colwidth&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Read the table row by row:</p>
+<ul class="simple">
+<li><p>Look at <strong>which words change</strong> under telephone quality and noise, not only at the WER number. Errors usually hit short, quiet words and sounds with high-frequency energy first.</p></li>
+<li><p>The two models can react differently to the same audio, which is why it is worth testing a model on audio like your own before relying on it.</p></li>
+<li><p>One sentence is far too little to compare models fairly. Real evaluations use many recordings, many speakers, and the same normalization rules for every system.</p></li>
+</ul>
+<p><strong>Try it (optional):</strong> change <code class="docutils literal notranslate"><span class="pre">snr_db=10</span></code> to <code class="docutils literal notranslate"><span class="pre">snr_db=0</span></code> (speech and noise equally loud) in the noise cell and run the cells again. Or go back to Part 1, give gTTS a sentence with a number and a negation, such as <code class="docutils literal notranslate"><span class="pre">'The</span> <span class="pre">number</span> <span class="pre">14</span> <span class="pre">bus</span> <span class="pre">does</span> <span class="pre">not</span> <span class="pre">stop</span> <span class="pre">here</span> <span class="pre">after</span> <span class="pre">9:30.'</span></code>, and see how each model writes the numbers.</p>
+</section>
+</section>
+<section id="optional-try-it-with-your-own-voice">
+<h2>7. Optional: try it with your own voice<a class="headerlink" href="#optional-try-it-with-your-own-voice" title="Permalink to this heading">#</a></h2>
+<p>If you can record audio, you can run the same steps on your own speech. Synthetic speech is clean and standard; real voices are not, so expect more interesting results. This part is optional, and nothing is submitted.</p>
+<p><strong>What to say.</strong> About 10 to 20 seconds (stay under 30 seconds). Use a <strong>fictional, everyday sentence</strong> with a number or a negation, for example: <em>“The number 14 bus does not stop at Maple Street after 9:30 at night.”</em> or <em>“I can’t find the blue umbrella, and the shop closes at 6.”</em></p>
+<p><strong>Do not record personal information</strong>: no real names, addresses, phone numbers, ID or account numbers, health details, or anything else that could identify you or someone else.</p>
+<p><strong>How to record</strong></p>
+<ul class="simple">
+<li><p><strong>Audacity</strong> (free for Windows, macOS, and Linux, <a class="reference external" href="https://www.audacityteam.org/">https://www.audacityteam.org/</a>): press Record, read your sentence, press Stop, then choose <strong>File → Export Audio…</strong>, Format <strong>WAV</strong>, Encoding <strong>Signed 16-bit PCM</strong>. Any sample rate, mono or stereo, is fine.</p></li>
+<li><p><strong>A phone or computer recorder</strong> (Voice Memos, Voice Recorder, QuickTime) usually saves <strong>.m4a</strong>. That is fine too: the cell below converts .m4a or .mp3 to WAV with <code class="docutils literal notranslate"><span class="pre">pydub</span></code>, the same way Part 1 converted the MP3.</p></li>
+<li><p>Record in a quiet room, 15 to 30 cm from the microphone. Avoid online converter websites; they upload your voice to a third party.</p></li>
+</ul>
+<p><strong>Privacy.</strong> Files you upload to Colab are deleted when the session ends. Audio players in this notebook store the sound inside the saved notebook file, so do not share or post a notebook that contains your voice.</p>
+<p><strong>Steps</strong></p>
+<ol class="arabic simple">
+<li><p>In the next cell, set <code class="docutils literal notranslate"><span class="pre">USE_MY_RECORDING</span> <span class="pre">=</span> <span class="pre">True</span></code>, and type <strong>exactly what you said</strong> in <code class="docutils literal notranslate"><span class="pre">MY_SENTENCE</span></code>. This is your reference transcript, so write it before you look at any model output.</p></li>
+<li><p>Run the cell. In Colab it opens an upload button; choose your file. Outside Colab, put the file next to this notebook and set <code class="docutils literal notranslate"><span class="pre">MY_FILE</span></code> to its name.</p></li>
+<li><p>Run the cell after it to repeat Parts 2 to 6 on your recording. Your original file is never changed.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">USE_MY_RECORDING</span> <span class="o">=</span> <span class="kc">False</span>   <span class="c1"># change to True to use your own recording</span>
+<span class="n">MY_SENTENCE</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>           <span class="c1"># type exactly what you said</span>
+<span class="n">MY_FILE</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>               <span class="c1"># outside Colab: the file name, for example &quot;my_recording.wav&quot;</span>
+
+<span class="k">if</span> <span class="n">USE_MY_RECORDING</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">MY_FILE</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">files</span>
+        <span class="n">uploaded</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
+        <span class="n">MY_FILE</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">uploaded</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Not running in Colab: set MY_FILE to the name of your audio file.&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">USE_MY_RECORDING</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using:&quot;</span><span class="p">,</span> <span class="n">MY_FILE</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">USE_MY_RECORDING</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">MY_FILE</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">extension</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;.wav&quot;</span><span class="p">:</span>
+        <span class="n">my_wav</span> <span class="o">=</span> <span class="n">MY_FILE</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Convert .m4a, .mp3, and similar formats to WAV, saved under a new name</span>
+        <span class="n">my_wav</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_converted.wav&quot;</span>
+        <span class="n">AudioSegment</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">MY_FILE</span><span class="p">)</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">my_wav</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;wav&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Converted </span><span class="si">{</span><span class="n">MY_FILE</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">my_wav</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">my_audio</span> <span class="o">=</span> <span class="n">load_for_model</span><span class="p">(</span><span class="n">my_wav</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">Audio</span><span class="p">(</span><span class="n">my_audio</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="n">TARGET_SR</span><span class="p">))</span>
+    <span class="n">plot_waveform_and_spectrogram</span><span class="p">(</span><span class="n">my_audio</span><span class="p">,</span> <span class="n">TARGET_SR</span><span class="p">,</span> <span class="s2">&quot;my recording (16 kHz copy)&quot;</span><span class="p">)</span>
+
+    <span class="n">my_versions</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;clean (16 kHz)&quot;</span><span class="p">:</span> <span class="n">my_audio</span><span class="p">,</span>
+                   <span class="s2">&quot;telephone&quot;</span><span class="p">:</span> <span class="n">telephone</span><span class="p">(</span><span class="n">my_audio</span><span class="p">),</span>
+                   <span class="s2">&quot;noise 10 dB&quot;</span><span class="p">:</span> <span class="n">add_noise</span><span class="p">(</span><span class="n">my_audio</span><span class="p">,</span> <span class="n">snr_db</span><span class="o">=</span><span class="mi">10</span><span class="p">)}</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">evaluate</span><span class="p">(</span><span class="n">my_versions</span><span class="p">,</span> <span class="n">MY_SENTENCE</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Skipped: set USE_MY_RECORDING = True in the cell above to use your own voice.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="wrap-up">
+<h2>Wrap-up<a class="headerlink" href="#wrap-up" title="Permalink to this heading">#</a></h2>
+<p>You followed the full path of speech data:</p>
+<p><strong>text → speech (TTS) → MP3 → WAV → numbers → waveform → spectrogram → log-Mel spectrogram → 16 kHz mono model input → text (ASR) → word error rate</strong></p>
+<p>Along the way you saw that a recording’s sampling rate limits which frequencies it can hold, that spectrograms show vowels, hissing sounds, and stops, that two recognizers can write the same words in very different forms, that normalization decides what counts as an error, and that telephone audio and noise change what a model hears.</p>
+<p>These are the same steps used in real speech projects, such as transcribing interviews, meetings, or customer calls. The usual next steps are to use more recordings and more speakers, choose normalization rules carefully, and look at <em>which</em> errors happen, not just how many. The Week 11 discussion picks up from here.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module11"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-text-to-speech-about-5-minutes">1. From text to speech (about 5 minutes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sound-as-numbers-about-5-minutes">2. Sound as numbers (about 5 minutes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seeing-sound-spectrograms-about-10-minutes">3. Seeing sound: spectrograms (about 10 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-a-speech-model-actually-reads-the-log-mel-spectrogram">What a speech model actually reads: the log-Mel spectrogram</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-audio-ready-for-a-model-about-5-minutes">4. Getting audio ready for a model (about 5 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#telephone-quality">Telephone quality</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-speech-back-to-text-about-10-minutes">5. From speech back to text (about 10 minutes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measuring-errors-about-10-minutes">6. Measuring errors (about 10 minutes)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#telephone-quality-and-background-noise">Telephone quality and background noise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-try-it-with-your-own-voice">7. Optional: try it with your own voice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap-up</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

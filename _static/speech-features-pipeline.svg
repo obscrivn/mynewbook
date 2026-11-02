@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="420" viewBox="0 0 780 420" role="img" aria-labelledby="title desc">
+  <title id="title">From waveform to model input: log-Mel spectrogram and MFCCs</title>
+  <desc id="desc">Top row, the main path: a waveform sampled 16,000 times per second is cut into short overlapping frames (25 milliseconds long, one every 10 milliseconds). A Fourier transform measures the energy at each frequency in each frame. A Mel filter bank groups the frequencies, with more detail at low frequencies, and a log is taken. The result is a log-Mel spectrogram with 80 to 128 numbers per frame, the input to Whisper and most modern recognizers. Bottom right, the optional classic path: an inverse transform, in practice a discrete cosine transform, turns each log-Mel frame into MFCCs, 39 numbers per frame, used by older systems. Bottom left: self-supervised models such as wav2vec 2.0 and HuBERT skip these steps and learn features from the waveform.</desc>
+  <defs><marker id="arw" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#46576c"/></marker></defs>
+  <rect width="780" height="420" fill="#f8fafc" rx="16"/>
+  <g font-family="Arial, sans-serif" fill="#162b43" text-anchor="middle">
+    <text x="390" y="34" font-size="20" font-weight="bold">From waveform to model input</text>
+    <rect x="20" y="70" width="132" height="100" rx="10" fill="#ffffff" stroke="#c8d3e0" stroke-width="1.5"/>
+    <text x="86.0" y="108.0" font-size="14" font-weight="bold" fill="#162b43">Waveform</text>
+    <text x="86.0" y="125.0" font-size="12" fill="#46576c">16,000 samples</text>
+    <text x="86.0" y="142.0" font-size="12" fill="#46576c">per second</text>
+    <rect x="172" y="70" width="132" height="100" rx="10" fill="#ffffff" stroke="#c8d3e0" stroke-width="1.5"/>
+    <text x="238.0" y="108.0" font-size="14" font-weight="bold" fill="#162b43">Frames</text>
+    <text x="238.0" y="125.0" font-size="12" fill="#46576c">25 ms windows,</text>
+    <text x="238.0" y="142.0" font-size="12" fill="#46576c">one every 10 ms</text>
+    <rect x="324" y="70" width="132" height="100" rx="10" fill="#ffffff" stroke="#c8d3e0" stroke-width="1.5"/>
+    <text x="390.0" y="108.0" font-size="14" font-weight="bold" fill="#162b43">Fourier transform</text>
+    <text x="390.0" y="125.0" font-size="12" fill="#46576c">energy at each</text>
+    <text x="390.0" y="142.0" font-size="12" fill="#46576c">frequency (FFT)</text>
+    <rect x="476" y="70" width="132" height="100" rx="10" fill="#ffffff" stroke="#c8d3e0" stroke-width="1.5"/>
+    <text x="542.0" y="99.5" font-size="14" font-weight="bold" fill="#162b43">Mel filter bank</text>
+    <text x="542.0" y="116.5" font-size="12" fill="#46576c">+ log</text>
+    <text x="542.0" y="133.5" font-size="12" fill="#46576c">fine detail at</text>
+    <text x="542.0" y="150.5" font-size="12" fill="#46576c">low frequencies</text>
+    <rect x="628" y="70" width="132" height="100" rx="10" fill="#e8f0fa" stroke="#53779d" stroke-width="2"/>
+    <text x="694.0" y="99.5" font-size="14" font-weight="bold" fill="#162b43">Log-Mel</text>
+    <text x="694.0" y="116.5" font-size="14" fill="#46576c">spectrogram</text>
+    <text x="694.0" y="133.5" font-size="12" fill="#46576c">80 to 128 numbers</text>
+    <text x="694.0" y="150.5" font-size="12" fill="#46576c">per frame</text>
+    <line x1="152" y1="120.0" x2="168" y2="120.0" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)"/>
+    <line x1="304" y1="120.0" x2="320" y2="120.0" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)"/>
+    <line x1="456" y1="120.0" x2="472" y2="120.0" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)"/>
+    <line x1="608" y1="120.0" x2="624" y2="120.0" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)"/>
+    <text x="694" y="192" font-size="12" font-weight="bold" fill="#53779d">Input to Whisper and</text>
+    <text x="694" y="208" font-size="12" font-weight="bold" fill="#53779d">most modern ASR</text>
+    <text x="560" y="240" font-size="13" font-weight="bold" fill="#b7862b">Optional classic path</text>
+    <line x1="694" y1="216" x2="694" y2="262" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)" stroke-dasharray="6 4"/>
+    <rect x="628" y="266" width="132" height="96" rx="10" fill="#fff4dc" stroke="#b7862b" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <text x="694.0" y="293.5" font-size="14" font-weight="bold" fill="#162b43">Inverse</text>
+    <text x="694.0" y="310.5" font-size="14" fill="#46576c">transform</text>
+    <text x="694.0" y="327.5" font-size="12" fill="#46576c">in practice a DCT</text>
+    <text x="694.0" y="344.5" font-size="12" fill="#46576c">(cosine transform)</text>
+    <line x1="628" y1="314" x2="612" y2="314" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)" stroke-dasharray="6 4"/>
+    <rect x="476" y="266" width="132" height="96" rx="10" fill="#fff4dc" stroke="#b7862b" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <text x="542.0" y="293.5" font-size="14" font-weight="bold" fill="#162b43">MFCCs</text>
+    <text x="542.0" y="310.5" font-size="12" fill="#46576c">39 numbers per</text>
+    <text x="542.0" y="327.5" font-size="12" fill="#46576c">frame; used by</text>
+    <text x="542.0" y="344.5" font-size="12" fill="#46576c">older systems</text>
+    <line x1="86" y1="170" x2="86" y2="262" stroke="#46576c" stroke-width="1.8" marker-end="url(#arw)" stroke-dasharray="6 4"/>
+    <rect x="20" y="266" width="400" height="96" rx="10" fill="#e6f4ed" stroke="#467861" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <text x="220" y="294" font-size="14" font-weight="bold">Learned features</text>
+    <text x="220" y="314" font-size="12" fill="#46576c">Self-supervised models such as wav2vec 2.0 and HuBERT</text>
+    <text x="220" y="331" font-size="12" fill="#46576c">skip these steps: their first layers learn their own</text>
+    <text x="220" y="348" font-size="12" fill="#46576c">features straight from the waveform.</text>
+    <text x="390" y="398" font-size="12" fill="#46576c">A frame every 10 ms means 100 frames per second: a 30-second clip becomes 3,000 frames.</text>
+  </g>
+</svg>
