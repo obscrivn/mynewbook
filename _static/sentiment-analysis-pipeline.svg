@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="330" viewBox="0 0 1400 330" role="img" aria-labelledby="title desc">
+  <title id="title">From text to an evaluated sentiment judgment</title>
+  <desc id="desc">A conceptual pipeline: text is represented with a sentiment lexicon or an embedding-based axis score, a simple prediction turns that score into a polarity label, a context check revisits the score for negation, intensity, domain dependence, and word sense, and the result becomes a human-evaluated judgment. Modern transformer and LLM sentiment models extend this pipeline. A dashed arrow shows that the context check can send you back to reconsider the lexicon or embedding signal.</desc>
+  <defs>
+    <style>
+      .label { font: 700 22px 'Segoe UI', Arial, sans-serif; fill: #1f2937; }
+      .small { font: 500 16px 'Segoe UI', Arial, sans-serif; fill: #374151; }
+      .group { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #475569; letter-spacing: 1px; }
+      .b1 { fill: #e0f2fe; stroke: #0f172a; stroke-width: 2; }
+      .b2 { fill: #fef3c7; stroke: #0f172a; stroke-width: 2; }
+      .b3 { fill: #dcfce7; stroke: #0f172a; stroke-width: 2; }
+      .b4 { fill: #f3e8ff; stroke: #0f172a; stroke-width: 2; }
+      .arrow { stroke: #1d4ed8; stroke-width: 4; fill: none; marker-end: url(#arrowhead2); }
+      .loop { stroke: #64748b; stroke-width: 3; stroke-dasharray: 9 7; fill: none; marker-end: url(#loophead2); }
+      .bracket { stroke: #94a3b8; stroke-width: 3; fill: none; }
+    </style>
+    <marker id="arrowhead2" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="15" refY="8" orient="auto">
+      <path d="M0,0 L16,8 L0,16 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="loophead2" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="15" refY="8" orient="auto">
+      <path d="M0,0 L16,8 L0,16 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1400" height="330" fill="#f8fafc"/>
+
+  <!-- feedback loop -->
+  <path class="loop" d="M696 105 L696 58 L297 58 L297 102"/>
+  <text class="small" x="496" y="44" text-anchor="middle">context check suggests a different lexicon, embedding, or representation</text>
+
+  <!-- boxes -->
+  <rect class="b1" x="30" y="110" width="150" height="110" rx="18"/>
+  <text class="label" x="105" y="153" text-anchor="middle">Text</text>
+  <text class="small" x="105" y="182" text-anchor="middle">a sentence,</text>
+  <text class="small" x="105" y="204" text-anchor="middle">review, or document</text>
+
+  <line class="arrow" x1="180" y1="165" x2="210" y2="165"/>
+
+  <rect class="b1" x="212" y="110" width="170" height="110" rx="18"/>
+  <text class="label" x="297" y="153" text-anchor="middle">Lexicon Signal</text>
+  <text class="small" x="297" y="182" text-anchor="middle">word polarity or</text>
+  <text class="small" x="297" y="204" text-anchor="middle">embedding axis score</text>
+
+  <line class="arrow" x1="382" y1="165" x2="412" y2="165"/>
+
+  <rect class="b2" x="414" y="110" width="160" height="110" rx="18"/>
+  <text class="label" x="494" y="153" text-anchor="middle">Simple Score</text>
+  <text class="small" x="494" y="182" text-anchor="middle">ratio + threshold</text>
+  <text class="small" x="494" y="204" text-anchor="middle">positive / negative</text>
+
+  <line class="arrow" x1="574" y1="165" x2="604" y2="165"/>
+
+  <rect class="b2" x="606" y="110" width="180" height="110" rx="18"/>
+  <text class="label" x="696" y="153" text-anchor="middle">Context Check</text>
+  <text class="small" x="696" y="182" text-anchor="middle">negation, intensity,</text>
+  <text class="small" x="696" y="204" text-anchor="middle">domain, word sense</text>
+
+  <line class="arrow" x1="786" y1="165" x2="816" y2="165"/>
+
+  <rect class="b3" x="818" y="110" width="170" height="110" rx="18"/>
+  <text class="label" x="903" y="153" text-anchor="middle">Human Judgment</text>
+  <text class="small" x="903" y="182" text-anchor="middle">evidence +</text>
+  <text class="small" x="903" y="204" text-anchor="middle">human interpretation</text>
+
+  <line class="arrow" x1="988" y1="165" x2="1018" y2="165"/>
+
+  <rect class="b4" x="1020" y="110" width="200" height="110" rx="18"/>
+  <text class="label" x="1120" y="153" text-anchor="middle">Modern Models</text>
+  <text class="small" x="1120" y="182" text-anchor="middle">transformer / LLM</text>
+  <text class="small" x="1120" y="204" text-anchor="middle">sentiment models</text>
+
+  <!-- group brackets -->
+  <path class="bracket" d="M30 250 L30 260 L382 260 L382 250"/>
+  <text class="group" x="206" y="290" text-anchor="middle">REPRESENT</text>
+
+  <path class="bracket" d="M414 250 L414 260 L786 260 L786 250"/>
+  <text class="group" x="600" y="290" text-anchor="middle">PREDICT &amp; CHECK</text>
+
+  <path class="bracket" d="M818 250 L818 260 L988 260 L988 250"/>
+  <text class="group" x="903" y="290" text-anchor="middle">EVALUATE</text>
+
+  <path class="bracket" d="M1020 250 L1020 260 L1220 260 L1220 250"/>
+  <text class="group" x="1120" y="290" text-anchor="middle">MODERNIZE</text>
+</svg>
