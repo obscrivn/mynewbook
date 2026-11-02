@@ -33,6 +33,18 @@ chapters:
     - file: module5/classification
     - file: module5/week5_coding_practice
 
+- file: module6/module6
+  sections:
+    - file: module6/topics
+    - file: module6/week6_coding_practice
+    - file: module6/week6_coding_practice_solution
+
+- file: module7/module7
+  sections:
+    - file: module7/sentiment
+    - file: module7/week07_sentiment_practice
+    - file: module7/week07_sentiment_practice_solution
+
 - file: module8/module8
   sections:
     - file: module8/recommendation
