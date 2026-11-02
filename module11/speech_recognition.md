@@ -341,6 +341,10 @@ ASR powers live captions for Deaf and hard-of-hearing people, dictation for peop
 5. Privacy and consent: get informed consent from patients (and anyone else present) before recording; decide where audio is processed and stored (for example, a local model or a provider with a suitable data agreement) and delete audio once it is no longer needed. Accuracy: test on a sample of real visits, with special attention to drug names, negations such as *not*, and patients with different accents, and keep a clinician review step for anything that goes into the medical record.
 ```
 
+Next, the coding practice puts these ideas to work: you will turn text into speech, see it as a waveform and a spectrogram, resample it for a model, transcribe it with Whisper and wav2vec 2.0, and compute word error rate for clean, telephone-quality, and noisy versions.
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module11/week11_speech_practice.ipynb)
+
 ## References
 
 Main source for the ASR task, error rates by task, encoder-decoder models, CTC, transducers, self-supervised models, and WER: {cite}`jurafsky2026speech` (Chapter 16, "Automatic Speech Recognition"; §17.5 for diarization). The *1750* example comes from an earlier edition of the same book's text-to-speech chapter. Whisper: {cite}`radford2023whisper`. wav2vec 2.0: {cite}`baevski2020wav2vec`. Comparison of current systems: {cite}`srivastav2025openasr`. Fairness across speaker groups: {cite}`koenecke2020racial`. Hallucinations: {cite}`koenecke2024careless`. Challenges list adapted in part from Peter Bell's ASR lecture slides (University of Edinburgh, 2021 to 2022).

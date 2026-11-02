@@ -69,6 +69,7 @@ chapters:
   sections:
     - file: module11/speech_signals
     - file: module11/speech_recognition
+    - file: module11/week11_speech_practice
 
 - file: translation
 - file: references
