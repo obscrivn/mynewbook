@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="360" viewBox="0 0 780 360" role="img" aria-labelledby="title desc">
+  <title id="title">NER as token classification with an encoder</title>
+  <desc id="desc">Five input tokens: Jane, Villanueva, works, at, Google. Each one goes up through an encoder block and gets its own output label: B-PER, I-PER, O, O, B-ORG. This is the same encoder-only architecture used for sentiment classification in Module 10, but with one label per token instead of one label for the whole sentence.</desc>
+  <defs><marker id="arrner" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#7a8ca3"/></marker></defs>
+  <rect width="780" height="360" fill="#f8fafc" rx="16"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="390" y="32" font-size="18" font-weight="bold" fill="#162b43">Same encoder, one label per token instead of one label per sentence</text>
+
+    <!-- output tags -->
+    <g font-size="13.5" fill="#162b43">
+      <rect x="40"  y="52" width="120" height="34" rx="8" fill="#fff4dc" stroke="#b7862b" stroke-width="1.8"/><text x="100" y="74">B-PER</text>
+      <rect x="175" y="52" width="120" height="34" rx="8" fill="#fff4dc" stroke="#b7862b" stroke-width="1.8"/><text x="235" y="74">I-PER</text>
+      <rect x="310" y="52" width="120" height="34" rx="8" fill="#eef1f5" stroke="#9aa6b5"/><text x="370" y="74">O</text>
+      <rect x="445" y="52" width="120" height="34" rx="8" fill="#eef1f5" stroke="#9aa6b5"/><text x="505" y="74">O</text>
+      <rect x="580" y="52" width="120" height="34" rx="8" fill="#fde9d9" stroke="#c07a3a" stroke-width="1.8"/><text x="640" y="74">B-ORG</text>
+    </g>
+
+    <g stroke="#7a8ca3" stroke-width="1.3" marker-end="url(#arrner)">
+      <line x1="100" y1="150" x2="100" y2="90"/>
+      <line x1="235" y1="150" x2="235" y2="90"/>
+      <line x1="370" y1="150" x2="370" y2="90"/>
+      <line x1="505" y1="150" x2="505" y2="90"/>
+      <line x1="640" y1="150" x2="640" y2="90"/>
+    </g>
+
+    <!-- encoder block -->
+    <rect x="35" y="150" width="710" height="90" rx="12" fill="#e6f4ed" stroke="#467861" stroke-width="2"/>
+    <text x="390" y="202" font-size="16" font-weight="bold" fill="#355c48">Encoder (same architecture as Module 10, e.g. a multilingual BERT)</text>
+
+    <g stroke="#7a8ca3" stroke-width="1.3" marker-end="url(#arrner)">
+      <line x1="100" y1="305" x2="100" y2="242"/>
+      <line x1="235" y1="305" x2="235" y2="242"/>
+      <line x1="370" y1="305" x2="370" y2="242"/>
+      <line x1="505" y1="305" x2="505" y2="242"/>
+      <line x1="640" y1="305" x2="640" y2="242"/>
+    </g>
+
+    <!-- input tokens -->
+    <g font-size="13.5" fill="#162b43">
+      <rect x="40"  y="305" width="120" height="34" rx="8" fill="#e8f0fa" stroke="#53779d"/><text x="100" y="327">Jane</text>
+      <rect x="175" y="305" width="120" height="34" rx="8" fill="#e8f0fa" stroke="#53779d"/><text x="235" y="327">Villanueva</text>
+      <rect x="310" y="305" width="120" height="34" rx="8" fill="#e8f0fa" stroke="#53779d"/><text x="370" y="327">works</text>
+      <rect x="445" y="305" width="120" height="34" rx="8" fill="#e8f0fa" stroke="#53779d"/><text x="505" y="327">at</text>
+      <rect x="580" y="305" width="120" height="34" rx="8" fill="#e8f0fa" stroke="#53779d"/><text x="640" y="327">Google</text>
+    </g>
+  </g>
+</svg>

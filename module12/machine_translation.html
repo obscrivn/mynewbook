@@ -1,0 +1,767 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>12.2 Machine Translation &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module12/machine_translation';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="References" href="../references.html" />
+    <link rel="prev" title="12.1 Multilingual Named Entity Recognition" href="multilingual_ner.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module4/module4.html">Chapter 4 Similarity and Retrieval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module4/cluster.html">4.1 Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/practice.html">4.2 Experiment: From Similarity Scores to Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/week4_coding_practice.html">4.3 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module5/module5.html">Chapter 5 Text Classification and Model Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module5/classification.html">5.1 Text Classification and Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/week5_coding_practice.html">5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module6/module6.html">Chapter 6 Topic Modeling and Modern Topic Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module6/topics.html">6.1 Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice.html">6.2 Coding Practice: Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice_solution.html">6.3 Coding Practice: Topic Modeling and Modern Topic Analysis (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module7/module7.html">Chapter 7 Sentiment, Affect, and Lexicons</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module7/sentiment.html">7.1 Sentiment, Affect, and Lexicons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module7/week07_sentiment_practice.html">7.2 Coding Practice: Sentiment Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module7/week07_sentiment_practice_solution.html">7.3 Coding Practice: Sentiment Analysis Solution</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module8/module8.html">Chapter 8 Recommendation Systems and Personalized Text Ranking</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module8/recommendation.html">8.1 Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module8/week08_recommendation_practice.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module8/week08_recommendation_practice_solution.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module9/module9.html">Chapter 9 From RNNs and LSTMs to Language Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module9/sequence_models.html">9.1 From RNNs and LSTMs to Language Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_lstm_practice.html">9.2 Coding Practice: LSTM Sentiment Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/huggingface_intro.html">Optional: Exploring Pretrained Models with Hugging Face</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_huggingface_intro.html">Exploring Pretrained Models with Hugging Face</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_lstm_practice_solution.html">9.2 Coding Practice: LSTM Sentiment Classification (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module10/module10.html">Chapter 10 Transformers, Pretrained Models, and Transfer Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module10/transformers.html">10.1 Transformers, Pretrained Models, and Transfer Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module10/week10_bert_practice.html">10.2 Coding Practice: Exploring BERT-Family Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module10/week10_bert_practice_solution.html">10.2 Coding Practice: Exploring BERT-Family Models (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module11/module11.html">Chapter 11 Speech: From Sound to Text</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module11/speech_signals.html">11.1 Speech as Data: From Sound to Signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module11/speech_recognition.html">11.2 Speech Recognition: From Signal to Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module11/week11_speech_practice.html">11.3 Coding Practice: Working with Speech in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module12.html">Chapter 12 Multilingual NER and Machine Translation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="multilingual_ner.html">12.1 Multilingual Named Entity Recognition</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">12.2 Machine Translation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule12/machine_translation.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module12/machine_translation.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>12.2 Machine Translation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-translation-is-hard">1. Why Translation Is Hard</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#four-approaches-in-order">2. Four Approaches, in Order</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-a-transformer-translates">3. How a Transformer Translates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-translation-quality">4. Evaluating Translation Quality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#names-idioms-and-low-resource-languages">5. Names, Idioms, and Low-Resource Languages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-in-translation">6. Bias in Translation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways-and-knowledge-check">7. Key Takeaways and Knowledge Check</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-interpretation">Check your interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="machine-translation">
+<h1>12.2 Machine Translation<a class="headerlink" href="#machine-translation" title="Permalink to this heading">#</a></h1>
+<p>Google Translate alone moves hundreds of billions of words a day between over 100 languages <span id="id1">[<a class="reference internal" href="../references.html#id35" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 13, Machine Translation. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26f</a>]</span>. This reading asks:</p>
+<p><strong>What makes translating between languages hard, and how does a transformer do it?</strong></p>
+<p>By the end of these notes you should be able to:</p>
+<ul class="simple">
+<li><p>explain what machine translation does and name several sources of difficulty between languages</p></li>
+<li><p>place rule-based, statistical, neural, and transformer-based translation in historical order, and explain why the field moved between them</p></li>
+<li><p>describe, conceptually, how an encoder-decoder transformer translates a sentence</p></li>
+<li><p>explain how translation quality is evaluated, including what BLEU measures and what it misses</p></li>
+<li><p>identify translation errors involving ambiguity, context, and named entities, and connect them to the entity ideas from 12.1</p></li>
+</ul>
+<p>We pick up the <em>Amazon</em> example from 12.1: the same word that is an easy ORG tag in English is a genuine translation problem, because the company name and the river name do not behave the same way across languages.</p>
+<section id="why-translation-is-hard">
+<h2>1. Why Translation Is Hard<a class="headerlink" href="#why-translation-is-hard" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> words carry meaning and structure within a sentence (Module 1 onward). <em>New problem:</em> languages do not all build sentences out of the same pieces in the same order. <em>Next:</em> the main sources of divergence between languages, which any translation system has to handle.</p>
+</div>
+<p><strong>Machine translation (MT)</strong> is the task of automatically converting text from a source language into a target language while preserving meaning and producing fluent output. Several kinds of cross-language difference make this hard <span id="id2">[<a class="reference internal" href="../references.html#id35" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 13, Machine Translation. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26f</a>]</span>:</p>
+<p><strong>Word order.</strong> English is a <em>subject-verb-object</em> (SVO) language; Japanese is <em>subject-object-verb</em> (SOV). The English sentence <em>He wrote a letter to a friend</em> becomes, word for word, <em>friend to letter wrote</em> in Japanese, with the verb moved to the end and the pronoun dropped entirely. German and Mandarin have their own reordering quirks (an adverb that starts a German sentence pushes the verb into second position; a goal phrase that follows the verb in English often comes before it in Mandarin). A translator has to restructure the sentence, not just swap words one for one.</p>
+<p><strong>Word sense.</strong> The English word <em>bass</em> can mean a fish (Spanish <em>lubina</em>) or a musical instrument (Spanish <em>bajo</em>); the right translation depends on context. The same problem touches most common words and connects directly to word-sense disambiguation from earlier in the course.</p>
+<p><strong>Referential density (pro-drop).</strong> Some languages require an explicit pronoun almost everywhere English would use one; others allow it to be dropped and recovered from context. Spanish can drop a subject pronoun once it is established (<em>dio con un libro… mostró su hallazgo</em>, “[he] came upon a book… [he] showed his find”); Japanese and Chinese drop pronouns even more freely. Linguists call languages that omit more “<strong>cold</strong>” and languages that spell more out “<strong>hot</strong>,” borrowing the terms from media theory <span id="id3">[<a class="reference internal" href="../references.html#id35" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 13, Machine Translation. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26f</a>]</span>. Translating from a cold language into a hot one means the system has to infer a pronoun, and the right gender or number, from context that may be several sentences away.</p>
+<p><strong>Grammatical gender.</strong> Translating <em>I saw the movie and it is good</em> into German or French requires choosing a gendered pronoun for <em>it</em>, because <em>film</em> (French) and <em>Film</em> (German) carry grammatical gender that English nouns do not. There is no “neutral” option in the target language; the system has to commit to one. We return to this exact ambiguity in Section 5, because it is also where translation bias tends to appear.</p>
+<p><strong>Idioms and lexical gaps.</strong> <em>Spill the beans</em> translated word for word into most languages is nonsense; it needs an idiomatic equivalent, or a literal explanation if none exists. Sometimes no equivalent phrase exists at all: English has no single word for the Mandarin <em>xiào</em> or Japanese <em>oyakōkō</em>, both translated awkwardly as “filial piety” <span id="id4">[<a class="reference internal" href="../references.html#id35" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 13, Machine Translation. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26f</a>]</span>.</p>
+<p>None of these problems were invented by machine translation. They are exactly why professional human translators exist, and why, as you will see in Section 4, meaning preservation rather than word-for-word matching is what quality evaluation has to measure.</p>
+</section>
+<section id="four-approaches-in-order">
+<h2>2. Four Approaches, in Order<a class="headerlink" href="#four-approaches-in-order" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> the kinds of divergence above. <em>New problem:</em> how should a system handle them? <em>Next:</em> four answers, each one replacing the limits of the one before it.</p>
+</div>
+<figure class="align-default" id="mt-approaches-timeline">
+<a class="reference internal image-reference" href="../_images/mt-approaches-timeline.svg"><img alt="A timeline with four stages. Rule-based, nineteen fifties to nineteen eighties. Statistical, nineteen nineties to the twenty tens. Neural with RNNs and attention, around 2014 to 2017. Transformer encoder-decoder, 2017 to today, highlighted as the current standard." src="../_images/mt-approaches-timeline.svg" width="100%" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 38 </span><span class="caption-text">Each stage replaced a limitation of the one before it.</span><a class="headerlink" href="#mt-approaches-timeline" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Rule-based MT</strong> (1950s to 1980s) used hand-written grammar and dictionary rules, written by linguists, to segment, translate, and reorder phrases. It required enormous linguistic expertise to build and could not scale to the exceptions every language has.</p>
+<p><strong>Statistical MT</strong> (1990s to 2010s) replaced hand-written rules with probabilities learned from large collections of parallel text (the same sentence in two languages). For example, a phrase table might learn that the German word <em>Sicherheit</em> corresponds to English <em>security</em> far more often than <em>safety</em>, and <em>safety</em> far more often than <em>certainty</em>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>German phrase</p></th>
+<th class="head"><p>English translation</p></th>
+<th class="head"><p>Learned count</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sicherheit</p></td>
+<td><p>security</p></td>
+<td><p>14,516</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sicherheit</p></td>
+<td><p>safety</p></td>
+<td><p>10,015</p></td>
+</tr>
+<tr class="row-even"><td><p>Sicherheit</p></td>
+<td><p>certainty</p></td>
+<td><p>334</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Statistical MT was a real improvement, but it still struggled with context beyond a short phrase window, and reordering still relied on separate, fairly rigid models.</p>
+<p><strong>Neural MT</strong> (around 2014 to 2017) replaced phrase tables with an <strong>encoder-decoder</strong> network: an encoder reads the whole source sentence into a representation, and a decoder generates the target sentence word by word. Early versions used recurrent networks (RNNs); adding <strong>attention</strong> let the decoder look back at the most relevant source words at each step, rather than compressing the entire sentence into one fixed-size vector, the same bottleneck problem Module 10 described for plain RNNs.</p>
+<p><strong>Transformer-based MT</strong> (2017 to today) replaced the RNN encoder and decoder with the transformer architecture from Module 10, and is the standard approach used by essentially every major translation system today <span id="id5">[<a class="reference internal" href="../references.html#id35" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 13, Machine Translation. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26f</a>]</span>. Section 3 looks at how.</p>
+</section>
+<section id="how-a-transformer-translates">
+<h2>3. How a Transformer Translates<a class="headerlink" href="#how-a-transformer-translates" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> the encoder-decoder family from Module 10, where an encoder reads the input and a decoder writes a new sequence. <em>New problem:</em> the decoder needs to know <em>which</em> source words matter for the word it is writing right now. <em>Next:</em> cross-attention, the one new piece.</p>
+</div>
+<p>An encoder-decoder transformer for translation works the way Module 10 described: an <strong>encoder</strong> reads the source sentence and produces a contextual vector for each source word; a <strong>decoder</strong> generates the target sentence one token at a time. The one addition specific to this architecture is <strong>cross-attention</strong>: at each step, the decoder attends not only to the target words it has already written, but to every vector the encoder produced for the source sentence, and decides which ones matter most for the word it is about to write <span id="id6">[<a class="reference internal" href="../references.html#id35" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 13, Machine Translation. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26f</a>]</span>.</p>
+<p>This is what lets the model handle word-order divergence without a hand-written reordering rule. Translating <em>The green box arrived</em> into Spanish, the decoder writes <em>Llegó</em> (“arrived”) first, even though <em>arrived</em> is the last word of the English sentence, because cross-attention lets it look at any source word in any order, not just left to right.</p>
+<figure class="align-default" id="mt-attention-alignment">
+<a class="reference internal image-reference" href="../_images/mt-attention-alignment.svg"><img alt="Source sentence, English, The green box arrived. Target output, Spanish, Llegó la caja verde. Lines connect each Spanish word to the English word it draws on. The line from Llegó to arrived is highlighted because the verb moves from the end of the English sentence to the start of the Spanish sentence." src="../_images/mt-attention-alignment.svg" width="100%" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 39 </span><span class="caption-text">Cross-attention lets the decoder pull from any source word, in any order.</span><a class="headerlink" href="#mt-attention-alignment" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Training data: parallel corpora<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Translation models are trained on parallel corpora (bitext): large collections of the same text in two languages, aligned sentence by sentence. Sources include government proceedings (the Europarl corpus, from European Parliament records), United Nations documents, and movie subtitles <span id="id7">[<a class="reference internal" href="../references.html#id35" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 13, Machine Translation. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26f</a>]</span>. Text is split into subword pieces, not whole words, using the same kind of tokenizer from Module 2, so that rare names and unseen words can still be represented.</p>
+</div>
+</details></section>
+<section id="evaluating-translation-quality">
+<h2>4. Evaluating Translation Quality<a class="headerlink" href="#evaluating-translation-quality" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> precision, recall, and F1 from Module 5, and that meaning, not word-for-word matching, is the goal (Section 1). <em>New problem:</em> “good translation” is not a single number. <em>Next:</em> how humans judge it, and the automatic shortcut used when human judgment is too slow or expensive.</p>
+</div>
+<p>Translations are judged on two dimensions <span id="id8">[<a class="reference internal" href="../references.html#id35" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 13, Machine Translation. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26f</a>]</span>:</p>
+<ul class="simple">
+<li><p><strong>Adequacy</strong> (or faithfulness): how much of the source sentence’s meaning survives in the translation.</p></li>
+<li><p><strong>Fluency</strong>: how natural and grammatical the output reads in the target language.</p></li>
+</ul>
+<p>A translation can be fluent but inadequate (confident, readable, and wrong) or adequate but disfluent (correct content, awkward phrasing). <strong>Human evaluation</strong>, where raters score adequacy and fluency on a scale, or rank competing translations against each other, is the most reliable way to measure both, but it is slow and expensive to run every time a system changes.</p>
+<p><strong>BLEU</strong> (Bilingual Evaluation Understudy) is the best-known automatic shortcut <span id="id9">[<a class="reference internal" href="../references.html#id37" title="Kishore Papineni, Salim Roukos, Todd Ward, and Wei-Jing Zhu. BLEU: a method for automatic evaluation of machine translation. In Proceedings of the 40th Annual Meeting of the Association for Computational Linguistics (ACL), 311–318. 2002. doi:10.3115/1073083.1073135.">PRWZ02</a>]</span>. It compares a candidate translation against one or more human reference translations by counting how many overlapping word sequences (1-word, 2-word, 3-word, and 4-word spans) the candidate shares with the reference, combined with a penalty for candidates that are suspiciously short. A higher BLEU score means more overlap with the reference wording.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>BLEU measures <strong>word overlap with a reference translation</strong>, not meaning. A fluent, accurate paraphrase that uses different words than the reference can score poorly, while a translation that copies reference wording while garbling meaning can score well. BLEU is also sensitive to exactly how the text was tokenized, which makes raw BLEU scores hard to compare across systems unless both use the same tokenization standard.</p>
+</div>
+<p>Because of these limits, current evaluation research increasingly favors metrics such as <strong>chrF</strong>, which compares overlapping <em>character</em> sequences instead of whole words and handles languages with rich morphology more gracefully, and embedding-based metrics that can recognize a correct paraphrase even when the wording differs completely from the reference <span id="id10">[<a class="reference internal" href="../references.html#id35" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 13, Machine Translation. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26f</a>]</span>. You are likely to encounter BLEU scores reported in papers and product documentation for years to come, so it is worth knowing what it does and does not capture, even as the field moves toward metrics that handle meaning better.</p>
+</section>
+<section id="names-idioms-and-low-resource-languages">
+<h2>5. Names, Idioms, and Low-Resource Languages<a class="headerlink" href="#names-idioms-and-low-resource-languages" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> NER finds and types spans like <em>Amazon</em> (12.1, Section 2). <em>New problem:</em> translation has to decide what to <em>do</em> with that span. <em>Next:</em> why the right answer depends on what kind of entity it is, and what happens when training data for a language is scarce.</p>
+</div>
+<p>Not every word should be translated the same way. A proper name usually should not be translated at all: a person’s name generally stays the same across languages. A place name may have a different <strong>conventional form</strong> in each language even though it refers to the same place (<em>Munich</em> in English, <em>München</em> in German). And some words are genuinely ambiguous between a name and an ordinary word, which is exactly the <em>Amazon</em> problem from 12.1: <em>Amazon</em> the company name should stay <em>Amazon</em> in almost any target language, because it is a brand, but <em>Amazon</em> the river has its own conventional form in many languages (<em>Amazonas</em> in Spanish and Portuguese). A translation system that cannot tell these apart risks either translating a brand name that should have stayed fixed, or leaving a geographic name in a form target-language readers do not recognize.</p>
+<p>This is also where NER and MT connect downstream. If a translated document is later run through an NER pipeline, an entity mangled in translation, a name split apart, mistranslated, or left in the wrong conventional form, becomes an entity the NER tagger either misses or mislabels. A translation error can quietly become an information-extraction error.</p>
+<p><strong>Low-resource languages</strong> compound all of this. Most of the world’s languages have far less parallel training text than English, Spanish, French, or Mandarin, so a general-purpose MT system tends to be noticeably weaker exactly where users may have the fewest alternatives. Current systems address this partly with <strong>multilingual models</strong>, the same idea from 12.1: one model trained across many languages can share what it learns about a higher-resource language with a related lower-resource one. Meta’s <strong>NLLB-200</strong> (“No Language Left Behind”) is an open research system built specifically to improve translation for roughly 200 languages, many of them low-resource <span id="id11">[<a class="reference internal" href="../references.html#id41" title="NLLB Team, Marta R. Costa-jussà, James Cross, Onur Çelebi, Maha Elbayad, Kenneth Heafield, Kevin Heffernan, Elahe Kalbassi, Janice Lam, Daniel Licht, Jean Maillard, Anna Sun, Skyler Wang, Guillaume Wenzek, Al Youngblood, Bapi Akula, Loic Barrault, Gabriel Mejia Gonzalez, Prangthip Hansanti, John Hoffman, Semarley Jarrett, Kaushik Ram Sadagopan, Dirk Rowe, Shannon Spruit, Chau Tran, Pierre Andrews, Necip Fazil Ayan, Shruti Bhosale, Sergey Edunov, Angela Fan, Cynthia Gao, Vedanuj Goswami, Francisco Guzmán, Philipp Koehn, Alexandre Mourachko, Christophe Ropers, Safiyyah Saleem, Holger Schwenk, and Jeff Wang. No language left behind: scaling human-centered machine translation. 2022. URL: https://arxiv.org/abs/2207.04672, arXiv:2207.04672.">NLLBTeamCjussaC+22</a>]</span>, alongside widely used commercial services such as Google Translate and DeepL (named here as of November 2026; like the model landscape in Module 11, specific products change quickly).</p>
+</section>
+<section id="bias-in-translation">
+<h2>6. Bias in Translation<a class="headerlink" href="#bias-in-translation" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> grammatical gender forces a translation choice that English does not (Section 1). <em>New problem:</em> when a system has to guess, what does it guess, and is the guess fair? <em>Next:</em> a documented pattern, and why it is not just “the model made one mistake.”</p>
+</div>
+<p>Many languages, including Hungarian, have a single gender-neutral pronoun. Translating from Hungarian into English forces a choice between <em>he</em> and <em>she</em>, since English pronouns are obligatory and gendered. Research auditing commercial translation systems found a consistent pattern: translating <em>ő egy ápoló</em> (“[gender-neutral] is a nurse”) produced <em>she is a nurse</em>, while <em>ő egy vezérigazgató</em> (“[gender-neutral] is a CEO”) produced <em>he is a CEO</em> <span id="id12">[<a class="reference internal" href="../references.html#id39" title="Marcelo O. R. Prates, Pedro H. Avelar, and Luis C. Lamb. Assessing gender bias in machine translation: a case study with Google Translate. Neural Computing and Applications, 32:6363–6381, 2019. URL: https://arxiv.org/abs/1809.02208, arXiv:1809.02208, doi:10.1007/s00521-019-04144-6.">PAL19</a>]</span>. The same study found that this pattern was not simply mirroring real-world labor statistics: the systems’ gender associations were <strong>more stereotyped</strong> than the actual gender balance of those occupations, meaning the bias was amplified, not just reproduced. A separate benchmark, <strong>WinoMT</strong>, confirmed that translation quality drops specifically on sentences describing people in non-stereotypical roles (for example, a male nurse or a female doctor), compared to sentences that match the stereotype <span id="id13">[<a class="reference internal" href="../references.html#id40" title="Gabriel Stanovsky, Noah A. Smith, and Luke Zettlemoyer. Evaluating gender bias in machine translation. In Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics (ACL), 1679–1684. 2019. URL: https://arxiv.org/abs/1906.00591, arXiv:1906.00591, doi:10.18653/v1/P19-1164.">SSZ19</a>]</span>.</p>
+<p>This is the same <em>it</em> → <em>er</em> ambiguity from Section 1, just with social consequences attached: when a language forces a choice English does not, a model trained on real-world text tends to default to the stereotype, and does so more confidently than the underlying data would justify.</p>
+</section>
+<section id="key-takeaways-and-knowledge-check">
+<h2>7. Key Takeaways and Knowledge Check<a class="headerlink" href="#key-takeaways-and-knowledge-check" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>MT has to handle <strong>word order</strong>, <strong>word sense</strong>, <strong>pro-drop</strong>, <strong>grammatical gender</strong>, and <strong>idioms</strong>, among other systematic differences between languages.</p></li>
+<li><p>Four approaches, in order: <strong>rule-based</strong> (hand-written rules) → <strong>statistical</strong> (learned phrase probabilities) → <strong>neural</strong> (RNN encoder-decoder, then with attention) → <strong>transformer</strong> (encoder-decoder with cross-attention), the current standard.</p></li>
+<li><p><strong>Cross-attention</strong> lets the decoder draw on any source word in any order, which is how transformer MT handles reordering without hand-written rules.</p></li>
+<li><p>Translation quality has two dimensions, <strong>adequacy</strong> and <strong>fluency</strong>. <strong>Human evaluation</strong> is the most reliable judge; <strong>BLEU</strong> is a common automatic shortcut that measures word overlap with a reference, not meaning, and newer metrics such as <strong>chrF</strong> are increasingly preferred.</p></li>
+<li><p><strong>Names need different treatment than ordinary words</strong>: keep a brand name fixed, convert a place name to its conventional form, and watch for words ambiguous between the two. <strong>Low-resource languages</strong> get systematically weaker translation, which multilingual models partly address.</p></li>
+<li><p>Forced grammatical choices, such as gender, can surface and <strong>amplify</strong> real-world stereotypes; this is a documented, measurable pattern, not an occasional glitch.</p></li>
+</ul>
+<section id="check-your-interpretation">
+<h3>Check your interpretation<a class="headerlink" href="#check-your-interpretation" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Translate (by hand or with a translation tool of your choice) the sentence <em>I saw the movie and it is good</em> into a language with grammatical gender (French, German, and Spanish all work). What did the tool choose for <em>it</em>, and why might that be a hard decision for any translator, human or machine, to get right from this sentence alone?</p></li>
+<li><p>A company deploys one multilingual MT model for all its supported languages instead of one model per language. What does it gain, and what risk does Section 5 suggest it should watch for?</p></li>
+<li><p>Two candidate translations of the same sentence have very different wording from the reference translation but both preserve its meaning well. What would you expect to happen to their BLEU scores, and why might a human rating disagree?</p></li>
+<li><p>A news article mentions “Amazon” six times: once about the company’s earnings, once about Amazon rainforest deforestation. What would a translation system need to get right for an NER pipeline to correctly tag both mentions after translation?</p></li>
+</ol>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Suggested interpretation<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<ol class="arabic simple">
+<li><p class="sd-card-text">The tool has to commit to a gendered pronoun for <em>it</em>, referring back to <em>movie</em> (<em>film</em>/<em>Film</em>/<em>película</em>), even though English gives no signal beyond grammatical gender in the target language itself. There is no way to tell from this one sentence whether the translator “understood” anything about the movie; it is purely a grammatical requirement of the target language, which is exactly why Section 6’s bias research can isolate this case so cleanly: the input gives the system no real information to work with, so whatever pattern appears in its choice comes from what it learned, not from the sentence.</p></li>
+<li><p class="sd-card-text">It gains shared benefit across languages (a related higher-resource language can help a lower-resource one, as in 12.1’s zero-shot transfer) and lower maintenance cost than many separate models. The risk from Section 5 is uneven quality: the shared model may perform noticeably worse on its lower-resource languages, which is easy to miss if only an overall, averaged quality number is reported.</p></li>
+<li><p class="sd-card-text">Both candidates would likely score <strong>lower</strong> on BLEU than a translation that happens to reuse the reference’s exact wording, because BLEU counts word-sequence overlap, not meaning. A human rater, judging adequacy and fluency directly, could rate both candidates highly despite the low BLEU score, which is exactly the gap Section 4 describes between automatic and human evaluation.</p></li>
+<li><p class="sd-card-text">The system needs to recognize that “Amazon” the company is a brand name that should stay fixed in the target language, while “Amazon” referring to the rainforest or river should take the target language’s conventional geographic form if one exists. Getting this wrong, for example leaving both as the untranslated English form, or translating the company name as if it were the place, would cause a downstream NER tagger to either mislabel the entity type or fail to recognize it as the same real-world entity readers expect.</p></li>
+</ol>
+</div>
+</details></section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<p>Main source for translation divergence, typology, pro-drop, encoder-decoder MT, cross-attention, low-resource and multilingual models, and evaluation: <span id="id14">[<a class="reference internal" href="../references.html#id35" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 13, Machine Translation. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26f</a>]</span> (Chapter 13, “Machine Translation”). BLEU: <span id="id15">[<a class="reference internal" href="../references.html#id37" title="Kishore Papineni, Salim Roukos, Todd Ward, and Wei-Jing Zhu. BLEU: a method for automatic evaluation of machine translation. In Proceedings of the 40th Annual Meeting of the Association for Computational Linguistics (ACL), 311–318. 2002. doi:10.3115/1073083.1073135.">PRWZ02</a>]</span>. chrF: <span id="id16">[<a class="reference internal" href="../references.html#id38" title="Maja Popović. ChrF: character n-gram F-score for automatic MT evaluation. In Proceedings of the Tenth Workshop on Statistical Machine Translation, 392–395. 2015. doi:10.18653/v1/W15-3049.">Popovic15</a>]</span>. Gender bias and stereotype amplification in MT: <span id="id17">[<a class="reference internal" href="../references.html#id39" title="Marcelo O. R. Prates, Pedro H. Avelar, and Luis C. Lamb. Assessing gender bias in machine translation: a case study with Google Translate. Neural Computing and Applications, 32:6363–6381, 2019. URL: https://arxiv.org/abs/1809.02208, arXiv:1809.02208, doi:10.1007/s00521-019-04144-6.">PAL19</a>]</span>. WinoMT gender-bias benchmark: <span id="id18">[<a class="reference internal" href="../references.html#id40" title="Gabriel Stanovsky, Noah A. Smith, and Luke Zettlemoyer. Evaluating gender bias in machine translation. In Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics (ACL), 1679–1684. 2019. URL: https://arxiv.org/abs/1906.00591, arXiv:1906.00591, doi:10.18653/v1/P19-1164.">SSZ19</a>]</span>. NLLB-200: <span id="id19">[<a class="reference internal" href="../references.html#id41" title="NLLB Team, Marta R. Costa-jussà, James Cross, Onur Çelebi, Maha Elbayad, Kenneth Heafield, Kevin Heffernan, Elahe Kalbassi, Janice Lam, Daniel Licht, Jean Maillard, Anna Sun, Skyler Wang, Guillaume Wenzek, Al Youngblood, Bapi Akula, Loic Barrault, Gabriel Mejia Gonzalez, Prangthip Hansanti, John Hoffman, Semarley Jarrett, Kaushik Ram Sadagopan, Dirk Rowe, Shannon Spruit, Chau Tran, Pierre Andrews, Necip Fazil Ayan, Shruti Bhosale, Sergey Edunov, Angela Fan, Cynthia Gao, Vedanuj Goswami, Francisco Guzmán, Philipp Koehn, Alexandre Mourachko, Christophe Ropers, Safiyyah Saleem, Holger Schwenk, and Jeff Wang. No language left behind: scaling human-centered machine translation. 2022. URL: https://arxiv.org/abs/2207.04672, arXiv:2207.04672.">NLLBTeamCjussaC+22</a>]</span>. Multilingual transformers and zero-shot transfer, shared with 12.1: <span id="id20">[<a class="reference internal" href="../references.html#id26" title="Lewis Tunstall, Leandro von Werra, and Thomas Wolf. Natural Language Processing with Transformers. O'Reilly Media, revised edition, 2022. ISBN 9781098136796.">TvWW22</a>]</span>, <span id="id21">[<a class="reference internal" href="../references.html#id42" title="Alexis Conneau, Kartikay Khandelwal, Naman Goyal, Vishrav Chaudhary, Guillaume Wenzek, Francisco Guzmán, Edouard Grave, Myle Ott, Luke Zettlemoyer, and Veselin Stoyanov. Unsupervised cross-lingual representation learning at scale. In Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL), 8440–8451. 2020. URL: https://arxiv.org/abs/1911.02116, arXiv:1911.02116, doi:10.18653/v1/2020.acl-main.747.">CKG+20</a>]</span>.</p>
+<p>The statistical phrase-table example (Section 2) and the German/French pronoun-gender example (Section 1) are adapted from the course’s earlier lecture notes, credited there to Stephen Clark’s Machine Translation lecture slides (University of Cambridge). The attention-alignment example (Section 3) adapts the sentence structure (an adjective-noun subject, a verb that moves to the front in Spanish) from the worked example in <span id="id22">[<a class="reference internal" href="../references.html#id35" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 13, Machine Translation. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26f</a>]</span>, with a neutral noun in place of the original. The figures in this reading are original drawings for this course.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module12"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="multilingual_ner.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">12.1 Multilingual Named Entity Recognition</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../references.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">References</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-translation-is-hard">1. Why Translation Is Hard</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#four-approaches-in-order">2. Four Approaches, in Order</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-a-transformer-translates">3. How a Transformer Translates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-translation-quality">4. Evaluating Translation Quality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#names-idioms-and-low-resource-languages">5. Names, Idioms, and Low-Resource Languages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-in-translation">6. Bias in Translation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways-and-knowledge-check">7. Key Takeaways and Knowledge Check</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-interpretation">Check your interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

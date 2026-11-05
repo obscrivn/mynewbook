@@ -1,0 +1,788 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>12.1 Multilingual Named Entity Recognition &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module12/multilingual_ner';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="12.2 Machine Translation" href="machine_translation.html" />
+    <link rel="prev" title="Chapter 12 Multilingual NER and Machine Translation" href="module12.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module4/module4.html">Chapter 4 Similarity and Retrieval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module4/cluster.html">4.1 Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/practice.html">4.2 Experiment: From Similarity Scores to Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/week4_coding_practice.html">4.3 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module5/module5.html">Chapter 5 Text Classification and Model Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module5/classification.html">5.1 Text Classification and Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/week5_coding_practice.html">5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module6/module6.html">Chapter 6 Topic Modeling and Modern Topic Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module6/topics.html">6.1 Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice.html">6.2 Coding Practice: Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice_solution.html">6.3 Coding Practice: Topic Modeling and Modern Topic Analysis (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module7/module7.html">Chapter 7 Sentiment, Affect, and Lexicons</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module7/sentiment.html">7.1 Sentiment, Affect, and Lexicons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module7/week07_sentiment_practice.html">7.2 Coding Practice: Sentiment Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module7/week07_sentiment_practice_solution.html">7.3 Coding Practice: Sentiment Analysis Solution</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module8/module8.html">Chapter 8 Recommendation Systems and Personalized Text Ranking</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module8/recommendation.html">8.1 Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module8/week08_recommendation_practice.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module8/week08_recommendation_practice_solution.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module9/module9.html">Chapter 9 From RNNs and LSTMs to Language Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module9/sequence_models.html">9.1 From RNNs and LSTMs to Language Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_lstm_practice.html">9.2 Coding Practice: LSTM Sentiment Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/huggingface_intro.html">Optional: Exploring Pretrained Models with Hugging Face</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_huggingface_intro.html">Exploring Pretrained Models with Hugging Face</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_lstm_practice_solution.html">9.2 Coding Practice: LSTM Sentiment Classification (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module10/module10.html">Chapter 10 Transformers, Pretrained Models, and Transfer Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module10/transformers.html">10.1 Transformers, Pretrained Models, and Transfer Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module10/week10_bert_practice.html">10.2 Coding Practice: Exploring BERT-Family Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module10/week10_bert_practice_solution.html">10.2 Coding Practice: Exploring BERT-Family Models (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module11/module11.html">Chapter 11 Speech: From Sound to Text</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module11/speech_signals.html">11.1 Speech as Data: From Sound to Signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module11/speech_recognition.html">11.2 Speech Recognition: From Signal to Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module11/week11_speech_practice.html">11.3 Coding Practice: Working with Speech in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module12.html">Chapter 12 Multilingual NER and Machine Translation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">12.1 Multilingual Named Entity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="machine_translation.html">12.2 Machine Translation</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule12/multilingual_ner.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module12/multilingual_ner.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>12.1 Multilingual Named Entity Recognition</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-named-entity">1. What Is a Named Entity?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entity-categories-and-a-different-kind-of-task">2. Entity Categories and a Different Kind of Task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ner-as-token-classification">3. NER as Token Classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-multilingual-ner-is-harder">4. Why Multilingual NER Is Harder</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multilingual-transformers-and-zero-shot-transfer">Multilingual transformers and zero-shot transfer</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-ner">5. Evaluating NER</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways-and-knowledge-check">6. Key Takeaways and Knowledge Check</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-interpretation">Check your interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="multilingual-named-entity-recognition">
+<h1>12.1 Multilingual Named Entity Recognition<a class="headerlink" href="#multilingual-named-entity-recognition" title="Permalink to this heading">#</a></h1>
+<p>Search engines, company dashboards, and question-answering systems all need to know which words in a text are <em>about</em> something: a person, a company, a place. This reading asks:</p>
+<p><strong>How does a transformer find and label those words, and why does doing this across languages make the problem harder?</strong></p>
+<p>By the end of these notes you should be able to:</p>
+<ul class="simple">
+<li><p>explain what a named entity is and why pulling them out of text is useful</p></li>
+<li><p>name the common entity categories and tell NER apart from whole-document classification</p></li>
+<li><p>label a short sentence with BIO tags and explain why NER is a token classification task</p></li>
+<li><p>explain why multilingual NER is harder than monolingual NER, and what zero-shot cross-lingual transfer offers in response</p></li>
+<li><p>compute entity-level precision, recall, and F1 for a tagged sentence</p></li>
+</ul>
+<p>We will come back to one running example, the company name <strong>Amazon</strong>, through both this reading and 12.2: the same word that is easy to tag as an organization in English becomes genuinely ambiguous once other languages and other senses of the word enter the picture.</p>
+<section id="what-is-a-named-entity">
+<h2>1. What Is a Named Entity?<a class="headerlink" href="#what-is-a-named-entity" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> classifying a whole text, from Module 5 and Module 7. <em>New problem:</em> some tasks need an answer about one word or phrase inside a text, not about the text as a whole. <em>Next:</em> named entities, the most common example.</p>
+</div>
+<p>A <strong>named entity</strong> is, roughly, anything you could refer to with a proper name: a person, an organization, a location <span id="id1">[<a class="reference internal" href="../references.html#id36" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 18, Sequence Labeling for Parts of Speech and Named Entities, Sections 18.3 and 18.6. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26e</a>]</span>. <strong>Named entity recognition (NER)</strong> finds the spans of text that name something and labels what kind of thing they name. In the sentence</p>
+<blockquote>
+<div><p><strong>United Airlines</strong> said <strong>Tim Wagner</strong>, a spokesman, confirmed the change from <strong>Chicago</strong> to <strong>Denver</strong>.</p>
+</div></blockquote>
+<p>an NER tagger would mark <em>United Airlines</em> as an organization, <em>Tim Wagner</em> as a person, and <em>Chicago</em> and <em>Denver</em> as locations.</p>
+<p>NER matters because it is usually a <strong>first step</strong>, not a final answer. Once a system knows <em>where</em> the entities are, it can look up a company’s stock price, link a person’s name to their Wikipedia page, pull structured records out of free-text documents, or decide whose opinion a sentiment score belongs to. Most of the pipelines you have built so far in this course treated a whole document as one unit; NER is where the unit of interest shrinks to a span of a few words.</p>
+</section>
+<section id="entity-categories-and-a-different-kind-of-task">
+<h2>2. Entity Categories and a Different Kind of Task<a class="headerlink" href="#entity-categories-and-a-different-kind-of-task" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> classifying a whole review as positive or negative. <em>New problem:</em> a single sentence can contain several different things worth labeling, each a different type. <em>Next:</em> the standard categories, and a term with a type problem of its own.</p>
+</div>
+<p>Four categories cover most NER work <span id="id2">[<a class="reference internal" href="../references.html#id36" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 18, Sequence Labeling for Parts of Speech and Named Entities, Sections 18.3 and 18.6. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26e</a>]</span>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tag</p></th>
+<th class="head"><p>Covers</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>PER</strong></p></td>
+<td><p>people, characters</p></td>
+<td><p><em>Turing</em> is a giant of computer science.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>ORG</strong></p></td>
+<td><p>companies, institutions, teams</p></td>
+<td><p>The <em>IPCC</em> warned about the cyclone.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>LOC</strong></p></td>
+<td><p>regions, mountains, rivers</p></td>
+<td><p>Mount Sanitas is in Sunshine Canyon.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>GPE</strong></p></td>
+<td><p>countries, cities, states (geo-political entities)</p></td>
+<td><p><em>Palo Alto</em> is raising parking fees.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Real systems often add domain-specific types (products, genes, works of art), and some tasks extend “entity” loosely to dates, times, and amounts of money. The legacy course materials for this reading used three tags, PER, LOC, and ORG; GPE is the current standard addition for places that are also political units, such as countries and cities.</p>
+<p>NER differs from the classification you have done so far in one key way: classification in Module 5 and Module 7 assigns <strong>one label to a whole text</strong>. NER assigns a label to <strong>each relevant span inside the text</strong>, and most of the text (articles, prepositions, ordinary nouns) gets no entity label at all.</p>
+<p>Entity type is not always obvious from the word alone. The name <em>Washington</em> can be a person, an organization, a location, or a geo-political entity depending on the sentence <span id="id3">[<a class="reference internal" href="../references.html#id36" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 18, Sequence Labeling for Parts of Speech and Named Entities, Sections 18.3 and 18.6. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26e</a>]</span>:</p>
+<blockquote>
+<div><p>[PER Washington] was born into slavery on the farm of James Burroughs.</p>
+<p>[ORG Washington] went up two games to one in the series.</p>
+<p>Blair arrived in [LOC Washington] for what may be his last visit.</p>
+<p>In June, [GPE Washington] passed a new law.</p>
+</div></blockquote>
+<p>The model has to use the surrounding words, not the name by itself, to decide.</p>
+</section>
+<section id="ner-as-token-classification">
+<h2>3. NER as Token Classification<a class="headerlink" href="#ner-as-token-classification" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> an encoder such as BERT turns each word into a contextual vector (Module 10). <em>New problem:</em> we need a label for a span, not a vector. <em>Next:</em> a tagging scheme that turns “find the spans” into “label each token,” plus the model that does it.</p>
+</div>
+<p>Because entities can be more than one word long, NER has a <strong>segmentation</strong> problem that whole-text classification does not: the model has to decide not just <em>what</em> a span is, but <em>where it starts and ends</em>. The standard solution is <strong>BIO tagging</strong> <span id="id4">[<a class="reference internal" href="../references.html#id36" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 18, Sequence Labeling for Parts of Speech and Named Entities, Sections 18.3 and 18.6. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26e</a>]</span>: every token gets a <code class="docutils literal notranslate"><span class="pre">B-</span></code> tag if it begins an entity, an <code class="docutils literal notranslate"><span class="pre">I-</span></code> tag if it continues one, and <code class="docutils literal notranslate"><span class="pre">O</span></code> if it is outside any entity. For the sentence <em>Jane Villanueva works at Google</em>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Token</p></th>
+<th class="head"><p>Jane</p></th>
+<th class="head"><p>Villanueva</p></th>
+<th class="head"><p>works</p></th>
+<th class="head"><p>at</p></th>
+<th class="head"><p>Google</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Tag</p></td>
+<td><p>B-PER</p></td>
+<td><p>I-PER</p></td>
+<td><p>O</p></td>
+<td><p>O</p></td>
+<td><p>B-ORG</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>With BIO tags, NER becomes a <strong>sequence labeling</strong> problem: assign one label to each token, the same shape as the part-of-speech tagging task it is often taught alongside. This is exactly what makes NER a good fit for an <strong>encoder-only transformer</strong>. Module 10’s table of “what to look for” already named this use: <em>“find names of people, places, or products → an encoder fine-tuned for token classification.”</em> The only change from the sentiment classifier you built in Week 10 is where the output comes from: instead of reading one summary vector (<code class="docutils literal notranslate"><span class="pre">[CLS]</span></code>) for the whole sentence, the model reads the output vector for <strong>every</strong> token and runs each one through a small classification head.</p>
+<figure class="align-default" id="ner-token-classification">
+<a class="reference internal image-reference" href="../_images/ner-token-classification.svg"><img alt="Five input tokens, Jane, Villanueva, works, at, and Google, go into an encoder block, and each token's output becomes its own label, in order, B-PER, I-PER, O, O, and B-ORG." src="../_images/ner-token-classification.svg" width="100%" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 37 </span><span class="caption-text">Same encoder architecture as Module 10; one label per token instead of one label per sentence.</span><a class="headerlink" href="#ner-token-classification" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Before transformers: HMMs and CRFs<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">NER used to be done with sequence models such as hidden Markov models and conditional random fields, trained on hand-designed features (capitalization, prefixes and suffixes, surrounding words) <span id="id5">[<a class="reference internal" href="../references.html#id36" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 18, Sequence Labeling for Parts of Speech and Named Entities, Sections 18.3 and 18.6. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26e</a>]</span>. A modern transformer does not need those features to be engineered by hand: its contextual vectors already encode most of that information from pretraining. The <em>task</em> (label every token with a BIO tag) has not changed; the <em>model</em> that does it has.</p>
+</div>
+</details></section>
+<section id="why-multilingual-ner-is-harder">
+<h2>4. Why Multilingual NER Is Harder<a class="headerlink" href="#why-multilingual-ner-is-harder" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> NER works by labeling contextual token vectors. <em>New problem:</em> “contextual” depends on a tokenizer and a training corpus, and both are language-specific by default. <em>Next:</em> what breaks when you move to another language, and why the usual fix is not “train a new model per language.”</p>
+</div>
+<p>Monolingual NER is already ambiguous, as the <em>Washington</em> example showed. Multilingual NER adds several more layers of difficulty:</p>
+<ul class="simple">
+<li><p><strong>Tokenization and script.</strong> A tokenizer trained mostly on English text may split names from other scripts (Cyrillic, Arabic, Han characters) into awkward, uninformative pieces, which makes it harder for the model to recognize a name as a single unit.</p></li>
+<li><p><strong>Morphology.</strong> Many languages attach case, number, or possession directly onto a name as a suffix or prefix, so the “same” entity can appear as several different surface forms in the training data.</p></li>
+<li><p><strong>Unequal data across languages.</strong> High-resource languages such as English, German, or Mandarin have abundant labeled NER data; most of the world’s languages do not. A model trained mainly on high-resource languages can look accurate overall while doing poorly on everything else.</p></li>
+<li><p><strong>Context-dependent, language-specific ambiguity.</strong> The <em>Washington</em> problem repeats in every language, often with different words: a name that is unambiguous in one language may collide with a common noun, a different entity type, or another name entirely in another.</p></li>
+</ul>
+<section id="multilingual-transformers-and-zero-shot-transfer">
+<h3>Multilingual transformers and zero-shot transfer<a class="headerlink" href="#multilingual-transformers-and-zero-shot-transfer" title="Permalink to this heading">#</a></h3>
+<p>Rather than train a separate model per language, the usual approach is a <strong>multilingual transformer</strong>, pretrained on unlabeled text drawn from well over 100 languages at once, such as XLM-RoBERTa <span id="id6">[<a class="reference internal" href="../references.html#id42" title="Alexis Conneau, Kartikay Khandelwal, Naman Goyal, Vishrav Chaudhary, Guillaume Wenzek, Francisco Guzmán, Edouard Grave, Myle Ott, Luke Zettlemoyer, and Veselin Stoyanov. Unsupervised cross-lingual representation learning at scale. In Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL), 8440–8451. 2020. URL: https://arxiv.org/abs/1911.02116, arXiv:1911.02116, doi:10.18653/v1/2020.acl-main.747.">CKG+20</a>, <a class="reference internal" href="../references.html#id26" title="Lewis Tunstall, Leandro von Werra, and Thomas Wolf. Natural Language Processing with Transformers. O'Reilly Media, revised edition, 2022. ISBN 9781098136796.">TvWW22</a>]</span>. This uses the same pretraining idea from Module 10, just applied to a mixture of languages instead of one. The payoff is <strong>zero-shot cross-lingual transfer</strong>: fine-tune the model for NER using labeled data in one language, and it can often tag entities reasonably well in a language it never saw <em>any</em> NER labels for, because pretraining already gave it some shared sense of how languages work <span id="id7">[<a class="reference internal" href="../references.html#id26" title="Lewis Tunstall, Leandro von Werra, and Thomas Wolf. Natural Language Processing with Transformers. O'Reilly Media, revised edition, 2022. ISBN 9781098136796.">TvWW22</a>]</span>.</p>
+<p>Zero-shot transfer is not free lunch. It tends to work best between related languages, and performance is still generally weaker on low-resource languages than on the high-resource language the model was fine-tuned on. For teams building multilingual products, this is a real engineering trade-off: ship one shared model with uneven quality across languages, or maintain several language-specific models with a higher maintenance cost.</p>
+</section>
+</section>
+<section id="evaluating-ner">
+<h2>5. Evaluating NER<a class="headerlink" href="#evaluating-ner" title="Permalink to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Connecting the dots.</strong> <em>You know:</em> precision, recall, and F1 from Module 5’s spam filter. <em>New problem:</em> NER’s unit of interest is an entity span, not a single document. <em>Next:</em> the same metrics, counted a different way.</p>
+</div>
+<p>NER reuses precision, recall, and F1 exactly as defined in Module 5, with one change: the thing being counted as right or wrong is an <strong>entity</strong>, not a whole example <span id="id8">[<a class="reference internal" href="../references.html#id36" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 18, Sequence Labeling for Parts of Speech and Named Entities, Sections 18.3 and 18.6. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26e</a>]</span>. A predicted entity counts as correct only if both its <strong>boundaries</strong> and its <strong>type</strong> match the gold label. Tagging <em>Jane</em> as a person but missing <em>Villanueva</em> produces two errors at once (a false positive for the <code class="docutils literal notranslate"><span class="pre">O</span></code> that should have been <code class="docutils literal notranslate"><span class="pre">I-PER</span></code>, and a false negative for the entity <em>Jane Villanueva</em> as a whole), even though only one entity was involved.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Because both the span and the type have to match, NER’s precision and recall are usually <strong>lower</strong> than token-level accuracy would suggest. A tagger that gets every individual token “mostly right” can still score poorly if it consistently gets entity boundaries one token off.</p>
+</div>
+<p>As in Module 5, you can report micro-averaged F1 (pooling all entities together) or macro-averaged F1 (averaging per entity type, so a rare type such as PER does not get drowned out by a common one such as LOC). For multilingual systems, it is worth going one step further and reporting F1 <strong>per language</strong>, for the same reason Module 11 reported word error rate per speaker group: an average across languages can hide a model that works well on the languages it was trained on and poorly on everything else.</p>
+</section>
+<section id="key-takeaways-and-knowledge-check">
+<h2>6. Key Takeaways and Knowledge Check<a class="headerlink" href="#key-takeaways-and-knowledge-check" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A <strong>named entity</strong> is something you could name with a proper noun; <strong>NER</strong> finds spans of text that name one and labels their type (commonly PER, ORG, LOC, GPE).</p></li>
+<li><p>NER is a <strong>token classification</strong> task, not a whole-text classification task. <strong>BIO tags</strong> turn “find the spans” into “label every token,” which is exactly the shape an <strong>encoder-only transformer</strong> is good at.</p></li>
+<li><p><strong>Multilingual transformers</strong>, pretrained on many languages at once, enable <strong>zero-shot cross-lingual transfer</strong>: fine-tune on one language’s labels, apply to others. It works unevenly, usually best between related and higher-resource languages.</p></li>
+<li><p>NER evaluation reuses <strong>precision, recall, and F1</strong> from Module 5, counted per <strong>entity</strong> (boundaries and type both have to match), and is worth reporting per language for a multilingual system.</p></li>
+</ul>
+<section id="check-your-interpretation">
+<h3>Check your interpretation<a class="headerlink" href="#check-your-interpretation" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>In the sentence “Amazon reported strong quarterly earnings,” what entity type would you assign to <em>Amazon</em>? What would make you reconsider that label in a different sentence?</p></li>
+<li><p>A tagger labels <em>Villanueva</em> as <code class="docutils literal notranslate"><span class="pre">B-PER</span></code> but misses <code class="docutils literal notranslate"><span class="pre">Jane</span></code> entirely in “Jane Villanueva works at Google.” How many errors does this produce under entity-level evaluation, and why is it not just one?</p></li>
+<li><p>Why is “train a monolingual NER model for every language we support” usually not the first approach a team reaches for?</p></li>
+<li><p>A multilingual NER model was fine-tuned only on English and German data. Your team needs it to work on Swahili. What result would you expect, and what would you check before trusting it in production?</p></li>
+</ol>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Suggested interpretation<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<ol class="arabic simple">
+<li><p class="sd-card-text">In that sentence, <em>Amazon</em> is most naturally an organization (ORG). It could be reconsidered as a location in a sentence about the Amazon river or rainforest, which is exactly the kind of context-dependent ambiguity Section 2 and Section 4 describe, and which 12.2 picks back up in translation.</p></li>
+<li><p class="sd-card-text">Two errors: a false negative for the entity <em>Jane</em> (missed entirely, should have been <code class="docutils literal notranslate"><span class="pre">B-PER</span></code>) and a boundary error for <em>Villanueva</em>, which should have been <code class="docutils literal notranslate"><span class="pre">I-PER</span></code> (continuing Jane’s name) but was instead tagged as if it were a new, one-word entity (<code class="docutils literal notranslate"><span class="pre">B-PER</span></code>). Entity-level evaluation counts the whole span, so a boundary slip costs you the entity, not just one token.</p></li>
+<li><p class="sd-card-text">It does not scale (most of the world’s languages have little or no labeled NER data), and it throws away what a multilingual model could share across related languages. Zero-shot or few-shot transfer from a multilingual model is usually the first thing to try, with monolingual fine-tuning reserved for languages where it still underperforms and labeled data can be found or created.</p></li>
+<li><p class="sd-card-text">Expect noticeably weaker performance on Swahili than on English or German, especially for entity types or name forms not well represented in the pretraining data. Before trusting it in production, check F1 on a labeled Swahili sample specifically (not just the overall multilingual average), and look at the actual errors, not just the score, the way Module 10’s “check it on your own data” advice recommended for any pretrained model.</p></li>
+</ol>
+</div>
+</details><p>Next, Reading 12.2 picks the <em>Amazon</em> example back up: the same word that is an easy ORG tag in English becomes a genuine translation problem once you have to decide whether to translate it, transliterate it, or leave it alone.</p>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<p>Main source for named entity definitions, categories, BIO tagging, and entity-level evaluation: <span id="id9">[<a class="reference internal" href="../references.html#id36" title="Daniel Jurafsky and James H. Martin. Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition with language models. 2026. Online manuscript released August 19, 2026. Chapter 18, Sequence Labeling for Parts of Speech and Named Entities, Sections 18.3 and 18.6. URL: https://web.stanford.edu/~jurafsky/slp3/.">JM26e</a>]</span> (Chapter 18, “Sequence Labeling for Parts of Speech and Named Entities,” Sections 18.3 and 18.6). Multilingual transformers and zero-shot cross-lingual transfer: <span id="id10">[<a class="reference internal" href="../references.html#id26" title="Lewis Tunstall, Leandro von Werra, and Thomas Wolf. Natural Language Processing with Transformers. O'Reilly Media, revised edition, 2022. ISBN 9781098136796.">TvWW22</a>]</span> (Chapter 4). XLM-RoBERTa: <span id="id11">[<a class="reference internal" href="../references.html#id42" title="Alexis Conneau, Kartikay Khandelwal, Naman Goyal, Vishrav Chaudhary, Guillaume Wenzek, Francisco Guzmán, Edouard Grave, Myle Ott, Luke Zettlemoyer, and Veselin Stoyanov. Unsupervised cross-lingual representation learning at scale. In Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL), 8440–8451. 2020. URL: https://arxiv.org/abs/1911.02116, arXiv:1911.02116, doi:10.18653/v1/2020.acl-main.747.">CKG+20</a>]</span>. Token classification as an application of encoder-only transformers: see Module 10, Section 6.</p>
+<p><strong>Optional deeper reading:</strong> Tunstall, von Werra, and Wolf, <em>Natural Language Processing with Transformers</em>, Chapter 4, “Multilingual Named Entity Recognition,” walks through fine-tuning XLM-RoBERTa on the WikiANN/PAN-X dataset in code. That level of detail is not required for this course; it is the basis for a possible future coding-practice revision (see the instructor report for this task).</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module12"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="module12.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 12 Multilingual NER and Machine Translation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="machine_translation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">12.2 Machine Translation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-named-entity">1. What Is a Named Entity?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entity-categories-and-a-different-kind-of-task">2. Entity Categories and a Different Kind of Task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ner-as-token-classification">3. NER as Token Classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-multilingual-ner-is-harder">4. Why Multilingual NER Is Harder</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multilingual-transformers-and-zero-shot-transfer">Multilingual transformers and zero-shot transfer</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-ner">5. Evaluating NER</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways-and-knowledge-check">6. Key Takeaways and Knowledge Check</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-interpretation">Check your interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
