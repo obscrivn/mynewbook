@@ -71,5 +71,11 @@ chapters:
     - file: module11/speech_recognition
     - file: module11/week11_speech_practice
 
-- file: translation
+- file: module12/module12
+  sections:
+    - file: module12/multilingual_ner
+    - file: module12/machine_translation
+    - file: module12/week12_multilingual_entities_practice
+    - file: module12/week12_multilingual_entities_practice_solution
+
 - file: references

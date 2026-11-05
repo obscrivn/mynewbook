@@ -9,7 +9,8 @@ description: This website presents a set of lectures and practice on Natural Lan
 # Files kept in the repository but not built or published.
 # speech.md, phonetics.md, recognizer.md: retired November 2026, replaced by module11/.
 # module11/data/: audio data and its README for the Week 11 coding practice (not a book page).
-exclude_patterns: [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints", speech.md, phonetics.md, recognizer.md, "module11/data/*"]
+# translation.md: retired November 2026, replaced by module12/.
+exclude_patterns: [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints", speech.md, phonetics.md, recognizer.md, "module11/data/*", translation.md]
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
