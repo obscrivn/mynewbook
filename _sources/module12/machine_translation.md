@@ -152,6 +152,10 @@ This is the same *it* → *er* ambiguity from Section 1, just with social conseq
 4. The system needs to recognize that "Amazon" the company is a brand name that should stay fixed in the target language, while "Amazon" referring to the rainforest or river should take the target language's conventional geographic form if one exists. Getting this wrong, for example leaving both as the untranslated English form, or translating the company name as if it were the place, would cause a downstream NER tagger to either mislabel the entity type or fail to recognize it as the same real-world entity readers expect.
 ```
 
+Next, the coding practice puts both readings to work on exactly this problem: you will tag named entities with a pretrained multilingual model, translate sentences with a pretrained English-to-German model, and check whether an entity's type or boundaries survive the trip across languages.
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module12/week12_multilingual_entities_practice.ipynb)
+
 ## References
 
 Main source for translation divergence, typology, pro-drop, encoder-decoder MT, cross-attention, low-resource and multilingual models, and evaluation: {cite}`jurafsky2026mt` (Chapter 13, "Machine Translation"). BLEU: {cite}`papineni2002bleu`. chrF: {cite}`popovic2015chrf`. Gender bias and stereotype amplification in MT: {cite}`prates2019assessing`. WinoMT gender-bias benchmark: {cite}`stanovsky2019evaluating`. NLLB-200: {cite}`nllbteam2022`. Multilingual transformers and zero-shot transfer, shared with 12.1: {cite}`tunstall2022nlp`, {cite}`conneau2020unsupervised`.

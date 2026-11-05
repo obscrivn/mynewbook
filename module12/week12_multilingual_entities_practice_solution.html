@@ -1,0 +1,1020 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>12.3 Coding Practice: Lost in Translation? Entities Across Languages (Solution) &#8212; Introduction to NLP</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/book-style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/.ipynb_checkpoints/book-style-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'module12/week12_multilingual_entities_practice_solution';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="References" href="../references.html" />
+    <link rel="prev" title="12.3 Coding Practice: Lost in Translation? Entities Across Languages" href="week12_multilingual_entities_practice.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to NLP</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module1/module1.html">Chapter 1. Natural Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module1/language.html">1.1 From Language To Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module1/Working_with_Text_Data.html">1.2 Working with Strings</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../module1/Import_Language_Data.html">1.3 Extracting Language Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module2/module2.html">Chapter 2: Text, Tokens &amp; Linguistic Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module2/tokenization.html">2.1 From Text to Tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/modern_tokenization.html">2.2 Modern Tokenization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/regex.html">2.3 Regex Coding Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module2/spacy_tokenization.html">2.4 Tokenization with spaCy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module3/module3.html">Chapter 3. Feature Engineering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module3/features.html">3.1 Feature Engineering and Vector Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module3/week3_coding_practice.html">3.2 Coding Practice: From Text to Feature Vectors</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module4/module4.html">Chapter 4 Similarity and Retrieval</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module4/cluster.html">4.1 Semantic Similarity and Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/practice.html">4.2 Experiment: From Similarity Scores to Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module4/week4_coding_practice.html">4.3 Coding Practice: From Similarity Scores to Retrieval</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module5/module5.html">Chapter 5 Text Classification and Model Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module5/classification.html">5.1 Text Classification and Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module5/week5_coding_practice.html">5.2 Coding Practice: Text Classification, Evaluation, and Error Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module6/module6.html">Chapter 6 Topic Modeling and Modern Topic Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module6/topics.html">6.1 Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice.html">6.2 Coding Practice: Topic Modeling and Modern Topic Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module6/week6_coding_practice_solution.html">6.3 Coding Practice: Topic Modeling and Modern Topic Analysis (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module7/module7.html">Chapter 7 Sentiment, Affect, and Lexicons</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module7/sentiment.html">7.1 Sentiment, Affect, and Lexicons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module7/week07_sentiment_practice.html">7.2 Coding Practice: Sentiment Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module7/week07_sentiment_practice_solution.html">7.3 Coding Practice: Sentiment Analysis Solution</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module8/module8.html">Chapter 8 Recommendation Systems and Personalized Text Ranking</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module8/recommendation.html">8.1 Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module8/week08_recommendation_practice.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module8/week08_recommendation_practice_solution.html">8.2 Coding Practice: Recommendation Systems and Personalized Text Ranking (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module9/module9.html">Chapter 9 From RNNs and LSTMs to Language Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module9/sequence_models.html">9.1 From RNNs and LSTMs to Language Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_lstm_practice.html">9.2 Coding Practice: LSTM Sentiment Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/huggingface_intro.html">Optional: Exploring Pretrained Models with Hugging Face</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_huggingface_intro.html">Exploring Pretrained Models with Hugging Face</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module9/week09_lstm_practice_solution.html">9.2 Coding Practice: LSTM Sentiment Classification (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module10/module10.html">Chapter 10 Transformers, Pretrained Models, and Transfer Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module10/transformers.html">10.1 Transformers, Pretrained Models, and Transfer Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module10/week10_bert_practice.html">10.2 Coding Practice: Exploring BERT-Family Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module10/week10_bert_practice_solution.html">10.2 Coding Practice: Exploring BERT-Family Models (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../module11/module11.html">Chapter 11 Speech: From Sound to Text</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../module11/speech_signals.html">11.1 Speech as Data: From Sound to Signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module11/speech_recognition.html">11.2 Speech Recognition: From Signal to Text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../module11/week11_speech_practice.html">11.3 Coding Practice: Working with Speech in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="module12.html">Chapter 12 Multilingual NER and Machine Translation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="multilingual_ner.html">12.1 Multilingual Named Entity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="machine_translation.html">12.2 Machine Translation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week12_multilingual_entities_practice.html">12.3 Coding Practice: Lost in Translation? Entities Across Languages</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">12.3 Coding Practice: Lost in Translation? Entities Across Languages (Solution)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodule12/week12_multilingual_entities_practice_solution.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/module12/week12_multilingual_entities_practice_solution.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>12.3 Coding Practice: Lost in Translation? Entities Across Languages (Solution)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-goals">Learning goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-multilingual-named-entity-recognition">Part 1: Multilingual Named Entity Recognition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guided-example-1">Guided Example 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-1">Checkpoint 1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-machine-translation">Part 2: Machine Translation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guided-example-2">Guided Example 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-2">Checkpoint 2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-connecting-ner-and-translation">Part 3: Connecting NER and Translation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guided-example-3">Guided Example 3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-3">Checkpoint 3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap-up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-checks">Validation checks</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="coding-practice-lost-in-translation-entities-across-languages-solution">
+<h1>12.3 Coding Practice: Lost in Translation? Entities Across Languages (Solution)<a class="headerlink" href="#coding-practice-lost-in-translation-entities-across-languages-solution" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module12/week12_multilingual_entities_practice_solution.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p><strong>Ungraded · about 35–45 minutes · CPU only</strong></p>
+<p><strong>Solution.</strong> Completed TODOs, suggested answers, and notes on the outputs we observed when this notebook was tested. Try the practice notebook yourself before reading this one.</p>
+<p>This activity follows directly from Reading 12.1 (<em>Multilingual Named Entity Recognition</em>) and Reading 12.2 (<em>Machine Translation</em>). Both readings build toward one example: the word <strong>Amazon</strong>, which is an easy organization (ORG) tag in English but a genuine problem the moment translation or a different language enters the picture. Here you will use real pretrained models to see where that problem shows up and where it does not.</p>
+<section id="learning-goals">
+<h2>Learning goals<a class="headerlink" href="#learning-goals" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Run a pretrained multilingual NER model and read its entity-type and confidence output.</p></li>
+<li><p>Find a sentence where the NER model’s prediction is ambiguous or outright wrong, and explain why.</p></li>
+<li><p>Run a pretrained translation model and compare its output against the original for adequacy and fluency.</p></li>
+<li><p>Translate a sentence containing a named entity, then re-tag the translation, to see whether translation changed the entity’s type or boundaries.</p></li>
+<li><p>Connect each observation back to a specific idea from 12.1 or 12.2.</p></li>
+</ul>
+</section>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
+<p>Choose a standard <strong>CPU</strong> runtime in Colab (Runtime &gt; Change runtime type &gt; CPU). Run the cells from top to bottom.</p>
+<p>This notebook uses two public models from the Hugging Face Hub:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Davlan/xlm-roberta-base-ner-hrl</span></code> for named entity recognition (about 1.1 GB, downloaded once and cached).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Helsinki-NLP/opus-mt-en-de</span></code> for English-to-German translation (about 300 MB, downloaded once and cached).</p></li>
+</ul>
+<p>No Hugging Face account, token, or API key is needed. The first run takes a minute or two to download both models; later runs in the same session reuse the cache.</p>
+<p>Both models are <strong>permissively licensed</strong> for this kind of use: the NER model is AFL-3.0, and the translation model is CC-BY-4.0.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> -q install &quot;transformers==5.17.0&quot; &quot;sentencepiece==0.2.1&quot; &quot;protobuf==6.33.1&quot; &quot;sacremoses==0.1.1&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now import the libraries and load both models. We load each model <strong>once</strong> and reuse it for every example below, the same pattern as Weeks 9 and 10.</p>
+<p>A note on the translation model: this version of the <code class="docutils literal notranslate"><span class="pre">transformers</span></code> library does not include a ready-made <code class="docutils literal notranslate"><span class="pre">pipeline(&quot;translation&quot;,</span> <span class="pre">...)</span></code> shortcut the way it does for NER or sentiment. We instead load the tokenizer and the model directly and call <code class="docutils literal notranslate"><span class="pre">.generate()</span></code> ourselves. This is normal; a pipeline is a convenience wrapper over exactly these two steps, and not every task has one in every library version.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">transformers</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">AutoModelForSeq2SeqLM</span><span class="p">,</span> <span class="n">pipeline</span>
+
+<span class="n">transformers</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">set_verbosity_error</span><span class="p">()</span>  <span class="c1"># hide long loading messages</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">set_num_threads</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Transformers:&quot;</span><span class="p">,</span> <span class="n">transformers</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="s2">&quot;| PyTorch:&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+
+<span class="n">NER_MODEL</span> <span class="o">=</span> <span class="s2">&quot;Davlan/xlm-roberta-base-ner-hrl&quot;</span>
+<span class="n">MT_MODEL</span> <span class="o">=</span> <span class="s2">&quot;Helsinki-NLP/opus-mt-en-de&quot;</span>
+
+<span class="n">ner</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span>
+    <span class="s2">&quot;ner&quot;</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">NER_MODEL</span><span class="p">,</span>
+    <span class="n">tokenizer</span><span class="o">=</span><span class="n">NER_MODEL</span><span class="p">,</span>
+    <span class="n">aggregation_strategy</span><span class="o">=</span><span class="s2">&quot;simple&quot;</span><span class="p">,</span>  <span class="c1"># merge sub-word pieces into one entity per span</span>
+    <span class="n">device</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># CPU</span>
+    <span class="n">model_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;disable_mmap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># load weights into memory for CPU compatibility</span>
+<span class="p">)</span>
+
+<span class="n">mt_tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">MT_MODEL</span><span class="p">)</span>
+<span class="n">mt_model</span> <span class="o">=</span> <span class="n">AutoModelForSeq2SeqLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">MT_MODEL</span><span class="p">,</span> <span class="n">disable_mmap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mt_model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">translate</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">60</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Translate one English sentence to German.&quot;&quot;&quot;</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="n">mt_tokenizer</span><span class="p">([</span><span class="n">text</span><span class="p">],</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">inference_mode</span><span class="p">():</span>
+        <span class="n">generated</span> <span class="o">=</span> <span class="n">mt_model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="o">**</span><span class="n">batch</span><span class="p">,</span> <span class="n">max_new_tokens</span><span class="o">=</span><span class="n">max_new_tokens</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mt_tokenizer</span><span class="o">.</span><span class="n">batch_decode</span><span class="p">(</span><span class="n">generated</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">show_entities</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Print each entity the NER model finds, with its type and confidence.&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">entities</span> <span class="o">=</span> <span class="n">ner</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">entities</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  (no entities found)&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">entities</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">entity</span><span class="p">[</span><span class="s1">&#39;entity_group&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">4s</span><span class="si">}</span><span class="s2"> &#39;</span><span class="si">{</span><span class="n">entity</span><span class="p">[</span><span class="s1">&#39;word&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;  score=</span><span class="si">{</span><span class="n">entity</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">entities</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Transformers: 5.17.0 | PyTorch: 2.14.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="part-1-multilingual-named-entity-recognition">
+<h2>Part 1: Multilingual Named Entity Recognition<a class="headerlink" href="#part-1-multilingual-named-entity-recognition" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Davlan/xlm-roberta-base-ner-hrl</span></code> is a version of <strong>XLM-RoBERTa</strong>, the exact multilingual transformer Reading 12.1 Section 4 names as the standard way to handle many languages with one model, already fine-tuned for NER in 10 languages. Instead of fine-tuning it ourselves (what the legacy course notebook for this week does, with a GPU and several hours), we use someone else’s completed fine-tuning directly, the “ready-made model” option from Week 10’s three ways to use a pretrained model.</p>
+<p>One difference from Reading 12.1’s four-category table: this particular model only uses three tags, <strong>PER</strong>, <strong>ORG</strong>, and <strong>LOC</strong> (no <strong>GPE</strong>). Real pretrained models do not always match a textbook’s exact taxonomy, which is itself worth noticing.</p>
+<section id="guided-example-1">
+<h3>Guided Example 1<a class="headerlink" href="#guided-example-1" title="Permalink to this heading">#</a></h3>
+<p>Run the cell below. It tags a sentence that contains all three entity types this model knows about.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">show_entities</span><span class="p">(</span><span class="s2">&quot;Jeff Bezos founded Amazon in Seattle in 1994.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jeff Bezos founded Amazon in Seattle in 1994.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  PER  &#39;Jeff Bezos&#39;  score=1.000
+  ORG  &#39;Amazon&#39;  score=1.000
+  LOC  &#39;Seattle&#39;  score=0.999
+</pre></div>
+</div>
+</div>
+</div>
+<p>Three entities, three types: a person (<code class="docutils literal notranslate"><span class="pre">PER</span></code>), an organization (<code class="docutils literal notranslate"><span class="pre">ORG</span></code>), and a location (<code class="docutils literal notranslate"><span class="pre">LOC</span></code>). The <code class="docutils literal notranslate"><span class="pre">score</span></code> is the model’s confidence, as a probability, in its own prediction. Now compare that with a sentence about the <strong>other</strong> Amazon:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">show_entities</span><span class="p">(</span><span class="s2">&quot;Scientists are studying biodiversity loss in the Amazon rainforest.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Scientists are studying biodiversity loss in the Amazon rainforest.
+  LOC  &#39;Amazon&#39;  score=1.000
+</pre></div>
+</div>
+</div>
+</div>
+<p>Same word, different type: the model correctly reads <em>Amazon</em> as <code class="docutils literal notranslate"><span class="pre">LOC</span></code> here, because “rainforest” gives it enough context, exactly the kind of disambiguation Reading 12.1 Section 2 describes. The model is not matching the string “Amazon” to a fixed label; it is using the surrounding words.</p>
+</section>
+<section id="checkpoint-1">
+<h3>Checkpoint 1<a class="headerlink" href="#checkpoint-1" title="Permalink to this heading">#</a></h3>
+<p>The model does not always get it right. Run it on the sentence below.</p>
+<p><strong>TODO 1:</strong> Before running the next cell, predict: will the model tag <em>Amazon</em> correctly here, incorrectly, or not at all?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO 1: run this cell, then compare the result with your prediction above.</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">show_entities</span><span class="p">(</span><span class="s2">&quot;I saw an Amazon parrot at the zoo.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>I saw an Amazon parrot at the zoo.
+  LOC  &#39;Amazon&#39;  score=0.957
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Question 1:</strong> What type did the model assign to <em>Amazon</em> here, and why is that a genuine mistake rather than a defensible judgment call? (Hint: is “Amazon parrot” naming a specific place or company, or is it an ordinary noun phrase for a kind of bird?) Then try your own sentence below, using a word or phrase you expect the model to find hard, and explain what you found.</p>
+<p><strong>Suggested answer:</strong> In our test, the model tagged <em>Amazon</em> as <code class="docutils literal notranslate"><span class="pre">LOC</span></code> with high confidence (about 0.96). That is a genuine mistake, not a defensible judgment call: “Amazon parrot” is an ordinary noun phrase naming a kind of bird (the genus <em>Amazona</em>), not a reference to the company or the river at all. The correct answer here is <strong>no entity</strong>. The model likely latched onto “Amazon” plus a plausible-sounding context word and defaulted to its most common geographic association, the same kind of shortcut behind the Checkpoint 1 and Part 3 mistakes compared in the reflection questions below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Try your own sentence here.</span>
+<span class="n">my_sentence</span> <span class="o">=</span> <span class="s2">&quot;Amazon is huge.&quot;</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">show_entities</span><span class="p">(</span><span class="n">my_sentence</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Amazon is huge.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  LOC  &#39;Amazon&#39;  score=0.967
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Suggested answer (our own sentence):</strong> With almost no context, “Amazon is huge.” gets tagged <code class="docutils literal notranslate"><span class="pre">LOC</span></code> (about 0.97 confidence) rather than <code class="docutils literal notranslate"><span class="pre">ORG</span></code>. Out of context, <em>huge</em> fits a river or rainforest about as well as a company, so the model’s choice here reflects a real ambiguity, not a clear error. This is a useful contrast with the parrot sentence: there, the sentence had enough context to settle the question (it just settled it wrong); here, the sentence itself does not give the model, or a human reader, enough to go on.</p>
+</section>
+</section>
+<section id="part-2-machine-translation">
+<h2>Part 2: Machine Translation<a class="headerlink" href="#part-2-machine-translation" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Helsinki-NLP/opus-mt-en-de</span></code> is a small encoder-decoder transformer, the same architecture family Reading 12.2 Section 3 describes, trained specifically for English-to-German translation. It is much smaller than a production translation system, but it is built the same way.</p>
+<section id="guided-example-2">
+<h3>Guided Example 2<a class="headerlink" href="#guided-example-2" title="Permalink to this heading">#</a></h3>
+<p>Reading 12.2 Section 1 pointed out that translating <em>I saw the movie and it is good</em> into a language with grammatical gender forces a choice English does not. Run the cell below and see what the model chose for <em>it</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">english</span> <span class="o">=</span> <span class="s2">&quot;I saw the movie and it is good.&quot;</span>
+<span class="n">german</span> <span class="o">=</span> <span class="n">translate</span><span class="p">(</span><span class="n">english</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EN:&quot;</span><span class="p">,</span> <span class="n">english</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DE:&quot;</span><span class="p">,</span> <span class="n">german</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>EN: I saw the movie and it is good.
+DE: Ich habe den Film gesehen und er ist gut.
+</pre></div>
+</div>
+</div>
+</div>
+<p>The model had to pick a German pronoun for <em>it</em>, referring back to <em>der Film</em> (masculine). Nothing in the English sentence told it to do that; it is a requirement of German grammar, exactly as the reading describes. Now look at an idiom:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">english</span> <span class="o">=</span> <span class="s2">&quot;Don&#39;t spill the beans about the surprise party.&quot;</span>
+<span class="n">german</span> <span class="o">=</span> <span class="n">translate</span><span class="p">(</span><span class="n">english</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EN:&quot;</span><span class="p">,</span> <span class="n">english</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DE:&quot;</span><span class="p">,</span> <span class="n">german</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>EN: Don&#39;t spill the beans about the surprise party.
+DE: Verschütten Sie die Bohnen nicht wegen der Überraschungsparty.
+</pre></div>
+</div>
+</div>
+</div>
+<p>This comes out <strong>literal</strong>, not idiomatic: the German sentence talks about actually spilling beans, which is exactly the “word for word is nonsense” problem Reading 12.2 Section 1 describes for idioms. A fluent human translator would reach for a German idiom with the same meaning instead.</p>
+</section>
+<section id="checkpoint-2">
+<h3>Checkpoint 2<a class="headerlink" href="#checkpoint-2" title="Permalink to this heading">#</a></h3>
+<p><strong>TODO 2:</strong> Change the sentence below to one of your own (a different idiom, a sentence with grammatical gender, or anything else from Reading 12.2 Section 1), and compare the translation to the original.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO 2: replace the sentence below with your own, then run this cell.</span>
+<span class="n">my_sentence</span> <span class="o">=</span> <span class="s2">&quot;He kicked the bucket last winter.&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EN:&quot;</span><span class="p">,</span> <span class="n">my_sentence</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DE:&quot;</span><span class="p">,</span> <span class="n">translate</span><span class="p">(</span><span class="n">my_sentence</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>EN: He kicked the bucket last winter.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DE: Er hat letzten Winter in den Eimer getreten.
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Question 2:</strong> Rate your translation on the two dimensions from Reading 12.2 Section 4: <strong>adequacy</strong> (how much of the original meaning survives) and <strong>fluency</strong> (how natural the German reads). Did you find a case where the two disagree, a fluent sentence that changes the meaning, or an awkward sentence that keeps it?</p>
+<p><strong>Suggested answer:</strong> In our test, “He kicked the bucket last winter.” came back as a literal translation about an actual bucket (“Er hat letzten Winter in den Eimer getreten.”), not the German idiom for dying (<em>den Löffel abgeben</em>, literally “to hand over the spoon”). <strong>Fluency:</strong> the German sentence is perfectly grammatical and reads smoothly. <strong>Adequacy:</strong> it is wrong; the original meaning (someone died) is completely lost. This is exactly the disagreement the question asks about: a fluent sentence that is not adequate. A human rater checking only “does this sound natural in German” could easily miss that the meaning changed.</p>
+</section>
+</section>
+<section id="part-3-connecting-ner-and-translation">
+<h2>Part 3: Connecting NER and Translation<a class="headerlink" href="#part-3-connecting-ner-and-translation" title="Permalink to this heading">#</a></h2>
+<p>Reading 12.2 Section 5 makes a specific claim: a translation error can quietly become an information-extraction error, because a mangled name is no longer the name an NER tagger expects to see. We can test this directly, with the same two models, by tagging a sentence, translating it, and tagging the translation.</p>
+<section id="guided-example-3">
+<h3>Guided Example 3<a class="headerlink" href="#guided-example-3" title="Permalink to this heading">#</a></h3>
+<p>The helper below runs all three steps and prints the entities found before and after translation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compare_before_after</span><span class="p">(</span><span class="n">sentence</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Original:&quot;</span><span class="p">,</span> <span class="n">sentence</span><span class="p">)</span>
+    <span class="n">before</span> <span class="o">=</span> <span class="n">show_entities</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+    <span class="n">german</span> <span class="o">=</span> <span class="n">translate</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Translated:&quot;</span><span class="p">,</span> <span class="n">german</span><span class="p">)</span>
+    <span class="n">after</span> <span class="o">=</span> <span class="n">show_entities</span><span class="p">(</span><span class="n">german</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">before</span><span class="p">,</span> <span class="n">after</span>
+
+
+<span class="n">_</span> <span class="o">=</span> <span class="n">compare_before_after</span><span class="p">(</span><span class="s2">&quot;Amazon reported strong quarterly earnings this year.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original: Amazon reported strong quarterly earnings this year.
+Amazon reported strong quarterly earnings this year.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  ORG  &#39;Amazon&#39;  score=1.000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Translated: Amazon meldete in diesem Jahr ein starkes Quartalsergebnis.
+Amazon meldete in diesem Jahr ein starkes Quartalsergebnis.
+  ORG  &#39;Amazon&#39;  score=1.000
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here the entity survives the trip: <em>Amazon</em> stays <code class="docutils literal notranslate"><span class="pre">ORG</span></code> on both sides, and the translation keeps the brand name unchanged, exactly as Reading 12.2 Section 5 says a brand name should be handled. Now try a sentence that is almost the same, but about a different kind of Amazon fact:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">compare_before_after</span><span class="p">(</span><span class="s2">&quot;Workers at the Amazon warehouse in Ohio went on strike.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original: Workers at the Amazon warehouse in Ohio went on strike.
+Workers at the Amazon warehouse in Ohio went on strike.
+  ORG  &#39;Amazon&#39;  score=0.999
+  LOC  &#39;Ohio&#39;  score=1.000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Translated: Arbeiter im Amazona-Lagerhaus in Ohio streikten.
+Arbeiter im Amazona-Lagerhaus in Ohio streikten.
+  LOC  &#39;Amazona-Lagerhaus&#39;  score=0.964
+  LOC  &#39;Ohio&#39;  score=1.000
+</pre></div>
+</div>
+</div>
+</div>
+<p>This time something breaks. Look closely at the German translation: the model wrote <strong>“Amazona-Lagerhaus”</strong>, not “Amazon-Lagerhaus”. The translation model itself introduced an error, turning the company name into something that looks more like the river’s Spanish or Portuguese form (<em>Amazonas</em>). That mangled name then confuses the NER tagger: it no longer recognizes an organization, and tags the whole compound as a <strong>location</strong> instead. This is exactly the chain Reading 12.2 Section 5 describes: a translation error becoming an information-extraction error, and it happened with real pretrained models, not a hypothetical.</p>
+<p>Compare this with the rainforest sentence, where nothing goes wrong on either side:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">compare_before_after</span><span class="p">(</span><span class="s2">&quot;Scientists are studying biodiversity loss in the Amazon rainforest.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original: Scientists are studying biodiversity loss in the Amazon rainforest.
+Scientists are studying biodiversity loss in the Amazon rainforest.
+  LOC  &#39;Amazon&#39;  score=1.000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Translated: Wissenschaftler untersuchen den Biodiversitätsverlust im Amazonas-Regenwald.
+Wissenschaftler untersuchen den Biodiversitätsverlust im Amazonas-Regenwald.
+  LOC  &#39;Amazonas-Regenwald&#39;  score=0.983
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here <em>Amazon</em> becomes <em>Amazonas</em> too, but correctly: “Amazonas-Regenwald” is the standard German term for the Amazon rainforest, so the entity type stays <code class="docutils literal notranslate"><span class="pre">LOC</span></code> on both sides. The same kind of change (adding “Amazonas”) was wrong in the warehouse sentence and right here, because the underlying entity really is different: one is a brand that should never change, the other is a place with its own name in German.</p>
+</section>
+<section id="checkpoint-3">
+<h3>Checkpoint 3<a class="headerlink" href="#checkpoint-3" title="Permalink to this heading">#</a></h3>
+<p><strong>TODO 3:</strong> Pick one sentence, either one of the three above or one of your own containing a named entity, and run it through <code class="docutils literal notranslate"><span class="pre">compare_before_after</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO 3: pick a sentence (reuse one above or write your own) and run it through the pipeline.</span>
+<span class="n">my_sentence</span> <span class="o">=</span> <span class="s2">&quot;The Amazon stretches across nine countries in South America.&quot;</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">compare_before_after</span><span class="p">(</span><span class="n">my_sentence</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original: The Amazon stretches across nine countries in South America.
+The Amazon stretches across nine countries in South America.
+  LOC  &#39;Amazon&#39;  score=0.999
+  LOC  &#39;South America&#39;  score=1.000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Translated: Der Amazonas erstreckt sich über neun Länder in Südamerika.
+Der Amazonas erstreckt sich über neun Länder in Südamerika.
+  LOC  &#39;Amazonas&#39;  score=0.693
+  LOC  &#39;Südamerika&#39;  score=0.989
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Question 3:</strong> Did the entity’s type or boundaries change between the English and German versions? If something changed, was the translation itself wrong (like the warehouse example), or did the entity correctly take a different conventional form (like the rainforest example)? Explain which one happened and how you can tell the difference.</p>
+<p><strong>Suggested answer:</strong> In our test, “The Amazon stretches across nine countries in South America.” tagged <em>Amazon</em> as <code class="docutils literal notranslate"><span class="pre">LOC</span></code> in English, and the German translation (“Der Amazonas erstreckt sich über neun Länder in Südamerika.”) tagged <em>Amazonas</em> as <code class="docutils literal notranslate"><span class="pre">LOC</span></code> too, though with a noticeably lower confidence (about 0.69 versus 0.999 in English). Nothing broke: the entity’s type stayed the same on both sides, even if the model hedged more about it in German. This is the “correctly took a different conventional form” case, the same pattern as the rainforest example, not the warehouse example’s translation error. The way to tell the difference is to check whether the <em>change itself</em> makes sense for what the entity actually is: a river correctly gaining a German place-name form is not an error, but a company brand name gaining the same form would be.</p>
+</section>
+</section>
+<section id="reflection">
+<h2>Reflection<a class="headerlink" href="#reflection" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Reading 12.1 Section 4 describes <strong>zero-shot cross-lingual transfer</strong>: fine-tune on one language, apply to others never seen in training. The NER model you used was explicitly fine-tuned on all 10 of its languages, not zero-shot. What would you need to check, that you could not check just by trying examples in this notebook, to know whether a model is really transferring zero-shot rather than simply having been trained on everything you are testing it on?</p></li>
+<li><p>Reading 12.2 Section 4 describes BLEU as a word-overlap metric, not a meaning metric. Think about the warehouse sentence’s translation (“Amazona-Lagerhaus” instead of “Amazon-Lagerhaus”), a one-word difference. Would you expect a word-overlap metric like BLEU to catch this error clearly, or could a one-word change hide inside an otherwise high overlap score? What did catching the error in this notebook actually depend on?</p></li>
+<li><p>Look back at Checkpoint 1’s “Amazon parrot” mistake and Part 3’s “Amazona-Lagerhaus” mistake. Both are the same underlying model family making an error on the same word, <em>Amazon</em>, in two different tasks. What do the two mistakes have in common, and what is different about how each one happened?</p></li>
+</ol>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Suggested answers<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<ol class="arabic simple">
+<li><p class="sd-card-text">You would need to check that the language you are testing was genuinely absent from the model’s NER fine-tuning data, not just that you personally did not fine-tune it yourself. Since this model’s card states it was fine-tuned on all 10 of its languages, nothing you observed in this notebook is zero-shot transfer; it is in-domain performance. A real zero-shot test would need a labeled test set in an eleventh language the model’s training data never covered, and comparing its F1 there against a language it was trained on (the same comparison 12.1’s discussion question 4 asks about Swahili).</p></li>
+<li><p class="sd-card-text">A one-word change like “Amazon” to “Amazona” would likely leave most of the sentence’s other words and word-sequences intact, so BLEU’s overlap-counting could still score the sentence fairly high overall; BLEU does not single out named entities for extra scrutiny. Catching the error in this notebook depended on actually reading the German output closely and comparing it against the specific expectation that a brand name should not change, not on any automatic score.</p></li>
+<li><p class="sd-card-text">Both mistakes involve the model treating “Amazon” according to its most statistically common association rather than the specific sense required by context: a geographic reading in the parrot sentence (where “Amazon” is part of a common noun phrase, not a proper name at all), and a geographic-sounding spelling change in the warehouse sentence (where translation defaulted toward the river/region’s conventional form). The difference is which model made the error and at which step: Checkpoint 1’s error is an NER model misreading English directly; Part 3’s error is a translation model mangling the word first, which then causes a second, downstream NER error on the German text.</p></li>
+</ol>
+</div>
+</details></section>
+<section id="wrap-up">
+<h2>Wrap-up<a class="headerlink" href="#wrap-up" title="Permalink to this heading">#</a></h2>
+<p>You used two independently pretrained models, one for named entity recognition and one for translation, and found that the places where they struggle are not random: they cluster around exactly the kind of ambiguity Readings 12.1 and 12.2 describe, a word that is sometimes a name and sometimes not, and a name that sometimes should change form across languages and sometimes should not. Neither model was trained for this course or tuned to produce these specific examples; the errors you saw are the models’ own.</p>
+</section>
+<section id="validation-checks">
+<h2>Validation checks<a class="headerlink" href="#validation-checks" title="Permalink to this heading">#</a></h2>
+<p>These checks confirm that the notebook ran from top to bottom. If one fails, rerun the notebook from the start (Runtime &gt; Restart and run all in Colab).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">amazon_org</span> <span class="o">=</span> <span class="n">show_entities</span><span class="p">(</span><span class="s2">&quot;Amazon reported strong quarterly earnings this year.&quot;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">any</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="s2">&quot;entity_group&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ORG&quot;</span> <span class="ow">and</span> <span class="n">e</span><span class="p">[</span><span class="s2">&quot;word&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Amazon&quot;</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">amazon_org</span><span class="p">)</span>
+
+<span class="n">amazon_loc</span> <span class="o">=</span> <span class="n">show_entities</span><span class="p">(</span><span class="s2">&quot;Scientists are studying biodiversity loss in the Amazon rainforest.&quot;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">any</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="s2">&quot;entity_group&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;LOC&quot;</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">amazon_loc</span><span class="p">)</span>
+
+<span class="n">de_test</span> <span class="o">=</span> <span class="n">translate</span><span class="p">(</span><span class="s2">&quot;Munich is a beautiful city in Germany.&quot;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="s2">&quot;München&quot;</span> <span class="ow">in</span> <span class="n">de_test</span> <span class="ow">or</span> <span class="s2">&quot;Munchen&quot;</span> <span class="ow">in</span> <span class="n">de_test</span> <span class="ow">or</span> <span class="s2">&quot;Munich&quot;</span> <span class="ow">in</span> <span class="n">de_test</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All checks passed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Amazon reported strong quarterly earnings this year.
+  ORG  &#39;Amazon&#39;  score=1.000
+Scientists are studying biodiversity loss in the Amazon rainforest.
+  LOC  &#39;Amazon&#39;  score=1.000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All checks passed.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./module12"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="week12_multilingual_entities_practice.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">12.3 Coding Practice: Lost in Translation? Entities Across Languages</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../references.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">References</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-goals">Learning goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-multilingual-named-entity-recognition">Part 1: Multilingual Named Entity Recognition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guided-example-1">Guided Example 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-1">Checkpoint 1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-machine-translation">Part 2: Machine Translation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guided-example-2">Guided Example 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-2">Checkpoint 2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-connecting-ner-and-translation">Part 3: Connecting NER and Translation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guided-example-3">Guided Example 3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-3">Checkpoint 3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wrap-up">Wrap-up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-checks">Validation checks</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Olga Scrivner
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Olga Scrivner.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

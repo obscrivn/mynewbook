@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'module12/machine_translation';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="References" href="../references.html" />
+    <link rel="next" title="12.3 Coding Practice: Lost in Translation? Entities Across Languages" href="week12_multilingual_entities_practice.html" />
     <link rel="prev" title="12.1 Multilingual Named Entity Recognition" href="multilingual_ner.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -244,6 +244,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="module12.html">Chapter 12 Multilingual NER and Machine Translation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="multilingual_ner.html">12.1 Multilingual Named Entity Recognition</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">12.2 Machine Translation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week12_multilingual_entities_practice.html">12.3 Coding Practice: Lost in Translation? Entities Across Languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week12_multilingual_entities_practice_solution.html">12.3 Coding Practice: Lost in Translation? Entities Across Languages (Solution)</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
@@ -626,7 +628,9 @@ Suggested interpretation<div class="sd-summary-down docutils">
 <li><p class="sd-card-text">The system needs to recognize that “Amazon” the company is a brand name that should stay fixed in the target language, while “Amazon” referring to the rainforest or river should take the target language’s conventional geographic form if one exists. Getting this wrong, for example leaving both as the untranslated English form, or translating the company name as if it were the place, would cause a downstream NER tagger to either mislabel the entity type or fail to recognize it as the same real-world entity readers expect.</p></li>
 </ol>
 </div>
-</details></section>
+</details><p>Next, the coding practice puts both readings to work on exactly this problem: you will tag named entities with a pretrained multilingual model, translate sentences with a pretrained English-to-German model, and check whether an entity’s type or boundaries survive the trip across languages.</p>
+<p><a class="reference external" href="https://colab.research.google.com/github/obscrivn/mynewbook/blob/master/module12/week12_multilingual_entities_practice.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+</section>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
@@ -675,11 +679,11 @@ Suggested interpretation<div class="sd-summary-down docutils">
       </div>
     </a>
     <a class="right-next"
-       href="../references.html"
+       href="week12_multilingual_entities_practice.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">References</p>
+        <p class="prev-next-title">12.3 Coding Practice: Lost in Translation? Entities Across Languages</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

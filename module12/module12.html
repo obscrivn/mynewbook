@@ -244,6 +244,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Chapter 12 Multilingual NER and Machine Translation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="multilingual_ner.html">12.1 Multilingual Named Entity Recognition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="machine_translation.html">12.2 Machine Translation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week12_multilingual_entities_practice.html">12.3 Coding Practice: Lost in Translation? Entities Across Languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week12_multilingual_entities_practice_solution.html">12.3 Coding Practice: Lost in Translation? Entities Across Languages (Solution)</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
@@ -450,8 +452,10 @@ document.write(`
 <ul class="simple">
 <li><p><a class="reference internal" href="multilingual_ner.html"><span class="doc std std-doc">Reading 12.1: Multilingual Named Entity Recognition</span></a></p></li>
 <li><p><a class="reference internal" href="machine_translation.html"><span class="doc std std-doc">Reading 12.2: Machine Translation</span></a></p></li>
+<li><p><a class="reference internal" href="week12_multilingual_entities_practice.html"><span class="doc std std-doc">Coding Practice 12.3: Lost in Translation? Entities Across Languages</span></a></p></li>
 </ul>
 <p>Read 12.1 first. It sets up named entities, how a transformer labels them token by token, and why doing this across languages is harder than it looks. Reading 12.2 picks up right where it leaves off: the same kind of ambiguous name that trips up a tagger can also trip up a translator, and the two readings share one running example to make that connection concrete.</p>
+<p>Then work through the coding practice in Google Colab. It is a guided, ungraded activity with checkpoints: you run a pretrained multilingual NER model, find a sentence where it gets an entity wrong, run a pretrained translation model, and then connect the two by translating a sentence and checking whether its named entities survive the trip. A separate instructor solution notebook is available with all checkpoints completed.</p>
 <div class="toctree-wrapper compound">
 </div>
 </section>
